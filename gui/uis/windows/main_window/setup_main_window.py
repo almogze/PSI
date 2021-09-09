@@ -240,7 +240,20 @@ class SetupMainWindow:
         # ADD TO LAYOUT
         self.ui.load_pages.logo_layout.addWidget(self.logo, Qt.AlignCenter, Qt.AlignCenter)
 
+        # /////////////////////////////////////////////////////////
         # ATOM WIDGET
+        # /////////////////////////////////////////////////////////
+
+        # GRAPH GENERATE / CLEAR BUTTONS
+        
+
+        self.atom_graph_generate_btn = QPushButton("Generate")
+
+        self.atom_graph_generate_btn.clicked.connect(lambda: self.ui.generate_image())
+        self.atom_graph_clear_btn = QPushButton("Clear")
+
+        self.ui.load_pages.btn_atom_graph_gen_layout.addWidget(self.atom_graph_generate_btn)
+        self.ui.load_pages.btn_atom_clear_layout.addWidget(self.atom_graph_clear_btn)
 
         # BTN OPEN IMAGE 1
         self.no_cloud_btn = PyPushButton(

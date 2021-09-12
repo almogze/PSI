@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>953</width>
-    <height>889</height>
+    <width>1062</width>
+    <height>888</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1174,7 +1174,7 @@ gridline-color: rgb(0, 0, 0);</string>
                                    <widget class="QFrame" name="frame_26">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>70</width>
+                                      <width>75</width>
                                       <height>25</height>
                                      </size>
                                     </property>
@@ -1266,7 +1266,7 @@ gridline-color: rgb(0, 0, 0);</string>
                                    <widget class="QFrame" name="frame_29">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>70</width>
+                                      <width>75</width>
                                       <height>25</height>
                                      </size>
                                     </property>
@@ -1385,7 +1385,7 @@ gridline-color: rgb(0, 0, 0);</string>
                                    <widget class="QFrame" name="frame_33">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>70</width>
+                                      <width>75</width>
                                       <height>25</height>
                                      </size>
                                     </property>
@@ -1477,7 +1477,7 @@ gridline-color: rgb(0, 0, 0);</string>
                                    <widget class="QFrame" name="frame_36">
                                     <property name="minimumSize">
                                      <size>
-                                      <width>70</width>
+                                      <width>75</width>
                                       <height>25</height>
                                      </size>
                                     </property>

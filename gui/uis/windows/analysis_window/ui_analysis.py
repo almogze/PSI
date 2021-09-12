@@ -57,8 +57,6 @@ class UI_AnalysisWindow(object):
         self.analysis = Analysis()
         self.load_pages = ui.load_pages
         self.left_column = ui.left_column
-        self.cloud_combo: QComboBox = ui.load_pages.cloud_comboBox
-        self.result_groupBox: QGroupBox = ui.load_pages.groupBox_Atom_results
 
         # LOAD SETTINGS
         # ///////////////////////////////////////////////////////////////

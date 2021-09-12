@@ -51,7 +51,7 @@ class Atom(object):
 
     def checkImageFormat(self) -> bool:
         iname1, iend1 = os.path.splitext(self.no_cloud_path)
-        iname2, iend2 = os.path.splitext(self.no_cloud_path)
+        iname2, iend2 = os.path.splitext(self.with_cloud_path)
         if iend1 != '.jpg' or iend2 != '.jpg':
             return bool(False)
         return bool(True)

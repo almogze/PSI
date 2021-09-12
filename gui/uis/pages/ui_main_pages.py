@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesOXUmAs.ui'
+## Form generated from reading UI file 'main_pagesoMMhBx.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -10,11 +10,12 @@
 
 from qt_core import *
 
+
 class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(1531, 887)
+        MainPages.resize(1062, 888)
         self.excel_settings_load_btn_layout = QVBoxLayout(MainPages)
         self.excel_settings_load_btn_layout.setSpacing(0)
         self.excel_settings_load_btn_layout.setObjectName(u"excel_settings_load_btn_layout")
@@ -501,7 +502,7 @@ class Ui_MainPages(object):
         self.verticalLayout_19.setContentsMargins(0, 0, 0, 0)
         self.frame_26 = QFrame(self.frame_25)
         self.frame_26.setObjectName(u"frame_26")
-        self.frame_26.setMinimumSize(QSize(70, 25))
+        self.frame_26.setMinimumSize(QSize(75, 25))
         self.frame_26.setMaximumSize(QSize(16777215, 30))
         self.frame_26.setFrameShape(QFrame.StyledPanel)
         self.frame_26.setFrameShadow(QFrame.Raised)
@@ -540,7 +541,7 @@ class Ui_MainPages(object):
         self.verticalLayout_20.setContentsMargins(0, 0, 0, 0)
         self.frame_29 = QFrame(self.frame_28)
         self.frame_29.setObjectName(u"frame_29")
-        self.frame_29.setMinimumSize(QSize(70, 25))
+        self.frame_29.setMinimumSize(QSize(75, 25))
         self.frame_29.setMaximumSize(QSize(16777215, 30))
         self.frame_29.setFrameShape(QFrame.StyledPanel)
         self.frame_29.setFrameShadow(QFrame.Raised)
@@ -590,7 +591,7 @@ class Ui_MainPages(object):
         self.verticalLayout_22.setContentsMargins(0, 0, 0, 0)
         self.frame_33 = QFrame(self.frame_32)
         self.frame_33.setObjectName(u"frame_33")
-        self.frame_33.setMinimumSize(QSize(70, 25))
+        self.frame_33.setMinimumSize(QSize(75, 25))
         self.frame_33.setMaximumSize(QSize(16777215, 30))
         self.frame_33.setFrameShape(QFrame.StyledPanel)
         self.frame_33.setFrameShadow(QFrame.Raised)
@@ -629,7 +630,7 @@ class Ui_MainPages(object):
         self.verticalLayout_23.setContentsMargins(0, 0, 0, 0)
         self.frame_36 = QFrame(self.frame_35)
         self.frame_36.setObjectName(u"frame_36")
-        self.frame_36.setMinimumSize(QSize(70, 25))
+        self.frame_36.setMinimumSize(QSize(75, 25))
         self.frame_36.setMaximumSize(QSize(16777215, 30))
         self.frame_36.setFrameShape(QFrame.StyledPanel)
         self.frame_36.setFrameShadow(QFrame.Raised)

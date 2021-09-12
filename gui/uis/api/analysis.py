@@ -37,6 +37,9 @@ class Analysis(object):
     def getExcelPath(self):
         return self._instance.excel_file_path
 
+    def getSheetName(self):
+        return self._instance.sheet_name
+
     def checkExcelFormat(self) -> bool:
         ename, eend = os.path.splitext(self._instance.excel_file_path)
         if eend != '.xlsx':

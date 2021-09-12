@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'left_columnnFvQBc.ui'
+## Form generated from reading UI file 'left_columnoCNkOl.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -15,7 +15,7 @@ class Ui_LeftColumn(object):
     def setupUi(self, LeftColumn):
         if not LeftColumn.objectName():
             LeftColumn.setObjectName(u"LeftColumn")
-        LeftColumn.resize(290, 629)
+        LeftColumn.resize(296, 641)
         self.main_pages_layout = QVBoxLayout(LeftColumn)
         self.main_pages_layout.setSpacing(0)
         self.main_pages_layout.setObjectName(u"main_pages_layout")
@@ -144,22 +144,7 @@ class Ui_LeftColumn(object):
         self.menu_analysis.setObjectName(u"menu_analysis")
         self.verticalLayout_8 = QVBoxLayout(self.menu_analysis)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
-        self.frame_upload_excel_file = QFrame(self.menu_analysis)
-        self.frame_upload_excel_file.setObjectName(u"frame_upload_excel_file")
-        self.frame_upload_excel_file.setMaximumSize(QSize(16777215, 80))
-        self.frame_upload_excel_file.setFrameShape(QFrame.StyledPanel)
-        self.frame_upload_excel_file.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_6 = QVBoxLayout(self.frame_upload_excel_file)
-        self.verticalLayout_6.setSpacing(0)
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.label_excel_analysis = QLabel(self.frame_upload_excel_file)
-        self.label_excel_analysis.setObjectName(u"label_excel_analysis")
-        self.label_excel_analysis.setMaximumSize(QSize(16777215, 40))
-
-        self.verticalLayout_6.addWidget(self.label_excel_analysis)
-
-        self.frame_excel_dialog = QFrame(self.frame_upload_excel_file)
+        self.frame_excel_dialog = QFrame(self.menu_analysis)
         self.frame_excel_dialog.setObjectName(u"frame_excel_dialog")
         self.frame_excel_dialog.setMinimumSize(QSize(0, 40))
         self.frame_excel_dialog.setMaximumSize(QSize(16777215, 40))
@@ -169,10 +154,7 @@ class Ui_LeftColumn(object):
         self.excel_file_path_btn_layout.setObjectName(u"excel_file_path_btn_layout")
         self.excel_file_path_btn_layout.setContentsMargins(0, 0, 0, 0)
 
-        self.verticalLayout_6.addWidget(self.frame_excel_dialog)
-
-
-        self.verticalLayout_8.addWidget(self.frame_upload_excel_file)
+        self.verticalLayout_8.addWidget(self.frame_excel_dialog)
 
         self.frame_upload_sheet_name = QFrame(self.menu_analysis)
         self.frame_upload_sheet_name.setObjectName(u"frame_upload_sheet_name")
@@ -257,7 +239,6 @@ class Ui_LeftColumn(object):
         self.label_2.setText(QCoreApplication.translate("LeftColumn", u"Menu 2 - Left Menu", None))
         self.label_3.setText(QCoreApplication.translate("LeftColumn", u"This is just an example menu.\n"
 "Add Qt Widgets or your custom widgets here.", None))
-        self.label_excel_analysis.setText(QCoreApplication.translate("LeftColumn", u"Load Excel file", None))
         self.label_sheet_name.setText(QCoreApplication.translate("LeftColumn", u"Sheet Name:", None))
     # retranslateUi
 

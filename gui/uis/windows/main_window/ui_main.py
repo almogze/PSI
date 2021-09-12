@@ -60,9 +60,6 @@ from gui.widgets.py_credits_bar.py_credits import PyCredits
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
 class UI_MainWindow(object):
-    def __init__(self):
-        self.atom = Atom()
-
     def setup_ui(self, parent):
         if not parent.objectName():
             parent.setObjectName("MainWindow")
@@ -313,20 +310,3 @@ class UI_MainWindow(object):
         # ADD CENTRAL WIDGET AND SET CONTENT MARGINS
         # ///////////////////////////////////////////////////////////////
         parent.setCentralWidget(self.central_widget)
-
-    # ATOM PAGE FUNCTIONALITY
-
-    def open_dialog_box(self, switch):
-        filename = QFileDialog.getOpenFileName()
-        if switch == "no_cloud":
-            self.atom.setNoCloudPath(filename[0])
-            print(self.atom.getNoCloudPath())
-        elif switch == "with_cloud":
-            self.atom.setCloudPath(filename[0])
-            print(self.atom.getCloudPath())
-
-    def generate_image(self):
-        image = self.atom.setImage(QMessageBox(icon=QMessageBox.Critical,
-                                               windowTitle="Error"))
-        if image is not None:
-            self.load_pages.ImageView_Atom.setImage(np.array(image))

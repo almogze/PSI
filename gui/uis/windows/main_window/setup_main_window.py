@@ -19,7 +19,6 @@
 from PySide6 import QtGui
 
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
-from . functions_main_window import *
 import sys
 import os
 
@@ -41,16 +40,11 @@ from gui.widgets import *
 
 # LOAD UI MAIN
 # ///////////////////////////////////////////////////////////////
-from . ui_main import *
+from gui.uis.windows.main_window.ui_main import *
 
 # MAIN FUNCTIONS 
 # ///////////////////////////////////////////////////////////////
 from . functions_main_window import *
-
-# PY WINDOW
-# ///////////////////////////////////////////////////////////////
-from ...applications.atom import Atom
-
 
 class SetupMainWindow:
     def __init__(self):
@@ -203,24 +197,6 @@ class SetupMainWindow:
         )
         MainFunctions.set_right_column_menu(self, self.ui.right_column.menu_1)
 
-        # ///////////////////////////////////////////////////////////////
-        # EXAMPLE CUSTOM WIDGETS
-        # Here are added the custom widgets to pages and columns that
-        # were created using Qt Designer.
-        # This is just an example and should be deleted when creating
-        # your application.
-        #
-        # OBJECTS FOR LOAD PAGES, LEFT AND RIGHT COLUMNS
-        # You can access objects inside Qt Designer projects using
-        # the objects below:
-        #
-        # <OBJECTS>
-        # LEFT COLUMN: self.ui.left_column.menus
-        # RIGHT COLUMN: self.ui.right_column
-        # LOAD PAGES: self.ui.load_pages
-        # </OBJECTS>
-        # ///////////////////////////////////////////////////////////////
-
         # LOAD SETTINGS
         # ///////////////////////////////////////////////////////////////
         settings = Settings()
@@ -239,55 +215,6 @@ class SetupMainWindow:
         self.logo = QSvgWidget(Functions.set_svg_image("logo_bgu.svg"))
         # ADD TO LAYOUT
         self.ui.load_pages.logo_layout.addWidget(self.logo, Qt.AlignCenter, Qt.AlignCenter)
-
-        # /////////////////////////////////////////////////////////
-        # ATOM WIDGET
-        # /////////////////////////////////////////////////////////
-
-        # GRAPH GENERATE / CLEAR BUTTONS
-        
-
-        self.atom_graph_generate_btn = QPushButton("Generate")
-
-        self.atom_graph_generate_btn.clicked.connect(lambda: self.ui.generate_image())
-        self.atom_graph_clear_btn = QPushButton("Clear")
-
-        self.ui.load_pages.btn_atom_graph_gen_layout.addWidget(self.atom_graph_generate_btn)
-        self.ui.load_pages.btn_atom_clear_layout.addWidget(self.atom_graph_clear_btn)
-
-        # BTN OPEN IMAGE 1
-        self.no_cloud_btn = PyPushButton(
-           text="   Open image",
-           radius=8,
-           color=self.themes["app_color"]["text_foreground"],
-           bg_color=self.themes["app_color"]["dark_one"],
-           bg_color_hover=self.themes["app_color"]["dark_two"],
-           bg_color_pressed=self.themes["app_color"]["dark_three"]
-        )
-        self.icon_folder = QtGui.QIcon()
-        self.icon_folder.addPixmap(QtGui.QPixmap("gui\\images\\svg_icons\\icon_folder_open_2.svg"))
-        self.no_cloud_btn.setIcon(self.icon_folder)
-        self.no_cloud_btn.setMaximumHeight(40)
-
-        self.no_cloud_btn.clicked.connect(lambda: self.ui.open_dialog_box("no_cloud"))
-        # ADD LAYOUT
-        self.ui.left_column.menus.no_cloud_layout.addWidget(self.no_cloud_btn)
-
-        # BTN OPEN IMAGE 2
-        self.with_cloud_btn = PyPushButton(
-           text="   Open image",
-           radius=8,
-           color=self.themes["app_color"]["text_foreground"],
-           bg_color=self.themes["app_color"]["dark_one"],
-           bg_color_hover=self.themes["app_color"]["dark_two"],
-           bg_color_pressed=self.themes["app_color"]["dark_three"]
-        )
-        self.with_cloud_btn.setMaximumHeight(40)
-        self.with_cloud_btn.setIcon(self.icon_folder)
-
-        self.with_cloud_btn.clicked.connect(lambda: self.ui.open_dialog_box("with_cloud"))
-        # ADD LAYOUT
-        self.ui.left_column.menus.with_cloud_layout.addWidget(self.with_cloud_btn)
 
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS

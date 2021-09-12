@@ -16,7 +16,8 @@
 
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
-from gui.uis.applications.app_file import File
+from gui.uis.windows.atom_window import UI_AtomWindow, SetupAtomWindow
+from gui.uis.windows.analysis_window import *
 from gui.uis.windows.main_window.functions_main_window import *
 import sys
 import os
@@ -49,21 +50,29 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # SETUP MAIN WINDOw
+        # SETUP WINDOWS
         # Load widgets from "gui\uis\main_window\ui_main.py"
         # ///////////////////////////////////////////////////////////////
         self.ui = UI_MainWindow()
         self.ui.setup_ui(self)
+
+        self.ui_atom = UI_AtomWindow()
+        self.ui_atom.setup_ui_atom(self, self.ui)
+
+        self.ui_analysis = UI_AnalysisWindow()
+        self.ui_analysis.setup_ui_analysis(self, self.ui)
 
         # LOAD SETTINGS
         # ///////////////////////////////////////////////////////////////
         settings = Settings()
         self.settings = settings.items
 
-        # SETUP MAIN WINDOW
+        # SETUP WINDOWS
         # ///////////////////////////////////////////////////////////////
         self.hide_grips = True # Show/Hide resize grips
         SetupMainWindow.setup_gui(self)
+        SetupAtomWindow.setup_gui_atom(self)
+        SetupAnalysisWindow.setup_gui_analysis(self)
 
         # SHOW MAIN WINDOW
         # ///////////////////////////////////////////////////////////////
@@ -151,11 +160,6 @@ class MainWindow(QMainWindow):
 
                 # Select tab
                 self.ui.left_menu.select_only_one_tab(btn.objectName())
-
-        # LEFT COLUMN BUTTONS
-        if btn.objectName() == "no_cloud_btn":
-            # Open dialog
-            newFile = File.open_dialog_box()
 
 
         # SETTINGS TITLE BAR

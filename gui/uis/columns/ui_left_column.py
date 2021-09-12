@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'left_columnuiQvkU.ui'
+## Form generated from reading UI file 'left_columnnFvQBc.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -15,7 +15,7 @@ class Ui_LeftColumn(object):
     def setupUi(self, LeftColumn):
         if not LeftColumn.objectName():
             LeftColumn.setObjectName(u"LeftColumn")
-        LeftColumn.resize(240, 600)
+        LeftColumn.resize(290, 629)
         self.main_pages_layout = QVBoxLayout(LeftColumn)
         self.main_pages_layout.setSpacing(0)
         self.main_pages_layout.setObjectName(u"main_pages_layout")
@@ -142,6 +142,101 @@ class Ui_LeftColumn(object):
         self.menus.addWidget(self.menu_fringes)
         self.menu_analysis = QWidget()
         self.menu_analysis.setObjectName(u"menu_analysis")
+        self.verticalLayout_8 = QVBoxLayout(self.menu_analysis)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.frame_upload_excel_file = QFrame(self.menu_analysis)
+        self.frame_upload_excel_file.setObjectName(u"frame_upload_excel_file")
+        self.frame_upload_excel_file.setMaximumSize(QSize(16777215, 80))
+        self.frame_upload_excel_file.setFrameShape(QFrame.StyledPanel)
+        self.frame_upload_excel_file.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_6 = QVBoxLayout(self.frame_upload_excel_file)
+        self.verticalLayout_6.setSpacing(0)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.label_excel_analysis = QLabel(self.frame_upload_excel_file)
+        self.label_excel_analysis.setObjectName(u"label_excel_analysis")
+        self.label_excel_analysis.setMaximumSize(QSize(16777215, 40))
+
+        self.verticalLayout_6.addWidget(self.label_excel_analysis)
+
+        self.frame_excel_dialog = QFrame(self.frame_upload_excel_file)
+        self.frame_excel_dialog.setObjectName(u"frame_excel_dialog")
+        self.frame_excel_dialog.setMinimumSize(QSize(0, 40))
+        self.frame_excel_dialog.setMaximumSize(QSize(16777215, 40))
+        self.frame_excel_dialog.setFrameShape(QFrame.StyledPanel)
+        self.frame_excel_dialog.setFrameShadow(QFrame.Raised)
+        self.excel_file_path_btn_layout = QHBoxLayout(self.frame_excel_dialog)
+        self.excel_file_path_btn_layout.setObjectName(u"excel_file_path_btn_layout")
+        self.excel_file_path_btn_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.verticalLayout_6.addWidget(self.frame_excel_dialog)
+
+
+        self.verticalLayout_8.addWidget(self.frame_upload_excel_file)
+
+        self.frame_upload_sheet_name = QFrame(self.menu_analysis)
+        self.frame_upload_sheet_name.setObjectName(u"frame_upload_sheet_name")
+        self.frame_upload_sheet_name.setMaximumSize(QSize(16777215, 80))
+        self.frame_upload_sheet_name.setFrameShape(QFrame.StyledPanel)
+        self.frame_upload_sheet_name.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout = QHBoxLayout(self.frame_upload_sheet_name)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, -1, -1, -1)
+        self.label_sheet_name = QLabel(self.frame_upload_sheet_name)
+        self.label_sheet_name.setObjectName(u"label_sheet_name")
+        self.label_sheet_name.setMaximumSize(QSize(80, 40))
+
+        self.horizontalLayout.addWidget(self.label_sheet_name)
+
+        self.frame_sheet_name_text = QFrame(self.frame_upload_sheet_name)
+        self.frame_sheet_name_text.setObjectName(u"frame_sheet_name_text")
+        self.frame_sheet_name_text.setMinimumSize(QSize(40, 40))
+        self.frame_sheet_name_text.setMaximumSize(QSize(16777215, 40))
+        self.frame_sheet_name_text.setFrameShape(QFrame.NoFrame)
+        self.frame_sheet_name_text.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_sheet_name_text)
+        self.horizontalLayout_2.setSpacing(0)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(2, 4, 2, 4)
+        self.lineEdit_sheet_name = QLineEdit(self.frame_sheet_name_text)
+        self.lineEdit_sheet_name.setObjectName(u"lineEdit_sheet_name")
+        self.lineEdit_sheet_name.setEnabled(True)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lineEdit_sheet_name.sizePolicy().hasHeightForWidth())
+        self.lineEdit_sheet_name.setSizePolicy(sizePolicy)
+        font2 = QFont()
+        font2.setPointSize(11)
+        self.lineEdit_sheet_name.setFont(font2)
+
+        self.horizontalLayout_2.addWidget(self.lineEdit_sheet_name)
+
+
+        self.horizontalLayout.addWidget(self.frame_sheet_name_text)
+
+
+        self.verticalLayout_8.addWidget(self.frame_upload_sheet_name)
+
+        self.frame_analysis_load = QFrame(self.menu_analysis)
+        self.frame_analysis_load.setObjectName(u"frame_analysis_load")
+        self.frame_analysis_load.setMaximumSize(QSize(16777215, 40))
+        self.frame_analysis_load.setFrameShape(QFrame.StyledPanel)
+        self.frame_analysis_load.setFrameShadow(QFrame.Raised)
+        self.load_btn_analysis_layout = QHBoxLayout(self.frame_analysis_load)
+        self.load_btn_analysis_layout.setSpacing(0)
+        self.load_btn_analysis_layout.setObjectName(u"load_btn_analysis_layout")
+        self.load_btn_analysis_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.verticalLayout_8.addWidget(self.frame_analysis_load)
+
+        self.frame_analysis_temp_2 = QFrame(self.menu_analysis)
+        self.frame_analysis_temp_2.setObjectName(u"frame_analysis_temp_2")
+        self.frame_analysis_temp_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_analysis_temp_2.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_8.addWidget(self.frame_analysis_temp_2)
+
         self.menus.addWidget(self.menu_analysis)
 
         self.main_pages_layout.addWidget(self.menus)
@@ -149,7 +244,7 @@ class Ui_LeftColumn(object):
 
         self.retranslateUi(LeftColumn)
 
-        self.menus.setCurrentIndex(1)
+        self.menus.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(LeftColumn)
@@ -162,5 +257,7 @@ class Ui_LeftColumn(object):
         self.label_2.setText(QCoreApplication.translate("LeftColumn", u"Menu 2 - Left Menu", None))
         self.label_3.setText(QCoreApplication.translate("LeftColumn", u"This is just an example menu.\n"
 "Add Qt Widgets or your custom widgets here.", None))
+        self.label_excel_analysis.setText(QCoreApplication.translate("LeftColumn", u"Load Excel file", None))
+        self.label_sheet_name.setText(QCoreApplication.translate("LeftColumn", u"Sheet Name:", None))
     # retranslateUi
 

@@ -27,6 +27,10 @@ def open_dialog_box_atom(atom: Atom, switch: string) -> None:
         print(atom.getCloudPath())
 
 
+def calculate_atom_number(atom: Atom) -> None:
+    atom.calculateAtomNumber()
+
+
 # ANALYSIS PAGE FUNCTIONALITY
 
 def open_dialog_box_analysis(analysis: Analysis, switch: string) -> None:

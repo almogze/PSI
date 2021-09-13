@@ -124,6 +124,20 @@ class SetupAtomWindow:
         self.ui_atom.cloud_combo.addItems(["with cloud", "without cloud", "subtraction"])
         self.ui_atom.cloud_combo.currentIndexChanged.connect(lambda: combo_current_change(self.ui_atom.atom, self.ui_atom, self.ui_atom.cloud_combo.currentIndex()))
 
+        # BTN OPEN IMAGE 1
+        self.calc_atom_number_btn = PyPushButton(
+            text="Calculate",
+            radius=3,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+
+        self.calc_atom_number_btn.clicked.connect(lambda: calculate_atom_number(self.ui_atom.atom))
+        # ADD LAYOUT
+        self.ui_atom.load_pages.calculate_atom_number_btn_layout.addWidget(self.calc_atom_number_btn)
+
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS
         # ///////////////////////////////////////////////////////////////

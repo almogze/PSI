@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesoMMhBx.ui'
+## Form generated from reading UI file 'main_pagesYBqqkg.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -265,12 +265,57 @@ class Ui_MainPages(object):
         self.frame_6.setFrameShadow(QFrame.Raised)
         self.label_atom_number = QLabel(self.frame_6)
         self.label_atom_number.setObjectName(u"label_atom_number")
-        self.label_atom_number.setGeometry(QRect(10, 10, 101, 21))
+        self.label_atom_number.setGeometry(QRect(10, 10, 141, 21))
+        self.label_atom_number.setLayoutDirection(Qt.LeftToRight)
+        self.label_atom_number.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_4.addWidget(self.frame_6)
 
 
         self.verticalLayout_6.addWidget(self.frame_3)
+
+        self.frame_44 = QFrame(self.groupBox_Atom_results)
+        self.frame_44.setObjectName(u"frame_44")
+        self.frame_44.setMaximumSize(QSize(16777215, 50))
+        self.frame_44.setFrameShape(QFrame.StyledPanel)
+        self.frame_44.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_11 = QHBoxLayout(self.frame_44)
+        self.horizontalLayout_11.setSpacing(0)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
+        self.frame_45 = QFrame(self.frame_44)
+        self.frame_45.setObjectName(u"frame_45")
+        self.frame_45.setMinimumSize(QSize(150, 0))
+        self.frame_45.setFrameShape(QFrame.StyledPanel)
+        self.frame_45.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_29 = QVBoxLayout(self.frame_45)
+        self.verticalLayout_29.setObjectName(u"verticalLayout_29")
+        self.label_13 = QLabel(self.frame_45)
+        self.label_13.setObjectName(u"label_13")
+
+        self.verticalLayout_29.addWidget(self.label_13)
+
+
+        self.horizontalLayout_11.addWidget(self.frame_45)
+
+        self.frame_46 = QFrame(self.frame_44)
+        self.frame_46.setObjectName(u"frame_46")
+        self.frame_46.setFrameShape(QFrame.StyledPanel)
+        self.frame_46.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_28 = QVBoxLayout(self.frame_46)
+        self.verticalLayout_28.setObjectName(u"verticalLayout_28")
+        self.label_atom_number_4 = QLabel(self.frame_46)
+        self.label_atom_number_4.setObjectName(u"label_atom_number_4")
+        self.label_atom_number_4.setLayoutDirection(Qt.LeftToRight)
+        self.label_atom_number_4.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_28.addWidget(self.label_atom_number_4)
+
+
+        self.horizontalLayout_11.addWidget(self.frame_46)
+
+
+        self.verticalLayout_6.addWidget(self.frame_44)
 
         self.frame = QFrame(self.groupBox_Atom_results)
         self.frame.setObjectName(u"frame")
@@ -278,6 +323,16 @@ class Ui_MainPages(object):
         self.frame.setFrameShadow(QFrame.Raised)
 
         self.verticalLayout_6.addWidget(self.frame)
+
+        self.frame_47 = QFrame(self.groupBox_Atom_results)
+        self.frame_47.setObjectName(u"frame_47")
+        self.frame_47.setMaximumSize(QSize(160, 40))
+        self.frame_47.setFrameShape(QFrame.StyledPanel)
+        self.frame_47.setFrameShadow(QFrame.Raised)
+        self.calculate_atom_number_btn_layout = QHBoxLayout(self.frame_47)
+        self.calculate_atom_number_btn_layout.setObjectName(u"calculate_atom_number_btn_layout")
+
+        self.verticalLayout_6.addWidget(self.frame_47)
 
 
         self.verticalLayout_5.addWidget(self.groupBox_Atom_results)
@@ -508,7 +563,7 @@ class Ui_MainPages(object):
         self.frame_26.setFrameShadow(QFrame.Raised)
         self.label_8 = QLabel(self.frame_26)
         self.label_8.setObjectName(u"label_8")
-        self.label_8.setGeometry(QRect(10, 0, 81, 21))
+        self.label_8.setGeometry(QRect(10, 0, 90, 21))
 
         self.verticalLayout_19.addWidget(self.frame_26)
 
@@ -597,7 +652,7 @@ class Ui_MainPages(object):
         self.frame_33.setFrameShadow(QFrame.Raised)
         self.label_10 = QLabel(self.frame_33)
         self.label_10.setObjectName(u"label_10")
-        self.label_10.setGeometry(QRect(10, 0, 81, 21))
+        self.label_10.setGeometry(QRect(10, 0, 90, 21))
 
         self.verticalLayout_22.addWidget(self.frame_33)
 
@@ -852,7 +907,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(3)
+        self.pages.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainPages)
@@ -866,6 +921,8 @@ class Ui_MainPages(object):
         self.groupBox_Atom_results.setTitle(QCoreApplication.translate("MainPages", u"Results", None))
         self.label_2.setText(QCoreApplication.translate("MainPages", u"Atoms Number:", None))
         self.label_atom_number.setText(QCoreApplication.translate("MainPages", u"0", None))
+        self.label_13.setText(QCoreApplication.translate("MainPages", u"Cloud Temperature:", None))
+        self.label_atom_number_4.setText(QCoreApplication.translate("MainPages", u"$[pi]$", None))
         self.title_label_2.setText(QCoreApplication.translate("MainPages", u"Analysis Measurements", None))
         self.groupBox_analysis_excel.setTitle(QCoreApplication.translate("MainPages", u"Excel Settings", None))
         self.label_5.setText(QCoreApplication.translate("MainPages", u"Excel location:", None))

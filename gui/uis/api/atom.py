@@ -74,3 +74,6 @@ class Atom(object):
         self.with_cloud_path = None
         self.no_cloud_image_array = None
         self.cloud_image_array = None
+
+    def calculateAtomNumber(self):
+        return

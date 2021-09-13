@@ -33,7 +33,7 @@ class Atom(object):
 
     def setImageBIN(self):
         self._instance.no_cloud_image_array = np.reshape(np.fromfile(self.no_cloud_path, dtype=np.uint8)[4:], (2788, 7200))
-        self._instance.cloud_image_array = np.reshape(np.fromfile(self.with_cloud_path, dtype=np.uint8)[4:], (2788  , 7200))
+        self._instance.cloud_image_array = np.reshape(np.fromfile(self.with_cloud_path, dtype=np.uint8)[4:], (2788 , 7200))
 
     def loadImage(self, ind: int) -> np.array:
         if ind == 0:

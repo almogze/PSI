@@ -40,27 +40,40 @@ def load_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     error = QMessageBox()
     error.setWindowTitle("Error")
     error.setIcon(QMessageBox.Critical)
-    if atom.clearToSet():
-        if not atom.checkImageFormat():
-            error.setText("image is not in format jpg")
-            error.exec()
-            print("At least one of the cloud images is not in jpg format")
-        else:
-            atom.setImage()
-            if atom.clearToLoad():
-                loaded_iamge = atom.loadImage(ui_atom.cloud_combo.currentIndex())
-                if loaded_iamge is not None:
-                    ui_atom.load_pages.ImageView_Atom.setImage(loaded_iamge)
-                else:
-                    print("ComboBox index is not Valid")
-            else:
-                print("Can not load images! Please check images numpy arrays")
-                error.setText("Please check images numpy arrays")
-                error.exec()
-    else:
+    if checkAndSet(atom, error):
+        checkAndLoad(atom, error, ui_atom)
+
+
+def checkAndSet(atom: Atom, error: QMessageBox) -> bool:
+    condition = bool(True)
+    if not atom.clearToSet():
         print("Can not set images! Please check images path")
         error.setText("Please check images path")
         error.exec()
+        condition = bool(False)
+    elif atom.checkImageFormatJPG():
+        atom.setImageJPG()
+    elif atom.checkImageFormatBIN():
+        atom.setImageBIN()
+    else:
+        error.setText("images are not in format")
+        error.exec()
+        print("At least one of the images is not in jpg or bin format")
+        condition = bool(False)
+    return condition
+
+
+def checkAndLoad(atom: Atom, error: QMessageBox, ui_atom: UI_AtomWindow) -> None:
+    if not atom.clearToLoad():
+        print("Can not load images! Please check images numpy arrays")
+        error.setText("Please check images numpy arrays")
+        error.exec()
+    else:
+        loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
+        if loaded_image is None:
+            print("ComboBox index is not Valid")
+        else:
+            ui_atom.load_pages.ImageView_Atom.setImage(loaded_image)
 
 
 def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:

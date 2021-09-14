@@ -32,8 +32,19 @@ class Atom(object):
         self._instance.cloud_image_array = np.array(Image.open(self.with_cloud_path))
 
     def setImageBIN(self):
-        self._instance.no_cloud_image_array = np.reshape(np.fromfile(self.no_cloud_path, dtype=np.uint8)[4:], (2788, 7200))
-        self._instance.cloud_image_array = np.reshape(np.fromfile(self.with_cloud_path, dtype=np.uint8)[4:], (2788 , 7200))
+        # Camera: Prosilica GC 2450
+        # Pixel size: 3.45 X 3.45 [micro meter]
+        # Resolution: 2050 X 2448
+
+        # Bin file format:
+        # pixel represented as a floating point of 4 byte
+        # first byte is a parameter byte and therefore removed from the array
+        file_no_cloud = open(self.no_cloud_path, 'rb')
+        file_with_cloud = open(self.with_cloud_path, 'rb')
+        self._instance.no_cloud_image_array = np.reshape(np.fromfile(file_no_cloud, dtype='single')[1:], (2050, 2448))
+        self._instance.cloud_image_array = np.reshape(np.fromfile(file_with_cloud, dtype='single')[1:], (2050, 2448))
+        file_no_cloud.close()
+        file_with_cloud.close()
 
     def loadImage(self, ind: int) -> np.array:
         if ind == 0:

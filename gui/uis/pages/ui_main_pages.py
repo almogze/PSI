@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesYBqqkg.ui'
+## Form generated from reading UI file 'main_pageshTdWGf.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -326,11 +326,35 @@ class Ui_MainPages(object):
 
         self.frame_47 = QFrame(self.groupBox_Atom_results)
         self.frame_47.setObjectName(u"frame_47")
-        self.frame_47.setMaximumSize(QSize(160, 40))
+        self.frame_47.setMaximumSize(QSize(16777215, 40))
         self.frame_47.setFrameShape(QFrame.StyledPanel)
         self.frame_47.setFrameShadow(QFrame.Raised)
-        self.calculate_atom_number_btn_layout = QHBoxLayout(self.frame_47)
-        self.calculate_atom_number_btn_layout.setObjectName(u"calculate_atom_number_btn_layout")
+        self.horizontalLayout_12 = QHBoxLayout(self.frame_47)
+        self.horizontalLayout_12.setSpacing(3)
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.frame_49 = QFrame(self.frame_47)
+        self.frame_49.setObjectName(u"frame_49")
+        self.frame_49.setFrameShape(QFrame.StyledPanel)
+        self.frame_49.setFrameShadow(QFrame.Raised)
+        self.absorption_imaging_layout = QHBoxLayout(self.frame_49)
+        self.absorption_imaging_layout.setSpacing(0)
+        self.absorption_imaging_layout.setObjectName(u"absorption_imaging_layout")
+        self.absorption_imaging_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.horizontalLayout_12.addWidget(self.frame_49)
+
+        self.frame_48 = QFrame(self.frame_47)
+        self.frame_48.setObjectName(u"frame_48")
+        self.frame_48.setFrameShape(QFrame.StyledPanel)
+        self.frame_48.setFrameShadow(QFrame.Raised)
+        self.flouracence_imaging_layout = QHBoxLayout(self.frame_48)
+        self.flouracence_imaging_layout.setSpacing(0)
+        self.flouracence_imaging_layout.setObjectName(u"flouracence_imaging_layout")
+        self.flouracence_imaging_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.horizontalLayout_12.addWidget(self.frame_48)
+
 
         self.verticalLayout_6.addWidget(self.frame_47)
 

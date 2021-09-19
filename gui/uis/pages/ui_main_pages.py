@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pageshTdWGf.ui'
+## Form generated from reading UI file 'main_pageszsDRxM.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -139,10 +139,8 @@ class Ui_MainPages(object):
         self.frame_atom_analysis.setObjectName(u"frame_atom_analysis")
         self.frame_atom_analysis.setFrameShape(QFrame.NoFrame)
         self.frame_atom_analysis.setFrameShadow(QFrame.Raised)
-        self.vboxLayout = QVBoxLayout(self.frame_atom_analysis)
-        self.vboxLayout.setSpacing(0)
-        self.vboxLayout.setObjectName(u"vboxLayout")
-        self.vboxLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_27 = QVBoxLayout(self.frame_atom_analysis)
+        self.verticalLayout_27.setObjectName(u"verticalLayout_27")
         self.frame_atom_graph_btns = QFrame(self.frame_atom_analysis)
         self.frame_atom_graph_btns.setObjectName(u"frame_atom_graph_btns")
         self.frame_atom_graph_btns.setMaximumSize(QSize(16777215, 40))
@@ -194,14 +192,62 @@ class Ui_MainPages(object):
         self.horizontalLayout_3.addWidget(self.cloud_comboBox)
 
 
-        self.vboxLayout.addWidget(self.frame_atom_graph_btns)
+        self.verticalLayout_27.addWidget(self.frame_atom_graph_btns)
+
+        self.frame_40 = QFrame(self.frame_atom_analysis)
+        self.frame_40.setObjectName(u"frame_40")
+        self.frame_40.setMaximumSize(QSize(16777215, 40))
+        self.frame_40.setFrameShape(QFrame.StyledPanel)
+        self.frame_40.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_14 = QHBoxLayout(self.frame_40)
+        self.horizontalLayout_14.setSpacing(6)
+        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.label_wit_cloud_path = QLabel(self.frame_40)
+        self.label_wit_cloud_path.setObjectName(u"label_wit_cloud_path")
+        self.label_wit_cloud_path.setMinimumSize(QSize(180, 0))
+        self.label_wit_cloud_path.setFont(font)
+
+        self.horizontalLayout_14.addWidget(self.label_wit_cloud_path)
+
+        self.lineEdit_with_cloud_path = QLineEdit(self.frame_40)
+        self.lineEdit_with_cloud_path.setObjectName(u"lineEdit_with_cloud_path")
+
+        self.horizontalLayout_14.addWidget(self.lineEdit_with_cloud_path)
+
+
+        self.verticalLayout_27.addWidget(self.frame_40)
+
+        self.frame_41 = QFrame(self.frame_atom_analysis)
+        self.frame_41.setObjectName(u"frame_41")
+        self.frame_41.setMaximumSize(QSize(16777215, 40))
+        self.frame_41.setFrameShape(QFrame.StyledPanel)
+        self.frame_41.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_15 = QHBoxLayout(self.frame_41)
+        self.horizontalLayout_15.setSpacing(6)
+        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
+        self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
+        self.label_without_cloud_path = QLabel(self.frame_41)
+        self.label_without_cloud_path.setObjectName(u"label_without_cloud_path")
+        self.label_without_cloud_path.setMinimumSize(QSize(180, 0))
+        self.label_without_cloud_path.setFont(font)
+
+        self.horizontalLayout_15.addWidget(self.label_without_cloud_path)
+
+        self.lineEdit_without_cloud_path = QLineEdit(self.frame_41)
+        self.lineEdit_without_cloud_path.setObjectName(u"lineEdit_without_cloud_path")
+
+        self.horizontalLayout_15.addWidget(self.lineEdit_without_cloud_path)
+
+
+        self.verticalLayout_27.addWidget(self.frame_41)
 
         self.frame_2 = QFrame(self.frame_atom_analysis)
         self.frame_2.setObjectName(u"frame_2")
         self.frame_2.setFrameShape(QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Raised)
 
-        self.vboxLayout.addWidget(self.frame_2)
+        self.verticalLayout_27.addWidget(self.frame_2)
 
 
         self.no_frame.addWidget(self.frame_atom_analysis)
@@ -222,7 +268,9 @@ class Ui_MainPages(object):
         self.frame_atom_results.setFrameShape(QFrame.StyledPanel)
         self.frame_atom_results.setFrameShadow(QFrame.Raised)
         self.verticalLayout_4 = QVBoxLayout(self.frame_atom_results)
+        self.verticalLayout_4.setSpacing(0)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.frame_atom_results_fix = QFrame(self.frame_atom_results)
         self.frame_atom_results_fix.setObjectName(u"frame_atom_results_fix")
         self.frame_atom_results_fix.setMinimumSize(QSize(350, 383))
@@ -239,7 +287,9 @@ class Ui_MainPages(object):
         self.groupBox_Atom_results.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "gridline-color: rgb(0, 0, 0);")
         self.verticalLayout_6 = QVBoxLayout(self.groupBox_Atom_results)
+        self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.frame_3 = QFrame(self.groupBox_Atom_results)
         self.frame_3.setObjectName(u"frame_3")
         self.frame_3.setMaximumSize(QSize(16777215, 40))
@@ -263,11 +313,15 @@ class Ui_MainPages(object):
         self.frame_6.setObjectName(u"frame_6")
         self.frame_6.setFrameShape(QFrame.StyledPanel)
         self.frame_6.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_7 = QHBoxLayout(self.frame_6)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.label_atom_number = QLabel(self.frame_6)
         self.label_atom_number.setObjectName(u"label_atom_number")
-        self.label_atom_number.setGeometry(QRect(10, 10, 141, 21))
         self.label_atom_number.setLayoutDirection(Qt.LeftToRight)
         self.label_atom_number.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_7.addWidget(self.label_atom_number)
+
 
         self.horizontalLayout_4.addWidget(self.frame_6)
 
@@ -302,14 +356,14 @@ class Ui_MainPages(object):
         self.frame_46.setObjectName(u"frame_46")
         self.frame_46.setFrameShape(QFrame.StyledPanel)
         self.frame_46.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_28 = QVBoxLayout(self.frame_46)
-        self.verticalLayout_28.setObjectName(u"verticalLayout_28")
-        self.label_atom_number_4 = QLabel(self.frame_46)
-        self.label_atom_number_4.setObjectName(u"label_atom_number_4")
-        self.label_atom_number_4.setLayoutDirection(Qt.LeftToRight)
-        self.label_atom_number_4.setAlignment(Qt.AlignCenter)
+        self.horizontalLayout_13 = QHBoxLayout(self.frame_46)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.label_cloud_temperature = QLabel(self.frame_46)
+        self.label_cloud_temperature.setObjectName(u"label_cloud_temperature")
+        self.label_cloud_temperature.setLayoutDirection(Qt.LeftToRight)
+        self.label_cloud_temperature.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_28.addWidget(self.label_atom_number_4)
+        self.horizontalLayout_13.addWidget(self.label_cloud_temperature)
 
 
         self.horizontalLayout_11.addWidget(self.frame_46)
@@ -541,29 +595,8 @@ class Ui_MainPages(object):
         self.frame_9.setFrameShadow(QFrame.Raised)
         self.load_excel_settings_layout = QHBoxLayout(self.frame_9)
         self.load_excel_settings_layout.setObjectName(u"load_excel_settings_layout")
-
-        self.verticalLayout_15.addWidget(self.frame_9)
-
-
-        self.horizontalLayout_6.addWidget(self.frame_4)
-
-        self.frame_15 = QFrame(self.groupBox_analysis_excel)
-        self.frame_15.setObjectName(u"frame_15")
-        self.frame_15.setFrameShape(QFrame.StyledPanel)
-        self.frame_15.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_10 = QHBoxLayout(self.frame_15)
-        self.horizontalLayout_10.setSpacing(0)
-        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
-        self.horizontalLayout_10.setContentsMargins(-1, 0, 0, 0)
-        self.frame_22 = QFrame(self.frame_15)
-        self.frame_22.setObjectName(u"frame_22")
-        self.frame_22.setMaximumSize(QSize(160, 16777215))
-        self.frame_22.setFrameShape(QFrame.StyledPanel)
-        self.frame_22.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_24 = QVBoxLayout(self.frame_22)
-        self.verticalLayout_24.setObjectName(u"verticalLayout_24")
-        self.verticalLayout_24.setContentsMargins(0, 0, 0, 0)
-        self.frame_24 = QFrame(self.frame_22)
+        self.load_excel_settings_layout.setContentsMargins(4, -1, 4, -1)
+        self.frame_24 = QFrame(self.frame_9)
         self.frame_24.setObjectName(u"frame_24")
         self.frame_24.setFrameShape(QFrame.StyledPanel)
         self.frame_24.setFrameShadow(QFrame.Raised)
@@ -650,9 +683,9 @@ class Ui_MainPages(object):
         self.verticalLayout_18.addWidget(self.frame_28)
 
 
-        self.verticalLayout_24.addWidget(self.frame_24)
+        self.load_excel_settings_layout.addWidget(self.frame_24)
 
-        self.frame_31 = QFrame(self.frame_22)
+        self.frame_31 = QFrame(self.frame_9)
         self.frame_31.setObjectName(u"frame_31")
         self.frame_31.setFrameShape(QFrame.StyledPanel)
         self.frame_31.setFrameShadow(QFrame.Raised)
@@ -739,17 +772,30 @@ class Ui_MainPages(object):
         self.verticalLayout_21.addWidget(self.frame_35)
 
 
-        self.verticalLayout_24.addWidget(self.frame_31)
+        self.load_excel_settings_layout.addWidget(self.frame_31)
 
 
-        self.horizontalLayout_10.addWidget(self.frame_22)
+        self.verticalLayout_15.addWidget(self.frame_9)
 
+
+        self.horizontalLayout_6.addWidget(self.frame_4)
+
+        self.frame_15 = QFrame(self.groupBox_analysis_excel)
+        self.frame_15.setObjectName(u"frame_15")
+        self.frame_15.setFrameShape(QFrame.StyledPanel)
+        self.frame_15.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_10 = QHBoxLayout(self.frame_15)
+        self.horizontalLayout_10.setSpacing(0)
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
         self.frame_23 = QFrame(self.frame_15)
         self.frame_23.setObjectName(u"frame_23")
         self.frame_23.setFrameShape(QFrame.StyledPanel)
         self.frame_23.setFrameShadow(QFrame.Raised)
         self.verticalLayout_25 = QVBoxLayout(self.frame_23)
+        self.verticalLayout_25.setSpacing(0)
         self.verticalLayout_25.setObjectName(u"verticalLayout_25")
+        self.verticalLayout_25.setContentsMargins(0, 0, 0, 0)
         self.frame_38 = QFrame(self.frame_23)
         self.frame_38.setObjectName(u"frame_38")
         self.frame_38.setFrameShape(QFrame.StyledPanel)
@@ -763,6 +809,10 @@ class Ui_MainPages(object):
         self.frame_39.setObjectName(u"frame_39")
         self.frame_39.setFrameShape(QFrame.StyledPanel)
         self.frame_39.setFrameShadow(QFrame.Raised)
+        self.layout_send_excel_parameters = QHBoxLayout(self.frame_39)
+        self.layout_send_excel_parameters.setSpacing(0)
+        self.layout_send_excel_parameters.setObjectName(u"layout_send_excel_parameters")
+        self.layout_send_excel_parameters.setContentsMargins(0, 0, 0, 0)
 
         self.verticalLayout_25.addWidget(self.frame_39)
 
@@ -931,7 +981,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(2)
+        self.pages.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainPages)
@@ -942,11 +992,13 @@ class Ui_MainPages(object):
         self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PSI Experiment", None))
         self.title_label.setText(QCoreApplication.translate("MainPages", u"Fringes Measurements", None))
         self.atom_page_label.setText(QCoreApplication.translate("MainPages", u"Atom Measurements", None))
+        self.label_wit_cloud_path.setText(QCoreApplication.translate("MainPages", u"With cloud path:", None))
+        self.label_without_cloud_path.setText(QCoreApplication.translate("MainPages", u"Without cloud path:", None))
         self.groupBox_Atom_results.setTitle(QCoreApplication.translate("MainPages", u"Results", None))
         self.label_2.setText(QCoreApplication.translate("MainPages", u"Atoms Number:", None))
         self.label_atom_number.setText(QCoreApplication.translate("MainPages", u"0", None))
         self.label_13.setText(QCoreApplication.translate("MainPages", u"Cloud Temperature:", None))
-        self.label_atom_number_4.setText(QCoreApplication.translate("MainPages", u"$[pi]$", None))
+        self.label_cloud_temperature.setText(QCoreApplication.translate("MainPages", u"0", None))
         self.title_label_2.setText(QCoreApplication.translate("MainPages", u"Analysis Measurements", None))
         self.groupBox_analysis_excel.setTitle(QCoreApplication.translate("MainPages", u"Excel Settings", None))
         self.label_5.setText(QCoreApplication.translate("MainPages", u"Excel location:", None))

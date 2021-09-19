@@ -91,13 +91,28 @@ class SetupAnalysisWindow:
         self.icon_button_send.setIcon(self.icon_send)
         self.icon_button_send.setMaximumHeight(40)
 
-        self.icon_button_send.clicked.connect(lambda: wf.send_excel_parameters(self.ui_analysis.analysis,
-                                                                               self.ui_analysis.left_column.menus.lineEdit_sheet_name.text(),
-                                                                               self.ui_analysis))
+        self.icon_button_send.clicked.connect(lambda: wf.load_excel_loc_to_lineEdit(self.ui_analysis.analysis,
+                                                                                    self.ui_analysis.left_column.menus.lineEdit_sheet_name.text(),
+                                                                                    self.ui_analysis))
 
         # ADD LAYOUT
         self.ui_analysis.left_column.menus.load_btn_analysis_layout.addWidget(self.icon_button_send)
 
+        # SEND EXCEL PARAMETERS BTN
+        self.send_excel_parm_btn = PyPushButton(
+            text="Send Excel Parameters",
+            radius=18,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+
+        self.send_excel_parm_btn.clicked.connect(lambda: wf.send_excel_parameters(self.ui_analysis.analysis,
+                                                                                  self.ui_analysis))
+
+        # ADD LAYOUT
+        self.ui_analysis.load_pages.layout_send_excel_parameters.addWidget(self.send_excel_parm_btn)
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS
         # ///////////////////////////////////////////////////////////////

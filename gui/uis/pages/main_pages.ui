@@ -32,7 +32,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="page_main">
       <property name="styleSheet">
@@ -320,22 +320,7 @@
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
                </property>
-               <layout class="QVBoxLayout">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
+               <layout class="QVBoxLayout" name="verticalLayout_27">
                 <item>
                  <widget class="QFrame" name="frame_atom_graph_btns">
                   <property name="maximumSize">
@@ -471,6 +456,114 @@ background-color: rgb(255, 255, 255);</string>
                  </widget>
                 </item>
                 <item>
+                 <widget class="QFrame" name="frame_40">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_14">
+                   <property name="spacing">
+                    <number>6</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="label_wit_cloud_path">
+                     <property name="minimumSize">
+                      <size>
+                       <width>180</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>16</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>With cloud path:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit_with_cloud_path"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QFrame" name="frame_41">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_15">
+                   <property name="spacing">
+                    <number>6</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="label_without_cloud_path">
+                     <property name="minimumSize">
+                      <size>
+                       <width>180</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>16</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>Without cloud path:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit_without_cloud_path"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QFrame" name="frame_2">
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
@@ -519,6 +612,21 @@ background-color: rgb(255, 255, 255);</string>
                 <enum>QFrame::Raised</enum>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_4">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
                 <item>
                  <widget class="QFrame" name="frame_atom_results_fix">
                   <property name="minimumSize">
@@ -568,6 +676,21 @@ gridline-color: rgb(0, 0, 0);</string>
                       <string>Results</string>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_6">
+                      <property name="spacing">
+                       <number>0</number>
+                      </property>
+                      <property name="leftMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="rightMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>0</number>
+                      </property>
                       <item>
                        <widget class="QFrame" name="frame_3">
                         <property name="maximumSize">
@@ -629,25 +752,21 @@ gridline-color: rgb(0, 0, 0);</string>
                            <property name="frameShadow">
                             <enum>QFrame::Raised</enum>
                            </property>
-                           <widget class="QLabel" name="label_atom_number">
-                            <property name="geometry">
-                             <rect>
-                              <x>10</x>
-                              <y>10</y>
-                              <width>141</width>
-                              <height>21</height>
-                             </rect>
-                            </property>
-                            <property name="layoutDirection">
-                             <enum>Qt::LeftToRight</enum>
-                            </property>
-                            <property name="text">
-                             <string>0</string>
-                            </property>
-                            <property name="alignment">
-                             <set>Qt::AlignCenter</set>
-                            </property>
-                           </widget>
+                           <layout class="QHBoxLayout" name="horizontalLayout_7">
+                            <item>
+                             <widget class="QLabel" name="label_atom_number">
+                              <property name="layoutDirection">
+                               <enum>Qt::LeftToRight</enum>
+                              </property>
+                              <property name="text">
+                               <string>0</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
                           </widget>
                          </item>
                         </layout>
@@ -716,14 +835,14 @@ gridline-color: rgb(0, 0, 0);</string>
                            <property name="frameShadow">
                             <enum>QFrame::Raised</enum>
                            </property>
-                           <layout class="QVBoxLayout" name="verticalLayout_28">
+                           <layout class="QHBoxLayout" name="horizontalLayout_13">
                             <item>
-                             <widget class="QLabel" name="label_atom_number_4">
+                             <widget class="QLabel" name="label_cloud_temperature">
                               <property name="layoutDirection">
                                <enum>Qt::LeftToRight</enum>
                               </property>
                               <property name="text">
-                               <string>$[pi]$</string>
+                               <string>0</string>
                               </property>
                               <property name="alignment">
                                <set>Qt::AlignCenter</set>
@@ -1244,59 +1363,12 @@ gridline-color: rgb(0, 0, 0);</string>
                            <property name="frameShadow">
                             <enum>QFrame::Raised</enum>
                            </property>
-                           <layout class="QHBoxLayout" name="load_excel_settings_layout"/>
-                          </widget>
-                         </item>
-                        </layout>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QFrame" name="frame_15">
-                        <property name="frameShape">
-                         <enum>QFrame::StyledPanel</enum>
-                        </property>
-                        <property name="frameShadow">
-                         <enum>QFrame::Raised</enum>
-                        </property>
-                        <layout class="QHBoxLayout" name="horizontalLayout_10">
-                         <property name="spacing">
-                          <number>0</number>
-                         </property>
-                         <property name="topMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="rightMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="bottomMargin">
-                          <number>0</number>
-                         </property>
-                         <item>
-                          <widget class="QFrame" name="frame_22">
-                           <property name="maximumSize">
-                            <size>
-                             <width>160</width>
-                             <height>16777215</height>
-                            </size>
-                           </property>
-                           <property name="frameShape">
-                            <enum>QFrame::StyledPanel</enum>
-                           </property>
-                           <property name="frameShadow">
-                            <enum>QFrame::Raised</enum>
-                           </property>
-                           <layout class="QVBoxLayout" name="verticalLayout_24">
+                           <layout class="QHBoxLayout" name="load_excel_settings_layout">
                             <property name="leftMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="topMargin">
-                             <number>0</number>
+                             <number>4</number>
                             </property>
                             <property name="rightMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="bottomMargin">
-                             <number>0</number>
+                             <number>4</number>
                             </property>
                             <item>
                              <widget class="QFrame" name="frame_24">
@@ -1723,6 +1795,33 @@ gridline-color: rgb(0, 0, 0);</string>
                            </layout>
                           </widget>
                          </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="frame_15">
+                        <property name="frameShape">
+                         <enum>QFrame::StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                         <enum>QFrame::Raised</enum>
+                        </property>
+                        <layout class="QHBoxLayout" name="horizontalLayout_10">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>0</number>
+                         </property>
                          <item>
                           <widget class="QFrame" name="frame_23">
                            <property name="frameShape">
@@ -1732,6 +1831,21 @@ gridline-color: rgb(0, 0, 0);</string>
                             <enum>QFrame::Raised</enum>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_25">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
                             <item>
                              <widget class="QFrame" name="frame_38">
                               <property name="frameShape">
@@ -1751,6 +1865,23 @@ gridline-color: rgb(0, 0, 0);</string>
                               <property name="frameShadow">
                                <enum>QFrame::Raised</enum>
                               </property>
+                              <layout class="QHBoxLayout" name="layout_send_excel_parameters">
+                               <property name="spacing">
+                                <number>0</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                              </layout>
                              </widget>
                             </item>
                            </layout>

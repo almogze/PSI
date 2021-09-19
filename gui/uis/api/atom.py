@@ -1,6 +1,7 @@
 from PIL import Image
 import numpy as np
 import os
+from gui.uis.api.parameters import Parameters
 
 
 class Atom(object):
@@ -9,6 +10,7 @@ class Atom(object):
     def __new__(self):
         if not Atom._instance:
             self._instance = super(Atom, self).__new__(self)
+            self.prm = Parameters()
             self.no_cloud_path = None
             self.with_cloud_path = None
             self.no_cloud_image_array: np.array = None
@@ -53,6 +55,8 @@ class Atom(object):
             return self.no_cloud_image_array
         elif ind == 2:
             return self.no_cloud_image_array - self.cloud_image_array
+        elif ind == 3:
+            return self.normSignal()
         else:
             return None
 
@@ -81,10 +85,19 @@ class Atom(object):
         return bool(True)
 
     def clearImage(self):
-        self.no_cloud_path = None
-        self.with_cloud_path = None
-        self.no_cloud_image_array = None
-        self.cloud_image_array = None
+        self._instance.no_cloud_path = None
+        self._instance.with_cloud_path = None
+        self._instance.no_cloud_image_array = None
+        self._instance.cloud_image_array = None
 
     def calculateAtomNumber(self):
-        return
+        rel_I = np.divide(self.cloud_image_array, self.no_cloud_image_array,
+                          out=np.zeros_like(self.no_cloud_image_array), where=self.no_cloud_image_array != 0)
+        sum_of_rel = np.log(rel_I, out=np.zeros_like(rel_I), where=(rel_I > 0))
+        number_of_atoms = - np.divide(np.sum(sum_of_rel) * self.prm.ccd_pixel_size , self.prm.sigma_0)
+        return number_of_atoms
+
+    def normSignal(self) -> np.array:
+        sub = self.no_cloud_image_array - self.cloud_image_array
+        return np.divide(sub, self.no_cloud_image_array, out=np.zeros_like(sub), where=self.no_cloud_image_array != 0)
+

@@ -100,7 +100,7 @@ class SetupAtomWindow:
         self.no_cloud_btn.setIcon(self.icon_folder)
         self.no_cloud_btn.setMaximumHeight(40)
 
-        self.no_cloud_btn.clicked.connect(lambda: open_dialog_box_atom( self.ui_atom.atom, "no_cloud"))
+        self.no_cloud_btn.clicked.connect(lambda: open_dialog_box_atom( self.ui_atom.atom, self.ui_atom,  "no_cloud"))
         # ADD LAYOUT
         self.ui_atom.left_column.menus.no_cloud_layout.addWidget(self.no_cloud_btn)
 
@@ -116,12 +116,12 @@ class SetupAtomWindow:
         self.with_cloud_btn.setMaximumHeight(40)
         self.with_cloud_btn.setIcon(self.icon_folder)
 
-        self.with_cloud_btn.clicked.connect(lambda: open_dialog_box_atom(self.ui_atom.atom, "with_cloud"))
+        self.with_cloud_btn.clicked.connect(lambda: open_dialog_box_atom(self.ui_atom.atom, self.ui_atom,  "with_cloud"))
         # ADD LAYOUT
         self.ui_atom.left_column.menus.with_cloud_layout.addWidget(self.with_cloud_btn)
 
         # COMBOBOX WIDGETS
-        self.ui_atom.cloud_combo.addItems(["with cloud", "without cloud", "subtraction"])
+        self.ui_atom.cloud_combo.addItems(["with cloud", "without cloud", "subtraction", "normalized signal"])
         self.ui_atom.cloud_combo.currentIndexChanged.connect(lambda: combo_current_change(self.ui_atom.atom, self.ui_atom, self.ui_atom.cloud_combo.currentIndex()))
 
         # BTN CALCULATE ABSORPTION
@@ -134,7 +134,7 @@ class SetupAtomWindow:
             bg_color_pressed=self.themes["app_color"]["dark_four"]
         )
 
-        self.calc_by_abs_imaging.clicked.connect(lambda: calculate_atom_number(self.ui_atom.atom))
+        self.calc_by_abs_imaging.clicked.connect(lambda: calculate_atom_number(self.ui_atom.atom, self.ui_atom))
         # ADD LAYOUT
         self.ui_atom.load_pages.absorption_imaging_layout.addWidget(self.calc_by_abs_imaging)
 
@@ -148,7 +148,7 @@ class SetupAtomWindow:
             bg_color_pressed=self.themes["app_color"]["dark_four"]
         )
 
-        self.calc_by_flu_imaging.clicked.connect(lambda: calculate_atom_number(self.ui_atom.atom))
+        self.calc_by_flu_imaging.clicked.connect(lambda: calculate_atom_number(self.ui_atom.atom, self.ui_atom))
         # ADD LAYOUT
         self.ui_atom.load_pages.flouracence_imaging_layout.addWidget(self.calc_by_flu_imaging)
 

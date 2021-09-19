@@ -6,7 +6,6 @@ import pyqtgraph.examples
 
 pyqtgraph.examples.run()
 
-
 # import initExample ## Add path to library (just for examples; you do not need this)
 
 
@@ -24,51 +23,10 @@ import sys
 # pg.setConfigOptions(imageAxisOrder='row-major')
 
 
-
-
 if __name__ == '__main__':
-    """""""""
-    array_1d = file_no_cloud = open("D:\\University\\PSI\\Projects\\Measuring cloud density\\Program\\cloud data\\absorption1.bin", 'rb')
+    array_1d = file_no_cloud = open(
+        "D:\\University\\PSI\\Projects\\Measuring cloud density\\Program\\cloud data\\absorption1.bin", 'rb')
     array_2 = np.reshape(np.fromfile(array_1d, dtype='single')[1:], (2050, 2448))
-
-    app = QApplication(sys.argv)
-    window = pyqt.QtWidgets.QWidget()
-    window.setWindowTitle('pythongraph crosshair example')
-    layout = pyqt.QtWidgets.QVBoxLayout(window)
-    label = pyqt.QtWidgets.QLabel()
-    label.setText("Test!")
-    layout.addWidget(label)
-
-
-"
-    window.show()
-    sys.exit(app.exec())
-    """""""""""
-
-    from matplotlib.figure import Figure
-    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
-
-    # Get window background color
-    bg = palette().window().color()
-    cl = (bg.redF(), bg.greenF(), bg.blueF())
-
-    # Create figure, using window bg color
-    self.fig = Figure(edgecolor=cl, facecolor=cl)
-
-    # Add FigureCanvasQTAgg widget to form
-    self.canvas = FigureCanvasQTAgg(self.fig)
-    self.tex_label_placeholder.layout().addWidget(self.canvas)
-
-    # Clear figure
-    self.fig.clear()
-
-    # Set figure title
-    self.fig.suptitle('$TeX$',
-                      x=0.0, y=0.5,
-                      horizontalalignment='left',
-                      verticalalignment='center')
-    self.canvas.draw()
-
 
 """""""""""""""
 

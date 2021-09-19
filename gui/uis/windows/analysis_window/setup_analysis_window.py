@@ -27,6 +27,10 @@ from gui.widgets import *
 # ///////////////////////////////////////////////////////////////
 import gui.uis.api.widgets_functions as wf
 
+# IMPORT PARAMETERS CLASS
+# ///////////////////////////////////////////////////////////////
+from gui.uis.api.fitting import Functions_Texts
+
 # LOAD UI ATOM
 # ///////////////////////////////////////////////////////////////
 from .ui_analysis import *
@@ -52,7 +56,7 @@ class SetupAnalysisWindow:
     # ///////////////////////////////////////////////////////////////
     def setup_gui_analysis(self):
         self.themes = self.ui_analysis.themes
-
+        self.fun_text = Functions_Texts()
         # /////////////////////////////////////////////////////////
         # ANALYSIS WIDGETS
         # /////////////////////////////////////////////////////////
@@ -113,6 +117,26 @@ class SetupAnalysisWindow:
 
         # ADD LAYOUT
         self.ui_analysis.load_pages.layout_send_excel_parameters.addWidget(self.send_excel_parm_btn)
+
+        self.ui_analysis.load_pages.comboBox_analysis_box_location.addItems(["1", "2", "3", "4"])
+        self.ui_analysis.load_pages.comboBox_analysis_fit_function.addItems(self.fun_text.fun_texts_array)
+        self.ui_analysis.load_pages.comboBox_analysis_cost_function.addItems(["Chi2Regression, EffVarChi2Reg, Least "
+                                                                              "of Squares"])
+
+        self.ui_analysis.load_pages.fit_analysis_btn.clicked.connect(lambda: wf.fit_analysis_data(self.ui_analysis))
+        self.ui_analysis.load_pages.matplotlib_fit_analsis_btn.clicked. \
+            connect(lambda: wf.matplotlib_fit_analysis_data(self.ui_analysis))
+        self.ui_analysis.load_pages.analysis_clean_all_btn.clicked. \
+            connect(lambda: wf.clean_all_analysis_screen(self.ui_analysis))
+
+        # INITIAL VALUES
+        self.ui_analysis.load_pages.lineEdit_analysis_initial_a.setText("0")
+        self.ui_analysis.load_pages.lineEdit_analysis_initial_b.setText("0")
+        self.ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setText("-1000")
+        self.ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setText("-1000")
+        self.ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setText("1000")
+        self.ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setText("1000")
+
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS
         # ///////////////////////////////////////////////////////////////

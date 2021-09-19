@@ -120,27 +120,45 @@ def send_excel_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow) ->
     error.setWindowTitle("Error")
     error.setIcon(QMessageBox.Critical)
 
-    x_name = ui_analysis.load_pages.lineEdit_analysis_x_column.text()
-    dx_name = ui_analysis.load_pages.lineEdit_analysis_x_column_error.text()
-    y_name = ui_analysis.load_pages.lineEdit_analysis_y_column.text()
-    dy_name = ui_analysis.load_pages.lineEdit_analysis_y_column_error.text()
-
     # Collecting Excel's groupbox parameters into a boolean list
     # List represent the result of each method
     bool_list = [analysis.setSheetName(ui_analysis.load_pages.lineEdit_analysis_sheet_name.text()),
-                 analysis.setColumnsNames(x_name, y_name, dx_name, dy_name),
                  analysis.setExcelPath(ui_analysis.load_pages.lineEdit_analysis_excel_name.text())]
     # All methods succeed
     if all(bool_list):
-        print("All parameters sent")
         if not analysis.checkExcelFormat():
             print("file is not in excel format!")
             error.setText("File must be in xlsx format")
             error.exec()
+        else:
+            if analysis.readExcel():
+                print("All parameters sent")
+            if analysis.initializeExcelData():
+                print("initialize succeed")
+                initialize_excel_axis(ui_analysis.analysis.getExcelAxis(), ui_analysis)
     else:
         print("Missing excel parameters information!")
         error.setText("Missing data, please check that all parameters are loaded")
         error.exec()
+
+
+def initialize_excel_axis(axis: np.ndarray, ui_analysis: UI_AnalysisWindow) -> None:
+    ui_analysis.load_pages.comboBox_analysis_x_axis.addItems(axis)
+    ui_analysis.load_pages.comboBox_analysis_y_axis.addItems(axis)
+    ui_analysis.load_pages.comboBox_analysis_x_error.addItems(axis)
+    ui_analysis.load_pages.comboBox_analysis_y_error.addItems(axis)
+
+
+def fit_analysis_data(ui_analysis: UI_AnalysisWindow):
+    return None
+
+
+def matplotlib_fit_analysis_data(ui_analysis: UI_AnalysisWindow):
+    return None
+
+
+def clean_all_analysis_screen(ui_analysis: UI_AnalysisWindow):
+    return None
 
 
 def test_define():

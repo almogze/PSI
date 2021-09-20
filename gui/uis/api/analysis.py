@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 import pandas as pd
 import os
-from gui.uis.api.parameters import Functions_Fit, Functions_Texts
+from gui.uis.api.fitting import Functions_Fit, Functions_Texts, Fit
 
 
 class Analysis(object):
@@ -28,10 +28,7 @@ class Analysis(object):
 
             # FIT SETTINGS FIELDS
             self.data_frame: pd.DataFrame = None
-            self.x_data = None
-            self.y_data = None
-            self.dx = None
-            self.dy = None
+            self.fit = Fit()
             self.fun_fits = Functions_Fit()
 
         return Analysis._instance
@@ -42,6 +39,12 @@ class Analysis(object):
         self._instance.excel_file_path = path
         return bool(True)
 
+    def setExcelSheetName(self, sheet_name):
+        self._instance.sheet_name = sheet_name
+
+    def getSheetName(self):
+        return self._instance.sheet_name
+
     def setSheetName(self, sheet_name) -> bool:
         if sheet_name == "":
             return bool(False)
@@ -51,11 +54,11 @@ class Analysis(object):
     def getExcelPath(self):
         return self._instance.excel_file_path
 
-    def getSheetName(self):
-        return self._instance.sheet_name
-
     def getExcelAxis(self):
         return self._instance.axis
+
+    def getDataFrame(self):
+        return self._instance.data_frame
 
     def checkExcelFormat(self) -> bool:
         ename, eend = os.path.splitext(self._instance.excel_file_path)
@@ -69,12 +72,16 @@ class Analysis(object):
             return bool(True)
         return bool(False)
 
-    def initializeExcelData(self) -> bool:
+    def initializeAxis(self) -> bool:
         if self.data_frame is None:
             return bool(False)
-        elif len(self.data_frame.axes.pop(1).values) != 4:
+        elif len(self.data_frame.axes.pop(1).values) < 2:
             return bool(False)
         else:
             # extract the axis names from excel file
             self._instance.axis = self.data_frame.axes.pop(1).values
             return bool(True)
+
+    def setFitData(self, x, y, dx, dy):
+        self._instance.fit.set_arrays(x, y, dx, dy)
+

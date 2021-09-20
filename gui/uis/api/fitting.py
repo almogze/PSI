@@ -5,6 +5,7 @@ from iminuit import Minuit, describe, cost
 from iminuit.util import make_func_code
 from matplotlib.offsetbox import AnchoredText
 
+
 class Functions_Texts:
     def __init__(self):
         self.latex_text_lin_fun = "a\cdot x +b"
@@ -78,103 +79,99 @@ class EffVarChi2Reg:  # This class is like Chi2Regression but takes into account
                 df * self.dx) ** 2))  # chi2 is now Sum of: f(x)-y)^2/(uncert_y^2+(df/dx*uncert_x)^2)
         return chi2
 
+
 class Fit(object):
-    _instance = None
+    def __init__(self):
+        self.a = None  # Final optimized parameter
+        self.b = None  # Final optimized parameter
+        self.a_0 = 0
+        self.a_err = 0
+        self.b_0 = 0
+        self.b_err = 0
+        self.a_limit_i = -1000
+        self.a_limit_f = 1000
+        self.b_limit_i = -1000
+        self.b_limit_f = 1000
 
-    def __new__(self):
-        if not Fit._instance:
-            self.a = None   # Final optimized parameter
-            self.b = None   # Final optimized parameter
-            self.a_0 = 0
-            self.a_err = 0
-            self.b_0 = 0
-            self.b_err = 0
-            self.a_limit_i = -1000
-            self.a_limit_f = 1000
-            self.b_limit_i = -1000
-            self.b_limit_f = 1000
-
-            self.function = None
-            self.x: np.array = None  # the x values
-            self.y: np.array = None  # the y values
-            self.dx: np.array = None  # the x-axis uncertainties
-            self.dy: np.array = None  # the y-axis uncertainties
-
-        return Fit._instance
+        self.function = None
+        self.x: np.array = None  # the x values
+        self.y: np.array = None  # the y values
+        self.dx: np.array = None  # the x-axis uncertainties
+        self.dy: np.array = None  # the y-axis uncertainties
 
     def set_a_parameter(self, a):
-        self._instance.a = a
+        self.a = a
 
     def set_b_parameter(self, b):
-        self._instance.b = b
+        self.b = b
 
     def get_a_parameter(self):
-        return self._instance.a
+        return self.a
 
     def get_b_parameter(self):
-        return self._instance.b
+        return self.b
 
     def set_a_err_parameter(self, a_err):
-        self._instance.a_err = a_err
+        self.a_err = a_err
 
     def set_b_err_parameter(self, b_err):
-        self._instance.b_err = b_err
+        self.b_err = b_err
 
     def get_a_err_parameter(self):
-        return self._instance.a_err
+        return self.a_err
 
     def get_b_err_parameter(self):
-        return self._instance.b_err
+        return self.b_err
 
     def set_a_initial(self, a_0):
-        self._instance.a_0 = a_0
+        self.a_0 = a_0
 
     def set_b_initial(self, b_0):
-        self._instance.b_0 = b_0
+        self.b_0 = b_0
 
     def set_a_limits(self, a_i, a_f):
-        self._instance.a_limit_i = a_i
-        self._instance.a_limit_f = a_f
+        self.a_limit_i = a_i
+        self.a_limit_f = a_f
 
     def set_b_limits(self, b_i, b_f):
-        self._instance.b_limit_i = b_i
-        self._instance.b_limit_f = b_f
+        self.b_limit_i = b_i
+        self.b_limit_f = b_f
 
     def get_a_limit_i(self):
-        return self._instance.a_limit_i
+        return self.a_limit_i
 
     def get_a_limit_f(self):
-        return self._instance.a_limit_f
+        return self.a_limit_f
 
     def get_b_limit_i(self):
-        return self._instance.b_limit_i
+        return self.b_limit_i
 
     def get_b_limit_f(self):
-        return self._instance.b_limit_f
+        return self.b_limit_f
 
     def set_function(self, function):
-        self._instance.function = function
+        self.function = function
 
     def get_function(self):
-        return self._instance.function
+        return self.function
 
     def set_arrays(self, x, y, dx, dy):
-        self._instance.x = x
-        self._instance.y = y
-        self._instance.dx = dx
-        self._instance.dy = dy
+        self.x = x
+        self.y = y
+        self.dx = dx
+        self.dy = dy
 
     def get_x_array(self):
-        return self._instance.x
+        return self.x
 
     def get_y_array(self):
-        return self._instance.y
+        return self.y
 
     def get_dx_array(self):
-        return self._instance.dx
+        return self.dx
 
     def get_dy_array(self):
-        return self._instance.dy
+        return self.dy
 
     def build_EffVarChi2Reg_cost_function(self) -> EffVarChi2Reg:
         return EffVarChi2Reg(self.x, self.y, self.dx, self.dy, self.function)
@@ -183,12 +180,8 @@ class Fit(object):
         opt = Minuit(cost_function, a=self.a_0, b=self.b_0)
         opt.limits = [(self.a_limit_i, self.a_limit_f), (self.b_limit_i, self.b_limit_f)]
         opt.migrad()
-        self._instance.a = opt.np_values()[0]
-        self._instance.a_err = opt.np_errors()[0]
-        self._instance.b = opt.np_values()[1]
-        self._instance.b_err = opt.np_errors()[1]
+        self.a = opt.np_values()[0]
+        self.a_err = opt.np_errors()[0]
+        self.b = opt.np_values()[1]
+        self.b_err = opt.np_errors()[1]
         return opt
-
-
-
-

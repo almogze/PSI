@@ -1,0 +1,11 @@
+This project use the following packages:
+
+pyqtgraph
+numpy
+pandas
+pillow
+PySide6
+os
+matplotlib
+iminuit
+openpyxl

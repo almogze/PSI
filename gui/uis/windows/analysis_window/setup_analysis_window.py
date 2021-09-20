@@ -1,6 +1,6 @@
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
-from PySide6 import QtGui
+from PySide6 import QtGui, QtCore
 
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
 from gui.uis.windows.main_window.functions_main_window import *
@@ -10,6 +10,7 @@ import os
 # IMPORT QT CORE
 # ///////////////////////////////////////////////////////////////
 from qt_core import *
+from pyqtgraph import PlotItem
 
 # IMPORT SETTINGS
 # ///////////////////////////////////////////////////////////////
@@ -57,6 +58,7 @@ class SetupAnalysisWindow:
     def setup_gui_analysis(self):
         self.themes = self.ui_analysis.themes
         self.fun_text = Functions_Texts()
+        self.graph: PlotItem = self.ui_analysis.graph
         # /////////////////////////////////////////////////////////
         # ANALYSIS WIDGETS
         # /////////////////////////////////////////////////////////
@@ -77,7 +79,7 @@ class SetupAnalysisWindow:
         self.excel_location_btn.setMaximumHeight(40)
 
         self.excel_location_btn.clicked.connect(lambda: wf.open_dialog_box_analysis
-        (self.ui_analysis.analysis, "excel_file"))
+        (self.ui_analysis.analysis, "excel_file", self.ui_analysis))
 
         # ADD LAYOUT
         self.ui_analysis.left_column.menus.excel_file_path_btn_layout.addWidget(self.excel_location_btn)
@@ -100,7 +102,7 @@ class SetupAnalysisWindow:
                                                                                     self.ui_analysis))
 
         # ADD LAYOUT
-        self.ui_analysis.left_column.menus.load_btn_analysis_layout.addWidget(self.icon_button_send)
+        # self.ui_analysis.left_column.menus.load_btn_analysis_layout.addWidget(self.icon_button_send)
 
         # SEND EXCEL PARAMETERS BTN
         self.send_excel_parm_btn = PyPushButton(
@@ -118,24 +120,31 @@ class SetupAnalysisWindow:
         # ADD LAYOUT
         self.ui_analysis.load_pages.layout_send_excel_parameters.addWidget(self.send_excel_parm_btn)
 
+        # COMBOBOX EDITING
         self.ui_analysis.load_pages.comboBox_analysis_box_location.addItems(["1", "2", "3", "4"])
         self.ui_analysis.load_pages.comboBox_analysis_fit_function.addItems(self.fun_text.fun_texts_array)
-        self.ui_analysis.load_pages.comboBox_analysis_cost_function.addItems(["Chi2Regression, EffVarChi2Reg, Least "
-                                                                              "of Squares"])
+        self.ui_analysis.load_pages.comboBox_analysis_cost_function.addItems(["Chi2Regression", "EffVarChi2Reg",
+                                                                              "Least of Squares"])
 
-        self.ui_analysis.load_pages.fit_analysis_btn.clicked.connect(lambda: wf.fit_analysis_data(self.ui_analysis))
+        # FIT, MATPLOTLIB AND CLEAN ALL BTNS
+        self.ui_analysis.load_pages.fit_analysis_btn.clicked.connect(lambda: wf.fit_analysis_data(
+            self.ui_analysis.analysis, self.ui_analysis))
         self.ui_analysis.load_pages.matplotlib_fit_analsis_btn.clicked. \
-            connect(lambda: wf.matplotlib_fit_analysis_data(self.ui_analysis))
+            connect(lambda: wf.matplotlib_fit_analysis_data(self.ui_analysis.analysis, self.ui_analysis))
         self.ui_analysis.load_pages.analysis_clean_all_btn.clicked. \
-            connect(lambda: wf.clean_all_analysis_screen(self.ui_analysis))
+            connect(lambda: wf.clean_all_analysis_screen(self.ui_analysis.analysis, self.ui_analysis))
 
-        # INITIAL VALUES
+        # INITIALIZE VALUES
         self.ui_analysis.load_pages.lineEdit_analysis_initial_a.setText("0")
         self.ui_analysis.load_pages.lineEdit_analysis_initial_b.setText("0")
         self.ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setText("-1000")
         self.ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setText("-1000")
         self.ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setText("1000")
         self.ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setText("1000")
+
+        # INITIALIZE GRAPH
+        self.graph.showGrid(x=True, y=True)
+        self.graph.addLegend()
 
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS

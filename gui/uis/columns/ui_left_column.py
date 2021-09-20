@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'left_columnoCNkOl.ui'
+## Form generated from reading UI file 'left_columnbMNNSx.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -164,39 +164,6 @@ class Ui_LeftColumn(object):
         self.horizontalLayout = QHBoxLayout(self.frame_upload_sheet_name)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, -1, -1, -1)
-        self.label_sheet_name = QLabel(self.frame_upload_sheet_name)
-        self.label_sheet_name.setObjectName(u"label_sheet_name")
-        self.label_sheet_name.setMaximumSize(QSize(80, 40))
-
-        self.horizontalLayout.addWidget(self.label_sheet_name)
-
-        self.frame_sheet_name_text = QFrame(self.frame_upload_sheet_name)
-        self.frame_sheet_name_text.setObjectName(u"frame_sheet_name_text")
-        self.frame_sheet_name_text.setMinimumSize(QSize(40, 40))
-        self.frame_sheet_name_text.setMaximumSize(QSize(16777215, 40))
-        self.frame_sheet_name_text.setFrameShape(QFrame.NoFrame)
-        self.frame_sheet_name_text.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame_sheet_name_text)
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(2, 4, 2, 4)
-        self.lineEdit_sheet_name = QLineEdit(self.frame_sheet_name_text)
-        self.lineEdit_sheet_name.setObjectName(u"lineEdit_sheet_name")
-        self.lineEdit_sheet_name.setEnabled(True)
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_sheet_name.sizePolicy().hasHeightForWidth())
-        self.lineEdit_sheet_name.setSizePolicy(sizePolicy)
-        font2 = QFont()
-        font2.setPointSize(11)
-        self.lineEdit_sheet_name.setFont(font2)
-
-        self.horizontalLayout_2.addWidget(self.lineEdit_sheet_name)
-
-
-        self.horizontalLayout.addWidget(self.frame_sheet_name_text)
-
 
         self.verticalLayout_8.addWidget(self.frame_upload_sheet_name)
 
@@ -239,6 +206,5 @@ class Ui_LeftColumn(object):
         self.label_2.setText(QCoreApplication.translate("LeftColumn", u"Menu 2 - Left Menu", None))
         self.label_3.setText(QCoreApplication.translate("LeftColumn", u"This is just an example menu.\n"
 "Add Qt Widgets or your custom widgets here.", None))
-        self.label_sheet_name.setText(QCoreApplication.translate("LeftColumn", u"Sheet Name:", None))
     # retranslateUi
 

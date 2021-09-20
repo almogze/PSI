@@ -6,6 +6,8 @@ import os
 
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
+from pyqtgraph import PlotItem
+
 from gui.core.functions import Functions
 from gui.uis.windows.main_window import UI_MainWindow
 
@@ -57,6 +59,9 @@ class UI_AnalysisWindow(object):
         self.analysis = Analysis()
         self.load_pages = ui.load_pages
         self.left_column = ui.left_column
+        self.graphic_view: GraphicsLayoutWidget = self.load_pages.graphicsView_analysis
+        self.graph: PlotItem = self.graphic_view.addPlot()
+
 
         # LOAD SETTINGS
         # ///////////////////////////////////////////////////////////////

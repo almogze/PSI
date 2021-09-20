@@ -1,10 +1,10 @@
 # importing the pyqtgraph.examples module
-
+import pandas as pd
 import pyqtgraph.examples
 
 # run this examples
 
-pyqtgraph.examples.run()
+# pyqtgraph.examples.run()
 
 # import initExample ## Add path to library (just for examples; you do not need this)
 
@@ -24,9 +24,11 @@ import sys
 
 
 if __name__ == '__main__':
-    array_1d = file_no_cloud = open(
-        "D:\\University\\PSI\\Projects\\Measuring cloud density\\Program\\cloud data\\absorption1.bin", 'rb')
-    array_2 = np.reshape(np.fromfile(array_1d, dtype='single')[1:], (2050, 2448))
+    excel = pd.ExcelFile('D:\\University\\pycharmLab\\excelCharts\\Lazer\\AlmogRaz\\4.63\\4.63.xlsx')
+    print(excel.sheet_names[:3])
+    data_frame: pd.DataFrame = pd.read_excel("D:\\University\\pycharmLab\\excelCharts\\Lazer\\AlmogRaz\\4.63\\4.63.xlsx", sheet_name="lens")
+    # print(data_frame.values)
+
 
 """""""""""""""
 

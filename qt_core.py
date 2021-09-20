@@ -26,7 +26,9 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtSvgWidgets import *
+
 import pyqtgraph as pg
+from pyqtgraph import GraphicsLayoutWidget
 from pyqtgraph import PlotWidget
 from pyqtgraph import ImageView
 

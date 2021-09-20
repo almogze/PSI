@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>848</width>
-    <height>888</height>
+    <width>1175</width>
+    <height>890</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1096,7 +1096,14 @@ gridline-color: rgb(0, 0, 0);</string>
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="PlotWidget" name="graphicsView_analysis"/>
+                    <widget class="GraphicsLayoutWidget" name="graphicsView_analysis">
+                     <property name="toolTip">
+                      <string/>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"/>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
@@ -1347,7 +1354,12 @@ gridline-color: rgb(0, 0, 0);</string>
                                 <number>5</number>
                                </property>
                                <item>
-                                <widget class="QLineEdit" name="lineEdit_analysis_sheet_name"/>
+                                <widget class="QComboBox" name="comboBox_analysis_excel_sheet_names">
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                 </property>
+                                </widget>
                                </item>
                               </layout>
                              </widget>
@@ -1636,12 +1648,66 @@ gridline-color: rgb(0, 0, 0);</string>
                             </item>
                             <item>
                              <widget class="QFrame" name="frame_51">
+                              <property name="maximumSize">
+                               <size>
+                                <width>270</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
                               </property>
                               <property name="frameShadow">
                                <enum>QFrame::Raised</enum>
                               </property>
+                              <layout class="QHBoxLayout" name="horizontalLayout_34">
+                               <item>
+                                <widget class="QLabel" name="label_20">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>16777215</height>
+                                  </size>
+                                 </property>
+                                 <property name="text">
+                                  <string>Plot line RGB color: (0-255)</string>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignCenter</set>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLineEdit" name="lineEdit_analysis_plot_line_color_r">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>30</width>
+                                   <height>16777215</height>
+                                  </size>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLineEdit" name="lineEdit_analysis_plot_line_color_g">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>30</width>
+                                   <height>16777215</height>
+                                  </size>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLineEdit" name="lineEdit_analysis_plot_line_color_b">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>30</width>
+                                   <height>16777215</height>
+                                  </size>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
                              </widget>
                             </item>
                            </layout>
@@ -1696,11 +1762,27 @@ gridline-color: rgb(0, 0, 0);</string>
                                <item>
                                 <widget class="QLineEdit" name="lineEdit_analysis_x_title"/>
                                </item>
+                               <item>
+                                <widget class="QLabel" name="label_19">
+                                 <property name="text">
+                                  <string>Y label title:</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLineEdit" name="lineEdit_analysis_y_title"/>
+                               </item>
                               </layout>
                              </widget>
                             </item>
                             <item>
                              <widget class="QFrame" name="frame_53">
+                              <property name="maximumSize">
+                               <size>
+                                <width>270</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
                               </property>
@@ -1711,12 +1793,42 @@ gridline-color: rgb(0, 0, 0);</string>
                                <item>
                                 <widget class="QLabel" name="label_16">
                                  <property name="text">
-                                  <string>Y label title:</string>
+                                  <string>Plot RGB color: (0-255)</string>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignCenter</set>
                                  </property>
                                 </widget>
                                </item>
                                <item>
-                                <widget class="QLineEdit" name="lineEdit_analysis_y_title"/>
+                                <widget class="QLineEdit" name="lineEdit_analysis_plot_color_r">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>30</width>
+                                   <height>16777215</height>
+                                  </size>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLineEdit" name="lineEdit_analysis_plot_color_g">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>30</width>
+                                   <height>16777215</height>
+                                  </size>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLineEdit" name="lineEdit_analysis_plot_color_b">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>30</width>
+                                   <height>16777215</height>
+                                  </size>
+                                 </property>
+                                </widget>
                                </item>
                               </layout>
                              </widget>
@@ -1771,7 +1883,12 @@ gridline-color: rgb(0, 0, 0);</string>
                                    </widget>
                                   </item>
                                   <item>
-                                   <widget class="QComboBox" name="comboBox_analysis_box_location"/>
+                                   <widget class="QComboBox" name="comboBox_analysis_box_location">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                    </property>
+                                   </widget>
                                   </item>
                                  </layout>
                                 </widget>
@@ -1992,7 +2109,12 @@ gridline-color: rgb(0, 0, 0);</string>
                               </property>
                               <layout class="QHBoxLayout" name="horizontalLayout_16">
                                <item>
-                                <widget class="QComboBox" name="comboBox_analysis_x_axis"/>
+                                <widget class="QComboBox" name="comboBox_analysis_x_axis">
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);n</string>
+                                 </property>
+                                </widget>
                                </item>
                               </layout>
                              </widget>
@@ -2069,7 +2191,12 @@ gridline-color: rgb(0, 0, 0);</string>
                               </property>
                               <layout class="QHBoxLayout" name="horizontalLayout_17">
                                <item>
-                                <widget class="QComboBox" name="comboBox_analysis_y_axis"/>
+                                <widget class="QComboBox" name="comboBox_analysis_y_axis">
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                 </property>
+                                </widget>
                                </item>
                               </layout>
                              </widget>
@@ -2138,6 +2265,9 @@ gridline-color: rgb(0, 0, 0);</string>
                             </item>
                             <item>
                              <widget class="QFrame" name="frame_29">
+                              <property name="styleSheet">
+                               <string notr="true"/>
+                              </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
                               </property>
@@ -2146,7 +2276,12 @@ gridline-color: rgb(0, 0, 0);</string>
                               </property>
                               <layout class="QHBoxLayout" name="horizontalLayout_18">
                                <item>
-                                <widget class="QComboBox" name="comboBox_analysis_x_error"/>
+                                <widget class="QComboBox" name="comboBox_analysis_x_error">
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);n</string>
+                                 </property>
+                                </widget>
                                </item>
                               </layout>
                              </widget>
@@ -2223,7 +2358,12 @@ gridline-color: rgb(0, 0, 0);</string>
                               </property>
                               <layout class="QHBoxLayout" name="horizontalLayout_19">
                                <item>
-                                <widget class="QComboBox" name="comboBox_analysis_y_error"/>
+                                <widget class="QComboBox" name="comboBox_analysis_y_error">
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                 </property>
+                                </widget>
                                </item>
                               </layout>
                              </widget>
@@ -2390,7 +2530,7 @@ gridline-color: rgb(0, 0, 0);</string>
                                    <widget class="QLabel" name="label_3">
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
+                                      <width>65</width>
                                       <height>16777215</height>
                                      </size>
                                     </property>
@@ -2400,7 +2540,12 @@ gridline-color: rgb(0, 0, 0);</string>
                                    </widget>
                                   </item>
                                   <item>
-                                   <widget class="QComboBox" name="comboBox_analysis_fit_function"/>
+                                   <widget class="QComboBox" name="comboBox_analysis_fit_function">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                    </property>
+                                   </widget>
                                   </item>
                                  </layout>
                                 </widget>
@@ -2418,7 +2563,7 @@ gridline-color: rgb(0, 0, 0);</string>
                                    <widget class="QLabel" name="label_10">
                                     <property name="maximumSize">
                                      <size>
-                                      <width>60</width>
+                                      <width>65</width>
                                       <height>16777215</height>
                                      </size>
                                     </property>
@@ -2428,7 +2573,12 @@ gridline-color: rgb(0, 0, 0);</string>
                                    </widget>
                                   </item>
                                   <item>
-                                   <widget class="QComboBox" name="comboBox_analysis_cost_function"/>
+                                   <widget class="QComboBox" name="comboBox_analysis_cost_function">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                    </property>
+                                   </widget>
                                   </item>
                                  </layout>
                                 </widget>
@@ -2611,7 +2761,7 @@ gridline-color: rgb(0, 0, 0);</string>
                                       </widget>
                                      </item>
                                      <item>
-                                      <widget class="QLineEdit" name="lineEdit_19">
+                                      <widget class="QLineEdit" name="lineEdit_analysis_f_limit_b">
                                        <property name="maximumSize">
                                         <size>
                                          <width>40</width>
@@ -2684,14 +2834,14 @@ gridline-color: rgb(0, 0, 0);</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PlotWidget</class>
-   <extends>QGraphicsView</extends>
-   <header location="global">pyqtgraph</header>
-  </customwidget>
-  <customwidget>
    <class>ImageView</class>
    <extends>QGraphicsView</extends>
    <header>pyqtgraph</header>
+  </customwidget>
+  <customwidget>
+   <class>GraphicsLayoutWidget</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">pyqtgraph</header>
   </customwidget>
  </customwidgets>
  <resources/>

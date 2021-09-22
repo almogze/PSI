@@ -9,3 +9,4 @@ os
 matplotlib
 iminuit
 openpyxl
+scipy

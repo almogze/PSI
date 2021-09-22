@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pageshsYvfK.ui'
+## Form generated from reading UI file 'main_pagestdkMwQ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -15,7 +15,7 @@ class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(729, 890)
+        MainPages.resize(930, 976)
         self.excel_settings_load_btn_layout = QVBoxLayout(MainPages)
         self.excel_settings_load_btn_layout.setSpacing(0)
         self.excel_settings_load_btn_layout.setObjectName(u"excel_settings_load_btn_layout")
@@ -481,6 +481,7 @@ class Ui_MainPages(object):
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.graphicsView_analysis = GraphicsLayoutWidget(self.frame_analysis_graph)
         self.graphicsView_analysis.setObjectName(u"graphicsView_analysis")
+        self.graphicsView_analysis.setMinimumSize(QSize(300, 0))
         self.graphicsView_analysis.setStyleSheet(u"")
 
         self.verticalLayout_7.addWidget(self.graphicsView_analysis)
@@ -676,7 +677,9 @@ class Ui_MainPages(object):
         self.frame_analysis_graph_settings.setFrameShape(QFrame.StyledPanel)
         self.frame_analysis_graph_settings.setFrameShadow(QFrame.Raised)
         self.verticalLayout_9 = QVBoxLayout(self.frame_analysis_graph_settings)
+        self.verticalLayout_9.setSpacing(0)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
         self.frame_analysis_graph_settings_2 = QFrame(self.frame_analysis_graph_settings)
         self.frame_analysis_graph_settings_2.setObjectName(u"frame_analysis_graph_settings_2")
         self.frame_analysis_graph_settings_2.setMinimumSize(QSize(350, 383))
@@ -719,6 +722,18 @@ class Ui_MainPages(object):
 
         self.horizontalLayout_25.addWidget(self.lineEdit_analysis_main_title)
 
+        self.label_17 = QLabel(self.frame_50)
+        self.label_17.setObjectName(u"label_17")
+
+        self.horizontalLayout_25.addWidget(self.label_17)
+
+        self.comboBox_analysis_box_location = QComboBox(self.frame_50)
+        self.comboBox_analysis_box_location.setObjectName(u"comboBox_analysis_box_location")
+        self.comboBox_analysis_box_location.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+"background-color: rgb(255, 255, 255);")
+
+        self.horizontalLayout_25.addWidget(self.comboBox_analysis_box_location)
+
 
         self.horizontalLayout_24.addWidget(self.frame_50)
 
@@ -736,23 +751,12 @@ class Ui_MainPages(object):
 
         self.horizontalLayout_34.addWidget(self.label_20)
 
-        self.lineEdit_analysis_plot_line_color_r = QLineEdit(self.frame_51)
-        self.lineEdit_analysis_plot_line_color_r.setObjectName(u"lineEdit_analysis_plot_line_color_r")
-        self.lineEdit_analysis_plot_line_color_r.setMaximumSize(QSize(30, 16777215))
+        self.comboBox_analysis_plot_line_color = QComboBox(self.frame_51)
+        self.comboBox_analysis_plot_line_color.setObjectName(u"comboBox_analysis_plot_line_color")
+        self.comboBox_analysis_plot_line_color.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+"background-color: rgb(255, 255, 255);")
 
-        self.horizontalLayout_34.addWidget(self.lineEdit_analysis_plot_line_color_r)
-
-        self.lineEdit_analysis_plot_line_color_g = QLineEdit(self.frame_51)
-        self.lineEdit_analysis_plot_line_color_g.setObjectName(u"lineEdit_analysis_plot_line_color_g")
-        self.lineEdit_analysis_plot_line_color_g.setMaximumSize(QSize(30, 16777215))
-
-        self.horizontalLayout_34.addWidget(self.lineEdit_analysis_plot_line_color_g)
-
-        self.lineEdit_analysis_plot_line_color_b = QLineEdit(self.frame_51)
-        self.lineEdit_analysis_plot_line_color_b.setObjectName(u"lineEdit_analysis_plot_line_color_b")
-        self.lineEdit_analysis_plot_line_color_b.setMaximumSize(QSize(30, 16777215))
-
-        self.horizontalLayout_34.addWidget(self.lineEdit_analysis_plot_line_color_b)
+        self.horizontalLayout_34.addWidget(self.comboBox_analysis_plot_line_color)
 
 
         self.horizontalLayout_24.addWidget(self.frame_51)
@@ -785,6 +789,12 @@ class Ui_MainPages(object):
 
         self.horizontalLayout_28.addWidget(self.lineEdit_analysis_x_title)
 
+        self.lineEdit_analysis_x_units = QLineEdit(self.frame_52)
+        self.lineEdit_analysis_x_units.setObjectName(u"lineEdit_analysis_x_units")
+        self.lineEdit_analysis_x_units.setMaximumSize(QSize(35, 16777215))
+
+        self.horizontalLayout_28.addWidget(self.lineEdit_analysis_x_units)
+
         self.label_19 = QLabel(self.frame_52)
         self.label_19.setObjectName(u"label_19")
 
@@ -794,6 +804,12 @@ class Ui_MainPages(object):
         self.lineEdit_analysis_y_title.setObjectName(u"lineEdit_analysis_y_title")
 
         self.horizontalLayout_28.addWidget(self.lineEdit_analysis_y_title)
+
+        self.lineEdit_analysis_y_units = QLineEdit(self.frame_52)
+        self.lineEdit_analysis_y_units.setObjectName(u"lineEdit_analysis_y_units")
+        self.lineEdit_analysis_y_units.setMaximumSize(QSize(35, 16777215))
+
+        self.horizontalLayout_28.addWidget(self.lineEdit_analysis_y_units)
 
 
         self.horizontalLayout_26.addWidget(self.frame_52)
@@ -811,23 +827,12 @@ class Ui_MainPages(object):
 
         self.horizontalLayout_27.addWidget(self.label_16)
 
-        self.lineEdit_analysis_plot_color_r = QLineEdit(self.frame_53)
-        self.lineEdit_analysis_plot_color_r.setObjectName(u"lineEdit_analysis_plot_color_r")
-        self.lineEdit_analysis_plot_color_r.setMaximumSize(QSize(30, 16777215))
+        self.comboBox_analysis_plot_symbol_color = QComboBox(self.frame_53)
+        self.comboBox_analysis_plot_symbol_color.setObjectName(u"comboBox_analysis_plot_symbol_color")
+        self.comboBox_analysis_plot_symbol_color.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+"background-color: rgb(255, 255, 255);")
 
-        self.horizontalLayout_27.addWidget(self.lineEdit_analysis_plot_color_r)
-
-        self.lineEdit_analysis_plot_color_g = QLineEdit(self.frame_53)
-        self.lineEdit_analysis_plot_color_g.setObjectName(u"lineEdit_analysis_plot_color_g")
-        self.lineEdit_analysis_plot_color_g.setMaximumSize(QSize(30, 16777215))
-
-        self.horizontalLayout_27.addWidget(self.lineEdit_analysis_plot_color_g)
-
-        self.lineEdit_analysis_plot_color_b = QLineEdit(self.frame_53)
-        self.lineEdit_analysis_plot_color_b.setObjectName(u"lineEdit_analysis_plot_color_b")
-        self.lineEdit_analysis_plot_color_b.setMaximumSize(QSize(30, 16777215))
-
-        self.horizontalLayout_27.addWidget(self.lineEdit_analysis_plot_color_b)
+        self.horizontalLayout_27.addWidget(self.comboBox_analysis_plot_symbol_color)
 
 
         self.horizontalLayout_26.addWidget(self.frame_53)
@@ -855,18 +860,6 @@ class Ui_MainPages(object):
         self.frame_61.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_29 = QHBoxLayout(self.frame_61)
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
-        self.label_17 = QLabel(self.frame_61)
-        self.label_17.setObjectName(u"label_17")
-
-        self.horizontalLayout_29.addWidget(self.label_17)
-
-        self.comboBox_analysis_box_location = QComboBox(self.frame_61)
-        self.comboBox_analysis_box_location.setObjectName(u"comboBox_analysis_box_location")
-        self.comboBox_analysis_box_location.setStyleSheet(u"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);")
-
-        self.horizontalLayout_29.addWidget(self.comboBox_analysis_box_location)
-
 
         self.verticalLayout_33.addWidget(self.frame_61)
 
@@ -926,7 +919,9 @@ class Ui_MainPages(object):
         self.frame_analysis_fit_settings.setFrameShape(QFrame.StyledPanel)
         self.frame_analysis_fit_settings.setFrameShadow(QFrame.Raised)
         self.verticalLayout_14 = QVBoxLayout(self.frame_analysis_fit_settings)
+        self.verticalLayout_14.setSpacing(0)
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
         self.frame_analysis_graph_settings_3 = QFrame(self.frame_analysis_fit_settings)
         self.frame_analysis_graph_settings_3.setObjectName(u"frame_analysis_graph_settings_3")
         self.frame_analysis_graph_settings_3.setMinimumSize(QSize(350, 383))
@@ -1164,10 +1159,168 @@ class Ui_MainPages(object):
         self.frame_34.setObjectName(u"frame_34")
         self.frame_34.setFrameShape(QFrame.StyledPanel)
         self.frame_34.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_20 = QVBoxLayout(self.frame_34)
+        self.horizontalLayout_32 = QHBoxLayout(self.frame_34)
+        self.horizontalLayout_32.setSpacing(0)
+        self.horizontalLayout_32.setObjectName(u"horizontalLayout_32")
+        self.horizontalLayout_32.setContentsMargins(0, 0, 0, 0)
+        self.groupBox = QGroupBox(self.frame_34)
+        self.groupBox.setObjectName(u"groupBox")
+        self.horizontalLayout_39 = QHBoxLayout(self.groupBox)
+        self.horizontalLayout_39.setSpacing(0)
+        self.horizontalLayout_39.setObjectName(u"horizontalLayout_39")
+        self.horizontalLayout_39.setContentsMargins(0, 0, 0, 0)
+        self.label_10 = QLabel(self.groupBox)
+        self.label_10.setObjectName(u"label_10")
+        self.label_10.setMaximumSize(QSize(100, 16777215))
+
+        self.horizontalLayout_39.addWidget(self.label_10)
+
+        self.frame_56 = QFrame(self.groupBox)
+        self.frame_56.setObjectName(u"frame_56")
+        self.frame_56.setFrameShape(QFrame.StyledPanel)
+        self.frame_56.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_20 = QVBoxLayout(self.frame_56)
         self.verticalLayout_20.setSpacing(0)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
         self.verticalLayout_20.setContentsMargins(0, 0, 0, 0)
+        self.frame_57 = QFrame(self.frame_56)
+        self.frame_57.setObjectName(u"frame_57")
+        self.frame_57.setFrameShape(QFrame.StyledPanel)
+        self.frame_57.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_35 = QHBoxLayout(self.frame_57)
+        self.horizontalLayout_35.setObjectName(u"horizontalLayout_35")
+        self.label_12 = QLabel(self.frame_57)
+        self.label_12.setObjectName(u"label_12")
+
+        self.horizontalLayout_35.addWidget(self.label_12)
+
+        self.lineEdit_analysis_param_a = QLineEdit(self.frame_57)
+        self.lineEdit_analysis_param_a.setObjectName(u"lineEdit_analysis_param_a")
+        self.lineEdit_analysis_param_a.setEnabled(False)
+        self.lineEdit_analysis_param_a.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_35.addWidget(self.lineEdit_analysis_param_a)
+
+        self.label_24 = QLabel(self.frame_57)
+        self.label_24.setObjectName(u"label_24")
+
+        self.horizontalLayout_35.addWidget(self.label_24)
+
+        self.lineEdit_analysis_err_a = QLineEdit(self.frame_57)
+        self.lineEdit_analysis_err_a.setObjectName(u"lineEdit_analysis_err_a")
+        self.lineEdit_analysis_err_a.setEnabled(False)
+        self.lineEdit_analysis_err_a.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_35.addWidget(self.lineEdit_analysis_err_a)
+
+
+        self.verticalLayout_20.addWidget(self.frame_57)
+
+        self.frame_58 = QFrame(self.frame_56)
+        self.frame_58.setObjectName(u"frame_58")
+        self.frame_58.setFrameShape(QFrame.StyledPanel)
+        self.frame_58.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_36 = QHBoxLayout(self.frame_58)
+        self.horizontalLayout_36.setObjectName(u"horizontalLayout_36")
+        self.label_21 = QLabel(self.frame_58)
+        self.label_21.setObjectName(u"label_21")
+
+        self.horizontalLayout_36.addWidget(self.label_21)
+
+        self.lineEdit_analysis_param_b = QLineEdit(self.frame_58)
+        self.lineEdit_analysis_param_b.setObjectName(u"lineEdit_analysis_param_b")
+        self.lineEdit_analysis_param_b.setEnabled(False)
+        self.lineEdit_analysis_param_b.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_36.addWidget(self.lineEdit_analysis_param_b)
+
+        self.label_25 = QLabel(self.frame_58)
+        self.label_25.setObjectName(u"label_25")
+
+        self.horizontalLayout_36.addWidget(self.label_25)
+
+        self.lineEdit_analysis_err_b = QLineEdit(self.frame_58)
+        self.lineEdit_analysis_err_b.setObjectName(u"lineEdit_analysis_err_b")
+        self.lineEdit_analysis_err_b.setEnabled(False)
+        self.lineEdit_analysis_err_b.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_36.addWidget(self.lineEdit_analysis_err_b)
+
+
+        self.verticalLayout_20.addWidget(self.frame_58)
+
+        self.frame_64 = QFrame(self.frame_56)
+        self.frame_64.setObjectName(u"frame_64")
+        self.frame_64.setFrameShape(QFrame.StyledPanel)
+        self.frame_64.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_37 = QHBoxLayout(self.frame_64)
+        self.horizontalLayout_37.setObjectName(u"horizontalLayout_37")
+        self.label_22 = QLabel(self.frame_64)
+        self.label_22.setObjectName(u"label_22")
+
+        self.horizontalLayout_37.addWidget(self.label_22)
+
+        self.lineEdit_analysis_param_c = QLineEdit(self.frame_64)
+        self.lineEdit_analysis_param_c.setObjectName(u"lineEdit_analysis_param_c")
+        self.lineEdit_analysis_param_c.setEnabled(False)
+        self.lineEdit_analysis_param_c.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_37.addWidget(self.lineEdit_analysis_param_c)
+
+        self.label_26 = QLabel(self.frame_64)
+        self.label_26.setObjectName(u"label_26")
+
+        self.horizontalLayout_37.addWidget(self.label_26)
+
+        self.lineEdit_analysis_err_c = QLineEdit(self.frame_64)
+        self.lineEdit_analysis_err_c.setObjectName(u"lineEdit_analysis_err_c")
+        self.lineEdit_analysis_err_c.setEnabled(False)
+        self.lineEdit_analysis_err_c.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_37.addWidget(self.lineEdit_analysis_err_c)
+
+
+        self.verticalLayout_20.addWidget(self.frame_64)
+
+        self.frame_66 = QFrame(self.frame_56)
+        self.frame_66.setObjectName(u"frame_66")
+        self.frame_66.setFrameShape(QFrame.StyledPanel)
+        self.frame_66.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_38 = QHBoxLayout(self.frame_66)
+        self.horizontalLayout_38.setObjectName(u"horizontalLayout_38")
+        self.label_23 = QLabel(self.frame_66)
+        self.label_23.setObjectName(u"label_23")
+
+        self.horizontalLayout_38.addWidget(self.label_23)
+
+        self.lineEdit_analysis_param_d = QLineEdit(self.frame_66)
+        self.lineEdit_analysis_param_d.setObjectName(u"lineEdit_analysis_param_d")
+        self.lineEdit_analysis_param_d.setEnabled(False)
+        self.lineEdit_analysis_param_d.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_38.addWidget(self.lineEdit_analysis_param_d)
+
+        self.label_27 = QLabel(self.frame_66)
+        self.label_27.setObjectName(u"label_27")
+
+        self.horizontalLayout_38.addWidget(self.label_27)
+
+        self.lineEdit_analysis_err_d = QLineEdit(self.frame_66)
+        self.lineEdit_analysis_err_d.setObjectName(u"lineEdit_analysis_err_d")
+        self.lineEdit_analysis_err_d.setEnabled(False)
+        self.lineEdit_analysis_err_d.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_38.addWidget(self.lineEdit_analysis_err_d)
+
+
+        self.verticalLayout_20.addWidget(self.frame_66)
+
+
+        self.horizontalLayout_39.addWidget(self.frame_56)
+
+
+        self.horizontalLayout_32.addWidget(self.groupBox)
+
 
         self.gridLayout_2.addWidget(self.frame_34, 1, 1, 1, 1)
 
@@ -1207,19 +1360,6 @@ class Ui_MainPages(object):
         self.frame_37.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_30 = QHBoxLayout(self.frame_37)
         self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
-        self.label_10 = QLabel(self.frame_37)
-        self.label_10.setObjectName(u"label_10")
-        self.label_10.setMaximumSize(QSize(65, 16777215))
-
-        self.horizontalLayout_30.addWidget(self.label_10)
-
-        self.comboBox_analysis_cost_function = QComboBox(self.frame_37)
-        self.comboBox_analysis_cost_function.setObjectName(u"comboBox_analysis_cost_function")
-        self.comboBox_analysis_cost_function.setStyleSheet(u"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);")
-
-        self.horizontalLayout_30.addWidget(self.comboBox_analysis_cost_function)
-
 
         self.verticalLayout_18.addWidget(self.frame_37)
 
@@ -1403,11 +1543,11 @@ class Ui_MainPages(object):
         self.analysis_clean_all_btn.setText(QCoreApplication.translate("MainPages", u"Clean All", None))
         self.groupBox_analysis_graph_settings.setTitle(QCoreApplication.translate("MainPages", u"Graph Settings", None))
         self.label_14.setText(QCoreApplication.translate("MainPages", u"Main Title:", None))
-        self.label_20.setText(QCoreApplication.translate("MainPages", u"Plot line RGB color: (0-255)", None))
-        self.label_15.setText(QCoreApplication.translate("MainPages", u"X label title:", None))
-        self.label_19.setText(QCoreApplication.translate("MainPages", u"Y label title:", None))
-        self.label_16.setText(QCoreApplication.translate("MainPages", u"Plot RGB color: (0-255)", None))
         self.label_17.setText(QCoreApplication.translate("MainPages", u"Box Location:", None))
+        self.label_20.setText(QCoreApplication.translate("MainPages", u"Plot line color: ", None))
+        self.label_15.setText(QCoreApplication.translate("MainPages", u"X label title and units:", None))
+        self.label_19.setText(QCoreApplication.translate("MainPages", u"Y label title and units:", None))
+        self.label_16.setText(QCoreApplication.translate("MainPages", u"Plot symbol color: ", None))
         self.groupBox_analysis_fit_settings.setTitle(QCoreApplication.translate("MainPages", u"Fit Settings", None))
         self.label_4.setText(QCoreApplication.translate("MainPages", u"X Axis:", None))
         self.label_7.setText(QCoreApplication.translate("MainPages", u"Y Axis:", None))
@@ -1415,8 +1555,25 @@ class Ui_MainPages(object):
         self.label_9.setText(QCoreApplication.translate("MainPages", u"Y error:", None))
         self.label_11.setText(QCoreApplication.translate("MainPages", u"Initial Value a: ", None))
         self.label_18.setText(QCoreApplication.translate("MainPages", u"Initial Value b: ", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainPages", u"Fit Results", None))
+        self.label_10.setText(QCoreApplication.translate("MainPages", u"Parameters Value:", None))
+        self.label_12.setText(QCoreApplication.translate("MainPages", u"a:", None))
+        self.lineEdit_analysis_param_a.setText(QCoreApplication.translate("MainPages", u"None", None))
+        self.label_24.setText(QCoreApplication.translate("MainPages", u"da:", None))
+        self.lineEdit_analysis_err_a.setText(QCoreApplication.translate("MainPages", u"None", None))
+        self.label_21.setText(QCoreApplication.translate("MainPages", u"b:", None))
+        self.lineEdit_analysis_param_b.setText(QCoreApplication.translate("MainPages", u"None", None))
+        self.label_25.setText(QCoreApplication.translate("MainPages", u"db:", None))
+        self.lineEdit_analysis_err_b.setText(QCoreApplication.translate("MainPages", u"None", None))
+        self.label_22.setText(QCoreApplication.translate("MainPages", u"c:", None))
+        self.lineEdit_analysis_param_c.setText(QCoreApplication.translate("MainPages", u"None", None))
+        self.label_26.setText(QCoreApplication.translate("MainPages", u"dc:", None))
+        self.lineEdit_analysis_err_c.setText(QCoreApplication.translate("MainPages", u"None", None))
+        self.label_23.setText(QCoreApplication.translate("MainPages", u"d:", None))
+        self.lineEdit_analysis_param_d.setText(QCoreApplication.translate("MainPages", u"None", None))
+        self.label_27.setText(QCoreApplication.translate("MainPages", u"dd:", None))
+        self.lineEdit_analysis_err_d.setText(QCoreApplication.translate("MainPages", u"None", None))
         self.label_3.setText(QCoreApplication.translate("MainPages", u"Fit Function:", None))
-        self.label_10.setText(QCoreApplication.translate("MainPages", u"Cost Function:", None))
         self.label_38.setText(QCoreApplication.translate("MainPages", u"Limits a:", None))
         self.label_39.setText(QCoreApplication.translate("MainPages", u"s", None))
         self.label_40.setText(QCoreApplication.translate("MainPages", u"f", None))

@@ -7,6 +7,7 @@ from PIL import Image
 import numpy as np
 import os
 from PySide6.QtWidgets import QFileDialog
+from iminuit import Minuit
 
 from gui.uis.api.atom import Atom
 from gui.uis.api.analysis import Analysis
@@ -156,12 +157,12 @@ def initialize_excel_axis(axis: np.ndarray, ui_analysis: UI_AnalysisWindow) -> N
     ui_analysis.load_pages.comboBox_analysis_y_error.addItems(np.append(axis, "None"))
 
 
-def fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+def fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
+    # Initialize axis and parameters with user's data
+    set_parameters(analysis, ui_analysis)
     set_data(analysis, ui_analysis)
+    # Plot data on a graph
     set_data_2_graph(analysis, ui_analysis)
-    ui_analysis.graph.setTitle(title=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
-    ui_analysis.graph.setLabel('left', ui_analysis.load_pages.lineEdit_analysis_x_title.text(), units='X')
-    ui_analysis.graph.setLabel('bottom', ui_analysis.load_pages.lineEdit_analysis_y_title.text(), units='Y')
 
 
 def get_axis_labels(ui_analysis: UI_AnalysisWindow) -> np.array:
@@ -186,51 +187,68 @@ def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     else:
         dy = df[labels[3]].values
     ui_analysis.analysis.setFitData(x, y, dx, dy)
+    # Set fit function as user marked
+    analysis.fit.set_function(
+        analysis.fun_fits.fun_fit_array[ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex()])
+    # Activate optimization with the current cost function
+    if dx is None and dy is None:
+        analysis.fit.opt_by_scipy()
+        plot_opt_func(analysis, ui_analysis)
+    else:
+        opt: Minuit = analysis.fit.optimize()
+        plot_opt_func_2(opt, analysis, ui_analysis)
 
 
 def set_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
-    analysis.fit.set_a_initial(ui_analysis.load_pages.lineEdit_analysis_initial_a.text())
-    analysis.fit.set_b_initial(ui_analysis.load_pages.lineEdit_analysis_initial_b.text())
-    analysis.fit.set_a_limits(ui_analysis.load_pages.lineEdit_analysis_s_limit_a, ui_analysis.load_pages.
-                              lineEdit_analysis_f_limit_a)
-    analysis.fit.set_b_limits(ui_analysis.load_pages.lineEdit_analysis_s_limit_b, ui_analysis.load_pages.
-                              lineEdit_analysis_f_limit_b)
+    analysis.fit.set_a_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_a.text()))
+    analysis.fit.set_b_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_b.text()))
+    analysis.fit.set_a_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_a.text()),
+                              float(ui_analysis.load_pages.lineEdit_analysis_f_limit_a.text()))
+    analysis.fit.set_b_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_b.text()),
+                              float(ui_analysis.load_pages.lineEdit_analysis_f_limit_b.text()))
 
 
 # Return an array of two rgb colors, one for plot line and one for plot symbol
-def get_graph_rgb_colors(ui_analysis: UI_AnalysisWindow) -> np.array:
-    plot_line_r = ui_analysis.load_pages.lineEdit_analysis_plot_line_color_r.text()
-    plot_line_g = ui_analysis.load_pages.lineEdit_analysis_plot_line_color_g.text()
-    plot_line_b = ui_analysis.load_pages.lineEdit_analysis_plot_line_color_b.text()
-    plot_r = ui_analysis.load_pages.lineEdit_analysis_plot_color_r.text()
-    plot_g = ui_analysis.load_pages.lineEdit_analysis_plot_color_g.text()
-    plot_b = ui_analysis.load_pages.lineEdit_analysis_plot_color_b.text()
-    return [plot_line_r, plot_line_g, plot_line_b, plot_r, plot_g, plot_b]
+def get_graph_colors(ui_analysis: UI_AnalysisWindow) -> np.array:
+    colors = [(55, 55, 55), "b", "g", "r", "c", "m", "y", "k", "w"]
+    plot_line_color = colors[ui_analysis.load_pages.comboBox_analysis_plot_line_color.currentIndex()]
+    plot_symbol_color = colors[ui_analysis.load_pages.comboBox_analysis_plot_symbol_color.currentIndex()]
+    return [plot_line_color, plot_symbol_color]
 
 
-def set_data_2_graph(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
-    rgbs = get_graph_rgb_colors(ui_analysis)
-    print(rgbs)
-    if all(map(lambda s: s != "" and 0 <= int(s) < 256, rgbs)):
-        print("1")
-        ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(), symbol='o', pen=(rgbs[0], rgbs[1]
-                                                                                                        , rgbs[2]),
-                               symbolBrush=(rgbs[3], rgbs[4], rgbs[5]),
-                               name=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
-    elif all(map(lambda s: s != "" and 0 <= int(s) < 256, rgbs[:3])):
-        print("2")
-        ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(),
-                               symbolBrush=(rgbs[3], rgbs[4], rgbs[5]),
-                               name=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
-    elif all(map(lambda s: s != "" and 0 <= int(s) < 256, rgbs[3:])):
-        print("3")
-        ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(), symbol='o',
-                               pen=(rgbs[0], rgbs[1], rgbs[2]),
-                               name=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
-    else:
-        print("4")
-        ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(), symbol='o',
-                               name=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
+def set_data_2_graph(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
+    colors = get_graph_colors(ui_analysis)
+    ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(),
+                           symbol='o', pen=colors[0], symbolBrush=colors[1], symbolPen='w', symbolSize=4,
+                           name=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
+    # Add titles and units
+    ui_analysis.graph.setTitle(title=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
+    ui_analysis.graph.setLabel('left', ui_analysis.load_pages.lineEdit_analysis_x_title.text(),
+                               units=ui_analysis.load_pages.lineEdit_analysis_x_units.text())
+    ui_analysis.graph.setLabel('bottom', ui_analysis.load_pages.lineEdit_analysis_y_title.text(),
+                               units=ui_analysis.load_pages.lineEdit_analysis_y_units.text())
+
+
+def plot_opt_func(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    x = analysis.fit.get_x_array()
+    function = analysis.fit.get_function()
+    func_x = np.linspace(x[0], x[-1], 10000)
+    params = analysis.fit.get_params_array()
+    y_fit = function(func_x, *params)
+    ui_analysis.graph.plot(func_x, y_fit)
+
+
+def plot_opt_func_2(opt: Minuit, analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    par = opt.parameters
+    fit_arg = opt.fitarg
+    x = analysis.fit.get_x_array()
+    function = analysis.fit.get_function()
+    par_values = []
+    for _ in (par):
+        par_values.append(fit_arg[_])
+    func_x = np.linspace(x[0], x[-1], 10000)  # 10000 linearly spaced numbers
+    y_fit = function(func_x, *par_values)
+    ui_analysis.graph.plot(func_x, y_fit)  # plot the function over 10k points covering the x axis
 
 
 def matplotlib_fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):

@@ -8,9 +8,13 @@ import pyqtgraph.examples
 
 # import initExample ## Add path to library (just for examples; you do not need this)
 
+from scipy.optimize import curve_fit
 
 import numpy as np
 from PyQt6.QtWidgets import QApplication
+from iminuit import Minuit
+from iminuit.cost import LeastSquares
+from iminuit.util import make_func_code, describe
 from pyqtgraph.Qt import QtCore, QtGui
 import pyqtgraph as pg
 import numpy as np
@@ -25,11 +29,32 @@ import sys
 
 if __name__ == '__main__':
     excel = pd.ExcelFile('D:\\University\\pycharmLab\\excelCharts\\Lazer\\AlmogRaz\\4.63\\4.63.xlsx')
-    print(excel.sheet_names[:3])
-    data_frame: pd.DataFrame = pd.read_excel("D:\\University\\pycharmLab\\excelCharts\\Lazer\\AlmogRaz\\4.63\\4.63.xlsx", sheet_name="lens")
-    # print(data_frame.values)
+    # print(excel.sheet_names[:3])
+    data_frame: pd.DataFrame = pd.read_excel(
+        "D:\\University\\pycharmLab\\excelCharts\\Lazer\\AlmogRaz\\4.63\\4.63.xlsx", sheet_name="lens")
+    x = [1, 2, 3, 4, 5]
+    y = [5, 7, 9, 11, 13]
+    dy = np.ones_like(y)
+    f = lambda x, a, b: a * x + b
 
+    popt = curve_fit(f, x, y, p0=(0, 0),
+                     bounds=((-1000, -1000), (1000, 1000)))
 
+    arr = np.array([11, 12, 13, 14, 15, 16, 17, 15, 11, 12, 14, None, None, None])
+    result = next(x for x in arr if x is None)
+    print(result)
+
+    """""""""
+    linear_cost = LeastSquares(x, y, dy, f)
+    opt = Minuit(linear_cost, 1,1)
+    opt.migrad()
+    print(opt.errors[0])
+    
+    print(describe(f))
+    f.func_code = make_func_code(["alpha", "beta", "gamma"])
+    print(describe(f))
+    print(f.func_code)
+    """""""""
 """""""""""""""
 
 import initExample ## Add path to library (just for examples; you do not need this)

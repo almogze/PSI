@@ -123,8 +123,11 @@ class SetupAnalysisWindow:
         # COMBOBOX EDITING
         self.ui_analysis.load_pages.comboBox_analysis_box_location.addItems(["1", "2", "3", "4"])
         self.ui_analysis.load_pages.comboBox_analysis_fit_function.addItems(self.fun_text.fun_texts_array)
-        self.ui_analysis.load_pages.comboBox_analysis_cost_function.addItems(["Chi2Regression", "EffVarChi2Reg",
-                                                                              "Least of Squares"])
+
+        self.ui_analysis.load_pages.comboBox_analysis_plot_line_color.addItems(
+            ["Gray", "Blue", "Green", "Red", "Cyan", "Magenta", "Yellow", "Black", "White"])
+        self.ui_analysis.load_pages.comboBox_analysis_plot_symbol_color.addItems(
+            ["Gray", "Blue", "Green", "Red", "Cyan", "Magenta", "Yellow", "Black", "White"])
 
         # FIT, MATPLOTLIB AND CLEAN ALL BTNS
         self.ui_analysis.load_pages.fit_analysis_btn.clicked.connect(lambda: wf.fit_analysis_data(

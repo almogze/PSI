@@ -3,7 +3,12 @@ import matplotlib.pyplot as plt
 import warnings
 from iminuit import Minuit, describe, cost
 from iminuit.util import make_func_code
+from scipy.optimize import curve_fit
 from matplotlib.offsetbox import AnchoredText
+
+# IMPORT COST FUNCTIONS
+from iminuit.cost import LeastSquares
+
 
 
 class Functions_Texts:
@@ -84,14 +89,28 @@ class Fit(object):
     def __init__(self):
         self.a = None  # Final optimized parameter
         self.b = None  # Final optimized parameter
+        self.c = None  # Final optimized parameter
+        self.d = None  # Final optimized parameter
+
         self.a_0 = 0
         self.a_err = 0
         self.b_0 = 0
         self.b_err = 0
+        self.c_0 = 0
+        self.c_err = 0
+        self.d_0 = 0
+        self.d_err = 0
+
         self.a_limit_i = -1000
         self.a_limit_f = 1000
         self.b_limit_i = -1000
         self.b_limit_f = 1000
+        self.c_limit_i = -1000
+        self.c_limit_f = 1000
+        self.d_limit_i = -1000
+        self.d_limit_f = 1000
+
+        self.params_array = []
 
         self.function = None
         self.x: np.array = None  # the x values
@@ -105,6 +124,12 @@ class Fit(object):
     def set_b_parameter(self, b):
         self.b = b
 
+    def set_c_parameter(self, c):
+        self.c = c
+
+    def set_d_parameter(self, d):
+        self.d = d
+
     def get_a_parameter(self):
         return self.a
 
@@ -116,6 +141,12 @@ class Fit(object):
 
     def set_b_err_parameter(self, b_err):
         self.b_err = b_err
+
+    def set_c_err_parameter(self, c_err):
+        self.c_err = c_err
+
+    def set_d_err_parameter(self, d_err):
+        self.d_err = d_err
 
     def get_a_err_parameter(self):
         return self.a_err
@@ -173,15 +204,62 @@ class Fit(object):
     def get_dy_array(self):
         return self.dy
 
-    def build_EffVarChi2Reg_cost_function(self) -> EffVarChi2Reg:
-        return EffVarChi2Reg(self.x, self.y, self.dx, self.dy, self.function)
+    def get_params_array(self):
+        return self.params_array
 
-    def optimize(self, cost_function) -> Minuit:
+    def optimize(self) -> Minuit:
+        cost_function = self.build_cost_function()
         opt = Minuit(cost_function, a=self.a_0, b=self.b_0)
         opt.limits = [(self.a_limit_i, self.a_limit_f), (self.b_limit_i, self.b_limit_f)]
         opt.migrad()
-        self.a = opt.np_values()[0]
-        self.a_err = opt.np_errors()[0]
-        self.b = opt.np_values()[1]
-        self.b_err = opt.np_errors()[1]
+        self.set_params(opt.values)
+        self.set_errors(opt.errors)
         return opt
+
+    # set fit function's parameters with optimal values so that the sum of the squared residuals of
+    # f(xdata, *parameters_optimal) - ydata is minimized.
+    def opt_by_scipy(self) -> np.array:
+        popt = curve_fit(self.function, self.x, self.y, p0=(self.a_0, self.b_0),
+                         bounds=((self.a_limit_i, self.b_limit_i), (self.a_limit_f, self.b_limit_f)))[0]
+        self.set_params(popt)
+
+    # Cost Functions Builders:
+    def build_cost_function(self) -> LeastSquares or EffVarChi2Reg:
+        if self.dx is not None and self.dy is not None:
+            return EffVarChi2Reg(self.x, self.y, self.dx, self.dy, self.function)
+        else:
+            return LeastSquares(self.x, self.y, self.dy, self.function)
+
+    def set_params(self, params: np.array):
+        size = len(params)
+        if size > 0:
+            self.set_a_parameter(params[0])
+            if size > 1:
+                self.set_b_parameter(params[1])
+                if size > 2:
+                    self.set_c_parameter(params[2])
+                    if size > 3:
+                        self.set_d_parameter(params[3])
+        self.update_array()
+
+    def set_errors(self, errors: np.array):
+        size = len(errors)
+        if size > 0:
+            self.set_a_err_parameter(errors[0])
+            if size > 1:
+                self.set_b_err_parameter(errors[1])
+                if size > 2:
+                    self.set_c_err_parameter(errors[2])
+                    if size > 3:
+                        self.set_d_err_parameter(errors[3])
+
+    def update_array(self):
+        if self.a is not None:
+            self.params_array.append(self.a)
+            if self.b is not None:
+                self.params_array.append(self.b)
+                if self.c is not None:
+                    self.params_array.append(self.c)
+                    if self.d is not None:
+                        self.params_array.append(self.d)
+

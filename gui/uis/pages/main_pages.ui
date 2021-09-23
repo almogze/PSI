@@ -1942,13 +1942,33 @@ background-color: rgb(255, 255, 255);</string>
                             </item>
                             <item row="1" column="1">
                              <widget class="QFrame" name="frame_59">
+                              <property name="minimumSize">
+                               <size>
+                                <width>60</width>
+                                <height>25</height>
+                               </size>
+                              </property>
                               <property name="frameShape">
                                <enum>QFrame::StyledPanel</enum>
                               </property>
                               <property name="frameShadow">
                                <enum>QFrame::Raised</enum>
                               </property>
-                              <layout class="QVBoxLayout" name="verticalLayout_31"/>
+                              <layout class="QVBoxLayout" name="verticalLayout_31">
+                               <item>
+                                <widget class="QPushButton" name="pushButton_analysis_clear_graph">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>60</width>
+                                   <height>25</height>
+                                  </size>
+                                 </property>
+                                 <property name="text">
+                                  <string>Clear Graph</string>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
                              </widget>
                             </item>
                            </layout>
@@ -2384,6 +2404,12 @@ background-color: rgb(255, 255, 255);</string>
                          </item>
                          <item>
                           <widget class="QFrame" name="frame_14">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>300</height>
+                            </size>
+                           </property>
                            <property name="frameShape">
                             <enum>QFrame::StyledPanel</enum>
                            </property>
@@ -2470,6 +2496,50 @@ background-color: rgb(255, 255, 255);</string>
                                   </item>
                                   <item>
                                    <widget class="QLineEdit" name="lineEdit_analysis_initial_b"/>
+                                  </item>
+                                 </layout>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QFrame" name="frame_68">
+                                 <property name="frameShape">
+                                  <enum>QFrame::StyledPanel</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_40">
+                                  <item>
+                                   <widget class="QLabel" name="label_28">
+                                    <property name="text">
+                                     <string>Initial Value c: </string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QLineEdit" name="lineEdit_analysis_initial_c"/>
+                                  </item>
+                                 </layout>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QFrame" name="frame_69">
+                                 <property name="frameShape">
+                                  <enum>QFrame::StyledPanel</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_46">
+                                  <item>
+                                   <widget class="QLabel" name="label_29">
+                                    <property name="text">
+                                     <string>Initial Value d: </string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QLineEdit" name="lineEdit_analysis_initial_d"/>
                                   </item>
                                  </layout>
                                 </widget>
@@ -2578,7 +2648,7 @@ background-color: rgb(255, 255, 255);</string>
                                         <item>
                                          <widget class="QLineEdit" name="lineEdit_analysis_param_a">
                                           <property name="enabled">
-                                           <bool>false</bool>
+                                           <bool>true</bool>
                                           </property>
                                           <property name="minimumSize">
                                            <size>
@@ -2601,7 +2671,7 @@ background-color: rgb(255, 255, 255);</string>
                                         <item>
                                          <widget class="QLineEdit" name="lineEdit_analysis_err_a">
                                           <property name="enabled">
-                                           <bool>false</bool>
+                                           <bool>true</bool>
                                           </property>
                                           <property name="minimumSize">
                                            <size>
@@ -2636,7 +2706,7 @@ background-color: rgb(255, 255, 255);</string>
                                         <item>
                                          <widget class="QLineEdit" name="lineEdit_analysis_param_b">
                                           <property name="enabled">
-                                           <bool>false</bool>
+                                           <bool>true</bool>
                                           </property>
                                           <property name="minimumSize">
                                            <size>
@@ -2659,7 +2729,7 @@ background-color: rgb(255, 255, 255);</string>
                                         <item>
                                          <widget class="QLineEdit" name="lineEdit_analysis_err_b">
                                           <property name="enabled">
-                                           <bool>false</bool>
+                                           <bool>true</bool>
                                           </property>
                                           <property name="minimumSize">
                                            <size>
@@ -2832,26 +2902,90 @@ background-color: rgb(255, 255, 255);</string>
                                  <property name="frameShadow">
                                   <enum>QFrame::Raised</enum>
                                  </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_23">
+                                 <layout class="QVBoxLayout" name="verticalLayout_23">
+                                  <property name="spacing">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="leftMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="rightMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>0</number>
+                                  </property>
                                   <item>
-                                   <widget class="QLabel" name="label_3">
-                                    <property name="maximumSize">
-                                     <size>
-                                      <width>65</width>
-                                      <height>16777215</height>
-                                     </size>
+                                   <widget class="QFrame" name="frame_70">
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
                                     </property>
-                                    <property name="text">
-                                     <string>Fit Function:</string>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
                                     </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_23">
+                                     <property name="spacing">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QLabel" name="label_3">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>65</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>Fit Function:</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QComboBox" name="comboBox_analysis_fit_function">
+                                       <property name="styleSheet">
+                                        <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
                                    </widget>
                                   </item>
                                   <item>
-                                   <widget class="QComboBox" name="comboBox_analysis_fit_function">
-                                    <property name="styleSheet">
-                                     <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+                                   <widget class="QFrame" name="frame_71">
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
                                     </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_47">
+                                     <item>
+                                      <widget class="QLabel" name="label_analysis_fit_function">
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
                                    </widget>
                                   </item>
                                  </layout>
@@ -3058,6 +3192,160 @@ background-color: rgb(255, 255, 255);</string>
                                     </layout>
                                    </widget>
                                   </item>
+                                  <item>
+                                   <widget class="QFrame" name="frame_analysis_f_limit_b_2">
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_44">
+                                     <item>
+                                      <widget class="QLabel" name="label_41">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>80</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>Limits c:</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLabel" name="label_42">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>10</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>s</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLineEdit" name="lineEdit_analysis_s_limit_c">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>40</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLabel" name="label_43">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>10</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>f</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLineEdit" name="lineEdit_analysis_f_limit_c">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>40</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QFrame" name="frame_analysis_f_limit_b_3">
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_45">
+                                     <item>
+                                      <widget class="QLabel" name="label_44">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>80</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>Limits d:</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLabel" name="label_45">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>10</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>s</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLineEdit" name="lineEdit_analysis_s_limit_d">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>40</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLabel" name="label_46">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>10</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>f</string>
+                                       </property>
+                                       <property name="alignment">
+                                        <set>Qt::AlignCenter</set>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QLineEdit" name="lineEdit_analysis_f_limit_d">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>40</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
                                  </layout>
                                 </widget>
                                </item>
@@ -3071,16 +3359,54 @@ background-color: rgb(255, 255, 255);</string>
                                  </property>
                                  <layout class="QVBoxLayout" name="verticalLayout_22">
                                   <item>
-                                   <widget class="QPushButton" name="fit_analysis_btn">
+                                   <widget class="QPushButton" name="plot_analysis_btn">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>60</width>
+                                      <height>25</height>
+                                     </size>
+                                    </property>
                                     <property name="text">
-                                     <string>Fit</string>
+                                     <string>Plot</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QPushButton" name="Optimaize_analysis_btn">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>60</width>
+                                      <height>25</height>
+                                     </size>
+                                    </property>
+                                    <property name="text">
+                                     <string>Optimaize</string>
                                     </property>
                                    </widget>
                                   </item>
                                   <item>
                                    <widget class="QPushButton" name="matplotlib_fit_analsis_btn">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>60</width>
+                                      <height>25</height>
+                                     </size>
+                                    </property>
                                     <property name="text">
                                      <string>Export fit to MatPlotLib</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QPushButton" name="pushButton_analysis_clear_opt">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>60</width>
+                                      <height>25</height>
+                                     </size>
+                                    </property>
+                                    <property name="text">
+                                     <string>Clear Optimization</string>
                                     </property>
                                    </widget>
                                   </item>

@@ -36,7 +36,7 @@ if __name__ == '__main__':
     y = [5, 7, 9, 11, 13]
     dy = np.ones_like(y)
     f = lambda x, a, b: a * x + b
-
+    """""""""
     popt = curve_fit(f, x, y, p0=(0, 0),
                      bounds=((-1000, -1000), (1000, 1000)))
 
@@ -46,15 +46,14 @@ if __name__ == '__main__':
 
     """""""""
     linear_cost = LeastSquares(x, y, dy, f)
-    opt = Minuit(linear_cost, 1,1)
+    opt = Minuit(linear_cost, 1, 1)
     opt.migrad()
-    print(opt.errors[0])
-    
+
     print(describe(f))
     f.func_code = make_func_code(["alpha", "beta", "gamma"])
     print(describe(f))
     print(f.func_code)
-    """""""""
+
 """""""""""""""
 
 import initExample ## Add path to library (just for examples; you do not need this)

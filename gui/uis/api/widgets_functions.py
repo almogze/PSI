@@ -13,6 +13,7 @@ from gui.uis.api.atom import Atom
 from gui.uis.api.analysis import Analysis
 from gui.uis.windows.atom_window import UI_AtomWindow
 from gui.uis.windows.analysis_window import UI_AnalysisWindow
+from gui.uis.api.fitting import Fit
 from gui.widgets import *
 from qt_core import *
 
@@ -150,19 +151,43 @@ def send_excel_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow) ->
         error.exec()
 
 
+def fun_fit_changed(analysis: Analysis, ui_analysis: UI_AnalysisWindow, ind: int):
+    # Set the fit function label to mach the new function that chosen
+    ui_analysis.load_pages.label_analysis_fit_function.setText(analysis.fun_texts.fun_non_latex_texts_array[ind])
+    # number of parameters of new fit function
+    new_num_of_params = analysis.fun_fits.number_of_params[ind]
+    # Check if the new fit function has the same amount of parameters
+    if new_num_of_params == analysis.fit.get_func_par_num():
+        return
+    else:
+        analysis.fit.set_func_par_num(new_num_of_params)
+        refresh_params_data_enable(ui_analysis, new_num_of_params)
+
+
 def initialize_excel_axis(axis: np.ndarray, ui_analysis: UI_AnalysisWindow) -> None:
+    ui_analysis.load_pages.comboBox_analysis_x_axis.clear()
+    ui_analysis.load_pages.comboBox_analysis_y_axis.clear()
+    ui_analysis.load_pages.comboBox_analysis_x_error.clear()
+    ui_analysis.load_pages.comboBox_analysis_y_error.clear()
+    print("clean old axis")
     ui_analysis.load_pages.comboBox_analysis_x_axis.addItems(axis)
     ui_analysis.load_pages.comboBox_analysis_y_axis.addItems(axis)
     ui_analysis.load_pages.comboBox_analysis_x_error.addItems(np.append(axis, "None"))
     ui_analysis.load_pages.comboBox_analysis_y_error.addItems(np.append(axis, "None"))
 
 
-def fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
-    # Initialize axis and parameters with user's data
-    set_parameters(analysis, ui_analysis)
+def plot_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
     set_data(analysis, ui_analysis)
-    # Plot data on a graph
     set_data_2_graph(analysis, ui_analysis)
+
+
+def optimize_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
+    # Initialize parameters with user's data
+    set_parameters(analysis, ui_analysis)
+    # Activate optimization
+    set_opt_and_plot(analysis, ui_analysis)
+    # Update optimized parameters
+    update_parameters(analysis, ui_analysis)
 
 
 def get_axis_labels(ui_analysis: UI_AnalysisWindow) -> np.array:
@@ -187,25 +212,195 @@ def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     else:
         dy = df[labels[3]].values
     ui_analysis.analysis.setFitData(x, y, dx, dy)
-    # Set fit function as user marked
-    analysis.fit.set_function(
-        analysis.fun_fits.fun_fit_array[ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex()])
+
+
+def set_opt_and_plot(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    # Set fit function index as user marked
+    fun_ind = ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex()
+    # Set the wanted fit function
+    print(analysis.fun_texts.fun_texts_array[fun_ind])
+    analysis.fit.set_function(analysis.fun_fits.fun_fit_array[fun_ind])
+    # Keep the number of parameters in the fit function
+    analysis.fit.set_func_par_num(analysis.fun_fits.number_of_params[fun_ind])
     # Activate optimization with the current cost function
-    if dx is None and dy is None:
-        analysis.fit.opt_by_scipy()
-        plot_opt_func(analysis, ui_analysis)
-    else:
+    if analysis.fit.has_uncertainty():
         opt: Minuit = analysis.fit.optimize()
-        plot_opt_func_2(opt, analysis, ui_analysis)
+        # Plot data on a graph
+    else:
+        analysis.fit.opt_by_scipy()
+    # Plot data on a graph
+    plot_opt_func(analysis, ui_analysis)
 
 
 def set_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    param_num = analysis.fit.get_func_par_num()
     analysis.fit.set_a_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_a.text()))
-    analysis.fit.set_b_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_b.text()))
     analysis.fit.set_a_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_a.text()),
                               float(ui_analysis.load_pages.lineEdit_analysis_f_limit_a.text()))
-    analysis.fit.set_b_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_b.text()),
-                              float(ui_analysis.load_pages.lineEdit_analysis_f_limit_b.text()))
+    if param_num > 1:
+        analysis.fit.set_b_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_b.text()))
+        analysis.fit.set_b_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_b.text()),
+                                  float(ui_analysis.load_pages.lineEdit_analysis_f_limit_b.text()))
+        if param_num > 2:
+            analysis.fit.set_c_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_a.text()))
+            analysis.fit.set_c_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_c.text()),
+                                      float(ui_analysis.load_pages.lineEdit_analysis_f_limit_c.text()))
+            if param_num > 3:
+                analysis.fit.set_d_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_b.text()))
+                analysis.fit.set_d_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_d.text()),
+                                          float(ui_analysis.load_pages.lineEdit_analysis_f_limit_d.text()))
+
+
+def refresh_params_data_enable(ui_analysis: UI_AnalysisWindow, params_num: int):
+    if params_num == 1:
+        ui_analysis.load_pages.lineEdit_analysis_initial_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_a.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_b.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_param_b.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_err_b.setEnabled(False)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_c.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_c.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_c.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_param_c.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_err_c.setEnabled(False)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_param_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_err_d.setEnabled(False)
+        refresh_param_data_text(ui_analysis,
+                                [["0", "-1000", "1000"], ["None", "None", "None"], ["None", "None", "None"],
+                                 ["None", "None", "None"]])
+    elif params_num == 2:
+        ui_analysis.load_pages.lineEdit_analysis_initial_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_a.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_b.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_c.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_c.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_c.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_param_c.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_err_c.setEnabled(False)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_param_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_err_d.setEnabled(False)
+        # Check if the selected fit function is Normalized Gaussian (index 6)
+        if ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex() == 6:
+            refresh_param_data_text(ui_analysis,
+                                    [["1", "-1000", "1000"], ["0", "-1000", "1000"], ["None", "None", "None"],
+                                     ["None", "None", "None"]])
+        else:
+            refresh_param_data_text(ui_analysis,
+                                    [["0", "-1000", "1000"], ["0", "-1000", "1000"], ["None", "None", "None"],
+                                     ["None", "None", "None"]])
+    elif params_num == 3:
+        ui_analysis.load_pages.lineEdit_analysis_initial_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_a.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_b.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_c.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_c.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_c.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_c.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_c.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_param_d.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_err_d.setEnabled(False)
+        # Check if the selected fit function is Gaussian (index 7)
+        if ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex() == 7:
+            refresh_param_data_text(ui_analysis,
+                                    [["0", "-1000", "1000"], ["1", "-1000", "1000"], ["0", "-1000", "1000"],
+                                     ["None", "None", "None"]])
+        else:
+            refresh_param_data_text(ui_analysis,
+                                    [["0", "-1000", "1000"], ["0", "-1000", "1000"], ["0", "-1000", "1000"],
+                                     ["None", "None", "None"]])
+    elif params_num == 4:
+        ui_analysis.load_pages.lineEdit_analysis_initial_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_a.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_a.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_b.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_b.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_c.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_c.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_c.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_c.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_c.setEnabled(True)
+
+        ui_analysis.load_pages.lineEdit_analysis_initial_d.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_s_limit_d.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_param_d.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_err_d.setEnabled(True)
+        refresh_param_data_text(ui_analysis, [["0", "-1000", "1000"], ["0", "-1000", "1000"], ["0", "-1000", "1000"],
+                                              ["0", "-1000", "1000"]])
+
+
+def refresh_param_data_text(ui_analysis: UI_AnalysisWindow, text_arr):
+    ui_analysis.load_pages.lineEdit_analysis_initial_a.setText(text_arr[0][0])
+    ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setText(text_arr[0][1])
+    ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setText(text_arr[0][2])
+
+    ui_analysis.load_pages.lineEdit_analysis_initial_b.setText(text_arr[1][0])
+    ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setText(text_arr[1][1])
+    ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setText(text_arr[1][2])
+
+    ui_analysis.load_pages.lineEdit_analysis_initial_c.setText(text_arr[2][0])
+    ui_analysis.load_pages.lineEdit_analysis_s_limit_c.setText(text_arr[2][1])
+    ui_analysis.load_pages.lineEdit_analysis_f_limit_c.setText(text_arr[2][2])
+
+    ui_analysis.load_pages.lineEdit_analysis_initial_d.setText(text_arr[3][0])
+    ui_analysis.load_pages.lineEdit_analysis_s_limit_d.setText(text_arr[3][1])
+    ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setText(text_arr[3][2])
+
+
+def update_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    num_of_params = analysis.fit.get_func_par_num()
+    if num_of_params > 0:
+        ui_analysis.load_pages.lineEdit_analysis_param_a.setText(str(analysis.fit.get_a_parameter()))
+        if num_of_params > 1:
+            ui_analysis.load_pages.lineEdit_analysis_param_b.setText(str(analysis.fit.get_b_parameter()))
+            if num_of_params > 2:
+                ui_analysis.load_pages.lineEdit_analysis_param_c.setText(str(analysis.fit.get_c_parameter()))
+                if num_of_params > 3:
+                    ui_analysis.load_pages.lineEdit_analysis_param_d.setText(str(analysis.fit.get_d_parameter()))
 
 
 # Return an array of two rgb colors, one for plot line and one for plot symbol
@@ -219,7 +414,7 @@ def get_graph_colors(ui_analysis: UI_AnalysisWindow) -> np.array:
 def set_data_2_graph(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
     colors = get_graph_colors(ui_analysis)
     ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(),
-                           symbol='o', pen=colors[0], symbolBrush=colors[1], symbolPen='w', symbolSize=4,
+                           symbol='o', pen=colors[0], symbolBrush=colors[1], symbolPen='w', symbolSize=8,
                            name=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
     # Add titles and units
     ui_analysis.graph.setTitle(title=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
@@ -230,34 +425,80 @@ def set_data_2_graph(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None
 
 
 def plot_opt_func(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    colors = get_graph_colors(ui_analysis)
     x = analysis.fit.get_x_array()
     function = analysis.fit.get_function()
     func_x = np.linspace(x[0], x[-1], 10000)
     params = analysis.fit.get_params_array()
     y_fit = function(func_x, *params)
-    ui_analysis.graph.plot(func_x, y_fit)
+    ui_analysis.graph.plot(func_x, y_fit, pen=colors[0])
 
 
-def plot_opt_func_2(opt: Minuit, analysis: Analysis, ui_analysis: UI_AnalysisWindow):
-    par = opt.parameters
-    fit_arg = opt.fitarg
+def plot_opt_func_with_uncertainties(opt: Minuit, analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    colors = get_graph_colors(ui_analysis)
     x = analysis.fit.get_x_array()
     function = analysis.fit.get_function()
-    par_values = []
-    for _ in (par):
-        par_values.append(fit_arg[_])
+    par_values = analysis.fit.get_params_array()
     func_x = np.linspace(x[0], x[-1], 10000)  # 10000 linearly spaced numbers
     y_fit = function(func_x, *par_values)
-    ui_analysis.graph.plot(func_x, y_fit)  # plot the function over 10k points covering the x axis
+    ui_analysis.graph.plot(func_x, y_fit, pen=colors[0])  # plot the function over 10k points covering the x axis
 
 
 def matplotlib_fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     return None
 
 
+def clean_graph_analysis(ui_analysis: UI_AnalysisWindow):
+    pages = ui_analysis.load_pages
+    pages.lineEdit_analysis_main_title.clear()
+    pages.lineEdit_analysis_x_title.clear()
+    pages.lineEdit_analysis_x_units.clear()
+    pages.lineEdit_analysis_y_title.clear()
+    pages.lineEdit_analysis_y_units.clear()
+    pages.comboBox_analysis_box_location.setCurrentIndex(0)
+    pages.comboBox_analysis_plot_line_color.setCurrentIndex(0)
+    pages.comboBox_analysis_plot_symbol_color.setCurrentIndex(0)
+    ui_analysis.graph.clear()
+    ui_analysis.graph.setTitle(title="")
+    ui_analysis.graph.setLabel('left', "")
+    ui_analysis.graph.setLabel('bottom', "")
+    print("Graph Clean Done")
+
+
+def clean_opt_analysis(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    pages = ui_analysis.load_pages
+    pages.comboBox_analysis_fit_function.setCurrentIndex(0)
+    refresh_params_data_enable(ui_analysis, 2)
+    pages.lineEdit_analysis_param_a.setText("None")
+    pages.lineEdit_analysis_err_a.setText("None")
+    pages.lineEdit_analysis_param_b.setText("None")
+    pages.lineEdit_analysis_err_b.setText("None")
+    pages.lineEdit_analysis_param_c.setText("None")
+    pages.lineEdit_analysis_err_c.setText("None")
+    pages.lineEdit_analysis_param_d.setText("None")
+    pages.lineEdit_analysis_err_d.setText("None")
+    pages.comboBox_analysis_x_axis.setCurrentIndex(0)
+    pages.comboBox_analysis_y_axis.setCurrentIndex(0)
+    pages.comboBox_analysis_x_error.setCurrentIndex(0)
+    pages.comboBox_analysis_y_error.setCurrentIndex(0)
+    analysis.fit = Fit()
+    print("Optimization Clean Done")
+
+
 def clean_all_analysis_screen(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
-    return None
-
-
-def test_define():
-    print("test!")
+    # Clean Graph
+    clean_graph_analysis(ui_analysis)
+    # Clean Optimization
+    clean_opt_analysis(analysis, ui_analysis)
+    # Clear Excel Path
+    ui_analysis.load_pages.lineEdit_analysis_excel_name.clear()
+    # Clear Excel Sheet Names
+    ui_analysis.load_pages.comboBox_analysis_excel_sheet_names.clear()
+    # Clear Axis Combos
+    ui_analysis.load_pages.comboBox_analysis_x_axis.clear()
+    ui_analysis.load_pages.comboBox_analysis_y_axis.clear()
+    ui_analysis.load_pages.comboBox_analysis_x_error.clear()
+    ui_analysis.load_pages.comboBox_analysis_y_error.clear()
+    # Creating new analysis
+    ui_analysis.analysis = Analysis()
+    print("Clean All Done")

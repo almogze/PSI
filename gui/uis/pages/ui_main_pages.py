@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagestdkMwQ.ui'
+## Form generated from reading UI file 'main_pagessUvUnd.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -895,10 +895,17 @@ class Ui_MainPages(object):
 
         self.frame_59 = QFrame(self.frame_10)
         self.frame_59.setObjectName(u"frame_59")
+        self.frame_59.setMinimumSize(QSize(60, 25))
         self.frame_59.setFrameShape(QFrame.StyledPanel)
         self.frame_59.setFrameShadow(QFrame.Raised)
         self.verticalLayout_31 = QVBoxLayout(self.frame_59)
         self.verticalLayout_31.setObjectName(u"verticalLayout_31")
+        self.pushButton_analysis_clear_graph = QPushButton(self.frame_59)
+        self.pushButton_analysis_clear_graph.setObjectName(u"pushButton_analysis_clear_graph")
+        self.pushButton_analysis_clear_graph.setMinimumSize(QSize(60, 25))
+
+        self.verticalLayout_31.addWidget(self.pushButton_analysis_clear_graph)
+
 
         self.gridLayout.addWidget(self.frame_59, 1, 1, 1, 1)
 
@@ -1100,6 +1107,7 @@ class Ui_MainPages(object):
 
         self.frame_14 = QFrame(self.groupBox_analysis_fit_settings)
         self.frame_14.setObjectName(u"frame_14")
+        self.frame_14.setMinimumSize(QSize(400, 300))
         self.frame_14.setFrameShape(QFrame.StyledPanel)
         self.frame_14.setFrameShadow(QFrame.Raised)
         self.gridLayout_2 = QGridLayout(self.frame_14)
@@ -1152,6 +1160,44 @@ class Ui_MainPages(object):
 
         self.verticalLayout_19.addWidget(self.frame_43)
 
+        self.frame_68 = QFrame(self.frame_33)
+        self.frame_68.setObjectName(u"frame_68")
+        self.frame_68.setFrameShape(QFrame.StyledPanel)
+        self.frame_68.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_40 = QHBoxLayout(self.frame_68)
+        self.horizontalLayout_40.setObjectName(u"horizontalLayout_40")
+        self.label_28 = QLabel(self.frame_68)
+        self.label_28.setObjectName(u"label_28")
+
+        self.horizontalLayout_40.addWidget(self.label_28)
+
+        self.lineEdit_analysis_initial_c = QLineEdit(self.frame_68)
+        self.lineEdit_analysis_initial_c.setObjectName(u"lineEdit_analysis_initial_c")
+
+        self.horizontalLayout_40.addWidget(self.lineEdit_analysis_initial_c)
+
+
+        self.verticalLayout_19.addWidget(self.frame_68)
+
+        self.frame_69 = QFrame(self.frame_33)
+        self.frame_69.setObjectName(u"frame_69")
+        self.frame_69.setFrameShape(QFrame.StyledPanel)
+        self.frame_69.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_46 = QHBoxLayout(self.frame_69)
+        self.horizontalLayout_46.setObjectName(u"horizontalLayout_46")
+        self.label_29 = QLabel(self.frame_69)
+        self.label_29.setObjectName(u"label_29")
+
+        self.horizontalLayout_46.addWidget(self.label_29)
+
+        self.lineEdit_analysis_initial_d = QLineEdit(self.frame_69)
+        self.lineEdit_analysis_initial_d.setObjectName(u"lineEdit_analysis_initial_d")
+
+        self.horizontalLayout_46.addWidget(self.lineEdit_analysis_initial_d)
+
+
+        self.verticalLayout_19.addWidget(self.frame_69)
+
 
         self.gridLayout_2.addWidget(self.frame_33, 1, 0, 1, 1)
 
@@ -1168,7 +1214,7 @@ class Ui_MainPages(object):
         self.horizontalLayout_39 = QHBoxLayout(self.groupBox)
         self.horizontalLayout_39.setSpacing(0)
         self.horizontalLayout_39.setObjectName(u"horizontalLayout_39")
-        self.horizontalLayout_39.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_39.setContentsMargins(2, 0, 0, 0)
         self.label_10 = QLabel(self.groupBox)
         self.label_10.setObjectName(u"label_10")
         self.label_10.setMaximumSize(QSize(100, 16777215))
@@ -1196,7 +1242,7 @@ class Ui_MainPages(object):
 
         self.lineEdit_analysis_param_a = QLineEdit(self.frame_57)
         self.lineEdit_analysis_param_a.setObjectName(u"lineEdit_analysis_param_a")
-        self.lineEdit_analysis_param_a.setEnabled(False)
+        self.lineEdit_analysis_param_a.setEnabled(True)
         self.lineEdit_analysis_param_a.setMinimumSize(QSize(0, 20))
 
         self.horizontalLayout_35.addWidget(self.lineEdit_analysis_param_a)
@@ -1208,7 +1254,7 @@ class Ui_MainPages(object):
 
         self.lineEdit_analysis_err_a = QLineEdit(self.frame_57)
         self.lineEdit_analysis_err_a.setObjectName(u"lineEdit_analysis_err_a")
-        self.lineEdit_analysis_err_a.setEnabled(False)
+        self.lineEdit_analysis_err_a.setEnabled(True)
         self.lineEdit_analysis_err_a.setMinimumSize(QSize(0, 20))
 
         self.horizontalLayout_35.addWidget(self.lineEdit_analysis_err_a)
@@ -1229,7 +1275,7 @@ class Ui_MainPages(object):
 
         self.lineEdit_analysis_param_b = QLineEdit(self.frame_58)
         self.lineEdit_analysis_param_b.setObjectName(u"lineEdit_analysis_param_b")
-        self.lineEdit_analysis_param_b.setEnabled(False)
+        self.lineEdit_analysis_param_b.setEnabled(True)
         self.lineEdit_analysis_param_b.setMinimumSize(QSize(0, 20))
 
         self.horizontalLayout_36.addWidget(self.lineEdit_analysis_param_b)
@@ -1241,7 +1287,7 @@ class Ui_MainPages(object):
 
         self.lineEdit_analysis_err_b = QLineEdit(self.frame_58)
         self.lineEdit_analysis_err_b.setObjectName(u"lineEdit_analysis_err_b")
-        self.lineEdit_analysis_err_b.setEnabled(False)
+        self.lineEdit_analysis_err_b.setEnabled(True)
         self.lineEdit_analysis_err_b.setMinimumSize(QSize(0, 20))
 
         self.horizontalLayout_36.addWidget(self.lineEdit_analysis_err_b)
@@ -1336,20 +1382,48 @@ class Ui_MainPages(object):
         self.frame_36.setObjectName(u"frame_36")
         self.frame_36.setFrameShape(QFrame.StyledPanel)
         self.frame_36.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_23 = QHBoxLayout(self.frame_36)
+        self.verticalLayout_23 = QVBoxLayout(self.frame_36)
+        self.verticalLayout_23.setSpacing(0)
+        self.verticalLayout_23.setObjectName(u"verticalLayout_23")
+        self.verticalLayout_23.setContentsMargins(0, 0, 0, 0)
+        self.frame_70 = QFrame(self.frame_36)
+        self.frame_70.setObjectName(u"frame_70")
+        self.frame_70.setFrameShape(QFrame.StyledPanel)
+        self.frame_70.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_23 = QHBoxLayout(self.frame_70)
+        self.horizontalLayout_23.setSpacing(0)
         self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
-        self.label_3 = QLabel(self.frame_36)
+        self.horizontalLayout_23.setContentsMargins(2, 0, 0, 0)
+        self.label_3 = QLabel(self.frame_70)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setMaximumSize(QSize(65, 16777215))
 
         self.horizontalLayout_23.addWidget(self.label_3)
 
-        self.comboBox_analysis_fit_function = QComboBox(self.frame_36)
+        self.comboBox_analysis_fit_function = QComboBox(self.frame_70)
         self.comboBox_analysis_fit_function.setObjectName(u"comboBox_analysis_fit_function")
         self.comboBox_analysis_fit_function.setStyleSheet(u"color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);")
 
         self.horizontalLayout_23.addWidget(self.comboBox_analysis_fit_function)
+
+
+        self.verticalLayout_23.addWidget(self.frame_70)
+
+        self.frame_71 = QFrame(self.frame_36)
+        self.frame_71.setObjectName(u"frame_71")
+        self.frame_71.setFrameShape(QFrame.StyledPanel)
+        self.frame_71.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_47 = QHBoxLayout(self.frame_71)
+        self.horizontalLayout_47.setObjectName(u"horizontalLayout_47")
+        self.label_analysis_fit_function = QLabel(self.frame_71)
+        self.label_analysis_fit_function.setObjectName(u"label_analysis_fit_function")
+        self.label_analysis_fit_function.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_47.addWidget(self.label_analysis_fit_function)
+
+
+        self.verticalLayout_23.addWidget(self.frame_71)
 
 
         self.verticalLayout_18.addWidget(self.frame_36)
@@ -1462,6 +1536,88 @@ class Ui_MainPages(object):
 
         self.verticalLayout_21.addWidget(self.frame_analysis_f_limit_b)
 
+        self.frame_analysis_f_limit_b_2 = QFrame(self.frame_65)
+        self.frame_analysis_f_limit_b_2.setObjectName(u"frame_analysis_f_limit_b_2")
+        self.frame_analysis_f_limit_b_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_analysis_f_limit_b_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_44 = QHBoxLayout(self.frame_analysis_f_limit_b_2)
+        self.horizontalLayout_44.setObjectName(u"horizontalLayout_44")
+        self.label_41 = QLabel(self.frame_analysis_f_limit_b_2)
+        self.label_41.setObjectName(u"label_41")
+        self.label_41.setMaximumSize(QSize(80, 16777215))
+        self.label_41.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_44.addWidget(self.label_41)
+
+        self.label_42 = QLabel(self.frame_analysis_f_limit_b_2)
+        self.label_42.setObjectName(u"label_42")
+        self.label_42.setMaximumSize(QSize(10, 16777215))
+
+        self.horizontalLayout_44.addWidget(self.label_42)
+
+        self.lineEdit_analysis_s_limit_c = QLineEdit(self.frame_analysis_f_limit_b_2)
+        self.lineEdit_analysis_s_limit_c.setObjectName(u"lineEdit_analysis_s_limit_c")
+        self.lineEdit_analysis_s_limit_c.setMaximumSize(QSize(40, 16777215))
+
+        self.horizontalLayout_44.addWidget(self.lineEdit_analysis_s_limit_c)
+
+        self.label_43 = QLabel(self.frame_analysis_f_limit_b_2)
+        self.label_43.setObjectName(u"label_43")
+        self.label_43.setMaximumSize(QSize(10, 16777215))
+        self.label_43.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_44.addWidget(self.label_43)
+
+        self.lineEdit_analysis_f_limit_c = QLineEdit(self.frame_analysis_f_limit_b_2)
+        self.lineEdit_analysis_f_limit_c.setObjectName(u"lineEdit_analysis_f_limit_c")
+        self.lineEdit_analysis_f_limit_c.setMaximumSize(QSize(40, 16777215))
+
+        self.horizontalLayout_44.addWidget(self.lineEdit_analysis_f_limit_c)
+
+
+        self.verticalLayout_21.addWidget(self.frame_analysis_f_limit_b_2)
+
+        self.frame_analysis_f_limit_b_3 = QFrame(self.frame_65)
+        self.frame_analysis_f_limit_b_3.setObjectName(u"frame_analysis_f_limit_b_3")
+        self.frame_analysis_f_limit_b_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_analysis_f_limit_b_3.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_45 = QHBoxLayout(self.frame_analysis_f_limit_b_3)
+        self.horizontalLayout_45.setObjectName(u"horizontalLayout_45")
+        self.label_44 = QLabel(self.frame_analysis_f_limit_b_3)
+        self.label_44.setObjectName(u"label_44")
+        self.label_44.setMaximumSize(QSize(80, 16777215))
+        self.label_44.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_45.addWidget(self.label_44)
+
+        self.label_45 = QLabel(self.frame_analysis_f_limit_b_3)
+        self.label_45.setObjectName(u"label_45")
+        self.label_45.setMaximumSize(QSize(10, 16777215))
+
+        self.horizontalLayout_45.addWidget(self.label_45)
+
+        self.lineEdit_analysis_s_limit_d = QLineEdit(self.frame_analysis_f_limit_b_3)
+        self.lineEdit_analysis_s_limit_d.setObjectName(u"lineEdit_analysis_s_limit_d")
+        self.lineEdit_analysis_s_limit_d.setMaximumSize(QSize(40, 16777215))
+
+        self.horizontalLayout_45.addWidget(self.lineEdit_analysis_s_limit_d)
+
+        self.label_46 = QLabel(self.frame_analysis_f_limit_b_3)
+        self.label_46.setObjectName(u"label_46")
+        self.label_46.setMaximumSize(QSize(10, 16777215))
+        self.label_46.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_45.addWidget(self.label_46)
+
+        self.lineEdit_analysis_f_limit_d = QLineEdit(self.frame_analysis_f_limit_b_3)
+        self.lineEdit_analysis_f_limit_d.setObjectName(u"lineEdit_analysis_f_limit_d")
+        self.lineEdit_analysis_f_limit_d.setMaximumSize(QSize(40, 16777215))
+
+        self.horizontalLayout_45.addWidget(self.lineEdit_analysis_f_limit_d)
+
+
+        self.verticalLayout_21.addWidget(self.frame_analysis_f_limit_b_3)
+
 
         self.horizontalLayout_43.addWidget(self.frame_65)
 
@@ -1471,15 +1627,29 @@ class Ui_MainPages(object):
         self.frame_63.setFrameShadow(QFrame.Raised)
         self.verticalLayout_22 = QVBoxLayout(self.frame_63)
         self.verticalLayout_22.setObjectName(u"verticalLayout_22")
-        self.fit_analysis_btn = QPushButton(self.frame_63)
-        self.fit_analysis_btn.setObjectName(u"fit_analysis_btn")
+        self.plot_analysis_btn = QPushButton(self.frame_63)
+        self.plot_analysis_btn.setObjectName(u"plot_analysis_btn")
+        self.plot_analysis_btn.setMinimumSize(QSize(60, 25))
 
-        self.verticalLayout_22.addWidget(self.fit_analysis_btn)
+        self.verticalLayout_22.addWidget(self.plot_analysis_btn)
+
+        self.Optimaize_analysis_btn = QPushButton(self.frame_63)
+        self.Optimaize_analysis_btn.setObjectName(u"Optimaize_analysis_btn")
+        self.Optimaize_analysis_btn.setMinimumSize(QSize(60, 25))
+
+        self.verticalLayout_22.addWidget(self.Optimaize_analysis_btn)
 
         self.matplotlib_fit_analsis_btn = QPushButton(self.frame_63)
         self.matplotlib_fit_analsis_btn.setObjectName(u"matplotlib_fit_analsis_btn")
+        self.matplotlib_fit_analsis_btn.setMinimumSize(QSize(60, 25))
 
         self.verticalLayout_22.addWidget(self.matplotlib_fit_analsis_btn)
+
+        self.pushButton_analysis_clear_opt = QPushButton(self.frame_63)
+        self.pushButton_analysis_clear_opt.setObjectName(u"pushButton_analysis_clear_opt")
+        self.pushButton_analysis_clear_opt.setMinimumSize(QSize(60, 25))
+
+        self.verticalLayout_22.addWidget(self.pushButton_analysis_clear_opt)
 
 
         self.horizontalLayout_43.addWidget(self.frame_63)
@@ -1548,6 +1718,7 @@ class Ui_MainPages(object):
         self.label_15.setText(QCoreApplication.translate("MainPages", u"X label title and units:", None))
         self.label_19.setText(QCoreApplication.translate("MainPages", u"Y label title and units:", None))
         self.label_16.setText(QCoreApplication.translate("MainPages", u"Plot symbol color: ", None))
+        self.pushButton_analysis_clear_graph.setText(QCoreApplication.translate("MainPages", u"Clear Graph", None))
         self.groupBox_analysis_fit_settings.setTitle(QCoreApplication.translate("MainPages", u"Fit Settings", None))
         self.label_4.setText(QCoreApplication.translate("MainPages", u"X Axis:", None))
         self.label_7.setText(QCoreApplication.translate("MainPages", u"Y Axis:", None))
@@ -1555,6 +1726,8 @@ class Ui_MainPages(object):
         self.label_9.setText(QCoreApplication.translate("MainPages", u"Y error:", None))
         self.label_11.setText(QCoreApplication.translate("MainPages", u"Initial Value a: ", None))
         self.label_18.setText(QCoreApplication.translate("MainPages", u"Initial Value b: ", None))
+        self.label_28.setText(QCoreApplication.translate("MainPages", u"Initial Value c: ", None))
+        self.label_29.setText(QCoreApplication.translate("MainPages", u"Initial Value d: ", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainPages", u"Fit Results", None))
         self.label_10.setText(QCoreApplication.translate("MainPages", u"Parameters Value:", None))
         self.label_12.setText(QCoreApplication.translate("MainPages", u"a:", None))
@@ -1574,13 +1747,22 @@ class Ui_MainPages(object):
         self.label_27.setText(QCoreApplication.translate("MainPages", u"dd:", None))
         self.lineEdit_analysis_err_d.setText(QCoreApplication.translate("MainPages", u"None", None))
         self.label_3.setText(QCoreApplication.translate("MainPages", u"Fit Function:", None))
+        self.label_analysis_fit_function.setText("")
         self.label_38.setText(QCoreApplication.translate("MainPages", u"Limits a:", None))
         self.label_39.setText(QCoreApplication.translate("MainPages", u"s", None))
         self.label_40.setText(QCoreApplication.translate("MainPages", u"f", None))
         self.label_35.setText(QCoreApplication.translate("MainPages", u"Limits b:", None))
         self.label_36.setText(QCoreApplication.translate("MainPages", u"s", None))
         self.label_37.setText(QCoreApplication.translate("MainPages", u"f", None))
-        self.fit_analysis_btn.setText(QCoreApplication.translate("MainPages", u"Fit", None))
+        self.label_41.setText(QCoreApplication.translate("MainPages", u"Limits c:", None))
+        self.label_42.setText(QCoreApplication.translate("MainPages", u"s", None))
+        self.label_43.setText(QCoreApplication.translate("MainPages", u"f", None))
+        self.label_44.setText(QCoreApplication.translate("MainPages", u"Limits d:", None))
+        self.label_45.setText(QCoreApplication.translate("MainPages", u"s", None))
+        self.label_46.setText(QCoreApplication.translate("MainPages", u"f", None))
+        self.plot_analysis_btn.setText(QCoreApplication.translate("MainPages", u"Plot", None))
+        self.Optimaize_analysis_btn.setText(QCoreApplication.translate("MainPages", u"Optimaize", None))
         self.matplotlib_fit_analsis_btn.setText(QCoreApplication.translate("MainPages", u"Export fit to MatPlotLib", None))
+        self.pushButton_analysis_clear_opt.setText(QCoreApplication.translate("MainPages", u"Clear Optimization", None))
     # retranslateUi
 

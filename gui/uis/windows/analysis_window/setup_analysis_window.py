@@ -123,27 +123,67 @@ class SetupAnalysisWindow:
         # COMBOBOX EDITING
         self.ui_analysis.load_pages.comboBox_analysis_box_location.addItems(["1", "2", "3", "4"])
         self.ui_analysis.load_pages.comboBox_analysis_fit_function.addItems(self.fun_text.fun_texts_array)
+        self.ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndexChanged.connect(
+            lambda: wf.fun_fit_changed(self.ui_analysis.analysis, self.ui_analysis, self.ui_analysis.load_pages.
+                                       comboBox_analysis_fit_function.currentIndex()))
 
         self.ui_analysis.load_pages.comboBox_analysis_plot_line_color.addItems(
             ["Gray", "Blue", "Green", "Red", "Cyan", "Magenta", "Yellow", "Black", "White"])
         self.ui_analysis.load_pages.comboBox_analysis_plot_symbol_color.addItems(
             ["Gray", "Blue", "Green", "Red", "Cyan", "Magenta", "Yellow", "Black", "White"])
 
-        # FIT, MATPLOTLIB AND CLEAN ALL BTNS
-        self.ui_analysis.load_pages.fit_analysis_btn.clicked.connect(lambda: wf.fit_analysis_data(
+        # PLOT, OPTIMIZE, MATPLOTLIB AND CLEANS BTNS
+        self.ui_analysis.load_pages.plot_analysis_btn.clicked.connect(lambda: wf.plot_analysis_data(
             self.ui_analysis.analysis, self.ui_analysis))
+
+        self.ui_analysis.load_pages.Optimaize_analysis_btn.clicked.connect(lambda: wf.optimize_analysis_data(
+            self.ui_analysis.analysis, self.ui_analysis))
+
         self.ui_analysis.load_pages.matplotlib_fit_analsis_btn.clicked. \
             connect(lambda: wf.matplotlib_fit_analysis_data(self.ui_analysis.analysis, self.ui_analysis))
+
+        self.ui_analysis.load_pages.pushButton_analysis_clear_graph.clicked.connect(lambda: wf.clean_graph_analysis(
+            self.ui_analysis))
+
+        self.ui_analysis.load_pages.pushButton_analysis_clear_opt.clicked.connect(lambda: wf.clean_opt_analysis(
+            self.ui_analysis.analysis, self.ui_analysis))
+
         self.ui_analysis.load_pages.analysis_clean_all_btn.clicked. \
             connect(lambda: wf.clean_all_analysis_screen(self.ui_analysis.analysis, self.ui_analysis))
+
 
         # INITIALIZE VALUES
         self.ui_analysis.load_pages.lineEdit_analysis_initial_a.setText("0")
         self.ui_analysis.load_pages.lineEdit_analysis_initial_b.setText("0")
+        self.ui_analysis.load_pages.lineEdit_analysis_initial_c.setText("0")
+        self.ui_analysis.load_pages.lineEdit_analysis_initial_d.setText("0")
         self.ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setText("-1000")
         self.ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setText("-1000")
+        self.ui_analysis.load_pages.lineEdit_analysis_s_limit_c.setText("-1000")
+        self.ui_analysis.load_pages.lineEdit_analysis_s_limit_d.setText("-1000")
         self.ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setText("1000")
         self.ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setText("1000")
+        self.ui_analysis.load_pages.lineEdit_analysis_f_limit_c.setText("1000")
+        self.ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setText("1000")
+
+        self.ui_analysis.load_pages.lineEdit_analysis_initial_a.setEnabled(True)
+        self.ui_analysis.load_pages.lineEdit_analysis_s_limit_a.setEnabled(True)
+        self.ui_analysis.load_pages.lineEdit_analysis_f_limit_a.setEnabled(True)
+
+        self.ui_analysis.load_pages.lineEdit_analysis_initial_b.setEnabled(True)
+        self.ui_analysis.load_pages.lineEdit_analysis_s_limit_b.setEnabled(True)
+        self.ui_analysis.load_pages.lineEdit_analysis_f_limit_b.setEnabled(True)
+
+        self.ui_analysis.load_pages.lineEdit_analysis_initial_c.setEnabled(False)
+        self.ui_analysis.load_pages.lineEdit_analysis_s_limit_c.setEnabled(False)
+        self.ui_analysis.load_pages.lineEdit_analysis_f_limit_c.setEnabled(False)
+
+        self.ui_analysis.load_pages.lineEdit_analysis_initial_d.setEnabled(False)
+        self.ui_analysis.load_pages.lineEdit_analysis_s_limit_d.setEnabled(False)
+        self.ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setEnabled(False)
+
+        self.ui_analysis.load_pages.label_analysis_fit_function.setText(self.ui_analysis.analysis.fun_texts.
+                                                                        fun_non_latex_texts_array[0])
 
         # INITIALIZE GRAPH
         self.graph.showGrid(x=True, y=True)

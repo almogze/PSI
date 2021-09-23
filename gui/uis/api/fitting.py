@@ -13,6 +13,17 @@ from iminuit.cost import LeastSquares
 
 class Functions_Texts:
     def __init__(self):
+        self.non_latex_text_lin_fun = "f(x) = a * x + b"
+        self.non_latex_text_exp_fun = "f(x) = a * e ^ (b * x)"
+        self.non_latex_text_cos_fun = "f(x) = a * cos(b * x)"
+        self.non_latex_text_cos2_fun = "f(x) = a * (cos(b * x)) ^ 2"
+        self.non_latex_text_poly2_fun = "f(x) = a * x ^ 2 + b * x + c"
+        self.non_latex_text_poly3_fun = "f(x) = a * x ^ 3 + b * x ^ 2 + c * x + d"
+        self.non_latex_text_normalised_gauss_fun = "f(x) = 1 / a * (sqrt(2 * pi)) * e ^ (-0.5 * ((x - b) / a) ^ 2)"
+        self.non_latex_text_gauss_fun = "f(x) = a * e ^ (-0.5 * ((x - c) ^ 2 / b ^ 2))"
+        self.non_latex_text_normalised_poisson_fun = "f(x) = ((a ** x) * e ^ - a / x!"
+        self.non_latex_text_poisson_fun = "a * ((b ** x) * e ^ ((-1) * b)) / x!"
+
         self.latex_text_lin_fun = "a\cdot x +b"
         self.latex_text_exp_fun = "a \cdot e^{b\cdot x}"
         self.latex_text_cos_fun = "a\cdot \cos(b\cdot x)"
@@ -35,6 +46,12 @@ class Functions_Texts:
         self.text_normalised_poisson_fun = "Normalized Poisson"
         self.text_poisson_fun = "Poisson"
 
+        self.fun_non_latex_texts_array = [self.non_latex_text_lin_fun, self.non_latex_text_exp_fun,
+                                          self.non_latex_text_cos_fun, self.non_latex_text_cos2_fun,
+                                          self.non_latex_text_poly2_fun, self.non_latex_text_poly3_fun,
+                                          self.non_latex_text_normalised_gauss_fun, self.non_latex_text_gauss_fun,
+                                          self.non_latex_text_normalised_poisson_fun, self.non_latex_text_poisson_fun]
+
         self.fun_latex_texts_array = [self.latex_text_lin_fun, self.latex_text_exp_fun, self.latex_text_cos_fun,
                                       self.latex_text_cos2_fun, self.latex_text_poly2_fun, self.latex_text_poly3_fun,
                                       self.latex_text_normalised_gauss_fun, self.latex_text_gauss_fun,
@@ -54,13 +71,15 @@ class Functions_Fit:
         self.fit_poly2_fun = lambda x, a, b, c: a * (x ** 2) + b * x + c
         self.fit_poly3_fun = lambda x, a, b, c, d: a * (x ** 3) + b * (x ** 2) + c * x + d
         self.fit_normalised_gauss_fun = lambda x, a, b: 1 / a * (np.sqrt(2 * np.pi)) * np.exp(-0.5 * ((x - b) / a) ** 2)
-        self.fit_gauss_fun = lambda x, sigma, mu, a: a * np.exp(-0.5 * ((x - mu) ** 2 / sigma ** 2))
-        self.fit_normalised_poisson_fun = lambda x, lam: ((lam ** x) * np.exp((-1) * lam)) / (np.math.factorial(x))
-        self.fit_poisson_fun = lambda x, lam, a: a * ((lam ** x) * np.exp((-1) * lam)) / (np.math.factorial(x))
+        self.fit_gauss_fun = lambda x, a, b, c: a * np.exp(-0.5 * ((x - c) ** 2 / b ** 2))
+        self.fit_normalised_poisson_fun = lambda x, a: ((a ** x) * np.exp((-1) * a)) / (np.math.factorial(x))
+        self.fit_poisson_fun = lambda x, a, b: a * ((b ** x) * np.exp((-1) * b)) / (np.math.factorial(x))
 
         self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_cos_fun, self.fit_cos2_fun,
                               self.fit_poly2_fun, self.fit_poly3_fun, self.fit_normalised_gauss_fun,
                               self.fit_gauss_fun, self.fit_normalised_poisson_fun, self.fit_poisson_fun]
+
+        self.number_of_params = [2, 2, 2, 2, 3, 4, 2, 3, 1, 2]
 
 
 class EffVarChi2Reg:  # This class is like Chi2Regression but takes into account dx
@@ -91,28 +110,36 @@ class Fit(object):
         self.b = None  # Final optimized parameter
         self.c = None  # Final optimized parameter
         self.d = None  # Final optimized parameter
+        self.p_array = [self.a, self.b, self.c, self.d]
 
         self.a_0 = 0
-        self.a_err = 0
         self.b_0 = 0
-        self.b_err = 0
         self.c_0 = 0
-        self.c_err = 0
         self.d_0 = 0
+        self.p_0_array = [self.a_0, self.b_0, self.c_0, self.d_0]
+
+        self.a_err = 0
+        self.b_err = 0
+        self.c_err = 0
         self.d_err = 0
 
         self.a_limit_i = -1000
-        self.a_limit_f = 1000
         self.b_limit_i = -1000
-        self.b_limit_f = 1000
         self.c_limit_i = -1000
-        self.c_limit_f = 1000
         self.d_limit_i = -1000
+        self.limits_i_array = [self.a_limit_i, self.b_limit_i, self.c_limit_i, self.d_limit_i]
+
+        self.a_limit_f = 1000
+        self.b_limit_f = 1000
+        self.c_limit_f = 1000
         self.d_limit_f = 1000
+        self.limits_f_array = [self.a_limit_f, self.b_limit_f, self.c_limit_f, self.d_limit_f]
 
         self.params_array = []
 
         self.function = None
+        self.func_par_num = 2
+
         self.x: np.array = None  # the x values
         self.y: np.array = None  # the y values
         self.dx: np.array = None  # the x-axis uncertainties
@@ -120,21 +147,31 @@ class Fit(object):
 
     def set_a_parameter(self, a):
         self.a = a
+        self.p_array[0] = a
 
     def set_b_parameter(self, b):
         self.b = b
+        self.p_array[1] = b
 
     def set_c_parameter(self, c):
         self.c = c
+        self.p_array[2] = c
 
     def set_d_parameter(self, d):
         self.d = d
+        self.p_array[3] = d
 
     def get_a_parameter(self):
         return self.a
 
     def get_b_parameter(self):
         return self.b
+
+    def get_c_parameter(self):
+        return self.c
+
+    def get_d_parameter(self):
+        return self.d
 
     def set_a_err_parameter(self, a_err):
         self.a_err = a_err
@@ -156,17 +193,43 @@ class Fit(object):
 
     def set_a_initial(self, a_0):
         self.a_0 = a_0
+        self.p_0_array[0] = a_0
 
     def set_b_initial(self, b_0):
         self.b_0 = b_0
+        self.p_0_array[1] = b_0
+
+    def set_c_initial(self, c_0):
+        self.c_0 = c_0
+        self.p_0_array[2] = c_0
+
+    def set_d_initial(self, d_0):
+        self.d_0 = d_0
+        self.p_0_array[3] = d_0
 
     def set_a_limits(self, a_i, a_f):
         self.a_limit_i = a_i
         self.a_limit_f = a_f
+        self.limits_i_array[0] = a_i
+        self.limits_f_array[0] = a_f
 
     def set_b_limits(self, b_i, b_f):
         self.b_limit_i = b_i
         self.b_limit_f = b_f
+        self.limits_i_array[1] = b_i
+        self.limits_f_array[1] = b_f
+
+    def set_c_limits(self, c_i, c_f):
+        self.c_limit_i = c_i
+        self.c_limit_f = c_f
+        self.limits_i_array[2] = c_i
+        self.limits_f_array[2] = c_f
+
+    def set_d_limits(self, d_i, d_f):
+        self.d_limit_i = d_i
+        self.d_limit_f = d_f
+        self.limits_i_array[3] = d_i
+        self.limits_f_array[3] = d_f
 
     def get_a_limit_i(self):
         return self.a_limit_i
@@ -207,10 +270,28 @@ class Fit(object):
     def get_params_array(self):
         return self.params_array
 
+    def set_func_par_num(self, par_num):
+        self.func_par_num = par_num
+
+    def get_func_par_num(self):
+        return self.func_par_num
+
     def optimize(self) -> Minuit:
         cost_function = self.build_cost_function()
-        opt = Minuit(cost_function, a=self.a_0, b=self.b_0)
-        opt.limits = [(self.a_limit_i, self.a_limit_f), (self.b_limit_i, self.b_limit_f)]
+        print("initial parameters are: ", tuple(self.p_0_array[:self.func_par_num]))
+        print("initial parameters are: ", self.a_0, self.b_0, self.c_0, self.d_0)
+        if self.get_func_par_num() == 1:
+            opt = Minuit(cost_function, self.a_0)
+        elif self.get_func_par_num() == 2:
+            opt = Minuit(cost_function, self.a_0, self.b_0)
+        elif self.get_func_par_num() == 3:
+            opt = Minuit(cost_function, self.a_0, self.b_0, self.c_0)
+        else:
+            opt = Minuit(cost_function, self.a_0, self.b_0, self.c_0, self.d_0)
+        limits = []
+        for i in range(self.func_par_num):
+            limits.append((self.limits_i_array[i], self.limits_f_array[i]))
+        opt.limits = limits
         opt.migrad()
         self.set_params(opt.values)
         self.set_errors(opt.errors)
@@ -219,16 +300,17 @@ class Fit(object):
     # set fit function's parameters with optimal values so that the sum of the squared residuals of
     # f(xdata, *parameters_optimal) - ydata is minimized.
     def opt_by_scipy(self) -> np.array:
-        popt = curve_fit(self.function, self.x, self.y, p0=(self.a_0, self.b_0),
-                         bounds=((self.a_limit_i, self.b_limit_i), (self.a_limit_f, self.b_limit_f)))[0]
+        popt = curve_fit(self.function, self.x, self.y, p0=tuple(self.p_0_array[:self.func_par_num]), bounds=(
+            tuple(self.limits_i_array[:self.func_par_num]), tuple(self.limits_f_array[:self.func_par_num])))[0]
+        print("optimized parameters are: ", popt)
         self.set_params(popt)
 
     # Cost Functions Builders:
     def build_cost_function(self) -> LeastSquares or EffVarChi2Reg:
-        if self.dx is not None and self.dy is not None:
-            return EffVarChi2Reg(self.x, self.y, self.dx, self.dy, self.function)
-        else:
+        if self.dx is None:
             return LeastSquares(self.x, self.y, self.dy, self.function)
+        else:
+            return EffVarChi2Reg(self.x, self.y, self.dx, self.dy, self.function)
 
     def set_params(self, params: np.array):
         size = len(params)
@@ -240,7 +322,7 @@ class Fit(object):
                     self.set_c_parameter(params[2])
                     if size > 3:
                         self.set_d_parameter(params[3])
-        self.update_array()
+        self.update_params_array()
 
     def set_errors(self, errors: np.array):
         size = len(errors)
@@ -253,7 +335,7 @@ class Fit(object):
                     if size > 3:
                         self.set_d_err_parameter(errors[3])
 
-    def update_array(self):
+    def update_params_array(self):
         if self.a is not None:
             self.params_array.append(self.a)
             if self.b is not None:
@@ -262,4 +344,34 @@ class Fit(object):
                     self.params_array.append(self.c)
                     if self.d is not None:
                         self.params_array.append(self.d)
+
+    def has_uncertainty(self) -> bool:
+        if self.dx is None and self.dy is None:
+            return bool(False)
+        return bool(True)
+
+    # currently not in use(when pressing clear opt, new fit is create)
+    def clear_all(self):
+        self.set_a_parameter(None)
+        self.set_b_parameter(None)
+        self.set_c_parameter(None)
+        self.set_d_parameter(None)
+        self.set_a_initial(0)
+        self.set_b_initial(0)
+        self.set_c_initial(0)
+        self.set_d_initial(0)
+        self.set_a_err_parameter(0)
+        self.set_b_err_parameter(0)
+        self.set_c_err_parameter(0)
+        self.set_d_err_parameter(0)
+        self.set_a_limits(-1000, 1000)
+        self.set_b_limits(-1000, 1000)
+        self.set_c_limits(-1000, 1000)
+        self.set_d_limits(-1000, 1000)
+        self.params_array = []
+        self.set_arrays(None, None, None, None)
+        self.set_function(None)
+        self.set_func_par_num(2)
+
+
 

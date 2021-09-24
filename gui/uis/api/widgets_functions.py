@@ -488,7 +488,7 @@ def matplotlib_fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWin
     y = analysis.fit.get_y_array()
     dx = analysis.fit.get_dx_array()
     dy = analysis.fit.get_dy_array()
-    text = "$ Fitted \  to \ {} $\n".format(analysis.fun_texts.fun_latex_texts_array[ui_analysis.load_pages.
+    text = "$ Fitted \  to \ f(x) = {} $\n".format(analysis.fun_texts.fun_latex_texts_array[ui_analysis.load_pages.
                                             comboBox_analysis_fit_function.currentIndex()])
     ascii_prm = 97
     for i in range(analysis.fit.get_func_par_num()):

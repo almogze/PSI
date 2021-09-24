@@ -4,7 +4,7 @@ import pyqtgraph.examples
 
 # run this examples
 
-# pyqtgraph.examples.run()
+pyqtgraph.examples.run()
 
 # import initExample ## Add path to library (just for examples; you do not need this)
 
@@ -48,7 +48,7 @@ if __name__ == '__main__':
     linear_cost = LeastSquares(x, y, dy, f)
     opt = Minuit(linear_cost, 1, 1)
     opt.migrad()
-
+    print(opt.errors)
     print(describe(f))
     f.func_code = make_func_code(["alpha", "beta", "gamma"])
     print(describe(f))

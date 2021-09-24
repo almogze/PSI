@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagessUvUnd.ui'
+## Form generated from reading UI file 'main_pagesqSnRiE.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -15,7 +15,7 @@ class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(930, 976)
+        MainPages.resize(1154, 958)
         self.excel_settings_load_btn_layout = QVBoxLayout(MainPages)
         self.excel_settings_load_btn_layout.setSpacing(0)
         self.excel_settings_load_btn_layout.setObjectName(u"excel_settings_load_btn_layout")
@@ -848,6 +848,15 @@ class Ui_MainPages(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, -1, 0)
+        self.frame_60 = QFrame(self.frame_10)
+        self.frame_60.setObjectName(u"frame_60")
+        self.frame_60.setFrameShape(QFrame.StyledPanel)
+        self.frame_60.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_32 = QVBoxLayout(self.frame_60)
+        self.verticalLayout_32.setObjectName(u"verticalLayout_32")
+
+        self.gridLayout.addWidget(self.frame_60, 0, 1, 1, 1)
+
         self.frame_54 = QFrame(self.frame_10)
         self.frame_54.setObjectName(u"frame_54")
         self.frame_54.setFrameShape(QFrame.StyledPanel)
@@ -872,15 +881,6 @@ class Ui_MainPages(object):
 
 
         self.gridLayout.addWidget(self.frame_54, 0, 0, 1, 1)
-
-        self.frame_60 = QFrame(self.frame_10)
-        self.frame_60.setObjectName(u"frame_60")
-        self.frame_60.setFrameShape(QFrame.StyledPanel)
-        self.frame_60.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_32 = QVBoxLayout(self.frame_60)
-        self.verticalLayout_32.setObjectName(u"verticalLayout_32")
-
-        self.gridLayout.addWidget(self.frame_60, 0, 1, 1, 1)
 
         self.frame_55 = QFrame(self.frame_10)
         self.frame_55.setObjectName(u"frame_55")
@@ -1214,12 +1214,44 @@ class Ui_MainPages(object):
         self.horizontalLayout_39 = QHBoxLayout(self.groupBox)
         self.horizontalLayout_39.setSpacing(0)
         self.horizontalLayout_39.setObjectName(u"horizontalLayout_39")
-        self.horizontalLayout_39.setContentsMargins(2, 0, 0, 0)
-        self.label_10 = QLabel(self.groupBox)
+        self.horizontalLayout_39.setContentsMargins(0, 0, 0, 0)
+        self.frame_72 = QFrame(self.groupBox)
+        self.frame_72.setObjectName(u"frame_72")
+        self.frame_72.setFrameShape(QFrame.StyledPanel)
+        self.frame_72.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_24 = QVBoxLayout(self.frame_72)
+        self.verticalLayout_24.setObjectName(u"verticalLayout_24")
+        self.label_10 = QLabel(self.frame_72)
         self.label_10.setObjectName(u"label_10")
         self.label_10.setMaximumSize(QSize(100, 16777215))
 
-        self.horizontalLayout_39.addWidget(self.label_10)
+        self.verticalLayout_24.addWidget(self.label_10)
+
+        self.frame_73 = QFrame(self.frame_72)
+        self.frame_73.setObjectName(u"frame_73")
+        self.frame_73.setFrameShape(QFrame.StyledPanel)
+        self.frame_73.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_26 = QVBoxLayout(self.frame_73)
+        self.verticalLayout_26.setSpacing(0)
+        self.verticalLayout_26.setObjectName(u"verticalLayout_26")
+        self.verticalLayout_26.setContentsMargins(0, 0, 0, 0)
+        self.label_32 = QLabel(self.frame_73)
+        self.label_32.setObjectName(u"label_32")
+
+        self.verticalLayout_26.addWidget(self.label_32)
+
+        self.lineEdit_analysis_chi2Ndof = QLineEdit(self.frame_73)
+        self.lineEdit_analysis_chi2Ndof.setObjectName(u"lineEdit_analysis_chi2Ndof")
+        self.lineEdit_analysis_chi2Ndof.setEnabled(False)
+        self.lineEdit_analysis_chi2Ndof.setMinimumSize(QSize(0, 20))
+
+        self.verticalLayout_26.addWidget(self.lineEdit_analysis_chi2Ndof)
+
+
+        self.verticalLayout_24.addWidget(self.frame_73)
+
+
+        self.horizontalLayout_39.addWidget(self.frame_72)
 
         self.frame_56 = QFrame(self.groupBox)
         self.frame_56.setObjectName(u"frame_56")
@@ -1730,6 +1762,8 @@ class Ui_MainPages(object):
         self.label_29.setText(QCoreApplication.translate("MainPages", u"Initial Value d: ", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainPages", u"Fit Results", None))
         self.label_10.setText(QCoreApplication.translate("MainPages", u"Parameters Value:", None))
+        self.label_32.setText(QCoreApplication.translate("MainPages", u"Chi2/Ndof:", None))
+        self.lineEdit_analysis_chi2Ndof.setText(QCoreApplication.translate("MainPages", u"None", None))
         self.label_12.setText(QCoreApplication.translate("MainPages", u"a:", None))
         self.lineEdit_analysis_param_a.setText(QCoreApplication.translate("MainPages", u"None", None))
         self.label_24.setText(QCoreApplication.translate("MainPages", u"da:", None))

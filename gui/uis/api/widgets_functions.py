@@ -8,6 +8,8 @@ import numpy as np
 import os
 from PySide6.QtWidgets import QFileDialog
 from iminuit import Minuit
+import matplotlib.pyplot as plt
+from matplotlib.offsetbox import AnchoredText
 
 from gui.uis.api.atom import Atom
 from gui.uis.api.analysis import Analysis
@@ -182,6 +184,8 @@ def plot_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> No
 
 
 def optimize_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
+    ui_analysis.analysis.fit = Fit()
+    set_data(analysis, ui_analysis)
     # Initialize parameters with user's data
     set_parameters(analysis, ui_analysis)
     # Activate optimization
@@ -225,9 +229,14 @@ def set_opt_and_plot(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     # Activate optimization with the current cost function
     if analysis.fit.has_uncertainty():
         opt: Minuit = analysis.fit.optimize()
+        ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setEnabled(True)
+        ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setText(str(analysis.fit.get_chi_ndof()))
+        update_parameters_error(analysis, ui_analysis)
         # Plot data on a graph
     else:
         analysis.fit.opt_by_scipy()
+        ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setEnabled(False)
+        ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setText("None")
     # Plot data on a graph
     plot_opt_func(analysis, ui_analysis)
 
@@ -242,11 +251,11 @@ def set_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
         analysis.fit.set_b_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_b.text()),
                                   float(ui_analysis.load_pages.lineEdit_analysis_f_limit_b.text()))
         if param_num > 2:
-            analysis.fit.set_c_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_a.text()))
+            analysis.fit.set_c_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_c.text()))
             analysis.fit.set_c_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_c.text()),
                                       float(ui_analysis.load_pages.lineEdit_analysis_f_limit_c.text()))
             if param_num > 3:
-                analysis.fit.set_d_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_b.text()))
+                analysis.fit.set_d_initial(float(ui_analysis.load_pages.lineEdit_analysis_initial_d.text()))
                 analysis.fit.set_d_limits(float(ui_analysis.load_pages.lineEdit_analysis_s_limit_d.text()),
                                           float(ui_analysis.load_pages.lineEdit_analysis_f_limit_d.text()))
 
@@ -303,10 +312,10 @@ def refresh_params_data_enable(ui_analysis: UI_AnalysisWindow, params_num: int):
         ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setEnabled(False)
         ui_analysis.load_pages.lineEdit_analysis_param_d.setEnabled(False)
         ui_analysis.load_pages.lineEdit_analysis_err_d.setEnabled(False)
-        # Check if the selected fit function is Normalized Gaussian (index 6)
-        if ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex() == 6:
+        # Check if the selected fit function is Normalized Gaussian
+        if ui_analysis.load_pages.comboBox_analysis_fit_function.currentText() == "Normalized Gaussian":
             refresh_param_data_text(ui_analysis,
-                                    [["1", "-1000", "1000"], ["0", "-1000", "1000"], ["None", "None", "None"],
+                                    [["1", "-1000", "1000"], ["1", "-1000", "1000"], ["None", "None", "None"],
                                      ["None", "None", "None"]])
         else:
             refresh_param_data_text(ui_analysis,
@@ -336,10 +345,10 @@ def refresh_params_data_enable(ui_analysis: UI_AnalysisWindow, params_num: int):
         ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setEnabled(False)
         ui_analysis.load_pages.lineEdit_analysis_param_d.setEnabled(False)
         ui_analysis.load_pages.lineEdit_analysis_err_d.setEnabled(False)
-        # Check if the selected fit function is Gaussian (index 7)
-        if ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex() == 7:
+        # Check if the selected fit function is Gaussian
+        if ui_analysis.load_pages.comboBox_analysis_fit_function.currentText() == "Gaussian":
             refresh_param_data_text(ui_analysis,
-                                    [["0", "-1000", "1000"], ["1", "-1000", "1000"], ["0", "-1000", "1000"],
+                                    [["1", "-1000", "1000"], ["1", "-1000", "1000"], ["1", "-1000", "1000"],
                                      ["None", "None", "None"]])
         else:
             refresh_param_data_text(ui_analysis,
@@ -369,8 +378,15 @@ def refresh_params_data_enable(ui_analysis: UI_AnalysisWindow, params_num: int):
         ui_analysis.load_pages.lineEdit_analysis_f_limit_d.setEnabled(True)
         ui_analysis.load_pages.lineEdit_analysis_param_d.setEnabled(True)
         ui_analysis.load_pages.lineEdit_analysis_err_d.setEnabled(True)
-        refresh_param_data_text(ui_analysis, [["0", "-1000", "1000"], ["0", "-1000", "1000"], ["0", "-1000", "1000"],
-                                              ["0", "-1000", "1000"]])
+        # Check if the selected fit function is offset Gaussian
+        if ui_analysis.load_pages.comboBox_analysis_fit_function.currentText() == "Offset Gaussian":
+            refresh_param_data_text(ui_analysis,
+                                    [["1", "-1000", "1000"], ["1", "-1000", "1000"], ["1", "-1000", "1000"],
+                                     ["0", "-1000", "1000"]])
+        else:
+            refresh_param_data_text(ui_analysis,
+                                    [["0", "-1000", "1000"], ["0", "-1000", "1000"], ["0", "-1000", "1000"],
+                                     ["0", "-1000", "1000"]])
 
 
 def refresh_param_data_text(ui_analysis: UI_AnalysisWindow, text_arr):
@@ -403,6 +419,18 @@ def update_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
                     ui_analysis.load_pages.lineEdit_analysis_param_d.setText(str(analysis.fit.get_d_parameter()))
 
 
+def update_parameters_error(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    num_of_params = analysis.fit.get_func_par_num()
+    if num_of_params > 0:
+        ui_analysis.load_pages.lineEdit_analysis_err_a.setText(str(analysis.fit.get_a_err_parameter()))
+        if num_of_params > 1:
+            ui_analysis.load_pages.lineEdit_analysis_err_b.setText(str(analysis.fit.get_b_err_parameter()))
+            if num_of_params > 2:
+                ui_analysis.load_pages.lineEdit_analysis_err_c.setText(str(analysis.fit.get_c_err_parameter()))
+                if num_of_params > 3:
+                    ui_analysis.load_pages.lineEdit_analysis_err_d.setText(str(analysis.fit.get_d_err_parameter()))
+
+
 # Return an array of two rgb colors, one for plot line and one for plot symbol
 def get_graph_colors(ui_analysis: UI_AnalysisWindow) -> np.array:
     colors = [(55, 55, 55), "b", "g", "r", "c", "m", "y", "k", "w"]
@@ -413,9 +441,18 @@ def get_graph_colors(ui_analysis: UI_AnalysisWindow) -> np.array:
 
 def set_data_2_graph(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
     colors = get_graph_colors(ui_analysis)
+    x = analysis.fit.get_x_array()
+    y = analysis.fit.get_y_array()
+    dx = analysis.fit.get_dx_array()
+    dy = analysis.fit.get_dy_array()
+    # Add error bar
+    if dx is not None and dy is not None:
+        ui_analysis.graph.addItem(
+            pg.ErrorBarItem(x=x, y=y, top=dy / 2, bottom=dy / 2, left=dx / 2, right=dx / 2, beam=0.5))
+    elif dy is not None:
+        ui_analysis.graph.addItem(pg.ErrorBarItem(x=x, y=y, top=dy / 2, bottom=dy / 2, beam=0.5))
     ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(),
-                           symbol='o', pen=colors[0], symbolBrush=colors[1], symbolPen='w', symbolSize=8,
-                           name=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
+                           symbol='o', pen=colors[0], symbolBrush=colors[1], symbolPen='w', symbolSize=8)
     # Add titles and units
     ui_analysis.graph.setTitle(title=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
     ui_analysis.graph.setLabel('left', ui_analysis.load_pages.lineEdit_analysis_x_title.text(),
@@ -431,7 +468,8 @@ def plot_opt_func(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     func_x = np.linspace(x[0], x[-1], 10000)
     params = analysis.fit.get_params_array()
     y_fit = function(func_x, *params)
-    ui_analysis.graph.plot(func_x, y_fit, pen=colors[0])
+    ind = ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex()
+    ui_analysis.graph.plot(func_x, y_fit, pen=colors[0], name=analysis.fun_texts.fun_non_latex_texts_array[ind])
 
 
 def plot_opt_func_with_uncertainties(opt: Minuit, analysis: Analysis, ui_analysis: UI_AnalysisWindow):
@@ -445,7 +483,40 @@ def plot_opt_func_with_uncertainties(opt: Minuit, analysis: Analysis, ui_analysi
 
 
 def matplotlib_fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
-    return None
+    pages = ui_analysis.load_pages
+    x = analysis.fit.get_x_array()
+    y = analysis.fit.get_y_array()
+    dx = analysis.fit.get_dx_array()
+    dy = analysis.fit.get_dy_array()
+    text = "$ Fitted \  to \ {} $\n".format(analysis.fun_texts.fun_latex_texts_array[ui_analysis.load_pages.
+                                            comboBox_analysis_fit_function.currentIndex()])
+    ascii_prm = 97
+    for i in range(analysis.fit.get_func_par_num()):
+        text += "$\ \ \ %s$ = %0.4f $\pm$ %0.4f \n" % (
+            chr(ascii_prm + i), analysis.fit.get_params_array()[i], analysis.fit.get_err_array()[i])
+    text = text + "$\dfrac{{\chi}^2}{N_{dof}} = %0.4f(%0.4f/%d)$\n" % (
+        analysis.fit.get_chi_ndof(), analysis.fit.get_chi_ndof() * len(x),
+        len(x))
+    func_x = np.linspace(x[0], x[-1], 10000)  # 10000 linearly spaced numbers
+    function = analysis.fit.get_function()
+    par_values = analysis.fit.get_params_array()
+    y_fit = function(func_x, *par_values)
+    x_title = "%s [%s]" % (pages.lineEdit_analysis_x_title.text(), pages.lineEdit_analysis_x_units.text())
+    y_title = "%s [%s]" % (pages.lineEdit_analysis_y_title.text(), pages.lineEdit_analysis_y_units.text())
+    main_title = "%s" % ui_analysis.load_pages.lineEdit_analysis_main_title.text()
+    plt.rc("font", size=16, family="Times New Roman")
+    fig = plt.figure(figsize=(10, 6))
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+    ax.plot(func_x, y_fit)  # plot the function over 10k points covering the x axis
+    ax.scatter(x, y, c="black")
+    ax.errorbar(x, y, dy, dx, fmt='none', ecolor='red', capsize=3)
+    ax.set_xlabel(x_title, fontdict={"size": 21})
+    ax.set_ylabel(y_title, fontdict={"size": 21})
+    anchored_text = AnchoredText(text, loc=ui_analysis.load_pages.comboBox_analysis_box_location.currentIndex())
+    ax.add_artist(anchored_text)
+    plt.grid(True)
+    plt.title(main_title)
+    plt.show()
 
 
 def clean_graph_analysis(ui_analysis: UI_AnalysisWindow):
@@ -477,6 +548,8 @@ def clean_opt_analysis(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     pages.lineEdit_analysis_err_c.setText("None")
     pages.lineEdit_analysis_param_d.setText("None")
     pages.lineEdit_analysis_err_d.setText("None")
+    ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setEnabled(False)
+    ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setText("None")
     pages.comboBox_analysis_x_axis.setCurrentIndex(0)
     pages.comboBox_analysis_y_axis.setCurrentIndex(0)
     pages.comboBox_analysis_x_error.setCurrentIndex(0)

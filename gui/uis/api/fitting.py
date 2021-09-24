@@ -1,10 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import warnings
+
 from iminuit import Minuit, describe, cost
 from iminuit.util import make_func_code
 from scipy.optimize import curve_fit
-from matplotlib.offsetbox import AnchoredText
 
 # IMPORT COST FUNCTIONS
 from iminuit.cost import LeastSquares
@@ -20,7 +18,8 @@ class Functions_Texts:
         self.non_latex_text_poly2_fun = "f(x) = a * x ^ 2 + b * x + c"
         self.non_latex_text_poly3_fun = "f(x) = a * x ^ 3 + b * x ^ 2 + c * x + d"
         self.non_latex_text_normalised_gauss_fun = "f(x) = 1 / a * (sqrt(2 * pi)) * e ^ (-0.5 * ((x - b) / a) ^ 2)"
-        self.non_latex_text_gauss_fun = "f(x) = a * e ^ (-0.5 * ((x - c) ^ 2 / b ^ 2))"
+        self.non_latex_text_gauss_fun = "f(x) = a * e ^ ( -0.5 * ((x - c) ^ 2 / b ^ 2))"
+        self.non_latex_text_off_gauss_fun = "f(x) = a * e ^ ( -0.5 * ((x - c) ^ 2 / b ^ 2)) + d"
         self.non_latex_text_normalised_poisson_fun = "f(x) = ((a ** x) * e ^ - a / x!"
         self.non_latex_text_poisson_fun = "a * ((b ** x) * e ^ ((-1) * b)) / x!"
 
@@ -30,8 +29,9 @@ class Functions_Texts:
         self.latex_text_cos2_fun = "a\cdot \cos(b\cdot x)^2"
         self.latex_text_poly2_fun = "a\cdot x^2 + b\cdot x + c"
         self.latex_text_poly3_fun = "a\cdot x^3 + b\cdot x^2 + c\cdot x +d"
-        self.latex_text_normalised_gauss_fun = "\dfrac{1}{\sigma\sqrt{2\pi}} e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}"
-        self.latex_text_gauss_fun = "c\cdot e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}"
+        self.latex_text_normalised_gauss_fun = "\dfrac{1}{\sigma\sqrt{2\pi}} e^{-\dfrac{(x-b)^2}{2a^2}}"
+        self.latex_text_gauss_fun = "a\cdot e^{-\dfrac{(x-c)^2}{b^2}}"
+        self.latex_text_off_gauss_fun = "a\cdot e^{-\dfrac{(x-c)^2}{b^2}}+d"
         self.latex_text_normalised_poisson_fun = "\dfrac{\lambda^x \cdot e^{-\lambda}}{x!}"
         self.latex_text_poisson_fun = "c\cdot \dfrac{\lambda^x \cdot e^{-\lambda}}{x!}"
 
@@ -43,6 +43,7 @@ class Functions_Texts:
         self.text_poly3_fun = "Polynomial third degree"
         self.text_normalised_gauss_fun = "Normalized Gaussian"
         self.text_gauss_fun = "Gaussian"
+        self.text_off_gauss_fun = "Offset Gaussian"
         self.text_normalised_poisson_fun = "Normalized Poisson"
         self.text_poisson_fun = "Poisson"
 
@@ -50,16 +51,19 @@ class Functions_Texts:
                                           self.non_latex_text_cos_fun, self.non_latex_text_cos2_fun,
                                           self.non_latex_text_poly2_fun, self.non_latex_text_poly3_fun,
                                           self.non_latex_text_normalised_gauss_fun, self.non_latex_text_gauss_fun,
+                                          self.non_latex_text_off_gauss_fun,
                                           self.non_latex_text_normalised_poisson_fun, self.non_latex_text_poisson_fun]
 
         self.fun_latex_texts_array = [self.latex_text_lin_fun, self.latex_text_exp_fun, self.latex_text_cos_fun,
                                       self.latex_text_cos2_fun, self.latex_text_poly2_fun, self.latex_text_poly3_fun,
                                       self.latex_text_normalised_gauss_fun, self.latex_text_gauss_fun,
+                                      self.latex_text_off_gauss_fun,
                                       self.latex_text_normalised_poisson_fun, self.latex_text_poisson_fun]
 
         self.fun_texts_array = [self.text_lin_fun, self.text_exp_fun, self.text_cos_fun, self.text_cos2_fun,
                                 self.text_poly2_fun, self.text_poly3_fun, self.text_normalised_gauss_fun,
-                                self.text_gauss_fun, self.text_normalised_poisson_fun, self.text_poisson_fun]
+                                self.text_gauss_fun, self.text_off_gauss_fun,
+                                self.text_normalised_poisson_fun, self.text_poisson_fun]
 
 
 class Functions_Fit:
@@ -72,14 +76,16 @@ class Functions_Fit:
         self.fit_poly3_fun = lambda x, a, b, c, d: a * (x ** 3) + b * (x ** 2) + c * x + d
         self.fit_normalised_gauss_fun = lambda x, a, b: 1 / a * (np.sqrt(2 * np.pi)) * np.exp(-0.5 * ((x - b) / a) ** 2)
         self.fit_gauss_fun = lambda x, a, b, c: a * np.exp(-0.5 * ((x - c) ** 2 / b ** 2))
+        self.fit_off_gauss_fun = lambda x, a, b, c, d: a * np.exp(-0.5 * ((x - c) ** 2 / b ** 2)) + d
         self.fit_normalised_poisson_fun = lambda x, a: ((a ** x) * np.exp((-1) * a)) / (np.math.factorial(x))
         self.fit_poisson_fun = lambda x, a, b: a * ((b ** x) * np.exp((-1) * b)) / (np.math.factorial(x))
 
         self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_cos_fun, self.fit_cos2_fun,
                               self.fit_poly2_fun, self.fit_poly3_fun, self.fit_normalised_gauss_fun,
-                              self.fit_gauss_fun, self.fit_normalised_poisson_fun, self.fit_poisson_fun]
+                              self.fit_gauss_fun, self.fit_off_gauss_fun,
+                              self.fit_normalised_poisson_fun, self.fit_poisson_fun]
 
-        self.number_of_params = [2, 2, 2, 2, 3, 4, 2, 3, 1, 2]
+        self.number_of_params = [2, 2, 2, 2, 3, 4, 2, 3, 4, 1, 2]
 
 
 class EffVarChi2Reg:  # This class is like Chi2Regression but takes into account dx
@@ -118,10 +124,11 @@ class Fit(object):
         self.d_0 = 0
         self.p_0_array = [self.a_0, self.b_0, self.c_0, self.d_0]
 
-        self.a_err = 0
-        self.b_err = 0
-        self.c_err = 0
-        self.d_err = 0
+        self.a_err = None
+        self.b_err = None
+        self.c_err = None
+        self.d_err = None
+        self.p_err_array = [self.a_err, self.b_err, self.c_err, self.d_err]
 
         self.a_limit_i = -1000
         self.b_limit_i = -1000
@@ -144,6 +151,8 @@ class Fit(object):
         self.y: np.array = None  # the y values
         self.dx: np.array = None  # the x-axis uncertainties
         self.dy: np.array = None  # the y-axis uncertainties
+
+        self.chi_ndof = None
 
     def set_a_parameter(self, a):
         self.a = a
@@ -175,21 +184,31 @@ class Fit(object):
 
     def set_a_err_parameter(self, a_err):
         self.a_err = a_err
+        self.p_err_array[0] = a_err
 
     def set_b_err_parameter(self, b_err):
         self.b_err = b_err
+        self.p_err_array[1] = b_err
 
     def set_c_err_parameter(self, c_err):
         self.c_err = c_err
+        self.p_err_array[2] = c_err
 
     def set_d_err_parameter(self, d_err):
         self.d_err = d_err
+        self.p_err_array[3] = d_err
 
     def get_a_err_parameter(self):
         return self.a_err
 
     def get_b_err_parameter(self):
         return self.b_err
+
+    def get_c_err_parameter(self):
+        return self.c_err
+
+    def get_d_err_parameter(self):
+        return self.d_err
 
     def set_a_initial(self, a_0):
         self.a_0 = a_0
@@ -270,16 +289,25 @@ class Fit(object):
     def get_params_array(self):
         return self.params_array
 
+    def get_err_array(self):
+        return self.p_err_array
+
     def set_func_par_num(self, par_num):
         self.func_par_num = par_num
 
     def get_func_par_num(self):
         return self.func_par_num
 
+    def set_chi_ndof(self, chi_ndof):
+        self.chi_ndof = chi_ndof
+
+    def get_chi_ndof(self):
+        return self.chi_ndof
+
     def optimize(self) -> Minuit:
         cost_function = self.build_cost_function()
         print("initial parameters are: ", tuple(self.p_0_array[:self.func_par_num]))
-        print("initial parameters are: ", self.a_0, self.b_0, self.c_0, self.d_0)
+        # Set Optimization with initial parameters
         if self.get_func_par_num() == 1:
             opt = Minuit(cost_function, self.a_0)
         elif self.get_func_par_num() == 2:
@@ -288,13 +316,20 @@ class Fit(object):
             opt = Minuit(cost_function, self.a_0, self.b_0, self.c_0)
         else:
             opt = Minuit(cost_function, self.a_0, self.b_0, self.c_0, self.d_0)
+        # Set Optimization's parameters limits
         limits = []
         for i in range(self.func_par_num):
             limits.append((self.limits_i_array[i], self.limits_f_array[i]))
         opt.limits = limits
+        # Activate optimization
         opt.migrad()
+        # updates parameters values
         self.set_params(opt.values)
         self.set_errors(opt.errors)
+        # calculate chi squares / number of degree of freedom
+        chi2 = opt.fval
+        ndof = len(self.get_x_array()) - len(self.get_params_array())
+        self.set_chi_ndof(chi2 / ndof)
         return opt
 
     # set fit function's parameters with optimal values so that the sum of the squared residuals of

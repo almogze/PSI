@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>930</width>
-    <height>976</height>
+    <width>1154</width>
+    <height>958</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1869,6 +1869,17 @@ background-color: rgb(255, 255, 255);</string>
                             <property name="spacing">
                              <number>0</number>
                             </property>
+                            <item row="0" column="1">
+                             <widget class="QFrame" name="frame_60">
+                              <property name="frameShape">
+                               <enum>QFrame::StyledPanel</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Raised</enum>
+                              </property>
+                              <layout class="QVBoxLayout" name="verticalLayout_32"/>
+                             </widget>
+                            </item>
                             <item row="0" column="0">
                              <widget class="QFrame" name="frame_54">
                               <property name="frameShape">
@@ -1900,17 +1911,6 @@ background-color: rgb(255, 255, 255);</string>
                                 </widget>
                                </item>
                               </layout>
-                             </widget>
-                            </item>
-                            <item row="0" column="1">
-                             <widget class="QFrame" name="frame_60">
-                              <property name="frameShape">
-                               <enum>QFrame::StyledPanel</enum>
-                              </property>
-                              <property name="frameShadow">
-                               <enum>QFrame::Raised</enum>
-                              </property>
-                              <layout class="QVBoxLayout" name="verticalLayout_32"/>
                              </widget>
                             </item>
                             <item row="1" column="0">
@@ -2581,7 +2581,7 @@ background-color: rgb(255, 255, 255);</string>
                                    <number>0</number>
                                   </property>
                                   <property name="leftMargin">
-                                   <number>2</number>
+                                   <number>0</number>
                                   </property>
                                   <property name="topMargin">
                                    <number>0</number>
@@ -2593,16 +2593,78 @@ background-color: rgb(255, 255, 255);</string>
                                    <number>0</number>
                                   </property>
                                   <item>
-                                   <widget class="QLabel" name="label_10">
-                                    <property name="maximumSize">
-                                     <size>
-                                      <width>100</width>
-                                      <height>16777215</height>
-                                     </size>
+                                   <widget class="QFrame" name="frame_72">
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
                                     </property>
-                                    <property name="text">
-                                     <string>Parameters Value:</string>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
                                     </property>
+                                    <layout class="QVBoxLayout" name="verticalLayout_24">
+                                     <item>
+                                      <widget class="QLabel" name="label_10">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>100</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="text">
+                                        <string>Parameters Value:</string>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QFrame" name="frame_73">
+                                       <property name="frameShape">
+                                        <enum>QFrame::StyledPanel</enum>
+                                       </property>
+                                       <property name="frameShadow">
+                                        <enum>QFrame::Raised</enum>
+                                       </property>
+                                       <layout class="QVBoxLayout" name="verticalLayout_26">
+                                        <property name="spacing">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="leftMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="topMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="rightMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="bottomMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <item>
+                                         <widget class="QLabel" name="label_32">
+                                          <property name="text">
+                                           <string>Chi2/Ndof:</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QLineEdit" name="lineEdit_analysis_chi2Ndof">
+                                          <property name="enabled">
+                                           <bool>false</bool>
+                                          </property>
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>0</width>
+                                            <height>20</height>
+                                           </size>
+                                          </property>
+                                          <property name="text">
+                                           <string>None</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                    </layout>
                                    </widget>
                                   </item>
                                   <item>

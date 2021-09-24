@@ -121,7 +121,7 @@ class SetupAnalysisWindow:
         self.ui_analysis.load_pages.layout_send_excel_parameters.addWidget(self.send_excel_parm_btn)
 
         # COMBOBOX EDITING
-        self.ui_analysis.load_pages.comboBox_analysis_box_location.addItems(["1", "2", "3", "4"])
+        self.ui_analysis.load_pages.comboBox_analysis_box_location.addItems(["None", "1", "2", "3", "4"])
         self.ui_analysis.load_pages.comboBox_analysis_fit_function.addItems(self.fun_text.fun_texts_array)
         self.ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndexChanged.connect(
             lambda: wf.fun_fit_changed(self.ui_analysis.analysis, self.ui_analysis, self.ui_analysis.load_pages.

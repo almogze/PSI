@@ -125,6 +125,7 @@ def update_right_graph(atom: Atom, ui_atom: UI_AtomWindow):
 
 
 def update_region_image_view(viewRange, ui_atom: UI_AtomWindow):
+    # preventing infinite loop by disabling other signals
     ui_atom.graph_top.sigRangeChanged.disconnect()
     ui_atom.graph_right.sigRangeChanged.disconnect()
 
@@ -132,24 +133,26 @@ def update_region_image_view(viewRange, ui_atom: UI_AtomWindow):
     rgn_y = viewRange[1]
     ui_atom.graph_top.setXRange(rgn_x[0], rgn_x[1])
     ui_atom.graph_right.setYRange(rgn_y[0], rgn_y[1])
-
+    # activating again other signals
     ui_atom.graph_top.sigRangeChanged.connect(lambda window, rgn: update_region_top(rgn, ui_atom))
     ui_atom.graph_right.sigRangeChanged.connect(lambda window, rgn: update_region_right(rgn, ui_atom))
 
 
 def update_region_top(viewRange, ui_atom: UI_AtomWindow):
+    # preventing infinite loop by disabling other signals
     ui_atom.image_view.sigRangeChanged.disconnect()
 
     rgn_x = viewRange[0]
     ui_atom.image_view.setXRange(rgn_x[0], rgn_x[1])
-
+    # activating again other signals
     ui_atom.image_view.sigRangeChanged.connect(lambda window, rgn: update_region_image_view(rgn, ui_atom))
 
 
 def update_region_right(viewRange, ui_atom: UI_AtomWindow):
+    # preventing infinite loop by disabling other signals
     ui_atom.image_view.sigRangeChanged.disconnect()
 
     rgn_y = viewRange[1]
     ui_atom.image_view.setYRange(rgn_y[0], rgn_y[1])
-
+    # activating again other signals
     ui_atom.image_view.sigRangeChanged.connect(lambda window, rgn: update_region_image_view(rgn, ui_atom))

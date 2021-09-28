@@ -46,45 +46,17 @@ class UI_AtomWindow(object):
         # GRAPHIC SETTINGS
         # ///////////////////////////////////////////////////////////////
         self.image_view: PlotItem = self.load_pages.ImageView_Atom.addPlot()
-        self.image_view.getAxis('left').setLabel('y axis pixels')
-        self.image_view.getAxis('bottom').setLabel('x axis pixels')
-
-        cmap = pg.colormap.get('CET-L8')
-        self.bar = pg.ColorBarItem(
-            interactive=True, values=(-5, 5), cmap=cmap,
-            label='pixel intensity color'
-        )
-
         self.image: ImageItem = ImageItem()
-
         self.graph_top: PlotItem = self.load_pages.ImageView_Atom_top.addPlot()
-        self.graph_top.getAxis('bottom').setStyle(showValues=False)
-        self.graph_top.showAxis('top')
-        self.graph_top.getAxis('top').setLabel('x axis pixels')
-        self.graph_top.getAxis('left').setLabel('pixels intensity')
-
         self.graph_right: PlotItem = self.load_pages.ImageView_Atom_right.addPlot()
-        self.graph_right.getAxis('left').setStyle(showValues=False)
-        self.graph_right.getAxis('bottom').setLabel('pixels intensity')
-        self.graph_right.showAxis('right')
-        self.graph_right.getAxis('right').setLabel('y axis pixels')
-
-        self.image_view.addItem(self.image)
-        self.bar.setImageItem(self.image, insert_in=self.image_view)
 
         # Add lines to image
         self.inf1 = pg.InfiniteLine(movable=True, angle=90, label='x pixel={value:0.0f}',
-                               labelOpts={'color': (200, 200, 100), 'fill': (200, 200, 200, 50),
-                                          'movable': True})
+                                    labelOpts={'color': (200, 200, 100), 'fill': (200, 200, 200, 50),
+                                               'movable': True})
         self.inf2 = pg.InfiniteLine(movable=True, angle=0,
-                               label='y pixel={value:0.0f}',
-                               labelOpts={'color': (200, 200, 100), 'movable': True, 'fill': (200, 200, 200, 50)})
-
-        self.image_view.addItem(self.inf1)
-        self.image_view.addItem(self.inf2)
-
-        self.inf1.sigPositionChanged.connect()
-        self.inf2.sigPositionChanged.connect()
+                                    label='y pixel={value:0.0f}',
+                                    labelOpts={'color': (200, 200, 100), 'movable': True, 'fill': (200, 200, 200, 50)})
 
         # LOAD SETTINGS
         # ///////////////////////////////////////////////////////////////

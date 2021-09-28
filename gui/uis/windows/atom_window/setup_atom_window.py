@@ -60,6 +60,47 @@ class SetupAtomWindow:
         # ATOM WIDGETS
         # /////////////////////////////////////////////////////////
 
+        # GRAPHIC VIEW
+        # ///////////////////////////////////////////////////////////////
+        self.ui_atom.image_view.getAxis('left').setLabel('y axis pixels')
+        self.ui_atom.image_view.getAxis('bottom').setLabel('x axis pixels')
+
+        cmap = pg.colormap.get('CET-L8')
+        self.bar = pg.ColorBarItem(
+            interactive=True, values=(-5, 5), cmap=cmap,
+            label='pixel intensity color'
+        )
+
+        self.ui_atom.graph_top.getAxis('bottom').setStyle(showValues=False)
+        self.ui_atom.graph_top.showAxis('top')
+        self.ui_atom.graph_top.getAxis('top').setLabel('x axis pixels')
+        self.ui_atom.graph_top.getAxis('left').setLabel('pixels intensity')
+
+        self.ui_atom.graph_right.getAxis('left').setStyle(showValues=False)
+        self.ui_atom.graph_right.getAxis('bottom').setLabel('pixels intensity')
+        self.ui_atom.graph_right.showAxis('right')
+        self.ui_atom.graph_right.getAxis('right').setLabel('y axis pixels')
+
+        self.ui_atom.image_view.addItem(self.ui_atom.image)
+        self.bar.setImageItem(self.ui_atom.image, insert_in=self.ui_atom.image_view)
+
+        self.ui_atom.image_view.addItem(self.ui_atom.inf1)
+        self.ui_atom.image_view.addItem(self.ui_atom.inf2)
+
+        # signals dealing: lines motion and scaling
+        self.ui_atom.inf1.sigPositionChanged.connect(lambda: update_right_graph(self.ui_atom.atom, self.ui_atom))
+        self.ui_atom.inf2.sigPositionChanged.connect(lambda: update_top_graph(self.ui_atom.atom, self.ui_atom))
+        # self.ui_atom.inf1.sigPositionChangeFinished.connect()
+        # self.ui_atom.inf2.sigPositionChangeFinished.connect()
+
+        self.ui_atom.image_view.sigRangeChanged.connect(
+            lambda window, viewRange: update_region_image_view(viewRange, self.ui_atom))
+        self.ui_atom.graph_top.sigRangeChanged.connect(
+            lambda window, viewRange: update_region_top(viewRange, self.ui_atom))
+        self.ui_atom.graph_right.sigRangeChanged.connect(
+            lambda window, viewRange: update_region_right(viewRange, self.ui_atom))
+
+
         # GRAPH LOAD / CLEAR BUTTONS
 
         # self.atom_graph_generate_btn = QPushButton("Generate")

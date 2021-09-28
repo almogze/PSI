@@ -84,6 +84,11 @@ def checkAndLoad(atom: Atom, error: QMessageBox, ui_atom: UI_AtomWindow) -> None
         else:
             # ui_atom.load_pages.ImageView_Atom.setImage(loaded_image)
             ui_atom.image.setImage(image=loaded_image)
+            ui_atom.inf1.setBounds([0, len(loaded_image)])
+            ui_atom.inf2.setBounds([0, len(loaded_image[0])])
+
+            ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, int(ui_atom.inf2.value())])
+            ui_atom.graph_right.plot(loaded_image[int(ui_atom.inf1.value())], np.arange(len(loaded_image[0])))
 
 
 def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
@@ -99,6 +104,52 @@ def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
     loaded_image = atom.loadImage(ind)
     if loaded_image is not None:
         ui_atom.image.setImage(image=loaded_image)
-        # ui_atom.load_pages.ImageView_Atom.setImage(loaded_image)
+        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, int(ui_atom.inf2.value())])
+        ui_atom.graph_right.plot(loaded_image[ui_atom.inf1.value()], np.arange(len(loaded_image[0])))
     else:
         print("ComboBox index is not Valid")
+
+
+def update_top_graph(atom: Atom, ui_atom: UI_AtomWindow):
+    if atom.clearToLoad():
+        loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
+        ui_atom.graph_top.clear()
+        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, int(ui_atom.inf2.value())])
+
+
+def update_right_graph(atom: Atom, ui_atom: UI_AtomWindow):
+    if atom.clearToLoad():
+        loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
+        ui_atom.graph_right.clear()
+        ui_atom.graph_right.plot(loaded_image[int(ui_atom.inf1.value())], np.arange(len(loaded_image[0])))
+
+
+def update_region_image_view(viewRange, ui_atom: UI_AtomWindow):
+    ui_atom.graph_top.sigRangeChanged.disconnect()
+    ui_atom.graph_right.sigRangeChanged.disconnect()
+
+    rgn_x = viewRange[0]
+    rgn_y = viewRange[1]
+    ui_atom.graph_top.setXRange(rgn_x[0], rgn_x[1])
+    ui_atom.graph_right.setYRange(rgn_y[0], rgn_y[1])
+
+    ui_atom.graph_top.sigRangeChanged.connect(lambda window, rgn: update_region_top(rgn, ui_atom))
+    ui_atom.graph_right.sigRangeChanged.connect(lambda window, rgn: update_region_right(rgn, ui_atom))
+
+
+def update_region_top(viewRange, ui_atom: UI_AtomWindow):
+    ui_atom.image_view.sigRangeChanged.disconnect()
+
+    rgn_x = viewRange[0]
+    ui_atom.image_view.setXRange(rgn_x[0], rgn_x[1])
+
+    ui_atom.image_view.sigRangeChanged.connect(lambda window, rgn: update_region_image_view(rgn, ui_atom))
+
+
+def update_region_right(viewRange, ui_atom: UI_AtomWindow):
+    ui_atom.image_view.sigRangeChanged.disconnect()
+
+    rgn_y = viewRange[1]
+    ui_atom.image_view.setYRange(rgn_y[0], rgn_y[1])
+
+    ui_atom.image_view.sigRangeChanged.connect(lambda window, rgn: update_region_image_view(rgn, ui_atom))

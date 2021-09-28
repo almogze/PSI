@@ -82,13 +82,19 @@ def checkAndLoad(atom: Atom, error: QMessageBox, ui_atom: UI_AtomWindow) -> None
         if loaded_image is None:
             print("ComboBox index is not Valid")
         else:
-            # ui_atom.load_pages.ImageView_Atom.setImage(loaded_image)
+            # load image
             ui_atom.image.setImage(image=loaded_image)
+            # Set bounds for lines
             ui_atom.inf1.setBounds([0, len(loaded_image)])
             ui_atom.inf2.setBounds([0, len(loaded_image[0])])
-
-            ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, int(ui_atom.inf2.value())])
-            ui_atom.graph_right.plot(loaded_image[int(ui_atom.inf1.value())], np.arange(len(loaded_image[0])))
+            # plot top and right graphs
+            pos_x = int(ui_atom.inf1.value())
+            pos_y = int(ui_atom.inf2.value())
+            ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
+            ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
+            # add lines positions
+            ui_atom.image_view.setTitle(
+                "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
 
 
 def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
@@ -104,8 +110,12 @@ def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
     loaded_image = atom.loadImage(ind)
     if loaded_image is not None:
         ui_atom.image.setImage(image=loaded_image)
-        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, int(ui_atom.inf2.value())])
-        ui_atom.graph_right.plot(loaded_image[ui_atom.inf1.value()], np.arange(len(loaded_image[0])))
+        pos_x = int(ui_atom.inf1.value())
+        pos_y = int(ui_atom.inf2.value())
+        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
+        ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
+        ui_atom.image_view.setTitle(
+            "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
     else:
         print("ComboBox index is not Valid")
 
@@ -113,15 +123,24 @@ def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
 def update_top_graph(atom: Atom, ui_atom: UI_AtomWindow):
     if atom.clearToLoad():
         loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
+        pos_x = int(ui_atom.inf1.value())
+        pos_y = int(ui_atom.inf2.value())
         ui_atom.graph_top.clear()
-        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, int(ui_atom.inf2.value())])
+        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
+        ui_atom.image_view.setTitle(
+            "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
 
 
 def update_right_graph(atom: Atom, ui_atom: UI_AtomWindow):
     if atom.clearToLoad():
         loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
+        pos_x = int(ui_atom.inf1.value())
+        pos_y = int(ui_atom.inf2.value())
         ui_atom.graph_right.clear()
-        ui_atom.graph_right.plot(loaded_image[int(ui_atom.inf1.value())], np.arange(len(loaded_image[0])))
+        ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
+        ui_atom.image_view.setTitle(
+            "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
+
 
 
 def update_region_image_view(viewRange, ui_atom: UI_AtomWindow):

@@ -28,7 +28,7 @@ from gui.widgets import *
 # IMPORT ATOM CLASS
 # ///////////////////////////////////////////////////////////////
 from gui.uis.api.atom import Atom
-from pyqtgraph import PlotItem, ImageItem
+from pyqtgraph import PlotItem, ImageItem, LabelItem
 
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
@@ -50,12 +50,12 @@ class UI_AtomWindow(object):
         self.graph_top: PlotItem = self.load_pages.ImageView_Atom_top.addPlot()
         self.graph_right: PlotItem = self.load_pages.ImageView_Atom_right.addPlot()
 
+
         # Add lines to image
-        self.inf1 = pg.InfiniteLine(movable=True, angle=90, label='x pixel={value:0.0f}',
+        self.inf1 = pg.InfiniteLine(movable=True, angle=90,
                                     labelOpts={'color': (200, 200, 100), 'fill': (200, 200, 200, 50),
                                                'movable': True})
         self.inf2 = pg.InfiniteLine(movable=True, angle=0,
-                                    label='y pixel={value:0.0f}',
                                     labelOpts={'color': (200, 200, 100), 'movable': True, 'fill': (200, 200, 200, 50)})
 
         # LOAD SETTINGS

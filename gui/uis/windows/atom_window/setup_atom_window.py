@@ -64,6 +64,8 @@ class SetupAtomWindow:
         # ///////////////////////////////////////////////////////////////
         self.ui_atom.image_view.getAxis('left').setLabel('y axis pixels')
         self.ui_atom.image_view.getAxis('bottom').setLabel('x axis pixels')
+        self.ui_atom.image_view.setTitle(
+            "pixel: (%0.0f, %0.0f), intensity: None" % (self.ui_atom.inf1.value(), self.ui_atom.inf2.value()))
 
         cmap = pg.colormap.get('CET-L8')
         self.bar = pg.ColorBarItem(

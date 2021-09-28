@@ -25,7 +25,7 @@ from gui.widgets import *
 
 # IMPORT WIDGETS FUNCTIONS
 # ///////////////////////////////////////////////////////////////
-from gui.uis.api.widgets_functions import *
+from gui.uis.api.atom_api_functions import *
 
 # LOAD UI ATOM
 # ///////////////////////////////////////////////////////////////

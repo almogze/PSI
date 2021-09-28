@@ -26,7 +26,7 @@ from gui.widgets import *
 
 # IMPORT WIDGETS FUNCTIONS
 # ///////////////////////////////////////////////////////////////
-import gui.uis.api.widgets_functions as wf
+import gui.uis.api.analysis_api_functions as wf
 
 # IMPORT PARAMETERS CLASS
 # ///////////////////////////////////////////////////////////////

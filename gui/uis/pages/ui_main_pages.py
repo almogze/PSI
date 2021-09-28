@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesqSnRiE.ui'
+## Form generated from reading UI file 'main_pagesOImDWf.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -15,7 +15,7 @@ class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(1154, 958)
+        MainPages.resize(1143, 852)
         self.excel_settings_load_btn_layout = QVBoxLayout(MainPages)
         self.excel_settings_load_btn_layout.setSpacing(0)
         self.excel_settings_load_btn_layout.setObjectName(u"excel_settings_load_btn_layout")
@@ -123,14 +123,67 @@ class Ui_MainPages(object):
         self.frame_atom_graph.setMaximumSize(QSize(800, 600))
         self.frame_atom_graph.setFrameShape(QFrame.NoFrame)
         self.frame_atom_graph.setFrameShadow(QFrame.Raised)
-        self.verticalLayout = QVBoxLayout(self.frame_atom_graph)
+        self.gridLayout_3 = QGridLayout(self.frame_atom_graph)
+        self.gridLayout_3.setSpacing(0)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.frame_77 = QFrame(self.frame_atom_graph)
+        self.frame_77.setObjectName(u"frame_77")
+        self.frame_77.setFrameShape(QFrame.NoFrame)
+        self.frame_77.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_34 = QVBoxLayout(self.frame_77)
+        self.verticalLayout_34.setSpacing(0)
+        self.verticalLayout_34.setObjectName(u"verticalLayout_34")
+        self.verticalLayout_34.setContentsMargins(0, 0, 3, 3)
+        self.ImageView_Atom_top = GraphicsLayoutWidget(self.frame_77)
+        self.ImageView_Atom_top.setObjectName(u"ImageView_Atom_top")
+        self.ImageView_Atom_top.setMaximumSize(QSize(16777215, 150))
+
+        self.verticalLayout_34.addWidget(self.ImageView_Atom_top)
+
+
+        self.gridLayout_3.addWidget(self.frame_77, 0, 0, 1, 1)
+
+        self.frame_76 = QFrame(self.frame_atom_graph)
+        self.frame_76.setObjectName(u"frame_76")
+        self.frame_76.setFrameShape(QFrame.StyledPanel)
+        self.frame_76.setFrameShadow(QFrame.Raised)
+
+        self.gridLayout_3.addWidget(self.frame_76, 0, 1, 1, 1)
+
+        self.frame_74 = QFrame(self.frame_atom_graph)
+        self.frame_74.setObjectName(u"frame_74")
+        self.frame_74.setFrameShape(QFrame.NoFrame)
+        self.frame_74.setFrameShadow(QFrame.Raised)
+        self.verticalLayout = QVBoxLayout(self.frame_74)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.ImageView_Atom = ImageView(self.frame_atom_graph)
+        self.verticalLayout.setContentsMargins(0, 3, 3, 0)
+        self.ImageView_Atom = GraphicsLayoutWidget(self.frame_74)
         self.ImageView_Atom.setObjectName(u"ImageView_Atom")
+        self.ImageView_Atom.setMinimumSize(QSize(640, 450))
 
         self.verticalLayout.addWidget(self.ImageView_Atom)
+
+
+        self.gridLayout_3.addWidget(self.frame_74, 1, 0, 1, 1)
+
+        self.frame_75 = QFrame(self.frame_atom_graph)
+        self.frame_75.setObjectName(u"frame_75")
+        self.frame_75.setFrameShape(QFrame.NoFrame)
+        self.frame_75.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_30 = QVBoxLayout(self.frame_75)
+        self.verticalLayout_30.setSpacing(0)
+        self.verticalLayout_30.setObjectName(u"verticalLayout_30")
+        self.verticalLayout_30.setContentsMargins(3, 3, 0, 0)
+        self.ImageView_Atom_right = GraphicsLayoutWidget(self.frame_75)
+        self.ImageView_Atom_right.setObjectName(u"ImageView_Atom_right")
+        self.ImageView_Atom_right.setMaximumSize(QSize(150, 16777215))
+
+        self.verticalLayout_30.addWidget(self.ImageView_Atom_right)
+
+
+        self.gridLayout_3.addWidget(self.frame_75, 1, 1, 1, 1)
 
 
         self.no_frame.addWidget(self.frame_atom_graph)
@@ -1717,7 +1770,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(3)
+        self.pages.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainPages)

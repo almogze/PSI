@@ -69,7 +69,7 @@ class SetupAtomWindow:
 
         cmap = pg.colormap.get('CET-L8')
         self.bar = pg.ColorBarItem(
-            interactive=True, values=(-5, 5), cmap=cmap,
+            interactive=True, values=(-1, 1), cmap=cmap,
             label='pixel intensity color'
         )
 

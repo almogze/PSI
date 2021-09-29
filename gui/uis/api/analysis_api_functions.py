@@ -2,6 +2,7 @@
 # ///////////////////////////////////////////////////////////////
 import string
 
+import pandas
 import pandas as pd
 from PIL import Image
 import numpy as np
@@ -21,18 +22,12 @@ from qt_core import *
 
 
 def open_dialog_box_analysis(analysis: Analysis, switch: string, ui_analysis: UI_AnalysisWindow) -> None:
-    error = QMessageBox()
-    error.setWindowTitle("Error")
-    error.setIcon(QMessageBox.Critical)
-
     filename = QFileDialog.getOpenFileName()
     if switch == "excel_file":
         analysis.setExcelPath(filename[0])
         print(analysis.getExcelPath())
         if not analysis.checkExcelFormat():
-            print("file is not in excel format!")
-            error.setText("File must be in xlsx format")
-            error.exec()
+            pop_error("file is not in excel format!", "File must be in xlsx format")
         else:
             ui_analysis.load_pages.lineEdit_analysis_excel_name.setText(analysis.getExcelPath())
             excel_file = pd.ExcelFile(analysis.getExcelPath())
@@ -41,10 +36,6 @@ def open_dialog_box_analysis(analysis: Analysis, switch: string, ui_analysis: UI
 
 
 def send_excel_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
-    error = QMessageBox()
-    error.setWindowTitle("Error")
-    error.setIcon(QMessageBox.Critical)
-
     # Collecting Excel's groupbox parameters into a boolean list
     # List represent the result of each method
     bool_list = [analysis.setSheetName(ui_analysis.load_pages.comboBox_analysis_excel_sheet_names.currentText()),
@@ -52,9 +43,7 @@ def send_excel_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow) ->
     # All methods succeed
     if all(bool_list):
         if not analysis.checkExcelFormat():
-            print("file is not in excel format!")
-            error.setText("File must be in xlsx format")
-            error.exec()
+            pop_error("file is not in excel format!", "File must be in xlsx format")
         else:
             if analysis.readExcel():  # Create data frame related excel path
                 print("Created Data Frame from excel path")
@@ -62,9 +51,7 @@ def send_excel_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow) ->
                 initialize_excel_axis(ui_analysis.analysis.getExcelAxis(), ui_analysis)
                 print("Axis initialization succeed")
     else:
-        print("Missing excel parameters information!")
-        error.setText("Missing data, please check that all parameters are loaded")
-        error.exec()
+        pop_error("Missing excel parameters information!", "Missing data, please check that all parameters are loaded")
 
 
 def fun_fit_changed(analysis: Analysis, ui_analysis: UI_AnalysisWindow, ind: int):
@@ -88,8 +75,8 @@ def initialize_excel_axis(axis: np.ndarray, ui_analysis: UI_AnalysisWindow) -> N
     print("clean old axis")
     ui_analysis.load_pages.comboBox_analysis_x_axis.addItems(axis)
     ui_analysis.load_pages.comboBox_analysis_y_axis.addItems(axis)
-    ui_analysis.load_pages.comboBox_analysis_x_error.addItems(np.append(axis, "None"))
-    ui_analysis.load_pages.comboBox_analysis_y_error.addItems(np.append(axis, "None"))
+    ui_analysis.load_pages.comboBox_analysis_x_error.addItems(np.append("None", axis))
+    ui_analysis.load_pages.comboBox_analysis_y_error.addItems(np.append("None", axis))
 
 
 def plot_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
@@ -118,18 +105,37 @@ def get_axis_labels(ui_analysis: UI_AnalysisWindow) -> np.array:
 
 def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     df: pd.DataFrame = analysis.getDataFrame()
-    labels = get_axis_labels(ui_analysis)
-    x = df[labels[0]].values
-    y = df[labels[1]].values
-    if labels[2] == "None":
-        dx = None
+    if not check_excel_columns(df):
+        pop_error("excel columns are not int of float", "please check columns types")
     else:
-        dx = df[labels[2]].values
-    if labels[3] == "None":
-        dy = None
+        labels = get_axis_labels(ui_analysis)
+        x = df[labels[0]].values
+        y = df[labels[1]].values
+        if labels[2] == "None":
+            dx = None
+        else:
+            dx = df[labels[2]].values
+        if labels[3] == "None":
+            dy = None
+        else:
+            dy = df[labels[3]].values
+        ui_analysis.analysis.setFitData(x, y, dx, dy)
+
+
+def check_excel_columns(df: pandas.DataFrame) -> bool:
+    if all(x == 'int64' or x == 'float64' for x in df.dtypes.values):
+        return bool(True)
     else:
-        dy = df[labels[3]].values
-    ui_analysis.analysis.setFitData(x, y, dx, dy)
+        return bool(False)
+
+
+def pop_error(s1: string, s2: string):
+    error = QMessageBox()
+    error.setWindowTitle("Error")
+    error.setIcon(QMessageBox.Critical)
+    print(s1)
+    error.setText(s2)
+    error.exec()
 
 
 def set_opt_and_plot(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
@@ -403,7 +409,7 @@ def matplotlib_fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWin
     dx = analysis.fit.get_dx_array()
     dy = analysis.fit.get_dy_array()
     text = "$ Fitted \  to \ f(x) = {} $\n".format(analysis.fun_texts.fun_latex_texts_array[ui_analysis.load_pages.
-                                            comboBox_analysis_fit_function.currentIndex()])
+                                                   comboBox_analysis_fit_function.currentIndex()])
     ascii_prm = 97
     for i in range(analysis.fit.get_func_par_num()):
         text += "$\ \ \ %s$ = %0.4f $\pm$ %0.4f \n" % (

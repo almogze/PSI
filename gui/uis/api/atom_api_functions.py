@@ -82,6 +82,9 @@ def checkAndLoad(atom: Atom, error: QMessageBox, ui_atom: UI_AtomWindow) -> None
         if loaded_image is None:
             print("ComboBox index is not Valid")
         else:
+            # clear old plots
+            ui_atom.graph_top.clear()
+            ui_atom.graph_right.clear()
             # load image
             ui_atom.image.setImage(image=loaded_image)
             # Set bounds for lines
@@ -107,6 +110,9 @@ def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
 
 
 def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
+    # clear old plots
+    ui_atom.graph_top.clear()
+    ui_atom.graph_right.clear()
     loaded_image = atom.loadImage(ind)
     if loaded_image is not None:
         ui_atom.image.setImage(image=loaded_image)
@@ -140,7 +146,6 @@ def update_right_graph(atom: Atom, ui_atom: UI_AtomWindow):
         ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
         ui_atom.image_view.setTitle(
             "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
-
 
 
 def update_region_image_view(viewRange, ui_atom: UI_AtomWindow):

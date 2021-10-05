@@ -55,7 +55,7 @@ def send_excel_parameters(analysis: Analysis, ui_analysis: UI_AnalysisWindow) ->
 
 
 def fun_fit_changed(analysis: Analysis, ui_analysis: UI_AnalysisWindow, ind: int):
-    # Set the fit function label to mach the new function that chosen
+    # Set the fit function label to match the new function that chosen
     ui_analysis.load_pages.label_analysis_fit_function.setText(analysis.fun_texts.fun_non_latex_texts_array[ind])
     # number of parameters of new fit function
     new_num_of_params = analysis.fun_fits.number_of_params[ind]

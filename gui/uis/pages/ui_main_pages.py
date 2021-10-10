@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesOImDWf.ui'
+## Form generated from reading UI file 'main_pagesfhUfKT.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -15,7 +15,7 @@ class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(1143, 852)
+        MainPages.resize(1095, 852)
         self.excel_settings_load_btn_layout = QVBoxLayout(MainPages)
         self.excel_settings_load_btn_layout.setSpacing(0)
         self.excel_settings_load_btn_layout.setObjectName(u"excel_settings_load_btn_layout")
@@ -81,8 +81,498 @@ class Ui_MainPages(object):
 
         self.frame_fringes_main = QFrame(self.page_fringes)
         self.frame_fringes_main.setObjectName(u"frame_fringes_main")
-        self.frame_fringes_main.setFrameShape(QFrame.StyledPanel)
+        self.frame_fringes_main.setFrameShape(QFrame.NoFrame)
         self.frame_fringes_main.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_44 = QVBoxLayout(self.frame_fringes_main)
+        self.verticalLayout_44.setSpacing(0)
+        self.verticalLayout_44.setObjectName(u"verticalLayout_44")
+        self.verticalLayout_44.setContentsMargins(0, 0, 0, 0)
+        self.frame_atom_main_2 = QFrame(self.frame_fringes_main)
+        self.frame_atom_main_2.setObjectName(u"frame_atom_main_2")
+        self.frame_atom_main_2.setFrameShape(QFrame.NoFrame)
+        self.frame_atom_main_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_48 = QHBoxLayout(self.frame_atom_main_2)
+        self.horizontalLayout_48.setObjectName(u"horizontalLayout_48")
+        self.horizontalLayout_48.setContentsMargins(0, 0, 0, 0)
+        self.frame_atom_3 = QFrame(self.frame_atom_main_2)
+        self.frame_atom_3.setObjectName(u"frame_atom_3")
+        self.frame_atom_3.setMaximumSize(QSize(800, 16777215))
+        self.frame_atom_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_atom_3.setFrameShadow(QFrame.Raised)
+        self.no_frame_3 = QVBoxLayout(self.frame_atom_3)
+        self.no_frame_3.setSpacing(0)
+        self.no_frame_3.setObjectName(u"no_frame_3")
+        self.no_frame_3.setContentsMargins(0, 0, 0, 0)
+        self.frame_fringes_view = QFrame(self.frame_atom_3)
+        self.frame_fringes_view.setObjectName(u"frame_fringes_view")
+        self.frame_fringes_view.setMaximumSize(QSize(800, 600))
+        self.frame_fringes_view.setFrameShape(QFrame.NoFrame)
+        self.frame_fringes_view.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_66 = QHBoxLayout(self.frame_fringes_view)
+        self.horizontalLayout_66.setObjectName(u"horizontalLayout_66")
+        self.ImageView_fringes = GraphicsLayoutWidget(self.frame_fringes_view)
+        self.ImageView_fringes.setObjectName(u"ImageView_fringes")
+        self.ImageView_fringes.setMinimumSize(QSize(0, 0))
+
+        self.horizontalLayout_66.addWidget(self.ImageView_fringes)
+
+
+        self.no_frame_3.addWidget(self.frame_fringes_view)
+
+        self.frame_atom_analysis_2 = QFrame(self.frame_atom_3)
+        self.frame_atom_analysis_2.setObjectName(u"frame_atom_analysis_2")
+        self.frame_atom_analysis_2.setFrameShape(QFrame.NoFrame)
+        self.frame_atom_analysis_2.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_38 = QVBoxLayout(self.frame_atom_analysis_2)
+        self.verticalLayout_38.setObjectName(u"verticalLayout_38")
+        self.frame_atom_graph_btns_2 = QFrame(self.frame_atom_analysis_2)
+        self.frame_atom_graph_btns_2.setObjectName(u"frame_atom_graph_btns_2")
+        self.frame_atom_graph_btns_2.setMaximumSize(QSize(16777215, 40))
+        self.frame_atom_graph_btns_2.setFrameShape(QFrame.NoFrame)
+        self.frame_atom_graph_btns_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_49 = QHBoxLayout(self.frame_atom_graph_btns_2)
+        self.horizontalLayout_49.setSpacing(3)
+        self.horizontalLayout_49.setObjectName(u"horizontalLayout_49")
+        self.horizontalLayout_49.setContentsMargins(0, 0, 0, 0)
+        self.frame_atom_graph_btn_load_2 = QFrame(self.frame_atom_graph_btns_2)
+        self.frame_atom_graph_btn_load_2.setObjectName(u"frame_atom_graph_btn_load_2")
+        self.frame_atom_graph_btn_load_2.setMaximumSize(QSize(100, 16777215))
+        self.frame_atom_graph_btn_load_2.setFrameShape(QFrame.NoFrame)
+        self.frame_atom_graph_btn_load_2.setFrameShadow(QFrame.Raised)
+        self.btn_atom_graph_load_layout_2 = QHBoxLayout(self.frame_atom_graph_btn_load_2)
+        self.btn_atom_graph_load_layout_2.setSpacing(0)
+        self.btn_atom_graph_load_layout_2.setObjectName(u"btn_atom_graph_load_layout_2")
+        self.btn_atom_graph_load_layout_2.setContentsMargins(0, 0, 0, 0)
+
+        self.horizontalLayout_49.addWidget(self.frame_atom_graph_btn_load_2)
+
+        self.frame_btn_atom_clear_2 = QFrame(self.frame_atom_graph_btns_2)
+        self.frame_btn_atom_clear_2.setObjectName(u"frame_btn_atom_clear_2")
+        self.frame_btn_atom_clear_2.setMaximumSize(QSize(100, 16777215))
+        self.frame_btn_atom_clear_2.setFrameShape(QFrame.NoFrame)
+        self.frame_btn_atom_clear_2.setFrameShadow(QFrame.Raised)
+        self.btn_atom_clear_layout_2 = QVBoxLayout(self.frame_btn_atom_clear_2)
+        self.btn_atom_clear_layout_2.setSpacing(0)
+        self.btn_atom_clear_layout_2.setObjectName(u"btn_atom_clear_layout_2")
+        self.btn_atom_clear_layout_2.setContentsMargins(0, 0, 0, 0)
+
+        self.horizontalLayout_49.addWidget(self.frame_btn_atom_clear_2)
+
+        self.cloud_comboBox_2 = QComboBox(self.frame_atom_graph_btns_2)
+        self.cloud_comboBox_2.setObjectName(u"cloud_comboBox_2")
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.cloud_comboBox_2.sizePolicy().hasHeightForWidth())
+        self.cloud_comboBox_2.setSizePolicy(sizePolicy)
+        self.cloud_comboBox_2.setMaximumSize(QSize(16777215, 19))
+        self.cloud_comboBox_2.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+"background-color: rgb(255, 255, 255);")
+        self.cloud_comboBox_2.setEditable(False)
+        self.cloud_comboBox_2.setSizeAdjustPolicy(QComboBox.AdjustToContentsOnFirstShow)
+        self.cloud_comboBox_2.setIconSize(QSize(16, 16))
+        self.cloud_comboBox_2.setFrame(True)
+
+        self.horizontalLayout_49.addWidget(self.cloud_comboBox_2)
+
+
+        self.verticalLayout_38.addWidget(self.frame_atom_graph_btns_2)
+
+        self.frame_82 = QFrame(self.frame_atom_analysis_2)
+        self.frame_82.setObjectName(u"frame_82")
+        self.frame_82.setMaximumSize(QSize(16777215, 40))
+        self.frame_82.setFrameShape(QFrame.StyledPanel)
+        self.frame_82.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_50 = QHBoxLayout(self.frame_82)
+        self.horizontalLayout_50.setSpacing(6)
+        self.horizontalLayout_50.setObjectName(u"horizontalLayout_50")
+        self.horizontalLayout_50.setContentsMargins(0, 0, 0, 0)
+        self.label_wit_cloud_path_2 = QLabel(self.frame_82)
+        self.label_wit_cloud_path_2.setObjectName(u"label_wit_cloud_path_2")
+        self.label_wit_cloud_path_2.setMinimumSize(QSize(180, 0))
+        self.label_wit_cloud_path_2.setFont(font)
+
+        self.horizontalLayout_50.addWidget(self.label_wit_cloud_path_2)
+
+        self.lineEdit_with_cloud_path_2 = QLineEdit(self.frame_82)
+        self.lineEdit_with_cloud_path_2.setObjectName(u"lineEdit_with_cloud_path_2")
+
+        self.horizontalLayout_50.addWidget(self.lineEdit_with_cloud_path_2)
+
+
+        self.verticalLayout_38.addWidget(self.frame_82)
+
+        self.frame_83 = QFrame(self.frame_atom_analysis_2)
+        self.frame_83.setObjectName(u"frame_83")
+        self.frame_83.setMaximumSize(QSize(16777215, 40))
+        self.frame_83.setFrameShape(QFrame.StyledPanel)
+        self.frame_83.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_51 = QHBoxLayout(self.frame_83)
+        self.horizontalLayout_51.setSpacing(6)
+        self.horizontalLayout_51.setObjectName(u"horizontalLayout_51")
+        self.horizontalLayout_51.setContentsMargins(0, 0, 0, 0)
+        self.label_without_cloud_path_2 = QLabel(self.frame_83)
+        self.label_without_cloud_path_2.setObjectName(u"label_without_cloud_path_2")
+        self.label_without_cloud_path_2.setMinimumSize(QSize(180, 0))
+        self.label_without_cloud_path_2.setFont(font)
+
+        self.horizontalLayout_51.addWidget(self.label_without_cloud_path_2)
+
+        self.lineEdit_without_cloud_path_2 = QLineEdit(self.frame_83)
+        self.lineEdit_without_cloud_path_2.setObjectName(u"lineEdit_without_cloud_path_2")
+
+        self.horizontalLayout_51.addWidget(self.lineEdit_without_cloud_path_2)
+
+
+        self.verticalLayout_38.addWidget(self.frame_83)
+
+        self.frame_84 = QFrame(self.frame_atom_analysis_2)
+        self.frame_84.setObjectName(u"frame_84")
+        self.frame_84.setFrameShape(QFrame.StyledPanel)
+        self.frame_84.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_38.addWidget(self.frame_84)
+
+
+        self.no_frame_3.addWidget(self.frame_atom_analysis_2)
+
+
+        self.horizontalLayout_48.addWidget(self.frame_atom_3)
+
+        self.frame_atom_5 = QFrame(self.frame_atom_main_2)
+        self.frame_atom_5.setObjectName(u"frame_atom_5")
+        self.frame_atom_5.setFrameShape(QFrame.StyledPanel)
+        self.frame_atom_5.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_39 = QVBoxLayout(self.frame_atom_5)
+        self.verticalLayout_39.setSpacing(0)
+        self.verticalLayout_39.setObjectName(u"verticalLayout_39")
+        self.verticalLayout_39.setContentsMargins(0, 0, 0, 0)
+        self.frame_atom_results_2 = QFrame(self.frame_atom_5)
+        self.frame_atom_results_2.setObjectName(u"frame_atom_results_2")
+        self.frame_atom_results_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_atom_results_2.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_40 = QVBoxLayout(self.frame_atom_results_2)
+        self.verticalLayout_40.setSpacing(0)
+        self.verticalLayout_40.setObjectName(u"verticalLayout_40")
+        self.verticalLayout_40.setContentsMargins(0, 0, 0, 0)
+        self.frame_atom_results_fix_2 = QFrame(self.frame_atom_results_2)
+        self.frame_atom_results_fix_2.setObjectName(u"frame_atom_results_fix_2")
+        self.frame_atom_results_fix_2.setMinimumSize(QSize(350, 383))
+        self.frame_atom_results_fix_2.setMaximumSize(QSize(16777215, 16777215))
+        self.frame_atom_results_fix_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_atom_results_fix_2.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_41 = QVBoxLayout(self.frame_atom_results_fix_2)
+        self.verticalLayout_41.setSpacing(0)
+        self.verticalLayout_41.setObjectName(u"verticalLayout_41")
+        self.verticalLayout_41.setContentsMargins(0, 0, 0, 0)
+        self.groupBox_fringes_simulation = QGroupBox(self.frame_atom_results_fix_2)
+        self.groupBox_fringes_simulation.setObjectName(u"groupBox_fringes_simulation")
+        self.groupBox_fringes_simulation.setAutoFillBackground(False)
+        self.groupBox_fringes_simulation.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
+"gridline-color: rgb(0, 0, 0);")
+        self.verticalLayout_42 = QVBoxLayout(self.groupBox_fringes_simulation)
+        self.verticalLayout_42.setSpacing(0)
+        self.verticalLayout_42.setObjectName(u"verticalLayout_42")
+        self.verticalLayout_42.setContentsMargins(0, 0, 0, 0)
+        self.label_fringes_function_simulation = QLabel(self.groupBox_fringes_simulation)
+        self.label_fringes_function_simulation.setObjectName(u"label_fringes_function_simulation")
+        self.label_fringes_function_simulation.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_42.addWidget(self.label_fringes_function_simulation)
+
+        self.frame_85 = QFrame(self.groupBox_fringes_simulation)
+        self.frame_85.setObjectName(u"frame_85")
+        self.frame_85.setMaximumSize(QSize(16777215, 40))
+        self.frame_85.setFrameShape(QFrame.StyledPanel)
+        self.frame_85.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_52 = QHBoxLayout(self.frame_85)
+        self.horizontalLayout_52.setSpacing(0)
+        self.horizontalLayout_52.setObjectName(u"horizontalLayout_52")
+        self.horizontalLayout_52.setContentsMargins(0, 0, 0, 0)
+        self.frame_86 = QFrame(self.frame_85)
+        self.frame_86.setObjectName(u"frame_86")
+        self.frame_86.setMinimumSize(QSize(150, 0))
+        self.frame_86.setFrameShape(QFrame.StyledPanel)
+        self.frame_86.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_64 = QHBoxLayout(self.frame_86)
+        self.horizontalLayout_64.setObjectName(u"horizontalLayout_64")
+        self.label_30 = QLabel(self.frame_86)
+        self.label_30.setObjectName(u"label_30")
+
+        self.horizontalLayout_64.addWidget(self.label_30)
+
+
+        self.horizontalLayout_52.addWidget(self.frame_86)
+
+        self.frame_87 = QFrame(self.frame_85)
+        self.frame_87.setObjectName(u"frame_87")
+        self.frame_87.setFrameShape(QFrame.StyledPanel)
+        self.frame_87.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_53 = QHBoxLayout(self.frame_87)
+        self.horizontalLayout_53.setObjectName(u"horizontalLayout_53")
+        self.lineEdit_simulate_amplitude = QLineEdit(self.frame_87)
+        self.lineEdit_simulate_amplitude.setObjectName(u"lineEdit_simulate_amplitude")
+        self.lineEdit_simulate_amplitude.setMaximumSize(QSize(120, 16777215))
+
+        self.horizontalLayout_53.addWidget(self.lineEdit_simulate_amplitude)
+
+
+        self.horizontalLayout_52.addWidget(self.frame_87)
+
+
+        self.verticalLayout_42.addWidget(self.frame_85)
+
+        self.frame_91 = QFrame(self.groupBox_fringes_simulation)
+        self.frame_91.setObjectName(u"frame_91")
+        self.frame_91.setMaximumSize(QSize(16777215, 50))
+        self.frame_91.setFrameShape(QFrame.StyledPanel)
+        self.frame_91.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_56 = QHBoxLayout(self.frame_91)
+        self.horizontalLayout_56.setSpacing(0)
+        self.horizontalLayout_56.setObjectName(u"horizontalLayout_56")
+        self.horizontalLayout_56.setContentsMargins(0, 0, 0, 0)
+        self.frame_92 = QFrame(self.frame_91)
+        self.frame_92.setObjectName(u"frame_92")
+        self.frame_92.setMinimumSize(QSize(150, 0))
+        self.frame_92.setFrameShape(QFrame.StyledPanel)
+        self.frame_92.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_45 = QVBoxLayout(self.frame_92)
+        self.verticalLayout_45.setObjectName(u"verticalLayout_45")
+        self.label_33 = QLabel(self.frame_92)
+        self.label_33.setObjectName(u"label_33")
+
+        self.verticalLayout_45.addWidget(self.label_33)
+
+
+        self.horizontalLayout_56.addWidget(self.frame_92)
+
+        self.frame_93 = QFrame(self.frame_91)
+        self.frame_93.setObjectName(u"frame_93")
+        self.frame_93.setFrameShape(QFrame.StyledPanel)
+        self.frame_93.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_57 = QHBoxLayout(self.frame_93)
+        self.horizontalLayout_57.setObjectName(u"horizontalLayout_57")
+        self.lineEdit_simulate_sigmax = QLineEdit(self.frame_93)
+        self.lineEdit_simulate_sigmax.setObjectName(u"lineEdit_simulate_sigmax")
+        self.lineEdit_simulate_sigmax.setMaximumSize(QSize(120, 16777215))
+
+        self.horizontalLayout_57.addWidget(self.lineEdit_simulate_sigmax)
+
+
+        self.horizontalLayout_56.addWidget(self.frame_93)
+
+
+        self.verticalLayout_42.addWidget(self.frame_91)
+
+        self.frame_94 = QFrame(self.groupBox_fringes_simulation)
+        self.frame_94.setObjectName(u"frame_94")
+        self.frame_94.setMaximumSize(QSize(16777215, 50))
+        self.frame_94.setFrameShape(QFrame.StyledPanel)
+        self.frame_94.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_58 = QHBoxLayout(self.frame_94)
+        self.horizontalLayout_58.setSpacing(0)
+        self.horizontalLayout_58.setObjectName(u"horizontalLayout_58")
+        self.horizontalLayout_58.setContentsMargins(0, 0, 0, 0)
+        self.frame_95 = QFrame(self.frame_94)
+        self.frame_95.setObjectName(u"frame_95")
+        self.frame_95.setMinimumSize(QSize(150, 0))
+        self.frame_95.setFrameShape(QFrame.StyledPanel)
+        self.frame_95.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_46 = QVBoxLayout(self.frame_95)
+        self.verticalLayout_46.setObjectName(u"verticalLayout_46")
+        self.label_34 = QLabel(self.frame_95)
+        self.label_34.setObjectName(u"label_34")
+
+        self.verticalLayout_46.addWidget(self.label_34)
+
+
+        self.horizontalLayout_58.addWidget(self.frame_95)
+
+        self.frame_96 = QFrame(self.frame_94)
+        self.frame_96.setObjectName(u"frame_96")
+        self.frame_96.setFrameShape(QFrame.StyledPanel)
+        self.frame_96.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_59 = QHBoxLayout(self.frame_96)
+        self.horizontalLayout_59.setObjectName(u"horizontalLayout_59")
+        self.lineEdit_simulate_sigmay = QLineEdit(self.frame_96)
+        self.lineEdit_simulate_sigmay.setObjectName(u"lineEdit_simulate_sigmay")
+        self.lineEdit_simulate_sigmay.setMaximumSize(QSize(120, 16777215))
+
+        self.horizontalLayout_59.addWidget(self.lineEdit_simulate_sigmay)
+
+
+        self.horizontalLayout_58.addWidget(self.frame_96)
+
+
+        self.verticalLayout_42.addWidget(self.frame_94)
+
+        self.frame_97 = QFrame(self.groupBox_fringes_simulation)
+        self.frame_97.setObjectName(u"frame_97")
+        self.frame_97.setMaximumSize(QSize(16777215, 50))
+        self.frame_97.setFrameShape(QFrame.StyledPanel)
+        self.frame_97.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_60 = QHBoxLayout(self.frame_97)
+        self.horizontalLayout_60.setSpacing(0)
+        self.horizontalLayout_60.setObjectName(u"horizontalLayout_60")
+        self.horizontalLayout_60.setContentsMargins(0, 0, 0, 0)
+        self.frame_98 = QFrame(self.frame_97)
+        self.frame_98.setObjectName(u"frame_98")
+        self.frame_98.setMinimumSize(QSize(150, 0))
+        self.frame_98.setFrameShape(QFrame.StyledPanel)
+        self.frame_98.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_47 = QVBoxLayout(self.frame_98)
+        self.verticalLayout_47.setObjectName(u"verticalLayout_47")
+        self.label_47 = QLabel(self.frame_98)
+        self.label_47.setObjectName(u"label_47")
+
+        self.verticalLayout_47.addWidget(self.label_47)
+
+
+        self.horizontalLayout_60.addWidget(self.frame_98)
+
+        self.frame_99 = QFrame(self.frame_97)
+        self.frame_99.setObjectName(u"frame_99")
+        self.frame_99.setFrameShape(QFrame.StyledPanel)
+        self.frame_99.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_61 = QHBoxLayout(self.frame_99)
+        self.horizontalLayout_61.setObjectName(u"horizontalLayout_61")
+        self.lineEdit_simulate_kx = QLineEdit(self.frame_99)
+        self.lineEdit_simulate_kx.setObjectName(u"lineEdit_simulate_kx")
+        self.lineEdit_simulate_kx.setMaximumSize(QSize(120, 16777215))
+
+        self.horizontalLayout_61.addWidget(self.lineEdit_simulate_kx)
+
+
+        self.horizontalLayout_60.addWidget(self.frame_99)
+
+
+        self.verticalLayout_42.addWidget(self.frame_97)
+
+        self.frame_88 = QFrame(self.groupBox_fringes_simulation)
+        self.frame_88.setObjectName(u"frame_88")
+        self.frame_88.setMaximumSize(QSize(16777215, 50))
+        self.frame_88.setFrameShape(QFrame.StyledPanel)
+        self.frame_88.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_54 = QHBoxLayout(self.frame_88)
+        self.horizontalLayout_54.setSpacing(0)
+        self.horizontalLayout_54.setObjectName(u"horizontalLayout_54")
+        self.horizontalLayout_54.setContentsMargins(0, 0, 0, 0)
+        self.frame_89 = QFrame(self.frame_88)
+        self.frame_89.setObjectName(u"frame_89")
+        self.frame_89.setMinimumSize(QSize(150, 0))
+        self.frame_89.setFrameShape(QFrame.StyledPanel)
+        self.frame_89.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_43 = QVBoxLayout(self.frame_89)
+        self.verticalLayout_43.setObjectName(u"verticalLayout_43")
+        self.label_31 = QLabel(self.frame_89)
+        self.label_31.setObjectName(u"label_31")
+
+        self.verticalLayout_43.addWidget(self.label_31)
+
+
+        self.horizontalLayout_54.addWidget(self.frame_89)
+
+        self.frame_90 = QFrame(self.frame_88)
+        self.frame_90.setObjectName(u"frame_90")
+        self.frame_90.setFrameShape(QFrame.StyledPanel)
+        self.frame_90.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_55 = QHBoxLayout(self.frame_90)
+        self.horizontalLayout_55.setObjectName(u"horizontalLayout_55")
+        self.lineEdit_simulate_ky = QLineEdit(self.frame_90)
+        self.lineEdit_simulate_ky.setObjectName(u"lineEdit_simulate_ky")
+        self.lineEdit_simulate_ky.setMaximumSize(QSize(120, 16777215))
+
+        self.horizontalLayout_55.addWidget(self.lineEdit_simulate_ky)
+
+
+        self.horizontalLayout_54.addWidget(self.frame_90)
+
+
+        self.verticalLayout_42.addWidget(self.frame_88)
+
+        self.frame_100 = QFrame(self.groupBox_fringes_simulation)
+        self.frame_100.setObjectName(u"frame_100")
+        self.frame_100.setMaximumSize(QSize(16777215, 50))
+        self.frame_100.setFrameShape(QFrame.StyledPanel)
+        self.frame_100.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_62 = QHBoxLayout(self.frame_100)
+        self.horizontalLayout_62.setSpacing(0)
+        self.horizontalLayout_62.setObjectName(u"horizontalLayout_62")
+        self.horizontalLayout_62.setContentsMargins(0, 0, 0, 0)
+        self.frame_101 = QFrame(self.frame_100)
+        self.frame_101.setObjectName(u"frame_101")
+        self.frame_101.setMinimumSize(QSize(150, 0))
+        self.frame_101.setFrameShape(QFrame.StyledPanel)
+        self.frame_101.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_48 = QVBoxLayout(self.frame_101)
+        self.verticalLayout_48.setObjectName(u"verticalLayout_48")
+        self.label_48 = QLabel(self.frame_101)
+        self.label_48.setObjectName(u"label_48")
+
+        self.verticalLayout_48.addWidget(self.label_48)
+
+
+        self.horizontalLayout_62.addWidget(self.frame_101)
+
+        self.frame_102 = QFrame(self.frame_100)
+        self.frame_102.setObjectName(u"frame_102")
+        self.frame_102.setFrameShape(QFrame.StyledPanel)
+        self.frame_102.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_63 = QHBoxLayout(self.frame_102)
+        self.horizontalLayout_63.setObjectName(u"horizontalLayout_63")
+        self.lineEdit_simulate_phi = QLineEdit(self.frame_102)
+        self.lineEdit_simulate_phi.setObjectName(u"lineEdit_simulate_phi")
+        self.lineEdit_simulate_phi.setMaximumSize(QSize(120, 16777215))
+
+        self.horizontalLayout_63.addWidget(self.lineEdit_simulate_phi)
+
+
+        self.horizontalLayout_62.addWidget(self.frame_102)
+
+
+        self.verticalLayout_42.addWidget(self.frame_100)
+
+        self.frame_79 = QFrame(self.groupBox_fringes_simulation)
+        self.frame_79.setObjectName(u"frame_79")
+        self.frame_79.setFrameShape(QFrame.StyledPanel)
+        self.frame_79.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_65 = QHBoxLayout(self.frame_79)
+        self.horizontalLayout_65.setObjectName(u"horizontalLayout_65")
+        self.pushButton_fringes_simulate = QPushButton(self.frame_79)
+        self.pushButton_fringes_simulate.setObjectName(u"pushButton_fringes_simulate")
+
+        self.horizontalLayout_65.addWidget(self.pushButton_fringes_simulate)
+
+        self.pushButton_fringes_clean_simulate = QPushButton(self.frame_79)
+        self.pushButton_fringes_clean_simulate.setObjectName(u"pushButton_fringes_clean_simulate")
+
+        self.horizontalLayout_65.addWidget(self.pushButton_fringes_clean_simulate)
+
+
+        self.verticalLayout_42.addWidget(self.frame_79)
+
+
+        self.verticalLayout_41.addWidget(self.groupBox_fringes_simulation)
+
+
+        self.verticalLayout_40.addWidget(self.frame_atom_results_fix_2)
+
+
+        self.verticalLayout_39.addWidget(self.frame_atom_results_2)
+
+        self.frame_atom_spear_2 = QFrame(self.frame_atom_5)
+        self.frame_atom_spear_2.setObjectName(u"frame_atom_spear_2")
+        self.frame_atom_spear_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_atom_spear_2.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_39.addWidget(self.frame_atom_spear_2)
+
+
+        self.horizontalLayout_48.addWidget(self.frame_atom_5)
+
+
+        self.verticalLayout_44.addWidget(self.frame_atom_main_2)
+
 
         self.page_2_layout.addWidget(self.frame_fringes_main)
 
@@ -229,9 +719,6 @@ class Ui_MainPages(object):
 
         self.cloud_comboBox = QComboBox(self.frame_atom_graph_btns)
         self.cloud_comboBox.setObjectName(u"cloud_comboBox")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.cloud_comboBox.sizePolicy().hasHeightForWidth())
         self.cloud_comboBox.setSizePolicy(sizePolicy)
         self.cloud_comboBox.setMaximumSize(QSize(16777215, 19))
@@ -1770,7 +2257,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(2)
+        self.pages.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainPages)
@@ -1780,6 +2267,18 @@ class Ui_MainPages(object):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
         self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PSI Experiment", None))
         self.title_label.setText(QCoreApplication.translate("MainPages", u"Fringes Measurements", None))
+        self.label_wit_cloud_path_2.setText(QCoreApplication.translate("MainPages", u"With cloud path:", None))
+        self.label_without_cloud_path_2.setText(QCoreApplication.translate("MainPages", u"Without cloud path:", None))
+        self.groupBox_fringes_simulation.setTitle(QCoreApplication.translate("MainPages", u"Simulation", None))
+        self.label_fringes_function_simulation.setText(QCoreApplication.translate("MainPages", u"n(x,y) = A * exp ( -x ^ 2 / 2 sigma_x ^ 2 - y ^ 2 / 2 sigma_y ^ 2) * cos (k_x * x + k_y * y + phi)", None))
+        self.label_30.setText(QCoreApplication.translate("MainPages", u"Amplitude:", None))
+        self.label_33.setText(QCoreApplication.translate("MainPages", u"Sigma x:", None))
+        self.label_34.setText(QCoreApplication.translate("MainPages", u"Sigma y:", None))
+        self.label_47.setText(QCoreApplication.translate("MainPages", u"K x:", None))
+        self.label_31.setText(QCoreApplication.translate("MainPages", u"K y:", None))
+        self.label_48.setText(QCoreApplication.translate("MainPages", u"Phi:", None))
+        self.pushButton_fringes_simulate.setText(QCoreApplication.translate("MainPages", u"Simulate", None))
+        self.pushButton_fringes_clean_simulate.setText(QCoreApplication.translate("MainPages", u"Clean", None))
         self.atom_page_label.setText(QCoreApplication.translate("MainPages", u"Atom Measurements", None))
         self.label_wit_cloud_path.setText(QCoreApplication.translate("MainPages", u"With cloud path:", None))
         self.label_without_cloud_path.setText(QCoreApplication.translate("MainPages", u"Without cloud path:", None))

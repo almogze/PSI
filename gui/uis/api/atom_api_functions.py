@@ -12,12 +12,23 @@ import matplotlib.pyplot as plt
 from matplotlib.offsetbox import AnchoredText
 
 from gui.uis.api.atom import Atom
+from gui.uis.api.fitting import TwoD_Function_Fit
+
 from gui.uis.api.analysis import Analysis
 from gui.uis.windows.atom_window import UI_AtomWindow
 from gui.uis.windows.analysis_window import UI_AnalysisWindow
 from gui.uis.api.fitting import Fit
 from gui.widgets import *
 from qt_core import *
+
+
+def pop_error(s1: string, s2: string):
+    error = QMessageBox()
+    error.setWindowTitle("Error")
+    error.setIcon(QMessageBox.Critical)
+    print(s1)
+    error.setText(s2)
+    error.exec()
 
 
 def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> None:
@@ -38,45 +49,32 @@ def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow) -> None:
         print(atom_number)
         ui_atom.load_pages.label_atom_number.setText(str(atom_number))
     else:
-        error = QMessageBox()
-        error.setWindowTitle("Error")
-        print("Can not Calculate! Please load images first")
-        error.setText("Please load images first")
-        error.exec()
+        pop_error("Can not Calculate! Please load images first", "Please load images first")
 
 
 def load_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
-    error = QMessageBox()
-    error.setWindowTitle("Error")
-    error.setIcon(QMessageBox.Critical)
-    if checkAndSet(atom, error):
-        checkAndLoad(atom, error, ui_atom)
+    if checkAndSet(atom):
+        checkAndLoad(atom, ui_atom)
 
 
-def checkAndSet(atom: Atom, error: QMessageBox) -> bool:
+def checkAndSet(atom: Atom) -> bool:
     condition = bool(True)
     if not atom.clearToSet():
-        print("Can not set images! Please check images path")
-        error.setText("Please check images path")
-        error.exec()
+        pop_error("Can not set images! Please check images path", "Please check images path")
         condition = bool(False)
     elif atom.checkImageFormatJPG():
         atom.setImageJPG()
     elif atom.checkImageFormatBIN():
         atom.setImageBIN()
     else:
-        error.setText("images are not in format")
-        error.exec()
-        print("At least one of the images is not in jpg or bin format")
+        pop_error("At least one of the images is not in jpg or bin format", "images are not in format")
         condition = bool(False)
     return condition
 
 
-def checkAndLoad(atom: Atom, error: QMessageBox, ui_atom: UI_AtomWindow) -> None:
+def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     if not atom.clearToLoad():
-        print("Can not load images! Please check images numpy arrays")
-        error.setText("Please check images numpy arrays")
-        error.exec()
+        pop_error("Can not load images! Please check images numpy arrays", "Please check images numpy arrays")
     else:
         loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
         if loaded_image is None:
@@ -180,3 +178,115 @@ def update_region_right(viewRange, ui_atom: UI_AtomWindow):
     ui_atom.image_view.setYRange(rgn_y[0], rgn_y[1])
     # activating again other signals
     ui_atom.image_view.sigRangeChanged.connect(lambda window, rgn: update_region_image_view(rgn, ui_atom))
+
+
+def fit_gaussian_shape(atom: Atom, ui_atom: UI_AtomWindow) -> None:
+    if atom.clearToLoad():
+        print("1")
+        two_d = TwoD_Function_Fit()
+        print("2")
+        data = (atom.loadImage(ui_atom.cloud_combo.currentIndex())).ravel()
+        print("3")
+        initial_params = tuple(get_init_parameters(ui_atom))
+        print("4")
+        popt, pcov = two_d.fit_2D_function(two_d.twoD_Gaussian, data, initial_params)
+        print("5")
+        insert_values(ui_atom, popt)
+        insert_errors(ui_atom, pcov)
+
+        x = np.linspace(0, 2049, 2050)
+        y = np.linspace(0, 2447, 2448)
+        x, y = np.meshgrid(x, y)
+
+        data_fitted = two_d.twoD_Gaussian((x, y), *popt)
+
+        fig, ax = plt.subplots(1, 1)
+        ax.imshow(data_fitted.reshape(2050, 2448))
+        # ax.contour(x, y, data_fitted.reshape(2050, 2448), 8, colors='w')
+        plt.show()
+
+    else:
+        pop_error("images are not loaded", "please load images first")
+
+
+def get_init_parameters(ui_atom: UI_AtomWindow) -> np.array:
+    x_0 = float(ui_atom.load_pages.lineEdit_atom_initial_x_0.text())
+    y_0 = float(ui_atom.load_pages.lineEdit_atom_initial_y_0.text())
+    sigma_x = float(ui_atom.load_pages.lineEdit_atom_initial_sigma_x.text())
+    sigma_y = float(ui_atom.load_pages.lineEdit_atom_initial_sigma_y.text())
+    amplitude = float(ui_atom.load_pages.lineEdit_atom_initial_amplitude.text())
+    theta = float(ui_atom.load_pages.lineEdit_atom_initial_theta.text())
+    offset = float(ui_atom.load_pages.lineEdit_atom_initial_offset.text())
+    return [amplitude, x_0, y_0, sigma_x, sigma_y, theta, offset]
+
+
+def insert_values(ui_atom: UI_AtomWindow, popt: np.array) -> None:
+    ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(str(popt[0]))
+    ui_atom.load_pages.lineEdit_atom_result_x_0.setText(str(popt[1]))
+    ui_atom.load_pages.lineEdit_atom_result_y_0.setText(str(popt[2]))
+    ui_atom.load_pages.lineEdit_atom_result_sigma_x.setText(str(popt[3]))
+    ui_atom.load_pages.lineEdit_atom_result_sigma_y.setText(str(popt[4]))
+    ui_atom.load_pages.lineEdit_atom_result_theta.setText(str(popt[5]))
+    ui_atom.load_pages.lineEdit_atom_result_offset.setText(str(popt[6]))
+
+
+def insert_errors(ui_atom: UI_AtomWindow, pcov: np.array) -> None:
+    ui_atom.load_pages.lineEdit_atom_error_amplitude.setText(str(pcov[0][0]))
+    ui_atom.load_pages.lineEdit_atom_error_x_0.setText(str(pcov[1][1]))
+    ui_atom.load_pages.lineEdit_atom_error_y_0.setText(str(pcov[2][2]))
+    ui_atom.load_pages.lineEdit_atom_error_sigma_x.setText(str(pcov[3][3]))
+    ui_atom.load_pages.lineEdit_atom_error_sigma_y.setText(str(pcov[4][4]))
+    ui_atom.load_pages.lineEdit_atom_error_theta.setText(str(pcov[5][5]))
+    ui_atom.load_pages.lineEdit_atom_error_offset.setText(str(pcov[6][6]))
+
+
+def clear_fit(atom: Atom, ui_atom: UI_AtomWindow) -> None:
+    if atom.clearToLoad():
+        atom_number = atom.calculateAtomNumber()
+        print(atom_number)
+        ui_atom.load_pages.label_atom_number.setText(str(atom_number))
+    else:
+        error = QMessageBox()
+        error.setWindowTitle("Error")
+        print("Can not Calculate! Please load images first")
+        error.setText("Please load images first")
+        error.exec()
+
+
+"""""""""""
+def matplotlib_fit_analysis_data(atom: Atom, ui_atom: UI_AtomWindow) -> None:
+    pages = ui_analysis.load_pages
+    x = analysis.fit.get_x_array()
+    y = analysis.fit.get_y_array()
+    dx = analysis.fit.get_dx_array()
+    dy = analysis.fit.get_dy_array()
+    text = "$ Fitted \  to \ f(x) = {} $\n".format(analysis.fun_texts.fun_latex_texts_array[ui_analysis.load_pages.
+                                                   comboBox_analysis_fit_function.currentIndex()])
+    ascii_prm = 97
+    for i in range(analysis.fit.get_func_par_num()):
+        text += "$\ \ \ %s$ = %0.4f $\pm$ %0.4f \n" % (
+            chr(ascii_prm + i), analysis.fit.get_params_array()[i], analysis.fit.get_err_array()[i])
+    text = text + "$\dfrac{{\chi}^2}{N_{dof}} = %0.4f(%0.4f/%d)$\n" % (
+        analysis.fit.get_chi_ndof(), analysis.fit.get_chi_ndof() * len(x),
+        len(x))
+    func_x = np.linspace(x[0], x[-1], 10000)  # 10000 linearly spaced numbers
+    function = analysis.fit.get_function()
+    par_values = analysis.fit.get_params_array()
+    y_fit = function(func_x, *par_values)
+    x_title = "%s [%s]" % (pages.lineEdit_analysis_x_title.text(), pages.lineEdit_analysis_x_units.text())
+    y_title = "%s [%s]" % (pages.lineEdit_analysis_y_title.text(), pages.lineEdit_analysis_y_units.text())
+    main_title = "%s" % ui_analysis.load_pages.lineEdit_analysis_main_title.text()
+    plt.rc("font", size=16, family="Times New Roman")
+    fig = plt.figure(figsize=(10, 6))
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+    ax.plot(func_x, y_fit)  # plot the function over 10k points covering the x axis
+    ax.scatter(x, y, c="black")
+    ax.errorbar(x, y, dy, dx, fmt='none', ecolor='red', capsize=3)
+    ax.set_xlabel(x_title, fontdict={"size": 21})
+    ax.set_ylabel(y_title, fontdict={"size": 21})
+    anchored_text = AnchoredText(text, loc=ui_analysis.load_pages.comboBox_analysis_box_location.currentIndex())
+    ax.add_artist(anchored_text)
+    plt.grid(True)
+    plt.title(main_title)
+    plt.show()
+"""""""""""

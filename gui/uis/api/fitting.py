@@ -10,7 +10,6 @@ from scipy.special import erf, erfc
 from iminuit.cost import LeastSquares
 
 
-
 class Functions_Texts:
     def __init__(self):
         self.non_latex_text_lin_fun = "f(x) = a * x + b"
@@ -90,7 +89,7 @@ class Functions_Fit:
         self.fit_off_gauss_fun = lambda x, a, b, c, d: a * np.exp(-0.5 * ((x - c) ** 2 / b ** 2)) + d
         self.fit_normalised_poisson_fun = lambda x, a: ((a ** x) * np.exp((-1) * a)) / (np.math.factorial(x))
         self.fit_poisson_fun = lambda x, a, b: a * ((b ** x) * np.exp((-1) * b)) / (np.math.factorial(x))
-        self.fit_error_fun = lambda x, a, b, c, d: a * erf((x - b)/ (np.sqrt(2) * c)) + d
+        self.fit_error_fun = lambda x, a, b, c, d: a * erf((x - b) / (np.sqrt(2) * c)) + d
         self.fit_error_c_fun = lambda x, a, b, c, d: a * erfc((x - b) / (np.sqrt(2) * c)) + d
 
         self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_cos_fun, self.fit_cos2_fun,
@@ -100,6 +99,33 @@ class Functions_Fit:
                               self.fit_error_c_fun]
 
         self.number_of_params = [2, 2, 2, 2, 3, 4, 2, 3, 4, 1, 2, 4, 4]
+
+
+class TwoD_Function_Fit:
+    def twoD_Gaussian(self, coordinates: tuple, amplitude, x0, y0, sigma_x, sigma_y, theta, offset):
+        x0 = float(x0)
+        y0 = float(y0)
+        a = (np.cos(theta) ** 2) / (2 * sigma_x ** 2) + (np.sin(theta) ** 2) / (2 * sigma_y ** 2)
+        b = -(np.sin(2 * theta)) / (4 * sigma_x ** 2) + (np.sin(2 * theta)) / (4 * sigma_y ** 2)
+        c = (np.sin(theta) ** 2) / (2 * sigma_x ** 2) + (np.cos(theta) ** 2) / (2 * sigma_y ** 2)
+        g = offset + amplitude * np.exp(- (
+                a * ((coordinates[0] - x0) ** 2) + 2 * b * (coordinates[0] - x0) * (coordinates[1] - y0) + c * (
+                (coordinates[1] - y0) ** 2)))
+        return g.ravel()
+
+    # set fit function's parameters with optimal values so that the sum of the squared residuals of
+    # f(xdata, *parameters_optimal) - ydata is minimized.
+    def fit_2D_function(self, two_d_function, data, p0) -> np.array:
+        x = np.linspace(0, 2049, 2050)
+        y = np.linspace(0, 2447, 2448)
+        x, y = np.meshgrid(x, y)
+        print(x)
+        print(y)
+        if two_d_function == self.twoD_Gaussian:
+            return curve_fit(two_d_function, (x, y), data, p0=p0, bounds=(
+            tuple([0.1, -np.inf, -np.inf, 0.001, 0.001, 0, -np.inf]),
+            tuple([np.inf, np.inf, np.inf, np.inf, np.inf, 360, np.inf])))
+        return curve_fit(two_d_function, (x, y), data, p0=p0)
 
 
 class EffVarChi2Reg:  # This class is like Chi2Regression but takes into account dx
@@ -421,6 +447,3 @@ class Fit(object):
         self.set_arrays(None, None, None, None)
         self.set_function(None)
         self.set_func_par_num(2)
-
-
-

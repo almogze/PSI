@@ -4,7 +4,7 @@ import pyqtgraph.examples
 
 # run this examples
 
-pyqtgraph.examples.run()
+# pyqtgraph.examples.run()
 
 # import initExample ## Add path to library (just for examples; you do not need this)
 
@@ -28,27 +28,8 @@ import sys
 
 
 if __name__ == '__main__':
-    p1 = pg
-    """""""""
-    popt = curve_fit(f, x, y, p0=(0, 0),
-                     bounds=((-1000, -1000), (1000, 1000)))
-
-    arr = np.array([11, 12, 13, 14, 15, 16, 17, 15, 11, 12, 14, None, None, None])
-    result = next(x for x in arr if x is None)
-    print(result)
-
-    """""""""
-
-
-"""""""""""""""
-
- linear_cost = LeastSquares(x, y, dy, f)
-    opt = Minuit(linear_cost, 1, 1)
-    opt.migrad()
-    print(opt.errors)
-    print(describe(f))
-    f.func_code = make_func_code(["alpha", "beta", "gamma"])
-    print(describe(f))
-    print(f.func_code)
-
-"""""""""""""""
+    x = np.linspace(0, 9, 10)
+    y = np.linspace(0, 4, 5)
+    x1, y1 = np.meshgrid(x, y)
+    print(x1)
+    print(y1)

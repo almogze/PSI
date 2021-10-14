@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesWRJqAm.ui'
+## Form generated from reading UI file 'main_pagesiKoEML.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -15,7 +15,7 @@ class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(1146, 852)
+        MainPages.resize(1146, 948)
         self.excel_settings_load_btn_layout = QVBoxLayout(MainPages)
         self.excel_settings_load_btn_layout.setSpacing(0)
         self.excel_settings_load_btn_layout.setObjectName(u"excel_settings_load_btn_layout")
@@ -996,6 +996,11 @@ class Ui_MainPages(object):
 
         self.gridLayout_5.addWidget(self.lineEdit_atom_initial_offset, 6, 1, 1, 1)
 
+        self.label_52 = QLabel(self.groupBox_2)
+        self.label_52.setObjectName(u"label_52")
+
+        self.gridLayout_5.addWidget(self.label_52, 4, 0, 1, 1)
+
         self.lineEdit_atom_initial_amplitude = QLineEdit(self.groupBox_2)
         self.lineEdit_atom_initial_amplitude.setObjectName(u"lineEdit_atom_initial_amplitude")
         self.lineEdit_atom_initial_amplitude.setMinimumSize(QSize(0, 0))
@@ -1012,20 +1017,25 @@ class Ui_MainPages(object):
 
         self.gridLayout_5.addWidget(self.lineEdit_atom_initial_y_0, 2, 1, 1, 1)
 
+        self.label_50 = QLabel(self.groupBox_2)
+        self.label_50.setObjectName(u"label_50")
+
+        self.gridLayout_5.addWidget(self.label_50, 6, 0, 1, 1)
+
+        self.label_51 = QLabel(self.groupBox_2)
+        self.label_51.setObjectName(u"label_51")
+
+        self.gridLayout_5.addWidget(self.label_51, 3, 0, 1, 1)
+
         self.lineEdit_atom_initial_x_0 = QLineEdit(self.groupBox_2)
         self.lineEdit_atom_initial_x_0.setObjectName(u"lineEdit_atom_initial_x_0")
 
         self.gridLayout_5.addWidget(self.lineEdit_atom_initial_x_0, 1, 1, 1, 1)
 
-        self.lineEdit_atom_initial_sigma_x = QLineEdit(self.groupBox_2)
-        self.lineEdit_atom_initial_sigma_x.setObjectName(u"lineEdit_atom_initial_sigma_x")
+        self.label_64 = QLabel(self.groupBox_2)
+        self.label_64.setObjectName(u"label_64")
 
-        self.gridLayout_5.addWidget(self.lineEdit_atom_initial_sigma_x, 3, 1, 1, 1)
-
-        self.lineEdit_atom_initial_sigma_y = QLineEdit(self.groupBox_2)
-        self.lineEdit_atom_initial_sigma_y.setObjectName(u"lineEdit_atom_initial_sigma_y")
-
-        self.gridLayout_5.addWidget(self.lineEdit_atom_initial_sigma_y, 4, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.label_64, 1, 0, 1, 1)
 
         self.label_66 = QLabel(self.groupBox_2)
         self.label_66.setObjectName(u"label_66")
@@ -1037,30 +1047,20 @@ class Ui_MainPages(object):
 
         self.gridLayout_5.addWidget(self.label_63, 2, 0, 1, 1)
 
-        self.label_64 = QLabel(self.groupBox_2)
-        self.label_64.setObjectName(u"label_64")
+        self.lineEdit_atom_initial_sigma_x = QLineEdit(self.groupBox_2)
+        self.lineEdit_atom_initial_sigma_x.setObjectName(u"lineEdit_atom_initial_sigma_x")
 
-        self.gridLayout_5.addWidget(self.label_64, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.lineEdit_atom_initial_sigma_x, 3, 1, 1, 1)
+
+        self.lineEdit_atom_initial_sigma_y = QLineEdit(self.groupBox_2)
+        self.lineEdit_atom_initial_sigma_y.setObjectName(u"lineEdit_atom_initial_sigma_y")
+
+        self.gridLayout_5.addWidget(self.lineEdit_atom_initial_sigma_y, 4, 1, 1, 1)
 
         self.label_67 = QLabel(self.groupBox_2)
         self.label_67.setObjectName(u"label_67")
 
         self.gridLayout_5.addWidget(self.label_67, 0, 0, 1, 1)
-
-        self.label_51 = QLabel(self.groupBox_2)
-        self.label_51.setObjectName(u"label_51")
-
-        self.gridLayout_5.addWidget(self.label_51, 3, 0, 1, 1)
-
-        self.label_50 = QLabel(self.groupBox_2)
-        self.label_50.setObjectName(u"label_50")
-
-        self.gridLayout_5.addWidget(self.label_50, 6, 0, 1, 1)
-
-        self.label_52 = QLabel(self.groupBox_2)
-        self.label_52.setObjectName(u"label_52")
-
-        self.gridLayout_5.addWidget(self.label_52, 4, 0, 1, 1)
 
 
         self.horizontalLayout_71.addWidget(self.groupBox_2)
@@ -2002,12 +2002,35 @@ class Ui_MainPages(object):
 
         self.verticalLayout_26.addWidget(self.label_32)
 
-        self.lineEdit_analysis_chi2Ndof = QLineEdit(self.frame_73)
+        self.lineEdit_analysis_chi2 = QLineEdit(self.frame_73)
+        self.lineEdit_analysis_chi2.setObjectName(u"lineEdit_analysis_chi2")
+        self.lineEdit_analysis_chi2.setEnabled(False)
+        self.lineEdit_analysis_chi2.setMinimumSize(QSize(0, 20))
+
+        self.verticalLayout_26.addWidget(self.lineEdit_analysis_chi2)
+
+        self.frame_80 = QFrame(self.frame_73)
+        self.frame_80.setObjectName(u"frame_80")
+        self.frame_80.setFrameShape(QFrame.StyledPanel)
+        self.frame_80.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_35 = QVBoxLayout(self.frame_80)
+        self.verticalLayout_35.setSpacing(0)
+        self.verticalLayout_35.setObjectName(u"verticalLayout_35")
+        self.verticalLayout_35.setContentsMargins(0, 0, 0, 0)
+        self.label_49 = QLabel(self.frame_80)
+        self.label_49.setObjectName(u"label_49")
+
+        self.verticalLayout_35.addWidget(self.label_49)
+
+        self.lineEdit_analysis_chi2Ndof = QLineEdit(self.frame_80)
         self.lineEdit_analysis_chi2Ndof.setObjectName(u"lineEdit_analysis_chi2Ndof")
         self.lineEdit_analysis_chi2Ndof.setEnabled(False)
         self.lineEdit_analysis_chi2Ndof.setMinimumSize(QSize(0, 20))
 
-        self.verticalLayout_26.addWidget(self.lineEdit_analysis_chi2Ndof)
+        self.verticalLayout_35.addWidget(self.lineEdit_analysis_chi2Ndof)
+
+
+        self.verticalLayout_26.addWidget(self.frame_80)
 
 
         self.verticalLayout_24.addWidget(self.frame_73)
@@ -2228,6 +2251,12 @@ class Ui_MainPages(object):
         self.frame_37.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_30 = QHBoxLayout(self.frame_37)
         self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
+        self.pushButton_analyisis_guess_params = QPushButton(self.frame_37)
+        self.pushButton_analyisis_guess_params.setObjectName(u"pushButton_analyisis_guess_params")
+        self.pushButton_analyisis_guess_params.setEnabled(False)
+
+        self.horizontalLayout_30.addWidget(self.pushButton_analyisis_guess_params)
+
 
         self.verticalLayout_18.addWidget(self.frame_37)
 
@@ -2479,7 +2508,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(2)
+        self.pages.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainPages)
@@ -2511,19 +2540,19 @@ class Ui_MainPages(object):
         self.label_cloud_temperature.setText(QCoreApplication.translate("MainPages", u"0", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainPages", u"Initial Values", None))
         self.lineEdit_atom_initial_offset.setText(QCoreApplication.translate("MainPages", u"0", None))
+        self.label_52.setText(QCoreApplication.translate("MainPages", u"sigma_y: ", None))
         self.lineEdit_atom_initial_amplitude.setText(QCoreApplication.translate("MainPages", u"1", None))
         self.lineEdit_atom_initial_theta.setText(QCoreApplication.translate("MainPages", u"0", None))
         self.lineEdit_atom_initial_y_0.setText(QCoreApplication.translate("MainPages", u"0", None))
+        self.label_50.setText(QCoreApplication.translate("MainPages", u"offset: ", None))
+        self.label_51.setText(QCoreApplication.translate("MainPages", u"sigma_x: ", None))
         self.lineEdit_atom_initial_x_0.setText(QCoreApplication.translate("MainPages", u"0", None))
-        self.lineEdit_atom_initial_sigma_x.setText(QCoreApplication.translate("MainPages", u"1", None))
-        self.lineEdit_atom_initial_sigma_y.setText(QCoreApplication.translate("MainPages", u"1", None))
+        self.label_64.setText(QCoreApplication.translate("MainPages", u"x_0: ", None))
         self.label_66.setText(QCoreApplication.translate("MainPages", u"theta: ", None))
         self.label_63.setText(QCoreApplication.translate("MainPages", u"y_0: ", None))
-        self.label_64.setText(QCoreApplication.translate("MainPages", u"x_0: ", None))
+        self.lineEdit_atom_initial_sigma_x.setText(QCoreApplication.translate("MainPages", u"1", None))
+        self.lineEdit_atom_initial_sigma_y.setText(QCoreApplication.translate("MainPages", u"1", None))
         self.label_67.setText(QCoreApplication.translate("MainPages", u"amplitude: ", None))
-        self.label_51.setText(QCoreApplication.translate("MainPages", u"sigma_x: ", None))
-        self.label_50.setText(QCoreApplication.translate("MainPages", u"offset: ", None))
-        self.label_52.setText(QCoreApplication.translate("MainPages", u"sigma_y: ", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainPages", u"Results", None))
         self.btn_atom_fit_2d_gaussian.setText(QCoreApplication.translate("MainPages", u"Fit", None))
         self.btn_atom_export_2dgauss_to_matplotlib.setText(QCoreApplication.translate("MainPages", u"Export fit to MatPlotLib", None))
@@ -2556,7 +2585,9 @@ class Ui_MainPages(object):
         self.label_29.setText(QCoreApplication.translate("MainPages", u"Initial Value d: ", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainPages", u"Fit Results", None))
         self.label_10.setText(QCoreApplication.translate("MainPages", u"Parameters Value:", None))
-        self.label_32.setText(QCoreApplication.translate("MainPages", u"Chi2/Ndof:", None))
+        self.label_32.setText(QCoreApplication.translate("MainPages", u"Chi2:", None))
+        self.lineEdit_analysis_chi2.setText(QCoreApplication.translate("MainPages", u"None", None))
+        self.label_49.setText(QCoreApplication.translate("MainPages", u"Chi2/Ndof:", None))
         self.lineEdit_analysis_chi2Ndof.setText(QCoreApplication.translate("MainPages", u"None", None))
         self.label_12.setText(QCoreApplication.translate("MainPages", u"a:", None))
         self.lineEdit_analysis_param_a.setText(QCoreApplication.translate("MainPages", u"None", None))
@@ -2576,6 +2607,7 @@ class Ui_MainPages(object):
         self.lineEdit_analysis_err_d.setText(QCoreApplication.translate("MainPages", u"None", None))
         self.label_3.setText(QCoreApplication.translate("MainPages", u"Fit Function:", None))
         self.label_analysis_fit_function.setText("")
+        self.pushButton_analyisis_guess_params.setText(QCoreApplication.translate("MainPages", u"Guess Initial Parameters", None))
         self.label_38.setText(QCoreApplication.translate("MainPages", u"Limits a:", None))
         self.label_39.setText(QCoreApplication.translate("MainPages", u"s", None))
         self.label_40.setText(QCoreApplication.translate("MainPages", u"f", None))

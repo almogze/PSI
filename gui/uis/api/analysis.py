@@ -85,3 +85,4 @@ class Analysis(object):
     def setFitData(self, x, y, dx, dy):
         self._instance.fit.set_arrays(x, y, dx, dy)
 
+

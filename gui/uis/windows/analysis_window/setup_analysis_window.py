@@ -151,6 +151,9 @@ class SetupAnalysisWindow:
         self.ui_analysis.load_pages.analysis_clean_all_btn.clicked. \
             connect(lambda: wf.clean_all_analysis_screen(self.ui_analysis.analysis, self.ui_analysis))
 
+        self.ui_analysis.load_pages.pushButton_analyisis_guess_params.clicked.connect(
+            lambda: wf.guess_params(self.ui_analysis.analysis, self.ui_analysis))
+
 
         # INITIALIZE VALUES
         self.ui_analysis.load_pages.lineEdit_analysis_initial_a.setText("0")

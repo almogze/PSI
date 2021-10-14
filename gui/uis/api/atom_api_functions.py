@@ -189,21 +189,22 @@ def fit_gaussian_shape(atom: Atom, ui_atom: UI_AtomWindow) -> None:
         print("3")
         initial_params = tuple(get_init_parameters(ui_atom))
         print("4")
-        popt, pcov = two_d.fit_2D_function(two_d.twoD_Gaussian, data, initial_params)
+        popt, pcov = two_d.fit_2D_function(two_d.gaussian, data, initial_params)
         print("5")
         insert_values(ui_atom, popt)
         insert_errors(ui_atom, pcov)
 
         x = np.linspace(0, 2049, 2050)
         y = np.linspace(0, 2447, 2448)
-        x, y = np.meshgrid(x, y)
+        X, Y = np.meshgrid(x, y)
 
-        data_fitted = two_d.twoD_Gaussian((x, y), *popt)
-
-        fig, ax = plt.subplots(1, 1)
-        ax.imshow(data_fitted.reshape(2050, 2448))
-        # ax.contour(x, y, data_fitted.reshape(2050, 2448), 8, colors='w')
+        fit = two_d.twoD_Gaussian(X, Y, *popt)
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        ax.imshow(fit, origin='bottom', cmap='plasma')
+        ax.contour(X, Y, fit, colors='w')
         plt.show()
+
 
     else:
         pop_error("images are not loaded", "please load images first")

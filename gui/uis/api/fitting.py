@@ -517,9 +517,9 @@ class Fit(object):
             mod = lmfit.models.GaussianModel()
             p_0 = mod.guess(self.y, x=self.x)
             print(p_0)
-            self.set_a_initial(p_0['amplitude'].value / p_0['sigma'].value / np.sqrt(2 * np.pi))
-            self.set_a_limits(p_0['amplitude'].min / p_0['sigma'].value / np.sqrt(2 * np.pi),
-                              p_0['amplitude'].max / p_0['sigma'].value / np.sqrt(2 * np.pi))
+            self.set_a_initial(p_0['amplitude'].value)
+            self.set_a_limits(p_0['amplitude'].min,
+                              p_0['amplitude'].max)
             self.set_b_initial(p_0['center'].value)
             self.set_b_limits(np.min(self.x), np.max(self.x))
             self.set_c_initial(p_0['sigma'].value)

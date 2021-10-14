@@ -163,9 +163,9 @@ def set_opt_and_plot(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
         ui_analysis.load_pages.lineEdit_analysis_chi2.setEnabled(True)
         ui_analysis.load_pages.lineEdit_analysis_chi2.setText(str(analysis.fit.get_chi2()))
     else:
-        if generate_model_from_name(fun_name) is not None:
+        if generate_model_from_name(analysis, ui_analysis, fun_name) is not None:
             # fitting using the LMFIT library
-            analysis.fit.opt_by_lmfit_generic(generate_model_from_name(fun_name))
+            analysis.fit.opt_by_lmfit_generic(generate_model_from_name(analysis, ui_analysis, fun_name))
 
             ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setEnabled(False)
             ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setText("None")
@@ -184,10 +184,13 @@ def set_opt_and_plot(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     plot_opt_func(analysis, ui_analysis)
 
 
-def generate_model_from_name(fun_name) -> lmfit.models:
+def generate_model_from_name(analysis: Analysis, ui_analysis: UI_AnalysisWindow, fun_name) -> lmfit.models:
     model = None
     if fun_name == "Gaussian":
         model = lmfit.models.GaussianModel()
+        analysis.fit.set_function(lmfit.lineshapes.gaussian)
+        ui_analysis.load_pages.label_analysis_fit_function.setText(
+            "f(x) = (a / (c * sqrt(2 * pi)) * e ^ ( -0.5 * ((x - b) ^ 2 / c ^ 2))")
     elif fun_name == "Sine":
         model = lmfit.models.SineModel()
     elif fun_name == "Polynomial second degree":
@@ -195,7 +198,7 @@ def generate_model_from_name(fun_name) -> lmfit.models:
     elif fun_name == "Polynomial third degree":
         model = lmfit.models.PolynomialModel(degree=3)
     # elif fun_name == "Error Function" or fun_name == "Complementary Error Function":
-    #     model = lmfit.models.StepModel(form='linear') + lmfit.models.ConstantModel()
+    #    model = lmfit.models.StepModel(form='linear') + lmfit.models.ConstantModel()
     return model
 
 

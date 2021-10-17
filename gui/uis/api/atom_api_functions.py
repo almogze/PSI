@@ -2,6 +2,7 @@
 # ///////////////////////////////////////////////////////////////
 import string
 
+import lmfit
 import pandas as pd
 from PIL import Image
 import numpy as np
@@ -180,6 +181,71 @@ def update_region_right(viewRange, ui_atom: UI_AtomWindow):
     ui_atom.image_view.sigRangeChanged.connect(lambda window, rgn: update_region_image_view(rgn, ui_atom))
 
 
+def fit_gaussian_y(atom: Atom, ui_atom: UI_AtomWindow):
+    if atom.clearToLoad():
+        loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
+        pos_x = int(ui_atom.inf1.value())
+        ui_atom.graph_right.clear()
+        ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
+
+        model = lmfit.models.GaussianModel()
+        fit = Fit()
+        fit.set_func_par_num(3)
+        fit.set_arrays(np.arange(len(loaded_image[0])), loaded_image[pos_x], None, None)
+        fit.guess_params("Gaussian")
+        fit.opt_by_lmfit_generic(model)
+
+        x = fit.get_x_array()
+        func_x = np.linspace(x[0], x[-1], len(loaded_image[0]))
+        params = fit.get_params_array()
+        y_fit = lmfit.lineshapes.gaussian(func_x, *params)
+        ui_atom.graph_right.plot(x=y_fit, y=func_x, pen='r')
+        # Insert Parameters into slots
+        # Insert Values
+        ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
+            "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))           # lmfit defines gaussian different
+        ui_atom.load_pages.lineEdit_atom_result_y_0.setText("%0.4f" % params[1])
+        ui_atom.load_pages.lineEdit_atom_result_sigma_y.setText("%0.4f" % params[2])
+        # Insert Errors
+        errors = fit.get_err_array()
+        ui_atom.load_pages.lineEdit_atom_error_amplitude.setText("%0.4f" % (errors[0] / (errors[2] * np.sqrt(2 * np.pi))))
+        ui_atom.load_pages.lineEdit_atom_error_y_0.setText("%0.4f" % errors[1])
+        ui_atom.load_pages.lineEdit_atom_error_sigma_y.setText("%0.4f" % errors[2])
+
+
+def fit_gaussian_x(atom: Atom, ui_atom: UI_AtomWindow):
+    if atom.clearToLoad():
+        loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
+        pos_y = int(ui_atom.inf2.value())
+        ui_atom.graph_top.clear()
+        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
+
+        model = lmfit.models.GaussianModel()
+        fit = Fit()
+        fit.set_func_par_num(3)
+        fit.set_arrays(np.arange(len(loaded_image)), loaded_image[:, pos_y], None, None)
+        fit.guess_params("Gaussian")
+        fit.opt_by_lmfit_generic(model)
+
+        x = fit.get_x_array()
+        func_x = np.linspace(x[0], x[-1], len(loaded_image))
+        params = fit.get_params_array()
+        y_fit = lmfit.lineshapes.gaussian(func_x, *params)
+        ui_atom.graph_top.plot(y=y_fit, x=func_x, pen='r')
+        # Insert Parameters into slots
+        # Insert Values
+        ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
+            "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))  # lmfit defines gaussian different
+        ui_atom.load_pages.lineEdit_atom_result_x_0.setText("%0.4f" % params[1])
+        ui_atom.load_pages.lineEdit_atom_result_sigma_x.setText("%0.4f" % params[2])
+        # Insert Errors
+        errors = fit.get_err_array()
+        ui_atom.load_pages.lineEdit_atom_error_amplitude.setText(
+            "%0.4f" % (errors[0] / (errors[2] * np.sqrt(2 * np.pi))))
+        ui_atom.load_pages.lineEdit_atom_error_x_0.setText("%0.4f" % errors[1])
+        ui_atom.load_pages.lineEdit_atom_error_sigma_x.setText("%0.4f" % errors[2])
+
+
 def fit_gaussian_shape(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     if atom.clearToLoad():
         print("1")
@@ -242,16 +308,55 @@ def insert_errors(ui_atom: UI_AtomWindow, pcov: np.array) -> None:
 
 
 def clear_fit(atom: Atom, ui_atom: UI_AtomWindow) -> None:
+    # clear initial values
+    ui_atom.load_pages.lineEdit_atom_initial_amplitude.clear()
+    ui_atom.load_pages.lineEdit_atom_initial_x_0.clear()
+    ui_atom.load_pages.lineEdit_atom_initial_y_0.clear()
+    ui_atom.load_pages.lineEdit_atom_initial_sigma_x.clear()
+    ui_atom.load_pages.lineEdit_atom_initial_sigma_y.clear()
+    ui_atom.load_pages.lineEdit_atom_initial_theta.clear()
+    ui_atom.load_pages.lineEdit_atom_initial_offset.clear()
+    # clear limits
+    # min
+    ui_atom.load_pages.lineEdit_atom_min_amplitude.clear()
+    ui_atom.load_pages.lineEdit_atom_min_x_0.clear()
+    ui_atom.load_pages.lineEdit_atom_min_y_0.clear()
+    ui_atom.load_pages.lineEdit_atom_min_sigma_x.clear()
+    ui_atom.load_pages.lineEdit_atom_min_sigma_y.clear()
+    ui_atom.load_pages.lineEdit_atom_min_theta.clear()
+    ui_atom.load_pages.lineEdit_atom_min_offset.clear()
+    # max
+    ui_atom.load_pages.lineEdit_atom_max_amplitude.clear()
+    ui_atom.load_pages.lineEdit_atom_max_x_0.clear()
+    ui_atom.load_pages.lineEdit_atom_max_y_0.clear()
+    ui_atom.load_pages.lineEdit_atom_max_sigma_x.clear()
+    ui_atom.load_pages.lineEdit_atom_max_sigma_y.clear()
+    ui_atom.load_pages.lineEdit_atom_max_theta.clear()
+    ui_atom.load_pages.lineEdit_atom_max_offset.clear()
+    # clear results
+    ui_atom.load_pages.lineEdit_atom_result_amplitude.clear()
+    ui_atom.load_pages.lineEdit_atom_result_x_0.clear()
+    ui_atom.load_pages.lineEdit_atom_result_y_0.clear()
+    ui_atom.load_pages.lineEdit_atom_result_sigma_x.clear()
+    ui_atom.load_pages.lineEdit_atom_result_sigma_y.clear()
+    ui_atom.load_pages.lineEdit_atom_result_theta.clear()
+    ui_atom.load_pages.lineEdit_atom_result_offset.clear()
+    # clear standard errors
+    ui_atom.load_pages.lineEdit_atom_error_amplitude.clear()
+    ui_atom.load_pages.lineEdit_atom_error_x_0.clear()
+    ui_atom.load_pages.lineEdit_atom_error_y_0.clear()
+    ui_atom.load_pages.lineEdit_atom_error_sigma_x.clear()
+    ui_atom.load_pages.lineEdit_atom_error_sigma_y.clear()
+    ui_atom.load_pages.lineEdit_atom_error_theta.clear()
+    ui_atom.load_pages.lineEdit_atom_error_offset.clear()
+
+
+def guess_params(atom: Atom, ui_atom: UI_AtomWindow):
     if atom.clearToLoad():
-        atom_number = atom.calculateAtomNumber()
-        print(atom_number)
-        ui_atom.load_pages.label_atom_number.setText(str(atom_number))
+        two_d = TwoD_Function_Fit()
+        data = (atom.loadImage(ui_atom.cloud_combo.currentIndex())).ravel()
     else:
-        error = QMessageBox()
-        error.setWindowTitle("Error")
-        print("Can not Calculate! Please load images first")
-        error.setText("Please load images first")
-        error.exec()
+        pop_error("images are not loaded", "please load images first")
 
 
 """""""""""

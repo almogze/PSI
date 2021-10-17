@@ -92,8 +92,9 @@ class SetupAtomWindow:
         # signals dealing: lines motion and scaling
         self.ui_atom.inf1.sigPositionChanged.connect(lambda: update_right_graph(self.ui_atom.atom, self.ui_atom))
         self.ui_atom.inf2.sigPositionChanged.connect(lambda: update_top_graph(self.ui_atom.atom, self.ui_atom))
-        # self.ui_atom.inf1.sigPositionChangeFinished.connect()
-        # self.ui_atom.inf2.sigPositionChangeFinished.connect()
+
+        self.ui_atom.inf1.sigPositionChangeFinished.connect(lambda: fit_gaussian_y(self.ui_atom.atom, self.ui_atom))
+        self.ui_atom.inf2.sigPositionChangeFinished.connect(lambda: fit_gaussian_x(self.ui_atom.atom, self.ui_atom))
 
         self.ui_atom.image_view.sigRangeChanged.connect(
             lambda window, viewRange: update_region_image_view(viewRange, self.ui_atom))
@@ -196,9 +197,13 @@ class SetupAtomWindow:
         self.ui_atom.load_pages.flouracence_imaging_layout.addWidget(self.calc_by_flu_imaging)
 
         # FIT 2D GAUSSIAN
-        self.ui_atom.load_pages.btn_atom_fit_2d_gaussian.clicked.connect(lambda: fit_gaussian_shape(self.ui_atom.atom, self.ui_atom))
+        self.ui_atom.load_pages.btn_atom_fit_2d_gaussian.clicked.connect(
+            lambda: fit_gaussian_shape(self.ui_atom.atom, self.ui_atom))
 
         self.ui_atom.load_pages.btn_atom_clear_fit.clicked.connect(lambda: clear_fit(self.ui_atom.atom, self.ui_atom))
+
+        self.ui_atom.load_pages.btn_atom_guess_fit.clicked.connect(
+            lambda: guess_params(self.ui_atom.atom, self.ui_atom))
 
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS

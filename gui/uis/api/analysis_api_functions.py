@@ -186,12 +186,12 @@ def set_opt_and_plot(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
 
 def generate_model_from_name(analysis: Analysis, ui_analysis: UI_AnalysisWindow, fun_name) -> lmfit.models:
     model = None
-    if fun_name == "Gaussian":
-        model = lmfit.models.GaussianModel()
-        analysis.fit.set_function(lmfit.lineshapes.gaussian)
-        ui_analysis.load_pages.label_analysis_fit_function.setText(
-            "f(x) = (a / (c * sqrt(2 * pi)) * e ^ ( -0.5 * ((x - b) ^ 2 / c ^ 2))")
-    elif fun_name == "Sine":
+    # if fun_name == "Gaussian":
+    #    model = lmfit.models.GaussianModel()
+    #    analysis.fit.set_function(lmfit.lineshapes.gaussian)
+    #    ui_analysis.load_pages.label_analysis_fit_function.setText(
+    #        "f(x) = (a / (c * sqrt(2 * pi)) * e ^ ( -0.5 * ((x - b) ^ 2 / c ^ 2))")
+    if fun_name == "Sine":
         model = lmfit.models.SineModel()
     elif fun_name == "Polynomial second degree":
         model = lmfit.models.QuadraticModel()
@@ -455,9 +455,10 @@ def matplotlib_fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWin
     for i in range(analysis.fit.get_func_par_num()):
         text += "$\ \ \ %s$ = %0.4f $\pm$ %0.4f \n" % (
             chr(ascii_prm + i), analysis.fit.get_params_array()[i], analysis.fit.get_err_array()[i])
-    text = text + "$\dfrac{{\chi}^2}{N_{dof}} = %0.4f(%0.4f/%d)$\n" % (
-        analysis.fit.get_chi_ndof(), analysis.fit.get_chi_ndof() * len(x),
-        len(x))
+    if analysis.fit.get_chi_ndof() is not None:
+        text = text + "$\dfrac{{\chi}^2}{N_{dof}} = %0.4f(%0.4f/%d)$\n" % (
+            analysis.fit.get_chi_ndof(), analysis.fit.get_chi_ndof() * len(x),
+            len(x))
     func_x = np.linspace(x[0], x[-1], 10000)  # 10000 linearly spaced numbers
     function = analysis.fit.get_function()
     par_values = analysis.fit.get_params_array()
@@ -513,6 +514,7 @@ def clean_opt_analysis(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     ui_analysis.load_pages.lineEdit_analysis_chi2.setEnabled(False)
     ui_analysis.load_pages.pushButton_analyisis_guess_params.setEnabled(False)
     ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setText("None")
+    ui_analysis.load_pages.lineEdit_analysis_chi2.setText("None")
     pages.comboBox_analysis_x_axis.setCurrentIndex(0)
     pages.comboBox_analysis_y_axis.setCurrentIndex(0)
     pages.comboBox_analysis_x_error.setCurrentIndex(0)

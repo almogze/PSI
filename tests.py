@@ -23,6 +23,7 @@ import PyQt6 as pyqt
 from PyQt6 import *
 import sys
 from scipy.interpolate import griddata
+from gui.uis.api.fitting import TwoD_Function_Fit
 
 import lmfit
 from lmfit.lineshapes import gaussian2d, lorentzian
@@ -32,20 +33,44 @@ from lmfit.lineshapes import gaussian2d, lorentzian
 
 
 if __name__ == '__main__':
-    x = np.linspace(0, 9, 1000)
-    y = lmfit.lineshapes.linear(x, 5, 2)
-    y += np.random.normal(0, 0.2, x.size)
-    mod = lmfit.models.LinearModel()
-    # p_0 = mod.guess(y, x)
-    # print(p_0)
-    # print(p_0['amplitude'].max)
-    res = mod.fit(y, x=x)
+    data = np.reshape(np.fromfile('D:\\University\\PSI\\Projects\\Measuring cloud density\\Program\\cloud data\\absorption136.bin', dtype='single')[1:], (2050, 2448))
+    z = np.fromfile('D:\\University\\PSI\\Projects\\Measuring cloud density\\Program\\cloud data\\absorption136.bin', dtype='single')[1:]
+    two_d = TwoD_Function_Fit()
+    model = lmfit.models.Gaussian2dModel()
 
-    par = res.params
-    p_names = mod.param_names
-    slope = par.values()
+    x = np.linspace(0, 2049, 2050)
+    y = np.linspace(0, 2447, 2448)
+    X, Y = np.meshgrid(x,y)
 
-    print(np.sqrt(res.covar[0][0]))
-    print(p_names)
-    # print(slope)
-    print(res.fit_report())
+    x1 = np.linspace(0, 9, 10).reshape(5,2)
+    # y1 = np.linspace(0, 4, 5)
+    # X1, Y1 = np.meshgrid(x1, y1)
+    print(x1)
+    print(x1[:, 0])
+
+    z_2 = gaussian2d(x=X.ravel(), y=Y.ravel(), amplitude=30, centerx=1000, centery=1000, sigmax=200, sigmay=800)
+    # z_2 += 2 * (np.random.rand(*z_2.shape) - .5)
+
+    """""""""
+    z_3 = two_d.twoD_Gaussian(x=X, y=Y,  amplitude=30, x0=1000, y0=1000, sigma_x=200, sigma_y=800, theta=0, offset=0)
+    print(z_3)
+    model.set_param_hint(name='amplitude', value=15, min=0,
+                         max=50)
+    model.set_param_hint(name='x0', value=500, min=0,
+                         max=2049)
+    model.set_param_hint(name='y0', value=500, min=0,
+                         max=2447)
+    model.set_param_hint(name='sigma_x', value=100, min=0,
+                         max=2000)
+    model.set_param_hint(name='sigma_y', value=300, min=0,
+                         max=2000)
+    model.set_param_hint(name='theta', value=0, min=0,
+                         max=360)
+    model.set_param_hint(name='offset', value=0, min=0,
+                         max=1000)
+    """""""""
+
+    # params = model.guess(data.ravel(), x=X.ravel(), y=Y.ravel())
+    # print(params)
+    # res = model.fit(data.ravel(), x=X.ravel(), y=Y.ravel(), params=params)
+    # print(res.fit_report())

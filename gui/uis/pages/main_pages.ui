@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1146</width>
-    <height>948</height>
+    <width>1288</width>
+    <height>972</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>3</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page_main">
       <property name="styleSheet">
@@ -1432,6 +1432,12 @@ gridline-color: rgb(0, 0, 0);</string>
                    </property>
                    <item>
                     <widget class="GraphicsLayoutWidget" name="ImageView_Atom_right">
+                     <property name="minimumSize">
+                      <size>
+                       <width>144</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="maximumSize">
                       <size>
                        <width>150</width>
@@ -2149,193 +2155,6 @@ gridline-color: rgb(0, 0, 0);</string>
                    <property name="spacing">
                     <number>0</number>
                    </property>
-                   <item row="0" column="0">
-                    <widget class="QFrame" name="frame_114">
-                     <property name="frameShape">
-                      <enum>QFrame::StyledPanel</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Raised</enum>
-                     </property>
-                     <layout class="QHBoxLayout" name="horizontalLayout_71">
-                      <property name="spacing">
-                       <number>0</number>
-                      </property>
-                      <property name="leftMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="topMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="rightMargin">
-                       <number>0</number>
-                      </property>
-                      <property name="bottomMargin">
-                       <number>0</number>
-                      </property>
-                      <item>
-                       <widget class="QGroupBox" name="groupBox_2">
-                        <property name="title">
-                         <string>Initial Values</string>
-                        </property>
-                        <layout class="QGridLayout" name="gridLayout_5">
-                         <property name="leftMargin">
-                          <number>9</number>
-                         </property>
-                         <item row="6" column="1">
-                          <widget class="QLineEdit" name="lineEdit_atom_initial_offset">
-                           <property name="text">
-                            <string>0</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="4" column="0">
-                          <widget class="QLabel" name="label_52">
-                           <property name="text">
-                            <string>sigma_y: </string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="0" column="1">
-                          <widget class="QLineEdit" name="lineEdit_atom_initial_amplitude">
-                           <property name="minimumSize">
-                            <size>
-                             <width>0</width>
-                             <height>0</height>
-                            </size>
-                           </property>
-                           <property name="text">
-                            <string>1</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="5" column="1">
-                          <widget class="QLineEdit" name="lineEdit_atom_initial_theta">
-                           <property name="text">
-                            <string>0</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="2" column="1">
-                          <widget class="QLineEdit" name="lineEdit_atom_initial_y_0">
-                           <property name="text">
-                            <string>0</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="6" column="0">
-                          <widget class="QLabel" name="label_50">
-                           <property name="text">
-                            <string>offset: </string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="3" column="0">
-                          <widget class="QLabel" name="label_51">
-                           <property name="text">
-                            <string>sigma_x: </string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="1" column="1">
-                          <widget class="QLineEdit" name="lineEdit_atom_initial_x_0">
-                           <property name="text">
-                            <string>0</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="1" column="0">
-                          <widget class="QLabel" name="label_64">
-                           <property name="text">
-                            <string>x_0: </string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="5" column="0">
-                          <widget class="QLabel" name="label_66">
-                           <property name="text">
-                            <string>theta: </string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="2" column="0">
-                          <widget class="QLabel" name="label_63">
-                           <property name="text">
-                            <string>y_0: </string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="3" column="1">
-                          <widget class="QLineEdit" name="lineEdit_atom_initial_sigma_x">
-                           <property name="text">
-                            <string>1</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="4" column="1">
-                          <widget class="QLineEdit" name="lineEdit_atom_initial_sigma_y">
-                           <property name="text">
-                            <string>1</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="0" column="0">
-                          <widget class="QLabel" name="label_67">
-                           <property name="text">
-                            <string>amplitude: </string>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QGroupBox" name="groupBox_3">
-                        <property name="title">
-                         <string>Results</string>
-                        </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_37">
-                         <item>
-                          <widget class="QLineEdit" name="lineEdit_atom_result_amplitude">
-                           <property name="minimumSize">
-                            <size>
-                             <width>0</width>
-                             <height>0</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QLineEdit" name="lineEdit_atom_result_x_0"/>
-                         </item>
-                         <item>
-                          <widget class="QLineEdit" name="lineEdit_atom_result_y_0"/>
-                         </item>
-                         <item>
-                          <widget class="QLineEdit" name="lineEdit_atom_result_sigma_x"/>
-                         </item>
-                         <item>
-                          <widget class="QLineEdit" name="lineEdit_atom_result_sigma_y">
-                           <property name="minimumSize">
-                            <size>
-                             <width>0</width>
-                             <height>0</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QLineEdit" name="lineEdit_atom_result_theta"/>
-                         </item>
-                         <item>
-                          <widget class="QLineEdit" name="lineEdit_atom_result_offset"/>
-                         </item>
-                        </layout>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
                    <item row="1" column="0">
                     <widget class="QFrame" name="frame_122">
                      <property name="frameShape">
@@ -2374,68 +2193,484 @@ gridline-color: rgb(0, 0, 0);</string>
                      </layout>
                     </widget>
                    </item>
-                   <item row="0" column="1">
-                    <widget class="QGroupBox" name="groupBox_5">
-                     <property name="title">
-                      <string>Errors</string>
+                   <item row="1" column="1">
+                    <widget class="QFrame" name="frame_81">
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
                      </property>
-                     <layout class="QVBoxLayout" name="verticalLayout_49">
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_36">
                       <item>
-                       <widget class="QLineEdit" name="lineEdit_atom_error_amplitude"/>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_atom_error_x_0"/>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_atom_error_y_0">
+                       <widget class="QPushButton" name="btn_atom_guess_fit">
                         <property name="minimumSize">
                          <size>
-                          <width>0</width>
-                          <height>0</height>
+                          <width>135</width>
+                          <height>25</height>
                          </size>
+                        </property>
+                        <property name="text">
+                         <string>Guess initial parameters</string>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QLineEdit" name="lineEdit_atom_error_sigma_x"/>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_atom_error_sigma_y"/>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_atom_error_theta">
+                       <widget class="QPushButton" name="btn_atom_clear_fit">
                         <property name="minimumSize">
                          <size>
-                          <width>0</width>
-                          <height>0</height>
+                          <width>60</width>
+                          <height>25</height>
                          </size>
                         </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_atom_error_offset">
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>0</height>
-                         </size>
+                        <property name="text">
+                         <string>Clear Fit</string>
                         </property>
                        </widget>
                       </item>
                      </layout>
                     </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QPushButton" name="btn_atom_clear_fit">
-                     <property name="minimumSize">
-                      <size>
-                       <width>60</width>
-                       <height>25</height>
-                      </size>
+                   <item row="0" column="1">
+                    <widget class="QGroupBox" name="groupBox_4">
+                     <property name="title">
+                      <string>Results</string>
                      </property>
-                     <property name="text">
-                      <string>Clear Fit</string>
+                     <layout class="QHBoxLayout" name="horizontalLayout_67">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_3">
+                        <property name="title">
+                         <string>Parameters</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_37">
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_result_amplitude">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_result_x_0"/>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_result_y_0"/>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_result_sigma_x"/>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_result_sigma_y">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_result_theta">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_result_offset">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_5">
+                        <property name="title">
+                         <string>Errors</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_49">
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_error_amplitude"/>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_error_x_0"/>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_error_y_0">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_error_sigma_x"/>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_error_sigma_y"/>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_error_theta">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_atom_error_offset">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QGroupBox" name="groupBox_6">
+                     <property name="title">
+                      <string>Initial Values</string>
                      </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_68">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_2">
+                        <property name="title">
+                         <string>Parameters</string>
+                        </property>
+                        <layout class="QGridLayout" name="gridLayout_5">
+                         <property name="leftMargin">
+                          <number>9</number>
+                         </property>
+                         <item row="2" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_initial_y_0">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="4" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_initial_sigma_y">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="6" column="0">
+                          <widget class="QLabel" name="label_50">
+                           <property name="text">
+                            <string>offset: </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="5" column="0">
+                          <widget class="QLabel" name="label_66">
+                           <property name="text">
+                            <string>theta: </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="0">
+                          <widget class="QLabel" name="label_63">
+                           <property name="text">
+                            <string>y_0: </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_initial_amplitude">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="5" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_initial_theta">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="label_67">
+                           <property name="text">
+                            <string>amplitude: </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="4" column="0">
+                          <widget class="QLabel" name="label_52">
+                           <property name="text">
+                            <string>sigma_y: </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_initial_x_0">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="6" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_initial_offset">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="3" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_initial_sigma_x">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="0">
+                          <widget class="QLabel" name="label_64">
+                           <property name="text">
+                            <string>x_0: </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="3" column="0">
+                          <widget class="QLabel" name="label_51">
+                           <property name="text">
+                            <string>sigma_x: </string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_7">
+                        <property name="title">
+                         <string>Limits</string>
+                        </property>
+                        <layout class="QGridLayout" name="gridLayout_7">
+                         <item row="4" column="3">
+                          <widget class="QLineEdit" name="lineEdit_atom_max_sigma_y">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="4" column="0">
+                          <widget class="QLabel" name="label_60">
+                           <property name="text">
+                            <string>s</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="0">
+                          <widget class="QLabel" name="label_57">
+                           <property name="text">
+                            <string>s</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="4" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_min_sigma_y">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_min_y_0"/>
+                         </item>
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="label_56">
+                           <property name="text">
+                            <string>s</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_min_x_0"/>
+                         </item>
+                         <item row="3" column="0">
+                          <widget class="QLabel" name="label_59">
+                           <property name="text">
+                            <string>s</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="3">
+                          <widget class="QLineEdit" name="lineEdit_atom_max_x_0"/>
+                         </item>
+                         <item row="6" column="0">
+                          <widget class="QLabel" name="label_62">
+                           <property name="text">
+                            <string>s</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="5" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_min_theta">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="6" column="3">
+                          <widget class="QLineEdit" name="lineEdit_atom_max_offset">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="3" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_min_sigma_x"/>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_min_amplitude">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="5" column="0">
+                          <widget class="QLabel" name="label_61">
+                           <property name="text">
+                            <string>s</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="0">
+                          <widget class="QLabel" name="label_58">
+                           <property name="text">
+                            <string>s</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="3">
+                          <widget class="QLineEdit" name="lineEdit_atom_max_y_0"/>
+                         </item>
+                         <item row="3" column="3">
+                          <widget class="QLineEdit" name="lineEdit_atom_max_sigma_x"/>
+                         </item>
+                         <item row="6" column="1">
+                          <widget class="QLineEdit" name="lineEdit_atom_min_offset">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="3">
+                          <widget class="QLineEdit" name="lineEdit_atom_max_amplitude">
+                           <property name="minimumSize">
+                            <size>
+                             <width>0</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="5" column="3">
+                          <widget class="QLineEdit" name="lineEdit_atom_max_theta">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="2">
+                          <widget class="QLabel" name="label_71">
+                           <property name="text">
+                            <string>f</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="2">
+                          <widget class="QLabel" name="label_72">
+                           <property name="text">
+                            <string>f</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="2">
+                          <widget class="QLabel" name="label_73">
+                           <property name="text">
+                            <string>f</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="3" column="2">
+                          <widget class="QLabel" name="label_74">
+                           <property name="text">
+                            <string>f</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="4" column="2">
+                          <widget class="QLabel" name="label_75">
+                           <property name="text">
+                            <string>f</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="5" column="2">
+                          <widget class="QLabel" name="label_76">
+                           <property name="text">
+                            <string>f</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="6" column="2">
+                          <widget class="QLabel" name="label_77">
+                           <property name="text">
+                            <string>f</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
                     </widget>
                    </item>
                   </layout>

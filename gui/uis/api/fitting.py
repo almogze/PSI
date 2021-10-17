@@ -43,8 +43,8 @@ class Functions_Texts:
         self.latex_text_off_gauss_fun = "a\cdot e^{-\dfrac{(x-b)^2}{c^2}}+d"
         self.latex_text_normalised_poisson_fun = "\dfrac{\lambda^x \cdot e^{-\lambda}}{x!}"
         self.latex_text_poisson_fun = "c\cdot \dfrac{\lambda^x \cdot e^{-\lambda}}{x!}"
-        self.latex_text_error_fun = "a\cdot erf(\dfrac{(x-b)}{sqrt{2}\cdot c})+d"
-        self.latex_text_error_c_fun = "a\cdot erfc(\dfrac{(x-b)}{sqrt{2}\cdot c})+d"
+        self.latex_text_error_fun = "a\cdot erf(\dfrac{(x-b)}{\sqrt{2}\cdot c})+d"
+        self.latex_text_error_c_fun = "a\cdot erfc(\dfrac{(x-b)}{\sqrt{2}\cdot c})+d"
 
         self.text_lin_fun = "Linear"
         self.text_exp_fun = "Exponential"
@@ -149,6 +149,12 @@ class TwoD_Function_Fit:
                 tuple([np.inf, np.inf, np.inf, np.inf, np.inf, 360, np.inf])))
         return curve_fit(two_d_function, xdata, data.ravel(), p0=p0)
 
+    def guess_params(self, data):
+        print("Guessing Parameters for 2D gaussian:")
+        model = lmfit.models.Gaussian2dModel()
+        x = np.linspace(0, 2049, 2050)
+        y = np.linspace(0, 2447, 2448)
+        parms = model.guess(data, x=x, y=y)
 
 class EffVarChi2Reg:  # This class is like Chi2Regression but takes into account dx
     # This part defines the variables the class will use
@@ -517,7 +523,7 @@ class Fit(object):
             mod = lmfit.models.GaussianModel()
             p_0 = mod.guess(self.y, x=self.x)
             print(p_0)
-            self.set_a_initial(p_0['amplitude'].value)
+            self.set_a_initial(p_0['amplitude'].value / (p_0['sigma'].value * np.sqrt(2 * np.pi)))
             self.set_a_limits(p_0['amplitude'].min,
                               p_0['amplitude'].max)
             self.set_b_initial(p_0['center'].value)

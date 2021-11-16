@@ -30,6 +30,7 @@ class Functions_Texts:
         self.non_latex_text_poisson_fun = "a * ((b ** x) * e ^ ((-1) * b)) / x!"
         self.non_latex_text_error_fun = "a * erf((x - b) / (sqrt(2) * c)) + d"
         self.non_latex_text_error_c_fun = "a * erfc((x - b) / (sqrt(2) * c)) + d"
+        self.non_text_2_slits_fraun_fun = " cos ^ 2 ( (pi a x) / c) * sinc ^ 2 ( (pi b x) / (c d))"
 
         self.latex_text_lin_fun = "a\cdot x +b"
         self.latex_text_exp_fun = "a \cdot e^{b\cdot x}"
@@ -45,6 +46,7 @@ class Functions_Texts:
         self.latex_text_poisson_fun = "c\cdot \dfrac{\lambda^x \cdot e^{-\lambda}}{x!}"
         self.latex_text_error_fun = "a\cdot erf(\dfrac{(x-b)}{\sqrt{2}\cdot c})+d"
         self.latex_text_error_c_fun = "a\cdot erfc(\dfrac{(x-b)}{\sqrt{2}\cdot c})+d"
+        self.latex_text_2_slits_fraun_fun = "cos^2(\dfrac{\pi a x}{c})\cdot sinc^2(\dfrac{\pi b x}{c d})"
 
         self.text_lin_fun = "Linear"
         self.text_exp_fun = "Exponential"
@@ -60,6 +62,7 @@ class Functions_Texts:
         self.text_poisson_fun = "Poisson"
         self.text_error_fun = "Error Function"
         self.text_error_c_fun = "Complementary Error Function"
+        self.text_2_slits_fraun_fun = "2 Slits Fraunhofer"
 
         self.fun_non_latex_texts_array = [self.non_latex_text_lin_fun, self.non_latex_text_exp_fun,
                                           self.non_latex_text_sin_fun,
@@ -68,7 +71,7 @@ class Functions_Texts:
                                           self.non_latex_text_normalised_gauss_fun, self.non_latex_text_gauss_fun,
                                           self.non_latex_text_off_gauss_fun,
                                           self.non_latex_text_normalised_poisson_fun, self.non_latex_text_poisson_fun,
-                                          self.non_latex_text_error_fun, self.non_latex_text_error_c_fun]
+                                          self.non_latex_text_error_fun, self.non_latex_text_error_c_fun, self.non_text_2_slits_fraun_fun]
 
         self.fun_latex_texts_array = [self.latex_text_lin_fun, self.latex_text_exp_fun, self.latex_text_sin_fun,
                                       self.latex_text_cos_fun,
@@ -76,14 +79,14 @@ class Functions_Texts:
                                       self.latex_text_normalised_gauss_fun, self.latex_text_gauss_fun,
                                       self.latex_text_off_gauss_fun,
                                       self.latex_text_normalised_poisson_fun, self.latex_text_poisson_fun,
-                                      self.latex_text_error_fun, self.latex_text_error_c_fun]
+                                      self.latex_text_error_fun, self.latex_text_error_c_fun, self.latex_text_2_slits_fraun_fun]
 
         self.fun_texts_array = [self.text_lin_fun, self.text_exp_fun, self.text_sin_fun, self.text_cos_fun,
                                 self.text_cos2_fun,
                                 self.text_poly2_fun, self.text_poly3_fun, self.text_normalised_gauss_fun,
                                 self.text_gauss_fun, self.text_off_gauss_fun,
                                 self.text_normalised_poisson_fun, self.text_poisson_fun,
-                                self.text_error_fun, self.text_error_c_fun]
+                                self.text_error_fun, self.text_error_c_fun, self.text_2_slits_fraun_fun]
 
 
 class Functions_Fit:
@@ -102,14 +105,15 @@ class Functions_Fit:
         self.fit_poisson_fun = lambda x, a, b: a * ((b ** x) * np.exp((-1) * b)) / (np.math.factorial(x))
         self.fit_error_fun = lambda x, a, b, c, d: a * erf((x - b) / (np.sqrt(2) * c)) + d
         self.fit_error_c_fun = lambda x, a, b, c, d: a * erfc((x - b) / (np.sqrt(2) * c)) + d
+        self.fit_2_slits_fraun_fun = lambda x, a, b, c, d: (np.cos((np.pi * a * x) / c) ** 2) * np.sinc((np.pi * b * x)/(c * d)) ** 2
 
         self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_sin_fun, self.fit_cos_fun, self.fit_cos2_fun,
                               self.fit_poly2_fun, self.fit_poly3_fun, self.fit_normalised_gauss_fun,
                               self.fit_gauss_fun, self.fit_off_gauss_fun,
                               self.fit_normalised_poisson_fun, self.fit_poisson_fun, self.fit_error_fun,
-                              self.fit_error_c_fun]
+                              self.fit_error_c_fun, self.fit_2_slits_fraun_fun]
 
-        self.number_of_params = [2, 2, 3, 2, 2, 3, 4, 2, 3, 4, 1, 2, 4, 4]
+        self.number_of_params = [2, 2, 3, 2, 2, 3, 4, 2, 3, 4, 1, 2, 4, 4, 4]
 
 
 class TwoD_Function_Fit:

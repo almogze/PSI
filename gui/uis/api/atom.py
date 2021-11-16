@@ -30,8 +30,8 @@ class Atom(object):
         return self._instance.with_cloud_path
 
     def setImageJPG(self):
-        self._instance.no_cloud_image_array = np.array(Image.open(self.no_cloud_path))
-        self._instance.cloud_image_array = np.array(Image.open(self.with_cloud_path))
+        self._instance.no_cloud_image_array = np.asarray(Image.open(self.no_cloud_path).convert('L'))
+        self._instance.cloud_image_array = np.asarray(Image.open(self.with_cloud_path).convert('L'))
 
     def setImageBIN(self):
         # Camera: Prosilica GC 2450

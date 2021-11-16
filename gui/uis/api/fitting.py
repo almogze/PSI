@@ -30,7 +30,7 @@ class Functions_Texts:
         self.non_latex_text_poisson_fun = "a * ((b ** x) * e ^ ((-1) * b)) / x!"
         self.non_latex_text_error_fun = "a * erf((x - b) / (sqrt(2) * c)) + d"
         self.non_latex_text_error_c_fun = "a * erfc((x - b) / (sqrt(2) * c)) + d"
-        self.non_text_2_slits_fraun_fun = " cos ^ 2 ( (pi a x) / c) * sinc ^ 2 ( (pi b x) / (c d))"
+        self.non_text_2_slits_fraun_fun = " c * cos ^ 2 ( (pi b (x - d)) / 2.52) * sinc ^ 2 ( (pi a (x - d)) / 2.52)"
 
         self.latex_text_lin_fun = "a\cdot x +b"
         self.latex_text_exp_fun = "a \cdot e^{b\cdot x}"
@@ -46,7 +46,7 @@ class Functions_Texts:
         self.latex_text_poisson_fun = "c\cdot \dfrac{\lambda^x \cdot e^{-\lambda}}{x!}"
         self.latex_text_error_fun = "a\cdot erf(\dfrac{(x-b)}{\sqrt{2}\cdot c})+d"
         self.latex_text_error_c_fun = "a\cdot erfc(\dfrac{(x-b)}{\sqrt{2}\cdot c})+d"
-        self.latex_text_2_slits_fraun_fun = "cos^2(\dfrac{\pi a x}{c})\cdot sinc^2(\dfrac{\pi b x}{c d})"
+        self.latex_text_2_slits_fraun_fun = "c\cdot cos^2(\dfrac{\pi b (x - d)}{2.52})\cdot sinc^2(\dfrac{\pi a (x - d)}{2.52})"
 
         self.text_lin_fun = "Linear"
         self.text_exp_fun = "Exponential"
@@ -105,7 +105,7 @@ class Functions_Fit:
         self.fit_poisson_fun = lambda x, a, b: a * ((b ** x) * np.exp((-1) * b)) / (np.math.factorial(x))
         self.fit_error_fun = lambda x, a, b, c, d: a * erf((x - b) / (np.sqrt(2) * c)) + d
         self.fit_error_c_fun = lambda x, a, b, c, d: a * erfc((x - b) / (np.sqrt(2) * c)) + d
-        self.fit_2_slits_fraun_fun = lambda x, a, b, c, d: (np.cos((np.pi * a * x) / c) ** 2) * np.sinc((np.pi * b * x)/(c * d)) ** 2
+        self.fit_2_slits_fraun_fun = lambda x, a, b, c, d: c * (np.cos((np.pi * b * (x - d)) / 2.52) ** 2) * np.sinc((np.pi * a * (x - d))/2.52) ** 2
 
         self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_sin_fun, self.fit_cos_fun, self.fit_cos2_fun,
                               self.fit_poly2_fun, self.fit_poly3_fun, self.fit_normalised_gauss_fun,

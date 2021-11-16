@@ -409,9 +409,9 @@ def set_data_2_graph(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None
     # Add error bar
     if dx is not None and dy is not None:
         ui_analysis.graph.addItem(
-            pg.ErrorBarItem(x=x, y=y, top=dy / 2, bottom=dy / 2, left=dx / 2, right=dx / 2, beam=0.5))
+            pg.ErrorBarItem(x=x, y=y, top=dy / 2, bottom=dy / 2, left=dx / 2, right=dx / 2))
     elif dy is not None:
-        ui_analysis.graph.addItem(pg.ErrorBarItem(x=x, y=y, top=dy / 2, bottom=dy / 2, beam=0.5))
+        ui_analysis.graph.addItem(pg.ErrorBarItem(x=x, y=y, top=dy / 2, bottom=dy / 2))
     ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(),
                            symbol='o', pen=colors[0], symbolBrush=colors[1], symbolPen='w', symbolSize=8)
     # Add titles and units

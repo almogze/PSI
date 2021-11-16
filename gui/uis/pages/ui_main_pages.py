@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagescbbBDK.ui'
+## Form generated from reading UI file 'main_pagesaSyTyG.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -15,7 +15,7 @@ class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(1288, 972)
+        MainPages.resize(1436, 851)
         self.excel_settings_load_btn_layout = QVBoxLayout(MainPages)
         self.excel_settings_load_btn_layout.setSpacing(0)
         self.excel_settings_load_btn_layout.setObjectName(u"excel_settings_load_btn_layout")
@@ -1396,7 +1396,15 @@ class Ui_MainPages(object):
         self.frame_analysis_main.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_8 = QHBoxLayout(self.frame_analysis_main)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.frame_analysis_main_2 = QFrame(self.frame_analysis_main)
+        self.scrollArea = QScrollArea(self.frame_analysis_main)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1386, 770))
+        self.verticalLayout_50 = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_50.setObjectName(u"verticalLayout_50")
+        self.frame_analysis_main_2 = QFrame(self.scrollAreaWidgetContents)
         self.frame_analysis_main_2.setObjectName(u"frame_analysis_main_2")
         self.frame_analysis_main_2.setFrameShape(QFrame.NoFrame)
         self.frame_analysis_main_2.setFrameShadow(QFrame.Raised)
@@ -1616,6 +1624,7 @@ class Ui_MainPages(object):
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.frame_analysis_graph_settings = QFrame(self.frame_atom_4)
         self.frame_analysis_graph_settings.setObjectName(u"frame_analysis_graph_settings")
+        self.frame_analysis_graph_settings.setMaximumSize(QSize(16777215, 250))
         self.frame_analysis_graph_settings.setFrameShape(QFrame.StyledPanel)
         self.frame_analysis_graph_settings.setFrameShadow(QFrame.Raised)
         self.verticalLayout_9 = QVBoxLayout(self.frame_analysis_graph_settings)
@@ -1625,7 +1634,7 @@ class Ui_MainPages(object):
         self.frame_analysis_graph_settings_2 = QFrame(self.frame_analysis_graph_settings)
         self.frame_analysis_graph_settings_2.setObjectName(u"frame_analysis_graph_settings_2")
         self.frame_analysis_graph_settings_2.setMinimumSize(QSize(350, 383))
-        self.frame_analysis_graph_settings_2.setMaximumSize(QSize(16777215, 16777215))
+        self.frame_analysis_graph_settings_2.setMaximumSize(QSize(16777215, 250))
         self.frame_analysis_graph_settings_2.setFrameShape(QFrame.StyledPanel)
         self.frame_analysis_graph_settings_2.setFrameShadow(QFrame.Raised)
         self.verticalLayout_10 = QVBoxLayout(self.frame_analysis_graph_settings_2)
@@ -1634,6 +1643,7 @@ class Ui_MainPages(object):
         self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)
         self.groupBox_analysis_graph_settings = QGroupBox(self.frame_analysis_graph_settings_2)
         self.groupBox_analysis_graph_settings.setObjectName(u"groupBox_analysis_graph_settings")
+        self.groupBox_analysis_graph_settings.setMaximumSize(QSize(16777215, 250))
         self.groupBox_analysis_graph_settings.setAutoFillBackground(False)
         self.groupBox_analysis_graph_settings.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
 "gridline-color: rgb(0, 0, 0);")
@@ -1784,6 +1794,7 @@ class Ui_MainPages(object):
 
         self.frame_10 = QFrame(self.groupBox_analysis_graph_settings)
         self.frame_10.setObjectName(u"frame_10")
+        self.frame_10.setMaximumSize(QSize(16777215, 250))
         self.frame_10.setFrameShape(QFrame.StyledPanel)
         self.frame_10.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frame_10)
@@ -1796,6 +1807,11 @@ class Ui_MainPages(object):
         self.frame_60.setFrameShadow(QFrame.Raised)
         self.verticalLayout_32 = QVBoxLayout(self.frame_60)
         self.verticalLayout_32.setObjectName(u"verticalLayout_32")
+        self.pushButton_analysis_clear_graph = QPushButton(self.frame_60)
+        self.pushButton_analysis_clear_graph.setObjectName(u"pushButton_analysis_clear_graph")
+
+        self.verticalLayout_32.addWidget(self.pushButton_analysis_clear_graph)
+
 
         self.gridLayout.addWidget(self.frame_60, 0, 1, 1, 1)
 
@@ -1842,12 +1858,6 @@ class Ui_MainPages(object):
         self.frame_59.setFrameShadow(QFrame.Raised)
         self.verticalLayout_31 = QVBoxLayout(self.frame_59)
         self.verticalLayout_31.setObjectName(u"verticalLayout_31")
-        self.pushButton_analysis_clear_graph = QPushButton(self.frame_59)
-        self.pushButton_analysis_clear_graph.setObjectName(u"pushButton_analysis_clear_graph")
-        self.pushButton_analysis_clear_graph.setMinimumSize(QSize(60, 25))
-
-        self.verticalLayout_31.addWidget(self.pushButton_analysis_clear_graph)
-
 
         self.gridLayout.addWidget(self.frame_59, 1, 1, 1, 1)
 
@@ -2153,6 +2163,7 @@ class Ui_MainPages(object):
         self.horizontalLayout_32.setContentsMargins(0, 0, 0, 0)
         self.groupBox = QGroupBox(self.frame_34)
         self.groupBox.setObjectName(u"groupBox")
+        self.groupBox.setMinimumSize(QSize(0, 0))
         self.horizontalLayout_39 = QHBoxLayout(self.groupBox)
         self.horizontalLayout_39.setSpacing(0)
         self.horizontalLayout_39.setObjectName(u"horizontalLayout_39")
@@ -2676,7 +2687,11 @@ class Ui_MainPages(object):
         self.horizontalLayout_5.addWidget(self.frame_atom_4)
 
 
-        self.horizontalLayout_8.addWidget(self.frame_analysis_main_2)
+        self.verticalLayout_50.addWidget(self.frame_analysis_main_2)
+
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        self.horizontalLayout_8.addWidget(self.scrollArea)
 
 
         self.verticalLayout_2.addWidget(self.frame_analysis_main)
@@ -2688,7 +2703,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(2)
+        self.pages.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainPages)
@@ -2771,7 +2786,7 @@ class Ui_MainPages(object):
         self.label_15.setText(QCoreApplication.translate("MainPages", u"X label title and units:", None))
         self.label_19.setText(QCoreApplication.translate("MainPages", u"Y label title and units:", None))
         self.label_16.setText(QCoreApplication.translate("MainPages", u"Plot symbol color: ", None))
-        self.pushButton_analysis_clear_graph.setText(QCoreApplication.translate("MainPages", u"Clear Graph", None))
+        self.pushButton_analysis_clear_graph.setText(QCoreApplication.translate("MainPages", u"Clean All", None))
         self.groupBox_analysis_fit_settings.setTitle(QCoreApplication.translate("MainPages", u"Fit Settings", None))
         self.label_4.setText(QCoreApplication.translate("MainPages", u"X Axis:", None))
         self.label_7.setText(QCoreApplication.translate("MainPages", u"Y Axis:", None))

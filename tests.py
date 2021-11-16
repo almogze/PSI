@@ -52,28 +52,27 @@ if __name__ == '__main__':
     z_2 = gaussian2d(x=X.ravel(), y=Y.ravel(), amplitude=30, centerx=1000, centery=1000, sigmax=200, sigmay=800)
     # z_2 += 2 * (np.random.rand(*z_2.shape) - .5)
     """""""""
-    n = np.asarray(Image.open('D:\\6 slit inverse.jpg').convert('L'))
-    print(n)
 
-    """""""""
+
+
     # Narrow rectangular slit
-    sinc_1 = lambda x, a, W, l, d: (a * W) * np.sinc((np.pi * W * x)/(l * d))
-    sinc_2 = lambda x, a, W, l, d: ((a * W) ** 2) * np.sinc((np.pi * W * x)/(l * d)) ** 2
+    cos_squared = lambda x, a, b, c, d: np.cos((np.pi * a * x) / c) ** 2
+    sinc_squared = lambda x, a, b, c, d: np.sinc((np.pi * b * x)/(c * d)) ** 2
+    fun = lambda x, a, b, c, d: (np.cos((np.pi * a * x) / c) ** 2) * np.sinc((np.pi * b * x)/(c * d)) ** 2
+    # model = Model(cos_squared) * Model(sinc_squared)
 
-    model = Model(sinc_2)
-    params = model.make_params(a=0.1, W=0.002, l=632 * 10 ** -9, d=1000)
+    # params = model.make_params(a=5, b=2, c=1.1, d=1.2)
 
     x = np.linspace(-3, 3, 5000)
-    y_eval = model.eval(params, x=x)
+    y_eval = fun(x=x, a=5, b=2, c=1.1, d=1.2)
 
-    print(f'parameter names: {model.param_names}')
-    print(f'independent variables: {model.independent_vars}')
+    # print(f'parameter names: {model.param_names}')
+    # print(f'independent variables: {model.independent_vars}')
 
 
-    y_fit = sinc_2(x ,1,1,1,1)
     plt.plot(x, y_eval)
     plt.show()
-    
+    """""""""
     z_3 = two_d.twoD_Gaussian(x=X, y=Y,  amplitude=30, x0=1000, y0=1000, sigma_x=200, sigma_y=800, theta=0, offset=0)
     print(z_3)
     model.set_param_hint(name='amplitude', value=15, min=0,

@@ -91,13 +91,13 @@ class Atom(object):
         self._instance.cloud_image_array = None
 
     def calculateAtomNumber(self):
-        rel_I = np.divide(self.cloud_image_array, self.no_cloud_image_array,
-                          out=np.zeros_like(self.no_cloud_image_array), where=self.no_cloud_image_array != 0)
+        rel_I = np.divide(self.cloud_image_array.astype(float), self.no_cloud_image_array.astype(float),
+                          out=np.zeros_like(self.no_cloud_image_array.astype(float)), where=self.no_cloud_image_array.astype(float) != 0 )
         sum_of_rel = np.log(rel_I, out=np.zeros_like(rel_I), where=(rel_I > 0))
         number_of_atoms = - np.divide(np.sum(sum_of_rel) * self.prm.ccd_pixel_size , self.prm.sigma_0)
         return number_of_atoms
 
     def normSignal(self) -> np.array:
         sub = self.no_cloud_image_array - self.cloud_image_array
-        return np.divide(sub, self.no_cloud_image_array, out=np.zeros_like(sub), where=self.no_cloud_image_array != 0)
+        return np.divide(sub.astype(float), self.no_cloud_image_array.astype(float), out=np.zeros_like(sub.astype(float)), where=self.no_cloud_image_array.astype(float) != 0)
 

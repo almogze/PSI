@@ -79,6 +79,10 @@ def initialize_excel_axis(axis: np.ndarray, ui_analysis: UI_AnalysisWindow) -> N
     ui_analysis.load_pages.comboBox_analysis_x_error.addItems(np.append("None", axis))
     ui_analysis.load_pages.comboBox_analysis_y_error.addItems(np.append("None", axis))
 
+    ui_analysis.load_pages.lineEdit_analysis_steps.setText("1")
+    ui_analysis.load_pages.lineEdit_analysis_set_x_i.setText("0")
+    ui_analysis.load_pages.lineEdit_analysis_set_x_f.setText("")
+
 
 def plot_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
     set_data(analysis, ui_analysis)
@@ -117,16 +121,28 @@ def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
         pop_error("excel columns are not int of float", "please check columns types")
     else:
         labels = get_axis_labels(ui_analysis)
-        x = df[labels[0]].values
-        y = df[labels[1]].values
+
+        steps = int(ui_analysis.load_pages.lineEdit_analysis_steps.text())
+        x_i = int(ui_analysis.load_pages.lineEdit_analysis_set_x_i.text())
+        if ui_analysis.load_pages.lineEdit_analysis_set_x_f.text() == "":
+            x_f = len(df[labels[0]].values)
+        else:
+            x_f = int(ui_analysis.load_pages.lineEdit_analysis_set_x_f.text())
+
+        x = df[labels[0]].values[x_i:x_f]
+        x = x[::steps]
+        y = df[labels[1]].values[x_i:x_f]
+        y = y[::steps]
         if labels[2] == "None":
             dx = None
         else:
-            dx = df[labels[2]].values
+            dx = df[labels[2]].values[x_i:x_f]
+            dx = dx[::steps]
         if labels[3] == "None":
             dy = None
         else:
-            dy = df[labels[3]].values
+            dy = df[labels[3]].values[x_i:x_f]
+            dy = dy[::steps]
         ui_analysis.analysis.setFitData(x, y, dx, dy)
 
 
@@ -510,6 +526,9 @@ def clean_opt_analysis(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
     pages.lineEdit_analysis_err_c.setText("None")
     pages.lineEdit_analysis_param_d.setText("None")
     pages.lineEdit_analysis_err_d.setText("None")
+    pages.lineEdit_analysis_steps.setText("")
+    pages.lineEdit_analysis_set_x_i.setText("")
+    pages.lineEdit_analysis_set_x_f.setText("")
     ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setEnabled(False)
     ui_analysis.load_pages.lineEdit_analysis_chi2.setEnabled(False)
     ui_analysis.load_pages.pushButton_analyisis_guess_params.setEnabled(False)

@@ -43,8 +43,8 @@ class Atom(object):
         # first byte is a parameter byte and therefore removed from the array
         file_no_cloud = open(self.no_cloud_path, 'rb')
         file_with_cloud = open(self.with_cloud_path, 'rb')
-        self._instance.no_cloud_image_array = np.reshape(np.fromfile(file_no_cloud, dtype='single')[1:], (2050, 2448))
-        self._instance.cloud_image_array = np.reshape(np.fromfile(file_with_cloud, dtype='single')[1:], (2050, 2448))
+        self._instance.no_cloud_image_array = np.reshape(np.fromfile(file_no_cloud, dtype='int16')[2:], (2050, 2448))
+        self._instance.cloud_image_array = np.reshape(np.fromfile(file_with_cloud, dtype='int16')[2:], (2050, 2448))
         file_no_cloud.close()
         file_with_cloud.close()
 
@@ -73,9 +73,9 @@ class Atom(object):
     def checkImageFormatJPG(self) -> bool:
         iname1, iend1 = os.path.splitext(self.no_cloud_path)
         iname2, iend2 = os.path.splitext(self.with_cloud_path)
-        if iend1 != '.jpg' or iend2 != '.jpg':
-            return bool(False)
-        return bool(True)
+        if (iend1 == '.jpg' and iend2 == '.jpg') or (iend1 == '.jpeg' and iend2 == '.jpeg'):
+            return bool(True)
+        return bool(False)
 
     def checkImageFormatBIN(self) -> bool:
         iname1, iend1 = os.path.splitext(self.no_cloud_path)

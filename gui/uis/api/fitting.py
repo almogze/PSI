@@ -18,10 +18,11 @@ class Functions_Texts:
     def __init__(self):
         self.non_latex_text_lin_fun = "f(x) = a * x + b"
         self.non_latex_text_exp_fun = "f(x) = a * e ^ (b * x)"
-        self.non_latex_text_sin_fun = "f(x) = a * sin(b * x + c)"
+        self.non_latex_text_sin_fun = "f(x) = a * sin(b * x + c) + d"
         self.non_latex_text_cos_fun = "f(x) = a * cos(b * x)"
         self.non_latex_text_cos2_fun = "f(x) = a * (cos(b * x)) ^ 2"
         self.non_latex_text_poly2_fun = "f(x) = a * x ^ 2 + b * x + c"
+        self.non_latex_text_poly2_fun_2 = "f(x) = a * x ^ 2 + b"
         self.non_latex_text_poly3_fun = "f(x) = a * x ^ 3 + b * x ^ 2 + c * x + d"
         self.non_latex_text_normalised_gauss_fun = "f(x) = 1 / a * (sqrt(2 * pi)) * e ^ (-0.5 * ((x - b) / a) ^ 2)"
         self.non_latex_text_gauss_fun = "f(x) = a * e ^ ( -0.5 * ((x - b) ^ 2 / c ^ 2))"
@@ -37,10 +38,11 @@ class Functions_Texts:
 
         self.latex_text_lin_fun = "a\cdot x +b"
         self.latex_text_exp_fun = "a \cdot e^{b\cdot x}"
-        self.latex_text_sin_fun = "a \cdot \sin(b\cdot x + c)"
+        self.latex_text_sin_fun = "a \cdot \sin(b\cdot x + c) + d"
         self.latex_text_cos_fun = "a\cdot \cos(b\cdot x)"
         self.latex_text_cos2_fun = "a\cdot \cos(b\cdot x)^2"
         self.latex_text_poly2_fun = "a\cdot x^2 + b\cdot x + c"
+        self.latex_text_poly2_fun_2 = "a\cdot x^2  + b"
         self.latex_text_poly3_fun = "a\cdot x^3 + b\cdot x^2 + c\cdot x +d"
         self.latex_text_normalised_gauss_fun = "\dfrac{1}{\sigma\sqrt{2\pi}} e^{-\dfrac{(x-b)^2}{2a^2}}"
         self.latex_text_gauss_fun = "a\cdot e^{-\dfrac{(x-b)^2}{c^2}}"
@@ -60,6 +62,7 @@ class Functions_Texts:
         self.text_cos_fun = "Cosine"
         self.text_cos2_fun = "Cosine square"
         self.text_poly2_fun = "Polynomial second degree"
+        self.text_poly2_fun_2 = "Polynomial second degree - 2"
         self.text_poly3_fun = "Polynomial third degree"
         self.text_normalised_gauss_fun = "Normalized Gaussian"
         self.text_gauss_fun = "Gaussian"
@@ -76,7 +79,7 @@ class Functions_Texts:
         self.fun_non_latex_texts_array = [self.non_latex_text_lin_fun, self.non_latex_text_exp_fun,
                                           self.non_latex_text_sin_fun,
                                           self.non_latex_text_cos_fun, self.non_latex_text_cos2_fun,
-                                          self.non_latex_text_poly2_fun, self.non_latex_text_poly3_fun,
+                                          self.non_latex_text_poly2_fun, self.non_latex_text_poly2_fun_2, self.non_latex_text_poly3_fun,
                                           self.non_latex_text_normalised_gauss_fun, self.non_latex_text_gauss_fun,
                                           self.non_latex_text_off_gauss_fun,
                                           self.non_latex_text_normalised_poisson_fun, self.non_latex_text_poisson_fun,
@@ -84,7 +87,7 @@ class Functions_Texts:
 
         self.fun_latex_texts_array = [self.latex_text_lin_fun, self.latex_text_exp_fun, self.latex_text_sin_fun,
                                       self.latex_text_cos_fun,
-                                      self.latex_text_cos2_fun, self.latex_text_poly2_fun, self.latex_text_poly3_fun,
+                                      self.latex_text_cos2_fun, self.latex_text_poly2_fun, self.latex_text_poly2_fun_2, self.latex_text_poly3_fun,
                                       self.latex_text_normalised_gauss_fun, self.latex_text_gauss_fun,
                                       self.latex_text_off_gauss_fun,
                                       self.latex_text_normalised_poisson_fun, self.latex_text_poisson_fun,
@@ -92,7 +95,7 @@ class Functions_Texts:
 
         self.fun_texts_array = [self.text_lin_fun, self.text_exp_fun, self.text_sin_fun, self.text_cos_fun,
                                 self.text_cos2_fun,
-                                self.text_poly2_fun, self.text_poly3_fun, self.text_normalised_gauss_fun,
+                                self.text_poly2_fun, self.text_poly2_fun_2, self.text_poly3_fun, self.text_normalised_gauss_fun,
                                 self.text_gauss_fun, self.text_off_gauss_fun,
                                 self.text_normalised_poisson_fun, self.text_poisson_fun,
                                 self.text_error_fun, self.text_error_c_fun, self.text_1_slits_fraun_fun, self.text_2_slits_fraun_fun, self.text_4_slits_fraun_fun, self.text_6_slits_fraun_fun]
@@ -102,10 +105,11 @@ class Functions_Fit:
     def __init__(self):
         self.fit_lin_fun = lambda x, a, b: b + (x * a)
         self.fit_exp_fun = lambda x, a, b: a * (np.exp(b * x))
-        self.fit_sin_fun = lambda x, a, b, c: a * np.sin(b * x + c)
+        self.fit_sin_fun = lambda x, a, b, c, d: a * np.sin(b * x + c) + d
         self.fit_cos_fun = lambda x, a, b: a * (np.cos(b * x))
         self.fit_cos2_fun = lambda x, a, b: a * (np.cos(b * x)) ** 2
         self.fit_poly2_fun = lambda x, a, b, c: a * (x ** 2) + b * x + c
+        self.fit_poly2_fun_2 = lambda x, a, b: a * (x ** 2) + b
         self.fit_poly3_fun = lambda x, a, b, c, d: a * (x ** 3) + b * (x ** 2) + c * x + d
         self.fit_normalised_gauss_fun = lambda x, a, b: 1 / a * (np.sqrt(2 * np.pi)) * np.exp(-0.5 * ((x - b) / a) ** 2)
         self.fit_gauss_fun = lambda x, a, b, c: a * np.exp(-0.5 * ((x - b) ** 2 / c ** 2))
@@ -120,12 +124,12 @@ class Functions_Fit:
         self.fit_6_slits_fraun_fun = lambda x, a, b, c, d: c * (np.sinc(np.pi * a * (x - d)) ** 2) * ((np.sin(np.pi * 6 * b * (x - d))) / (np.sin(np.pi * b * (x - d)))) ** 2
 
         self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_sin_fun, self.fit_cos_fun, self.fit_cos2_fun,
-                              self.fit_poly2_fun, self.fit_poly3_fun, self.fit_normalised_gauss_fun,
+                              self.fit_poly2_fun, self.fit_poly2_fun_2, self.fit_poly3_fun, self.fit_normalised_gauss_fun,
                               self.fit_gauss_fun, self.fit_off_gauss_fun,
                               self.fit_normalised_poisson_fun, self.fit_poisson_fun, self.fit_error_fun,
                               self.fit_error_c_fun, self.fit_1_slit_fraun_fun, self.fit_2_slits_fraun_fun, self.fit_4_slits_fraun_fun, self.fit_6_slits_fraun_fun]
 
-        self.number_of_params = [2, 2, 3, 2, 2, 3, 4, 2, 3, 4, 1, 2, 4, 4, 3, 4, 4, 4]
+        self.number_of_params = [2, 2, 4, 2, 2, 3, 2, 4, 2, 3, 4, 1, 2, 4, 4, 3, 4, 4, 4]
 
 
 class TwoD_Function_Fit:

@@ -3635,7 +3635,27 @@ background-color: rgb(255, 255, 255);</string>
                                  <property name="frameShadow">
                                   <enum>QFrame::Raised</enum>
                                  </property>
-                                 <layout class="QHBoxLayout" name="horizontalLayout_29"/>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
+                                  <item>
+                                   <widget class="QLabel" name="label_65">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>80</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <property name="text">
+                                     <string>Label</string>
+                                    </property>
+                                    <property name="alignment">
+                                     <set>Qt::AlignCenter</set>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QLineEdit" name="lineEdit_analysis_curve_label"/>
+                                  </item>
+                                 </layout>
                                 </widget>
                                </item>
                                <item>
@@ -3703,6 +3723,19 @@ background-color: rgb(255, 255, 255);</string>
                                  </property>
                                  <property name="text">
                                   <string>Clear Graph</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="pushButton_analysis_export_plots_matplotlib">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>60</width>
+                                   <height>25</height>
+                                  </size>
+                                 </property>
+                                 <property name="text">
+                                  <string>Export plots to MatPlotLib</string>
                                  </property>
                                 </widget>
                                </item>
@@ -4154,8 +4187,8 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background:palette(base); }</string>
                             <property name="geometry">
                              <rect>
                               <x>0</x>
-                              <y>-52</y>
-                              <width>746</width>
+                              <y>0</y>
+                              <width>744</width>
                               <height>318</height>
                              </rect>
                             </property>

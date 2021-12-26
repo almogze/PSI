@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesypfodC.ui'
+## Form generated from reading UI file 'main_pagesCetHMd.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -1815,6 +1815,18 @@ class Ui_MainPages(object):
         self.frame_61.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_29 = QHBoxLayout(self.frame_61)
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
+        self.label_65 = QLabel(self.frame_61)
+        self.label_65.setObjectName(u"label_65")
+        self.label_65.setMinimumSize(QSize(80, 0))
+        self.label_65.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_29.addWidget(self.label_65)
+
+        self.lineEdit_analysis_curve_label = QLineEdit(self.frame_61)
+        self.lineEdit_analysis_curve_label.setObjectName(u"lineEdit_analysis_curve_label")
+
+        self.horizontalLayout_29.addWidget(self.lineEdit_analysis_curve_label)
+
 
         self.verticalLayout_33.addWidget(self.frame_61)
 
@@ -1851,6 +1863,12 @@ class Ui_MainPages(object):
         self.pushButton_analysis_clear_graph.setMinimumSize(QSize(60, 25))
 
         self.verticalLayout_31.addWidget(self.pushButton_analysis_clear_graph)
+
+        self.pushButton_analysis_export_plots_matplotlib = QPushButton(self.frame_59)
+        self.pushButton_analysis_export_plots_matplotlib.setObjectName(u"pushButton_analysis_export_plots_matplotlib")
+        self.pushButton_analysis_export_plots_matplotlib.setMinimumSize(QSize(60, 25))
+
+        self.verticalLayout_31.addWidget(self.pushButton_analysis_export_plots_matplotlib)
 
 
         self.gridLayout.addWidget(self.frame_59, 1, 1, 1, 1)
@@ -2059,7 +2077,7 @@ class Ui_MainPages(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, -52, 746, 318))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 744, 318))
         self.verticalLayout_50 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_50.setObjectName(u"verticalLayout_50")
         self.frame_14 = QFrame(self.scrollAreaWidgetContents_2)
@@ -2865,7 +2883,9 @@ class Ui_MainPages(object):
         self.label_15.setText(QCoreApplication.translate("MainPages", u"X label title and units:", None))
         self.label_19.setText(QCoreApplication.translate("MainPages", u"Y label title and units:", None))
         self.label_16.setText(QCoreApplication.translate("MainPages", u"Plot symbol color: ", None))
+        self.label_65.setText(QCoreApplication.translate("MainPages", u"Label", None))
         self.pushButton_analysis_clear_graph.setText(QCoreApplication.translate("MainPages", u"Clear Graph", None))
+        self.pushButton_analysis_export_plots_matplotlib.setText(QCoreApplication.translate("MainPages", u"Export plots to MatPlotLib", None))
         self.groupBox_analysis_fit_settings.setTitle(QCoreApplication.translate("MainPages", u"Fit Settings", None))
         self.label_4.setText(QCoreApplication.translate("MainPages", u"X Axis:", None))
         self.label_7.setText(QCoreApplication.translate("MainPages", u"Y Axis:", None))

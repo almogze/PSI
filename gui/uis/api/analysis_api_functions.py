@@ -144,6 +144,8 @@ def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
             dy = df[labels[3]].values[x_i:x_f]
             dy = dy[::steps]
         ui_analysis.analysis.setFitData(x, y, dx, dy)
+        analysis.addPlot(x, y, ui_analysis.load_pages.lineEdit_analysis_curve_label.text(),
+                         get_graph_colors(ui_analysis)[0])
 
 
 def check_excel_columns(df: pandas.DataFrame) -> bool:
@@ -497,6 +499,30 @@ def matplotlib_fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWin
     plt.show()
 
 
+def matplotlib_plot_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+    pages = ui_analysis.load_pages
+    main_title = "%s" % ui_analysis.load_pages.lineEdit_analysis_main_title.text()
+    x_title = "%s [%s]" % (pages.lineEdit_analysis_x_title.text(), pages.lineEdit_analysis_x_units.text())
+    y_title = "%s [%s]" % (pages.lineEdit_analysis_y_title.text(), pages.lineEdit_analysis_y_units.text())
+    plt.rc("font", size=16, family="Times New Roman")
+    fig = plt.figure(figsize=(10, 6))
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+    for i in range(len(analysis.get_plots())):
+        x, y = analysis.get_plot(i)
+        color = analysis.get_plot_color(i)
+        label = analysis.get_plot_label(i)
+        if len(color) > 1:
+            ax.plot(x, y, label=label)
+        else:
+            ax.plot(x, y, color=color, label=label)
+    ax.set_xlabel(x_title, fontdict={"size": 21})
+    ax.set_ylabel(y_title, fontdict={"size": 21})
+    plt.grid(True)
+    plt.title(main_title)
+    plt.legend()
+    plt.show()
+
+
 def clean_graph_analysis(ui_analysis: UI_AnalysisWindow):
     pages = ui_analysis.load_pages
     pages.lineEdit_analysis_main_title.clear()
@@ -504,6 +530,7 @@ def clean_graph_analysis(ui_analysis: UI_AnalysisWindow):
     pages.lineEdit_analysis_x_units.clear()
     pages.lineEdit_analysis_y_title.clear()
     pages.lineEdit_analysis_y_units.clear()
+    pages.lineEdit_analysis_curve_label.clear()
     pages.comboBox_analysis_box_location.setCurrentIndex(0)
     pages.comboBox_analysis_plot_line_color.setCurrentIndex(0)
     pages.comboBox_analysis_plot_symbol_color.setCurrentIndex(0)
@@ -511,6 +538,7 @@ def clean_graph_analysis(ui_analysis: UI_AnalysisWindow):
     ui_analysis.graph.setTitle(title="")
     ui_analysis.graph.setLabel('left', "")
     ui_analysis.graph.setLabel('bottom', "")
+    ui_analysis.analysis.clear_plots()
     print("Graph Clean Done")
 
 

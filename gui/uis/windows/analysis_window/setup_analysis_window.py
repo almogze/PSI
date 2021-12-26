@@ -136,6 +136,10 @@ class SetupAnalysisWindow:
         self.ui_analysis.load_pages.plot_analysis_btn.clicked.connect(lambda: wf.plot_analysis_data(
             self.ui_analysis.analysis, self.ui_analysis))
 
+        self.ui_analysis.load_pages.pushButton_analysis_export_plots_matplotlib.clicked.connect(
+            lambda: wf.matplotlib_plot_analysis_data(
+                self.ui_analysis.analysis, self.ui_analysis))
+
         self.ui_analysis.load_pages.Optimaize_analysis_btn.clicked.connect(lambda: wf.optimize_analysis_data(
             self.ui_analysis.analysis, self.ui_analysis))
 

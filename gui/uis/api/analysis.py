@@ -25,6 +25,9 @@ class Analysis(object):
             self.y_label_title = None
             self.box_location = 1
             self.fun_texts = Functions_Texts()
+            self.plots = []
+            self.plots_labels = []
+            self.plots_color = []
 
             # FIT SETTINGS FIELDS
             self.data_frame: pd.DataFrame = None
@@ -84,5 +87,28 @@ class Analysis(object):
 
     def setFitData(self, x, y, dx, dy):
         self._instance.fit.set_arrays(x, y, dx, dy)
+
+    def addPlot(self, x, y, label, color):
+        self.plots.append([x,y])
+        self.plots_labels.append(label)
+        self.plots_color.append(color)
+
+    def clear_plots(self):
+        self.plots = []
+        self.plots_labels = []
+        self.plots_color = []
+
+    def get_plot(self, index):
+        return self.plots[index]
+
+    def get_plots(self):
+        return self.plots
+
+    def get_plot_label(self, index):
+        return self.plots_labels[index]
+
+    def get_plot_color(self, index):
+        return self.plots_color[index]
+
 
 

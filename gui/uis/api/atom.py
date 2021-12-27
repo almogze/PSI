@@ -21,10 +21,10 @@ class Atom(object):
             self.automatic_with_cloud = []
             self.automatic_without_cloud = []
             # Initial Parameters
-            self.x_0 = 0
-            self.y_0 = 0
-            self.sigma_x = 0
-            self.sigma_y = 0
+            self.x_0 = None
+            self.y_0 = None
+            self.sigma_x = None
+            self.sigma_y = None
         return Atom._instance
 
     def setNoCloudPath(self, path):
@@ -129,12 +129,25 @@ class Atom(object):
         self._instance.no_cloud_image_array = None
         self._instance.cloud_image_array = None
 
+    #    def calculateAtomNumber(self):
+    #        rel_I = np.divide(self.cloud_image_array.astype(float), self.no_cloud_image_array.astype(float),
+    #                          out=np.zeros_like(self.no_cloud_image_array.astype(float)),
+    #                          where=self.no_cloud_image_array.astype(float) != 0)
+    #        sum_of_rel = np.log(rel_I, out=np.zeros_like(rel_I), where=(rel_I > 0))
+    #        number_of_atoms = - np.divide(np.sum(sum_of_rel) * self.prm.ccd_pixel_size, self.prm.sigma_0)
+    #        return number_of_atoms
+
     def calculateAtomNumber(self):
-        rel_I = np.divide(self.cloud_image_array.astype(float), self.no_cloud_image_array.astype(float),
-                          out=np.zeros_like(self.no_cloud_image_array.astype(float)),
-                          where=self.no_cloud_image_array.astype(float) != 0)
-        sum_of_rel = np.log(rel_I, out=np.zeros_like(rel_I), where=(rel_I > 0))
-        number_of_atoms = - np.divide(np.sum(sum_of_rel) * self.prm.ccd_pixel_size, self.prm.sigma_0)
+        cloud_area = np.array(self.cloud_image_array)[
+                     self.getX_0() - 2 * self.get_sigma_X():self.getX_0() + 2 * self.get_sigma_X() + 1,
+                     self.getY_0() - 2 * self.get_sigma_Y():self.getY_0() + 2 * self.get_sigma_Y() + 1]
+        non_cloud_area = np.array(self.no_cloud_image_array)[
+                         self.getX_0() - 2 * self.get_sigma_X():self.getX_0() + 2 * self.get_sigma_X() + 1,
+                         self.getY_0() - 2 * self.get_sigma_Y():self.getY_0() + 2 * self.get_sigma_Y() + 1]
+        log = np.log(np.array(cloud_area / non_cloud_area))
+        condition = log < 0  # matrix indices are bigger then zero
+        number_of_atoms = - np.sum(log[condition]) * (
+                    self.prm.ccd_pixel_length * (self.prm.lens_2 / self.prm.lens_1)) / self.prm.sigma_0
         return number_of_atoms
 
     def normSignal(self) -> np.array:
@@ -167,6 +180,6 @@ class Atom(object):
         return self.sigma_y
 
     def CheckCloudParams(self) -> bool:
-        if self.getX_0() is not None and self.getX_0() is not None and self.getX_0() is not None and self.getX_0() is not None:
-            return bool(True)
-        return bool(False)
+        if self.getX_0() is None or self.getY_0() is None or self.get_sigma_X() is None or self.get_sigma_Y() is None:
+            return bool(False)
+        return bool(True)

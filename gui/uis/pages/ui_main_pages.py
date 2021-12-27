@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagestGCylJ.ui'
+## Form generated from reading UI file 'main_pagesIrPjIw.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -915,6 +915,15 @@ class Ui_MainPages(object):
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_72 = QHBoxLayout(self.frame)
+        self.horizontalLayout_72.setObjectName(u"horizontalLayout_72")
+        self.graphicsView_atom_automatic_data_plot = GraphicsLayoutWidget(self.frame)
+        self.graphicsView_atom_automatic_data_plot.setObjectName(u"graphicsView_atom_automatic_data_plot")
+        self.graphicsView_atom_automatic_data_plot.setMinimumSize(QSize(300, 0))
+        self.graphicsView_atom_automatic_data_plot.setStyleSheet(u"")
+
+        self.horizontalLayout_72.addWidget(self.graphicsView_atom_automatic_data_plot)
+
 
         self.verticalLayout_6.addWidget(self.frame)
 
@@ -978,27 +987,6 @@ class Ui_MainPages(object):
         self.gridLayout_4.setSpacing(0)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.frame_122 = QFrame(self.frame_78)
-        self.frame_122.setObjectName(u"frame_122")
-        self.frame_122.setFrameShape(QFrame.StyledPanel)
-        self.frame_122.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_53 = QVBoxLayout(self.frame_122)
-        self.verticalLayout_53.setObjectName(u"verticalLayout_53")
-        self.btn_atom_fit_2d_gaussian = QPushButton(self.frame_122)
-        self.btn_atom_fit_2d_gaussian.setObjectName(u"btn_atom_fit_2d_gaussian")
-        self.btn_atom_fit_2d_gaussian.setMinimumSize(QSize(60, 25))
-
-        self.verticalLayout_53.addWidget(self.btn_atom_fit_2d_gaussian)
-
-        self.btn_atom_export_2dgauss_to_matplotlib = QPushButton(self.frame_122)
-        self.btn_atom_export_2dgauss_to_matplotlib.setObjectName(u"btn_atom_export_2dgauss_to_matplotlib")
-        self.btn_atom_export_2dgauss_to_matplotlib.setMinimumSize(QSize(60, 25))
-
-        self.verticalLayout_53.addWidget(self.btn_atom_export_2dgauss_to_matplotlib)
-
-
-        self.gridLayout_4.addWidget(self.frame_122, 1, 0, 1, 1)
-
         self.frame_81 = QFrame(self.frame_78)
         self.frame_81.setObjectName(u"frame_81")
         self.frame_81.setFrameShape(QFrame.StyledPanel)
@@ -1018,7 +1006,28 @@ class Ui_MainPages(object):
         self.verticalLayout_36.addWidget(self.btn_atom_clear_fit)
 
 
-        self.gridLayout_4.addWidget(self.frame_81, 1, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.frame_81, 1, 2, 1, 1)
+
+        self.frame_122 = QFrame(self.frame_78)
+        self.frame_122.setObjectName(u"frame_122")
+        self.frame_122.setFrameShape(QFrame.StyledPanel)
+        self.frame_122.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_53 = QVBoxLayout(self.frame_122)
+        self.verticalLayout_53.setObjectName(u"verticalLayout_53")
+        self.btn_atom_fit_2d_gaussian = QPushButton(self.frame_122)
+        self.btn_atom_fit_2d_gaussian.setObjectName(u"btn_atom_fit_2d_gaussian")
+        self.btn_atom_fit_2d_gaussian.setMinimumSize(QSize(60, 25))
+
+        self.verticalLayout_53.addWidget(self.btn_atom_fit_2d_gaussian)
+
+        self.btn_atom_export_2dgauss_to_matplotlib = QPushButton(self.frame_122)
+        self.btn_atom_export_2dgauss_to_matplotlib.setObjectName(u"btn_atom_export_2dgauss_to_matplotlib")
+        self.btn_atom_export_2dgauss_to_matplotlib.setMinimumSize(QSize(60, 25))
+
+        self.verticalLayout_53.addWidget(self.btn_atom_export_2dgauss_to_matplotlib)
+
+
+        self.gridLayout_4.addWidget(self.frame_122, 1, 1, 1, 1)
 
         self.groupBox_4 = QGroupBox(self.frame_78)
         self.groupBox_4.setObjectName(u"groupBox_4")
@@ -1118,7 +1127,7 @@ class Ui_MainPages(object):
         self.horizontalLayout_67.addWidget(self.groupBox_5)
 
 
-        self.gridLayout_4.addWidget(self.groupBox_4, 0, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.groupBox_4, 0, 2, 1, 1)
 
         self.groupBox_6 = QGroupBox(self.frame_78)
         self.groupBox_6.setObjectName(u"groupBox_6")
@@ -1205,163 +1214,97 @@ class Ui_MainPages(object):
 
         self.horizontalLayout_68.addWidget(self.groupBox_2)
 
-        self.groupBox_7 = QGroupBox(self.groupBox_6)
+
+        self.gridLayout_4.addWidget(self.groupBox_6, 0, 1, 1, 1)
+
+        self.groupBox_7 = QGroupBox(self.frame_78)
         self.groupBox_7.setObjectName(u"groupBox_7")
-        self.gridLayout_7 = QGridLayout(self.groupBox_7)
-        self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.lineEdit_atom_max_sigma_y = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_max_sigma_y.setObjectName(u"lineEdit_atom_max_sigma_y")
-        self.lineEdit_atom_max_sigma_y.setMinimumSize(QSize(0, 0))
+        self.verticalLayout_51 = QVBoxLayout(self.groupBox_7)
+        self.verticalLayout_51.setObjectName(u"verticalLayout_51")
+        self.label_56 = QLabel(self.groupBox_7)
+        self.label_56.setObjectName(u"label_56")
+        self.label_56.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.lineEdit_atom_max_sigma_y, 4, 3, 1, 1)
+        self.verticalLayout_51.addWidget(self.label_56)
 
-        self.label_60 = QLabel(self.groupBox_7)
-        self.label_60.setObjectName(u"label_60")
+        self.lineEdit_atom_detuning = QLineEdit(self.groupBox_7)
+        self.lineEdit_atom_detuning.setObjectName(u"lineEdit_atom_detuning")
+        self.lineEdit_atom_detuning.setMinimumSize(QSize(0, 0))
+        self.lineEdit_atom_detuning.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.label_60, 4, 0, 1, 1)
+        self.verticalLayout_51.addWidget(self.lineEdit_atom_detuning)
 
         self.label_57 = QLabel(self.groupBox_7)
         self.label_57.setObjectName(u"label_57")
+        self.label_57.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.label_57, 1, 0, 1, 1)
+        self.verticalLayout_51.addWidget(self.label_57)
 
-        self.lineEdit_atom_min_sigma_y = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_min_sigma_y.setObjectName(u"lineEdit_atom_min_sigma_y")
-        self.lineEdit_atom_min_sigma_y.setMinimumSize(QSize(0, 0))
+        self.lineEdit_atom_sigma_0 = QLineEdit(self.groupBox_7)
+        self.lineEdit_atom_sigma_0.setObjectName(u"lineEdit_atom_sigma_0")
+        self.lineEdit_atom_sigma_0.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.lineEdit_atom_min_sigma_y, 4, 1, 1, 1)
-
-        self.lineEdit_atom_min_y_0 = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_min_y_0.setObjectName(u"lineEdit_atom_min_y_0")
-
-        self.gridLayout_7.addWidget(self.lineEdit_atom_min_y_0, 2, 1, 1, 1)
-
-        self.label_56 = QLabel(self.groupBox_7)
-        self.label_56.setObjectName(u"label_56")
-
-        self.gridLayout_7.addWidget(self.label_56, 0, 0, 1, 1)
-
-        self.lineEdit_atom_min_x_0 = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_min_x_0.setObjectName(u"lineEdit_atom_min_x_0")
-
-        self.gridLayout_7.addWidget(self.lineEdit_atom_min_x_0, 1, 1, 1, 1)
-
-        self.label_59 = QLabel(self.groupBox_7)
-        self.label_59.setObjectName(u"label_59")
-
-        self.gridLayout_7.addWidget(self.label_59, 3, 0, 1, 1)
-
-        self.lineEdit_atom_max_x_0 = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_max_x_0.setObjectName(u"lineEdit_atom_max_x_0")
-
-        self.gridLayout_7.addWidget(self.lineEdit_atom_max_x_0, 1, 3, 1, 1)
-
-        self.label_62 = QLabel(self.groupBox_7)
-        self.label_62.setObjectName(u"label_62")
-
-        self.gridLayout_7.addWidget(self.label_62, 6, 0, 1, 1)
-
-        self.lineEdit_atom_min_theta = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_min_theta.setObjectName(u"lineEdit_atom_min_theta")
-        self.lineEdit_atom_min_theta.setEnabled(False)
-
-        self.gridLayout_7.addWidget(self.lineEdit_atom_min_theta, 5, 1, 1, 1)
-
-        self.lineEdit_atom_max_offset = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_max_offset.setObjectName(u"lineEdit_atom_max_offset")
-        self.lineEdit_atom_max_offset.setEnabled(False)
-
-        self.gridLayout_7.addWidget(self.lineEdit_atom_max_offset, 6, 3, 1, 1)
-
-        self.lineEdit_atom_min_sigma_x = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_min_sigma_x.setObjectName(u"lineEdit_atom_min_sigma_x")
-
-        self.gridLayout_7.addWidget(self.lineEdit_atom_min_sigma_x, 3, 1, 1, 1)
-
-        self.lineEdit_atom_min_amplitude = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_min_amplitude.setObjectName(u"lineEdit_atom_min_amplitude")
-        self.lineEdit_atom_min_amplitude.setMinimumSize(QSize(0, 0))
-
-        self.gridLayout_7.addWidget(self.lineEdit_atom_min_amplitude, 0, 1, 1, 1)
-
-        self.label_61 = QLabel(self.groupBox_7)
-        self.label_61.setObjectName(u"label_61")
-
-        self.gridLayout_7.addWidget(self.label_61, 5, 0, 1, 1)
+        self.verticalLayout_51.addWidget(self.lineEdit_atom_sigma_0)
 
         self.label_58 = QLabel(self.groupBox_7)
         self.label_58.setObjectName(u"label_58")
+        self.label_58.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.label_58, 2, 0, 1, 1)
+        self.verticalLayout_51.addWidget(self.label_58)
 
-        self.lineEdit_atom_max_y_0 = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_max_y_0.setObjectName(u"lineEdit_atom_max_y_0")
+        self.lineEdit_atom_f1 = QLineEdit(self.groupBox_7)
+        self.lineEdit_atom_f1.setObjectName(u"lineEdit_atom_f1")
+        self.lineEdit_atom_f1.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.lineEdit_atom_max_y_0, 2, 3, 1, 1)
+        self.verticalLayout_51.addWidget(self.lineEdit_atom_f1)
 
-        self.lineEdit_atom_max_sigma_x = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_max_sigma_x.setObjectName(u"lineEdit_atom_max_sigma_x")
+        self.label_59 = QLabel(self.groupBox_7)
+        self.label_59.setObjectName(u"label_59")
+        self.label_59.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.lineEdit_atom_max_sigma_x, 3, 3, 1, 1)
+        self.verticalLayout_51.addWidget(self.label_59)
 
-        self.lineEdit_atom_min_offset = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_min_offset.setObjectName(u"lineEdit_atom_min_offset")
-        self.lineEdit_atom_min_offset.setEnabled(False)
+        self.lineEdit_atom_f2 = QLineEdit(self.groupBox_7)
+        self.lineEdit_atom_f2.setObjectName(u"lineEdit_atom_f2")
+        self.lineEdit_atom_f2.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.lineEdit_atom_min_offset, 6, 1, 1, 1)
+        self.verticalLayout_51.addWidget(self.lineEdit_atom_f2)
 
-        self.lineEdit_atom_max_amplitude = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_max_amplitude.setObjectName(u"lineEdit_atom_max_amplitude")
-        self.lineEdit_atom_max_amplitude.setMinimumSize(QSize(0, 0))
+        self.label_60 = QLabel(self.groupBox_7)
+        self.label_60.setObjectName(u"label_60")
+        self.label_60.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.lineEdit_atom_max_amplitude, 0, 3, 1, 1)
+        self.verticalLayout_51.addWidget(self.label_60)
 
-        self.lineEdit_atom_max_theta = QLineEdit(self.groupBox_7)
-        self.lineEdit_atom_max_theta.setObjectName(u"lineEdit_atom_max_theta")
-        self.lineEdit_atom_max_theta.setEnabled(False)
+        self.lineEdit_atom_pixel_length = QLineEdit(self.groupBox_7)
+        self.lineEdit_atom_pixel_length.setObjectName(u"lineEdit_atom_pixel_length")
+        self.lineEdit_atom_pixel_length.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_7.addWidget(self.lineEdit_atom_max_theta, 5, 3, 1, 1)
-
-        self.label_71 = QLabel(self.groupBox_7)
-        self.label_71.setObjectName(u"label_71")
-
-        self.gridLayout_7.addWidget(self.label_71, 0, 2, 1, 1)
-
-        self.label_72 = QLabel(self.groupBox_7)
-        self.label_72.setObjectName(u"label_72")
-
-        self.gridLayout_7.addWidget(self.label_72, 1, 2, 1, 1)
-
-        self.label_73 = QLabel(self.groupBox_7)
-        self.label_73.setObjectName(u"label_73")
-
-        self.gridLayout_7.addWidget(self.label_73, 2, 2, 1, 1)
-
-        self.label_74 = QLabel(self.groupBox_7)
-        self.label_74.setObjectName(u"label_74")
-
-        self.gridLayout_7.addWidget(self.label_74, 3, 2, 1, 1)
-
-        self.label_75 = QLabel(self.groupBox_7)
-        self.label_75.setObjectName(u"label_75")
-
-        self.gridLayout_7.addWidget(self.label_75, 4, 2, 1, 1)
-
-        self.label_76 = QLabel(self.groupBox_7)
-        self.label_76.setObjectName(u"label_76")
-
-        self.gridLayout_7.addWidget(self.label_76, 5, 2, 1, 1)
-
-        self.label_77 = QLabel(self.groupBox_7)
-        self.label_77.setObjectName(u"label_77")
-
-        self.gridLayout_7.addWidget(self.label_77, 6, 2, 1, 1)
+        self.verticalLayout_51.addWidget(self.lineEdit_atom_pixel_length)
 
 
-        self.horizontalLayout_68.addWidget(self.groupBox_7)
+        self.gridLayout_4.addWidget(self.groupBox_7, 0, 0, 1, 1)
+
+        self.frame_123 = QFrame(self.frame_78)
+        self.frame_123.setObjectName(u"frame_123")
+        self.frame_123.setFrameShape(QFrame.StyledPanel)
+        self.frame_123.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_55 = QVBoxLayout(self.frame_123)
+        self.verticalLayout_55.setObjectName(u"verticalLayout_55")
+        self.btn_atom_add_cloud_parameters = QPushButton(self.frame_123)
+        self.btn_atom_add_cloud_parameters.setObjectName(u"btn_atom_add_cloud_parameters")
+        self.btn_atom_add_cloud_parameters.setMinimumSize(QSize(60, 25))
+
+        self.verticalLayout_55.addWidget(self.btn_atom_add_cloud_parameters)
+
+        self.btn_atom_clear_cloud_parameters = QPushButton(self.frame_123)
+        self.btn_atom_clear_cloud_parameters.setObjectName(u"btn_atom_clear_cloud_parameters")
+        self.btn_atom_clear_cloud_parameters.setMinimumSize(QSize(60, 25))
+
+        self.verticalLayout_55.addWidget(self.btn_atom_clear_cloud_parameters)
 
 
-        self.gridLayout_4.addWidget(self.groupBox_6, 0, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.frame_123, 1, 0, 1, 1)
 
 
         self.verticalLayout_54.addWidget(self.frame_78)
@@ -2829,10 +2772,13 @@ class Ui_MainPages(object):
         self.lineEdit_atom_number.setText(QCoreApplication.translate("MainPages", u"0", None))
         self.label_13.setText(QCoreApplication.translate("MainPages", u"Cloud Temperature:", None))
         self.lineEdit_cloud_temperature.setText(QCoreApplication.translate("MainPages", u"0", None))
-        self.btn_atom_fit_2d_gaussian.setText(QCoreApplication.translate("MainPages", u"Fit", None))
-        self.btn_atom_export_2dgauss_to_matplotlib.setText(QCoreApplication.translate("MainPages", u"Export fit to MatPlotLib", None))
+#if QT_CONFIG(tooltip)
+        self.graphicsView_atom_automatic_data_plot.setToolTip("")
+#endif // QT_CONFIG(tooltip)
         self.btn_atom_guess_fit.setText(QCoreApplication.translate("MainPages", u"Guess initial parameters", None))
         self.btn_atom_clear_fit.setText(QCoreApplication.translate("MainPages", u"Clear Fit", None))
+        self.btn_atom_fit_2d_gaussian.setText(QCoreApplication.translate("MainPages", u"Fit", None))
+        self.btn_atom_export_2dgauss_to_matplotlib.setText(QCoreApplication.translate("MainPages", u"Export fit to MatPlotLib", None))
         self.groupBox_4.setTitle(QCoreApplication.translate("MainPages", u"Results", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainPages", u"Parameters", None))
         self.groupBox_5.setTitle(QCoreApplication.translate("MainPages", u"Errors", None))
@@ -2852,21 +2798,19 @@ class Ui_MainPages(object):
         self.lineEdit_atom_initial_sigma_x.setText("")
         self.label_64.setText(QCoreApplication.translate("MainPages", u"x_0: ", None))
         self.label_51.setText(QCoreApplication.translate("MainPages", u"sigma_x: ", None))
-        self.groupBox_7.setTitle(QCoreApplication.translate("MainPages", u"Limits", None))
-        self.label_60.setText(QCoreApplication.translate("MainPages", u"s", None))
-        self.label_57.setText(QCoreApplication.translate("MainPages", u"s", None))
-        self.label_56.setText(QCoreApplication.translate("MainPages", u"s", None))
-        self.label_59.setText(QCoreApplication.translate("MainPages", u"s", None))
-        self.label_62.setText(QCoreApplication.translate("MainPages", u"s", None))
-        self.label_61.setText(QCoreApplication.translate("MainPages", u"s", None))
-        self.label_58.setText(QCoreApplication.translate("MainPages", u"s", None))
-        self.label_71.setText(QCoreApplication.translate("MainPages", u"f", None))
-        self.label_72.setText(QCoreApplication.translate("MainPages", u"f", None))
-        self.label_73.setText(QCoreApplication.translate("MainPages", u"f", None))
-        self.label_74.setText(QCoreApplication.translate("MainPages", u"f", None))
-        self.label_75.setText(QCoreApplication.translate("MainPages", u"f", None))
-        self.label_76.setText(QCoreApplication.translate("MainPages", u"f", None))
-        self.label_77.setText(QCoreApplication.translate("MainPages", u"f", None))
+        self.groupBox_7.setTitle(QCoreApplication.translate("MainPages", u"Cloud Parameters", None))
+        self.label_56.setText(QCoreApplication.translate("MainPages", u"Detuning", None))
+        self.lineEdit_atom_detuning.setText(QCoreApplication.translate("MainPages", u"0", None))
+        self.label_57.setText(QCoreApplication.translate("MainPages", u"Sigma 0 [cm]", None))
+        self.lineEdit_atom_sigma_0.setText(QCoreApplication.translate("MainPages", u"2.9070000000000004e-09", None))
+        self.label_58.setText(QCoreApplication.translate("MainPages", u"f1", None))
+        self.lineEdit_atom_f1.setText(QCoreApplication.translate("MainPages", u"300", None))
+        self.label_59.setText(QCoreApplication.translate("MainPages", u"f2", None))
+        self.lineEdit_atom_f2.setText(QCoreApplication.translate("MainPages", u"50", None))
+        self.label_60.setText(QCoreApplication.translate("MainPages", u"Pixel length [cm]", None))
+        self.lineEdit_atom_pixel_length.setText(QCoreApplication.translate("MainPages", u"0.000345", None))
+        self.btn_atom_add_cloud_parameters.setText(QCoreApplication.translate("MainPages", u"Add Cloud Parameters", None))
+        self.btn_atom_clear_cloud_parameters.setText(QCoreApplication.translate("MainPages", u"Clear Cloud Parameters", None))
         self.title_label_2.setText(QCoreApplication.translate("MainPages", u"Analysis Measurements", None))
 #if QT_CONFIG(tooltip)
         self.graphicsView_analysis.setToolTip("")

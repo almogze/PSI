@@ -50,13 +50,14 @@ def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> 
             pop_error("Can not load Files", "Please check path of files")
 
 
-
 def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     if atom.clearToLoad():
-        if
-        atom_number = atom.calculateAtomNumber()
-        print(atom_number)
-        ui_atom.load_pages.label_atom_number.setText(str(atom_number))
+        if atom.CheckCloudParams():
+            atom_number = atom.calculateAtomNumber()
+            print(atom_number)
+            ui_atom.load_pages.lineEdit_atom_number.setText("%0.0f" % atom_number)
+        else:
+            pop_error("Please Calculate parameters first!", "Please calculate cloud parameter first")
     else:
         pop_error("Can not Calculate! Please load images first", "Please load images first")
 
@@ -211,14 +212,15 @@ def fit_gaussian_y(atom: Atom, ui_atom: UI_AtomWindow):
         # Insert Parameters into slots
         # Insert Values
         ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
-            "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))           # lmfit defines gaussian different
+            "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))  # lmfit defines gaussian different
         ui_atom.load_pages.lineEdit_atom_result_y_0.setText("%0.4f" % params[1])
         atom.setY_0(int(params[1]))
         ui_atom.load_pages.lineEdit_atom_result_sigma_y.setText("%0.4f" % params[2])
-        atom.set_sigma_Y(params[2])
+        atom.set_sigma_Y(int(params[2]))
         # Insert Errors
         errors = fit.get_err_array()
-        ui_atom.load_pages.lineEdit_atom_error_amplitude.setText("%0.4f" % (errors[0] / (errors[2] * np.sqrt(2 * np.pi))))
+        ui_atom.load_pages.lineEdit_atom_error_amplitude.setText(
+            "%0.4f" % (errors[0] / (errors[2] * np.sqrt(2 * np.pi))))
         ui_atom.load_pages.lineEdit_atom_error_y_0.setText("%0.4f" % errors[1])
         ui_atom.load_pages.lineEdit_atom_error_sigma_y.setText("%0.4f" % errors[2])
 
@@ -249,7 +251,7 @@ def fit_gaussian_x(atom: Atom, ui_atom: UI_AtomWindow):
         ui_atom.load_pages.lineEdit_atom_result_x_0.setText("%0.4f" % params[1])
         atom.setX_0(int(params[1]))
         ui_atom.load_pages.lineEdit_atom_result_sigma_x.setText("%0.4f" % params[2])
-        atom.set_sigma_X(params[2])
+        atom.set_sigma_X(int(params[2]))
         # Insert Errors
         errors = fit.get_err_array()
         ui_atom.load_pages.lineEdit_atom_error_amplitude.setText(
@@ -371,40 +373,19 @@ def guess_params(atom: Atom, ui_atom: UI_AtomWindow):
         pop_error("images are not loaded", "please load images first")
 
 
-"""""""""""
-def matplotlib_fit_analysis_data(atom: Atom, ui_atom: UI_AtomWindow) -> None:
-    pages = ui_analysis.load_pages
-    x = analysis.fit.get_x_array()
-    y = analysis.fit.get_y_array()
-    dx = analysis.fit.get_dx_array()
-    dy = analysis.fit.get_dy_array()
-    text = "$ Fitted \  to \ f(x) = {} $\n".format(analysis.fun_texts.fun_latex_texts_array[ui_analysis.load_pages.
-                                                   comboBox_analysis_fit_function.currentIndex()])
-    ascii_prm = 97
-    for i in range(analysis.fit.get_func_par_num()):
-        text += "$\ \ \ %s$ = %0.4f $\pm$ %0.4f \n" % (
-            chr(ascii_prm + i), analysis.fit.get_params_array()[i], analysis.fit.get_err_array()[i])
-    text = text + "$\dfrac{{\chi}^2}{N_{dof}} = %0.4f(%0.4f/%d)$\n" % (
-        analysis.fit.get_chi_ndof(), analysis.fit.get_chi_ndof() * len(x),
-        len(x))
-    func_x = np.linspace(x[0], x[-1], 10000)  # 10000 linearly spaced numbers
-    function = analysis.fit.get_function()
-    par_values = analysis.fit.get_params_array()
-    y_fit = function(func_x, *par_values)
-    x_title = "%s [%s]" % (pages.lineEdit_analysis_x_title.text(), pages.lineEdit_analysis_x_units.text())
-    y_title = "%s [%s]" % (pages.lineEdit_analysis_y_title.text(), pages.lineEdit_analysis_y_units.text())
-    main_title = "%s" % ui_analysis.load_pages.lineEdit_analysis_main_title.text()
-    plt.rc("font", size=16, family="Times New Roman")
-    fig = plt.figure(figsize=(10, 6))
-    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
-    ax.plot(func_x, y_fit)  # plot the function over 10k points covering the x axis
-    ax.scatter(x, y, c="black")
-    ax.errorbar(x, y, dy, dx, fmt='none', ecolor='red', capsize=3)
-    ax.set_xlabel(x_title, fontdict={"size": 21})
-    ax.set_ylabel(y_title, fontdict={"size": 21})
-    anchored_text = AnchoredText(text, loc=ui_analysis.load_pages.comboBox_analysis_box_location.currentIndex())
-    ax.add_artist(anchored_text)
-    plt.grid(True)
-    plt.title(main_title)
-    plt.show()
-"""""""""""
+def add_cloud_parameters(atom: Atom, ui_atom: UI_AtomWindow):
+    detuning = float(ui_atom.load_pages.lineEdit_atom_detuning.text())
+    sigma_0 = float(ui_atom.load_pages.lineEdit_atom_sigma_0.text())
+    f1 = float(ui_atom.load_pages.lineEdit_atom_f1.text())
+    f2 = float(ui_atom.load_pages.lineEdit_atom_f2.text())
+    pixel_length = float(ui_atom.load_pages.lineEdit_atom_pixel_length.text())
+    atom.prm.set_cloud_parameters(detuning, sigma_0, f1, f2, pixel_length)
+
+
+def clear_cloud_parameters(atom: Atom, ui_atom: UI_AtomWindow):
+    ui_atom.load_pages.lineEdit_atom_detuning.clear()
+    ui_atom.load_pages.lineEdit_atom_sigma_0.clear()
+    ui_atom.load_pages.lineEdit_atom_f1.clear()
+    ui_atom.load_pages.lineEdit_atom_f2.clear()
+    ui_atom.load_pages.lineEdit_atom_pixel_length.clear()
+    atom.prm.set_cloud_parameters(0, 0, 0, 0, 0)

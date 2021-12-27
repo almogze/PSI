@@ -213,6 +213,14 @@ class SetupAtomWindow:
         # ADD LAYOUT
         self.ui_atom.load_pages.flouracence_imaging_layout.addWidget(self.calc_by_flu_imaging)
 
+        # CLOUD PARAMETER BTNS
+        self.ui_atom.load_pages.btn_atom_add_cloud_parameters.clicked.connect(
+            lambda: add_cloud_parameters(self.ui_atom.atom, self.ui_atom))
+
+        self.ui_atom.load_pages.btn_atom_clear_cloud_parameters.clicked.connect(
+            lambda: clear_cloud_parameters(self.ui_atom.atom, self.ui_atom))
+
+
         # FIT 2D GAUSSIAN
         self.ui_atom.load_pages.btn_atom_fit_2d_gaussian.clicked.connect(
             lambda: fit_gaussian_shape(self.ui_atom.atom, self.ui_atom))

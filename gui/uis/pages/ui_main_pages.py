@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesCetHMd.ui'
+## Form generated from reading UI file 'main_pagestGCylJ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -842,6 +842,7 @@ class Ui_MainPages(object):
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.frame_5 = QFrame(self.frame_3)
         self.frame_5.setObjectName(u"frame_5")
+        self.frame_5.setMinimumSize(QSize(180, 0))
         self.frame_5.setFrameShape(QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QFrame.Raised)
         self.label_2 = QLabel(self.frame_5)
@@ -856,12 +857,11 @@ class Ui_MainPages(object):
         self.frame_6.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_7 = QHBoxLayout(self.frame_6)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.label_atom_number = QLabel(self.frame_6)
-        self.label_atom_number.setObjectName(u"label_atom_number")
-        self.label_atom_number.setLayoutDirection(Qt.LeftToRight)
-        self.label_atom_number.setAlignment(Qt.AlignCenter)
+        self.lineEdit_atom_number = QLineEdit(self.frame_6)
+        self.lineEdit_atom_number.setObjectName(u"lineEdit_atom_number")
+        self.lineEdit_atom_number.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_7.addWidget(self.label_atom_number)
+        self.horizontalLayout_7.addWidget(self.lineEdit_atom_number)
 
 
         self.horizontalLayout_4.addWidget(self.frame_6)
@@ -899,12 +899,11 @@ class Ui_MainPages(object):
         self.frame_46.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_13 = QHBoxLayout(self.frame_46)
         self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.label_cloud_temperature = QLabel(self.frame_46)
-        self.label_cloud_temperature.setObjectName(u"label_cloud_temperature")
-        self.label_cloud_temperature.setLayoutDirection(Qt.LeftToRight)
-        self.label_cloud_temperature.setAlignment(Qt.AlignCenter)
+        self.lineEdit_cloud_temperature = QLineEdit(self.frame_46)
+        self.lineEdit_cloud_temperature.setObjectName(u"lineEdit_cloud_temperature")
+        self.lineEdit_cloud_temperature.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_13.addWidget(self.label_cloud_temperature)
+        self.horizontalLayout_13.addWidget(self.lineEdit_cloud_temperature)
 
 
         self.horizontalLayout_11.addWidget(self.frame_46)
@@ -2800,7 +2799,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(3)
+        self.pages.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainPages)
@@ -2827,9 +2826,9 @@ class Ui_MainPages(object):
         self.label_without_cloud_path.setText(QCoreApplication.translate("MainPages", u"Without cloud path:", None))
         self.groupBox_Atom_results.setTitle(QCoreApplication.translate("MainPages", u"Results", None))
         self.label_2.setText(QCoreApplication.translate("MainPages", u"Atoms Number:", None))
-        self.label_atom_number.setText(QCoreApplication.translate("MainPages", u"0", None))
+        self.lineEdit_atom_number.setText(QCoreApplication.translate("MainPages", u"0", None))
         self.label_13.setText(QCoreApplication.translate("MainPages", u"Cloud Temperature:", None))
-        self.label_cloud_temperature.setText(QCoreApplication.translate("MainPages", u"0", None))
+        self.lineEdit_cloud_temperature.setText(QCoreApplication.translate("MainPages", u"0", None))
         self.btn_atom_fit_2d_gaussian.setText(QCoreApplication.translate("MainPages", u"Fit", None))
         self.btn_atom_export_2dgauss_to_matplotlib.setText(QCoreApplication.translate("MainPages", u"Export fit to MatPlotLib", None))
         self.btn_atom_guess_fit.setText(QCoreApplication.translate("MainPages", u"Guess initial parameters", None))

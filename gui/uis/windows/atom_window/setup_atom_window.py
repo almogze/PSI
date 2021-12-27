@@ -164,6 +164,23 @@ class SetupAtomWindow:
         # ADD LAYOUT
         self.ui_atom.left_column.menus.with_cloud_layout.addWidget(self.with_cloud_btn)
 
+        # BTN OPEN IMAGE AUTOMATIC
+        self.automatic_pull_btn = PyPushButton(
+            text=" Pull Images",
+            radius=3,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_two"],
+            bg_color_pressed=self.themes["app_color"]["dark_three"]
+        )
+        self.automatic_pull_btn.setMaximumHeight(40)
+        self.automatic_pull_btn.setIcon(self.icon_folder)
+
+        self.automatic_pull_btn.clicked.connect(
+            lambda: open_dialog_box_atom(self.ui_atom.atom, self.ui_atom, "automatic_pull"))
+        # ADD LAYOUT
+        self.ui_atom.left_column.menus.aoutomatic_pull_atom_layout.addWidget(self.automatic_pull_btn)
+
         # COMBOBOX WIDGETS
         self.ui_atom.cloud_combo.addItems(["with cloud", "without cloud", "subtraction", "normalized signal"])
         self.ui_atom.cloud_combo.currentIndexChanged.connect(lambda: combo_current_change(self.ui_atom.atom, self.ui_atom, self.ui_atom.cloud_combo.currentIndex()))

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'left_columnbMNNSx.ui'
+## Form generated from reading UI file 'left_columnTtKlMH.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -92,6 +92,36 @@ class Ui_LeftColumn(object):
 
 
         self.verticalLayout_3.addWidget(self.frame_with_cloud)
+
+        self.frame_with_cloud_2 = QFrame(self.menu_atom)
+        self.frame_with_cloud_2.setObjectName(u"frame_with_cloud_2")
+        self.frame_with_cloud_2.setMaximumSize(QSize(16777215, 80))
+        self.frame_with_cloud_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_with_cloud_2.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_6 = QVBoxLayout(self.frame_with_cloud_2)
+        self.verticalLayout_6.setSpacing(0)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.label_with_cloud_2 = QLabel(self.frame_with_cloud_2)
+        self.label_with_cloud_2.setObjectName(u"label_with_cloud_2")
+        self.label_with_cloud_2.setMaximumSize(QSize(16777215, 40))
+
+        self.verticalLayout_6.addWidget(self.label_with_cloud_2)
+
+        self.frame_atom_automatic_dialog = QFrame(self.frame_with_cloud_2)
+        self.frame_atom_automatic_dialog.setObjectName(u"frame_atom_automatic_dialog")
+        self.frame_atom_automatic_dialog.setMinimumSize(QSize(0, 40))
+        self.frame_atom_automatic_dialog.setMaximumSize(QSize(16777215, 40))
+        self.frame_atom_automatic_dialog.setFrameShape(QFrame.StyledPanel)
+        self.frame_atom_automatic_dialog.setFrameShadow(QFrame.Raised)
+        self.aoutomatic_pull_atom_layout = QVBoxLayout(self.frame_atom_automatic_dialog)
+        self.aoutomatic_pull_atom_layout.setObjectName(u"aoutomatic_pull_atom_layout")
+        self.aoutomatic_pull_atom_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.verticalLayout_6.addWidget(self.frame_atom_automatic_dialog)
+
+
+        self.verticalLayout_3.addWidget(self.frame_with_cloud_2)
 
         self.frame_atom_temp = QFrame(self.menu_atom)
         self.frame_atom_temp.setObjectName(u"frame_atom_temp")
@@ -193,7 +223,7 @@ class Ui_LeftColumn(object):
 
         self.retranslateUi(LeftColumn)
 
-        self.menus.setCurrentIndex(3)
+        self.menus.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(LeftColumn)
@@ -203,6 +233,7 @@ class Ui_LeftColumn(object):
         LeftColumn.setWindowTitle(QCoreApplication.translate("LeftColumn", u"Form", None))
         self.label_no_cloud.setText(QCoreApplication.translate("LeftColumn", u"Open image - no cloud", None))
         self.label_with_cloud.setText(QCoreApplication.translate("LeftColumn", u"Open image - with cloud", None))
+        self.label_with_cloud_2.setText(QCoreApplication.translate("LeftColumn", u"Automatic pull", None))
         self.label_2.setText(QCoreApplication.translate("LeftColumn", u"Menu 2 - Left Menu", None))
         self.label_3.setText(QCoreApplication.translate("LeftColumn", u"This is just an example menu.\n"
 "Add Qt Widgets or your custom widgets here.", None))

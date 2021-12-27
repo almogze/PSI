@@ -7,6 +7,7 @@ import pandas as pd
 from PIL import Image
 import numpy as np
 import os
+from os import walk
 from PySide6.QtWidgets import QFileDialog
 from iminuit import Minuit
 import matplotlib.pyplot as plt
@@ -42,10 +43,17 @@ def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> 
         atom.setCloudPath(filename[0])
         ui_atom.load_pages.lineEdit_with_cloud_path.setText(filename[0])
         print(atom.getCloudPath())
+    elif switch == "automatic_pull":
+        atom.setDirectoryPath(os.path.dirname(os.path.abspath(filename[0])))
+        print(atom.getDirectoryPath())
+        if not atom.addAndSortAutomaticData():
+            pop_error("Can not load Files", "Please check path of files")
+
 
 
 def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     if atom.clearToLoad():
+        if
         atom_number = atom.calculateAtomNumber()
         print(atom_number)
         ui_atom.load_pages.label_atom_number.setText(str(atom_number))
@@ -205,7 +213,9 @@ def fit_gaussian_y(atom: Atom, ui_atom: UI_AtomWindow):
         ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
             "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))           # lmfit defines gaussian different
         ui_atom.load_pages.lineEdit_atom_result_y_0.setText("%0.4f" % params[1])
+        atom.setY_0(int(params[1]))
         ui_atom.load_pages.lineEdit_atom_result_sigma_y.setText("%0.4f" % params[2])
+        atom.set_sigma_Y(params[2])
         # Insert Errors
         errors = fit.get_err_array()
         ui_atom.load_pages.lineEdit_atom_error_amplitude.setText("%0.4f" % (errors[0] / (errors[2] * np.sqrt(2 * np.pi))))
@@ -237,7 +247,9 @@ def fit_gaussian_x(atom: Atom, ui_atom: UI_AtomWindow):
         ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
             "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))  # lmfit defines gaussian different
         ui_atom.load_pages.lineEdit_atom_result_x_0.setText("%0.4f" % params[1])
+        atom.setX_0(int(params[1]))
         ui_atom.load_pages.lineEdit_atom_result_sigma_x.setText("%0.4f" % params[2])
+        atom.set_sigma_X(params[2])
         # Insert Errors
         errors = fit.get_err_array()
         ui_atom.load_pages.lineEdit_atom_error_amplitude.setText(

@@ -147,7 +147,7 @@ class Atom(object):
         log = np.log(np.array(cloud_area / non_cloud_area))
         condition = log < 0  # matrix indices are bigger then zero
         number_of_atoms = - np.sum(log[condition]) * (
-                    self.prm.ccd_pixel_length * (self.prm.lens_2 / self.prm.lens_1)) / self.prm.sigma_0
+                    self.prm.ccd_pixel_length * (self.prm.lens_1 / self.prm.lens_2)) ** 2 / self.prm.sigma_0
         return number_of_atoms
 
     def normSignal(self) -> np.array:

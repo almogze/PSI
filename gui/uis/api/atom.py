@@ -20,7 +20,10 @@ class Atom(object):
             self.directory_path = None
             self.automatic_with_cloud = []
             self.automatic_without_cloud = []
+            self.last_plot_x = []
+            self.last_plot_y = []
             # Initial Parameters
+            self.first_initiate = bool(False)
             self.x_0 = None
             self.y_0 = None
             self.sigma_x = None
@@ -43,6 +46,18 @@ class Atom(object):
         self._instance.no_cloud_image_array = np.asarray(Image.open(self.no_cloud_path).convert('L'))
         self._instance.cloud_image_array = np.asarray(Image.open(self.with_cloud_path).convert('L'))
 
+    def getCloudArray(self):
+        return self._instance.cloud_image_array
+
+    def getNonCloudArray(self):
+        return self._instance.no_cloud_image_array
+
+    def getAutomaticCloudArray(self):
+        return self._instance.automatic_with_cloud
+
+    def getAutomaticNonCloudArray(self):
+        return self._instance.automatic_without_cloud
+
     def addCloudFile(self, file):
         self.automatic_with_cloud.append(file)
 
@@ -54,6 +69,19 @@ class Atom(object):
 
     def getDirectoryPath(self):
         return self.directory_path
+
+    def setLastPlot(self, x, y):
+        self._instance.last_plot_x = x
+        self._instance.last_plot_y = y
+
+    def getLastPlot(self):
+        return self.last_plot_x, self.last_plot_y
+
+    def getParametersCondition(self):
+        return self._instance.first_initiate
+
+    def setParametersCondition(self, condition):
+        self._instance.first_initiate = condition
 
     def addAndSortAutomaticData(self) -> bool:
         if self.getDirectoryPath() is None:
@@ -86,6 +114,13 @@ class Atom(object):
         self._instance.cloud_image_array = np.reshape(np.fromfile(file_with_cloud, dtype='int16')[2:], (2050, 2448))
         file_no_cloud.close()
         file_with_cloud.close()
+
+    def path_to_array(self, name):
+        bin_file = open(self.getDirectoryPath() + "\\" + name, 'rb')
+        print(self.getDirectoryPath() + "\\" + name)
+        array = np.reshape(np.fromfile(bin_file, dtype='int16')[2:], (2050, 2448))
+        bin_file.close()
+        return array
 
     def loadImage(self, ind: int) -> np.array:
         if ind == 0:
@@ -137,11 +172,11 @@ class Atom(object):
     #        number_of_atoms = - np.divide(np.sum(sum_of_rel) * self.prm.ccd_pixel_size, self.prm.sigma_0)
     #        return number_of_atoms
 
-    def calculateAtomNumber(self):
-        cloud_area = np.array(self.cloud_image_array)[
+    def calculateAtomNumber(self, cloud_array, without_cloud_array):
+        cloud_area = np.array(cloud_array)[
                      self.getX_0() - 2 * self.get_sigma_X():self.getX_0() + 2 * self.get_sigma_X() + 1,
                      self.getY_0() - 2 * self.get_sigma_Y():self.getY_0() + 2 * self.get_sigma_Y() + 1]
-        non_cloud_area = np.array(self.no_cloud_image_array)[
+        non_cloud_area = np.array(without_cloud_array)[
                          self.getX_0() - 2 * self.get_sigma_X():self.getX_0() + 2 * self.get_sigma_X() + 1,
                          self.getY_0() - 2 * self.get_sigma_Y():self.getY_0() + 2 * self.get_sigma_Y() + 1]
         log = np.log(np.array(cloud_area / non_cloud_area))

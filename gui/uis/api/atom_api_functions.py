@@ -50,16 +50,43 @@ def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> 
             pop_error("Can not load Files", "Please check path of files")
 
 
-def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow) -> None:
+def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, withoutCloud) -> None:
     if atom.clearToLoad():
         if atom.CheckCloudParams():
-            atom_number = atom.calculateAtomNumber()
-            print(atom_number)
+            if not atom.getParametersCondition():
+                add_cloud_parameters(atom, ui_atom)
+            atom_number = atom.calculateAtomNumber(withCloud, withoutCloud)
             ui_atom.load_pages.lineEdit_atom_number.setText("%0.0f" % atom_number)
+            return atom_number
         else:
             pop_error("Please Calculate parameters first!", "Please calculate cloud parameter first")
     else:
         pop_error("Can not Calculate! Please load images first", "Please load images first")
+
+
+def calculate_automatic_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int) -> None:
+    if switch == 0:
+        # Calculating atoms number
+        print("Calculate Atom Number - Sequence")
+        calculate_atom_number_sequence(atom, ui_atom)
+    return
+
+
+def calculate_atom_number_sequence(atom: Atom, ui_atom: UI_AtomWindow):
+    x = []
+    y = []
+    seq_cloud = atom.getAutomaticCloudArray()
+    print(seq_cloud)
+    seq_non_cloud = atom.getAutomaticNonCloudArray()
+    print(seq_non_cloud)
+    print("Number of files: " + str(len(seq_cloud)))
+    for i in range(len(seq_cloud)):
+        x.append(i)
+        atom_number = calculate_atom_number(atom, ui_atom, atom.path_to_array(seq_cloud[i]),atom.path_to_array(seq_non_cloud[i]))
+        print("Number of calculated atoms: " + str(atom_number))
+        y.append(atom_number)
+    atom.setLastPlot(x, y)
+    ui_atom.graph.plot(x, y)
 
 
 def load_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
@@ -118,6 +145,23 @@ def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
 
 
 def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
+    # clear old plots
+    ui_atom.graph_top.clear()
+    ui_atom.graph_right.clear()
+    loaded_image = atom.loadImage(ind)
+    if loaded_image is not None:
+        ui_atom.image.setImage(image=loaded_image)
+        pos_x = int(ui_atom.inf1.value())
+        pos_y = int(ui_atom.inf2.value())
+        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
+        ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
+        ui_atom.image_view.setTitle(
+            "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
+    else:
+        print("ComboBox index is not Valid")
+
+
+def graph_combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
     # clear old plots
     ui_atom.graph_top.clear()
     ui_atom.graph_right.clear()
@@ -380,6 +424,7 @@ def add_cloud_parameters(atom: Atom, ui_atom: UI_AtomWindow):
     f2 = float(ui_atom.load_pages.lineEdit_atom_f2.text())
     pixel_length = float(ui_atom.load_pages.lineEdit_atom_pixel_length.text())
     atom.prm.set_cloud_parameters(detuning, sigma_0, f1, f2, pixel_length)
+    atom.setParametersCondition(bool(True))
 
 
 def clear_cloud_parameters(atom: Atom, ui_atom: UI_AtomWindow):

@@ -2003,7 +2003,22 @@ gridline-color: rgb(0, 0, 0);</string>
                         <property name="frameShadow">
                          <enum>QFrame::Raised</enum>
                         </property>
-                        <layout class="QHBoxLayout" name="horizontalLayout_72">
+                        <layout class="QVBoxLayout" name="verticalLayout_52">
+                         <property name="spacing">
+                          <number>4</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>4</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>4</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>4</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>4</number>
+                         </property>
                          <item>
                           <widget class="GraphicsLayoutWidget" name="graphicsView_atom_automatic_data_plot">
                            <property name="minimumSize">
@@ -2018,6 +2033,140 @@ gridline-color: rgb(0, 0, 0);</string>
                            <property name="styleSheet">
                             <string notr="true"/>
                            </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QFrame" name="frame_atom_graph_btns_3">
+                           <property name="maximumSize">
+                            <size>
+                             <width>16777215</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="frameShape">
+                            <enum>QFrame::NoFrame</enum>
+                           </property>
+                           <property name="frameShadow">
+                            <enum>QFrame::Raised</enum>
+                           </property>
+                           <layout class="QHBoxLayout" name="horizontalLayout_73">
+                            <property name="spacing">
+                             <number>3</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item>
+                             <widget class="QFrame" name="frame_btn_send_to_excel">
+                              <property name="maximumSize">
+                               <size>
+                                <width>100</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="frameShape">
+                               <enum>QFrame::NoFrame</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Raised</enum>
+                              </property>
+                              <layout class="QHBoxLayout" name="btn_atom_send_to_excel_layout">
+                               <property name="spacing">
+                                <number>0</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                              </layout>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QFrame" name="frame_btn_send_to_analysis">
+                              <property name="maximumSize">
+                               <size>
+                                <width>100</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="frameShape">
+                               <enum>QFrame::NoFrame</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Raised</enum>
+                              </property>
+                              <layout class="QVBoxLayout" name="btn_atom_send_to_analysis_layout">
+                               <property name="spacing">
+                                <number>0</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                              </layout>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QComboBox" name="automatic_cloud_graph_comboBox">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>16777215</width>
+                                <height>19</height>
+                               </size>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                              </property>
+                              <property name="editable">
+                               <bool>false</bool>
+                              </property>
+                              <property name="sizeAdjustPolicy">
+                               <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                              </property>
+                              <property name="iconSize">
+                               <size>
+                                <width>16</width>
+                                <height>16</height>
+                               </size>
+                              </property>
+                              <property name="frame">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
                           </widget>
                          </item>
                         </layout>
@@ -2061,7 +2210,7 @@ gridline-color: rgb(0, 0, 0);</string>
                            <property name="frameShadow">
                             <enum>QFrame::Raised</enum>
                            </property>
-                           <layout class="QHBoxLayout" name="absorption_imaging_layout">
+                           <layout class="QHBoxLayout" name="absorption_single_imaging_layout">
                             <property name="spacing">
                              <number>0</number>
                             </property>
@@ -2088,7 +2237,7 @@ gridline-color: rgb(0, 0, 0);</string>
                            <property name="frameShadow">
                             <enum>QFrame::Raised</enum>
                            </property>
-                           <layout class="QHBoxLayout" name="flouracence_imaging_layout">
+                           <layout class="QHBoxLayout" name="sequence_imaging_layout">
                             <property name="spacing">
                              <number>0</number>
                             </property>
@@ -2196,7 +2345,7 @@ gridline-color: rgb(0, 0, 0);</string>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="btn_atom_clear_fit">
+                       <widget class="QPushButton" name="btn_atom_clear_graph">
                         <property name="minimumSize">
                          <size>
                           <width>60</width>
@@ -2204,7 +2353,7 @@ gridline-color: rgb(0, 0, 0);</string>
                          </size>
                         </property>
                         <property name="text">
-                         <string>Clear Fit</string>
+                         <string>Clear Graph</string>
                         </property>
                        </widget>
                       </item>
@@ -2234,7 +2383,7 @@ gridline-color: rgb(0, 0, 0);</string>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="btn_atom_export_2dgauss_to_matplotlib">
+                       <widget class="QPushButton" name="btn_atom_clear_fit">
                         <property name="minimumSize">
                          <size>
                           <width>60</width>
@@ -2242,7 +2391,7 @@ gridline-color: rgb(0, 0, 0);</string>
                          </size>
                         </property>
                         <property name="text">
-                         <string>Export fit to MatPlotLib</string>
+                         <string>Clear Fit</string>
                         </property>
                        </widget>
                       </item>
@@ -4166,7 +4315,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background:palette(base); }</string>
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>744</width>
+                              <width>418</width>
                               <height>318</height>
                              </rect>
                             </property>

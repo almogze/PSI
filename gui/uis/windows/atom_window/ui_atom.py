@@ -41,6 +41,7 @@ class UI_AtomWindow(object):
         self.load_pages = ui.load_pages
         self.left_column = ui.left_column
         self.cloud_combo: QComboBox = ui.load_pages.cloud_comboBox
+        self.graph_cloud_combo: QComboBox = ui.load_pages.automatic_cloud_graph_comboBox
         self.result_groupBox: QGroupBox = ui.load_pages.groupBox_Atom_results
 
         # GRAPHIC SETTINGS
@@ -49,6 +50,8 @@ class UI_AtomWindow(object):
         self.image: ImageItem = ImageItem()
         self.graph_top: PlotItem = self.load_pages.ImageView_Atom_top.addPlot()
         self.graph_right: PlotItem = self.load_pages.ImageView_Atom_right.addPlot()
+        self.graphic_view: GraphicsLayoutWidget = self.load_pages.graphicsView_atom_automatic_data_plot
+        self.graph: PlotItem = self.graphic_view.addPlot()
 
 
         # Add lines to image

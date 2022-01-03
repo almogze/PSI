@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesIrPjIw.ui'
+## Form generated from reading UI file 'main_pagesaLufzR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -915,14 +915,66 @@ class Ui_MainPages(object):
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_72 = QHBoxLayout(self.frame)
-        self.horizontalLayout_72.setObjectName(u"horizontalLayout_72")
+        self.verticalLayout_52 = QVBoxLayout(self.frame)
+        self.verticalLayout_52.setSpacing(4)
+        self.verticalLayout_52.setObjectName(u"verticalLayout_52")
+        self.verticalLayout_52.setContentsMargins(4, 4, 4, 4)
         self.graphicsView_atom_automatic_data_plot = GraphicsLayoutWidget(self.frame)
         self.graphicsView_atom_automatic_data_plot.setObjectName(u"graphicsView_atom_automatic_data_plot")
         self.graphicsView_atom_automatic_data_plot.setMinimumSize(QSize(300, 0))
         self.graphicsView_atom_automatic_data_plot.setStyleSheet(u"")
 
-        self.horizontalLayout_72.addWidget(self.graphicsView_atom_automatic_data_plot)
+        self.verticalLayout_52.addWidget(self.graphicsView_atom_automatic_data_plot)
+
+        self.frame_atom_graph_btns_3 = QFrame(self.frame)
+        self.frame_atom_graph_btns_3.setObjectName(u"frame_atom_graph_btns_3")
+        self.frame_atom_graph_btns_3.setMaximumSize(QSize(16777215, 40))
+        self.frame_atom_graph_btns_3.setFrameShape(QFrame.NoFrame)
+        self.frame_atom_graph_btns_3.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_73 = QHBoxLayout(self.frame_atom_graph_btns_3)
+        self.horizontalLayout_73.setSpacing(3)
+        self.horizontalLayout_73.setObjectName(u"horizontalLayout_73")
+        self.horizontalLayout_73.setContentsMargins(0, 0, 0, 0)
+        self.frame_btn_send_to_excel = QFrame(self.frame_atom_graph_btns_3)
+        self.frame_btn_send_to_excel.setObjectName(u"frame_btn_send_to_excel")
+        self.frame_btn_send_to_excel.setMaximumSize(QSize(100, 16777215))
+        self.frame_btn_send_to_excel.setFrameShape(QFrame.NoFrame)
+        self.frame_btn_send_to_excel.setFrameShadow(QFrame.Raised)
+        self.btn_atom_send_to_excel_layout = QHBoxLayout(self.frame_btn_send_to_excel)
+        self.btn_atom_send_to_excel_layout.setSpacing(0)
+        self.btn_atom_send_to_excel_layout.setObjectName(u"btn_atom_send_to_excel_layout")
+        self.btn_atom_send_to_excel_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.horizontalLayout_73.addWidget(self.frame_btn_send_to_excel)
+
+        self.frame_btn_send_to_analysis = QFrame(self.frame_atom_graph_btns_3)
+        self.frame_btn_send_to_analysis.setObjectName(u"frame_btn_send_to_analysis")
+        self.frame_btn_send_to_analysis.setMaximumSize(QSize(100, 16777215))
+        self.frame_btn_send_to_analysis.setFrameShape(QFrame.NoFrame)
+        self.frame_btn_send_to_analysis.setFrameShadow(QFrame.Raised)
+        self.btn_atom_send_to_analysis_layout = QVBoxLayout(self.frame_btn_send_to_analysis)
+        self.btn_atom_send_to_analysis_layout.setSpacing(0)
+        self.btn_atom_send_to_analysis_layout.setObjectName(u"btn_atom_send_to_analysis_layout")
+        self.btn_atom_send_to_analysis_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.horizontalLayout_73.addWidget(self.frame_btn_send_to_analysis)
+
+        self.automatic_cloud_graph_comboBox = QComboBox(self.frame_atom_graph_btns_3)
+        self.automatic_cloud_graph_comboBox.setObjectName(u"automatic_cloud_graph_comboBox")
+        sizePolicy.setHeightForWidth(self.automatic_cloud_graph_comboBox.sizePolicy().hasHeightForWidth())
+        self.automatic_cloud_graph_comboBox.setSizePolicy(sizePolicy)
+        self.automatic_cloud_graph_comboBox.setMaximumSize(QSize(16777215, 19))
+        self.automatic_cloud_graph_comboBox.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+"background-color: rgb(255, 255, 255);")
+        self.automatic_cloud_graph_comboBox.setEditable(False)
+        self.automatic_cloud_graph_comboBox.setSizeAdjustPolicy(QComboBox.AdjustToContentsOnFirstShow)
+        self.automatic_cloud_graph_comboBox.setIconSize(QSize(16, 16))
+        self.automatic_cloud_graph_comboBox.setFrame(True)
+
+        self.horizontalLayout_73.addWidget(self.automatic_cloud_graph_comboBox)
+
+
+        self.verticalLayout_52.addWidget(self.frame_atom_graph_btns_3)
 
 
         self.verticalLayout_6.addWidget(self.frame)
@@ -940,10 +992,10 @@ class Ui_MainPages(object):
         self.frame_49.setObjectName(u"frame_49")
         self.frame_49.setFrameShape(QFrame.StyledPanel)
         self.frame_49.setFrameShadow(QFrame.Raised)
-        self.absorption_imaging_layout = QHBoxLayout(self.frame_49)
-        self.absorption_imaging_layout.setSpacing(0)
-        self.absorption_imaging_layout.setObjectName(u"absorption_imaging_layout")
-        self.absorption_imaging_layout.setContentsMargins(0, 0, 0, 0)
+        self.absorption_single_imaging_layout = QHBoxLayout(self.frame_49)
+        self.absorption_single_imaging_layout.setSpacing(0)
+        self.absorption_single_imaging_layout.setObjectName(u"absorption_single_imaging_layout")
+        self.absorption_single_imaging_layout.setContentsMargins(0, 0, 0, 0)
 
         self.horizontalLayout_12.addWidget(self.frame_49)
 
@@ -951,10 +1003,10 @@ class Ui_MainPages(object):
         self.frame_48.setObjectName(u"frame_48")
         self.frame_48.setFrameShape(QFrame.StyledPanel)
         self.frame_48.setFrameShadow(QFrame.Raised)
-        self.flouracence_imaging_layout = QHBoxLayout(self.frame_48)
-        self.flouracence_imaging_layout.setSpacing(0)
-        self.flouracence_imaging_layout.setObjectName(u"flouracence_imaging_layout")
-        self.flouracence_imaging_layout.setContentsMargins(0, 0, 0, 0)
+        self.sequence_imaging_layout = QHBoxLayout(self.frame_48)
+        self.sequence_imaging_layout.setSpacing(0)
+        self.sequence_imaging_layout.setObjectName(u"sequence_imaging_layout")
+        self.sequence_imaging_layout.setContentsMargins(0, 0, 0, 0)
 
         self.horizontalLayout_12.addWidget(self.frame_48)
 
@@ -999,11 +1051,11 @@ class Ui_MainPages(object):
 
         self.verticalLayout_36.addWidget(self.btn_atom_guess_fit)
 
-        self.btn_atom_clear_fit = QPushButton(self.frame_81)
-        self.btn_atom_clear_fit.setObjectName(u"btn_atom_clear_fit")
-        self.btn_atom_clear_fit.setMinimumSize(QSize(60, 25))
+        self.btn_atom_clear_graph = QPushButton(self.frame_81)
+        self.btn_atom_clear_graph.setObjectName(u"btn_atom_clear_graph")
+        self.btn_atom_clear_graph.setMinimumSize(QSize(60, 25))
 
-        self.verticalLayout_36.addWidget(self.btn_atom_clear_fit)
+        self.verticalLayout_36.addWidget(self.btn_atom_clear_graph)
 
 
         self.gridLayout_4.addWidget(self.frame_81, 1, 2, 1, 1)
@@ -1020,11 +1072,11 @@ class Ui_MainPages(object):
 
         self.verticalLayout_53.addWidget(self.btn_atom_fit_2d_gaussian)
 
-        self.btn_atom_export_2dgauss_to_matplotlib = QPushButton(self.frame_122)
-        self.btn_atom_export_2dgauss_to_matplotlib.setObjectName(u"btn_atom_export_2dgauss_to_matplotlib")
-        self.btn_atom_export_2dgauss_to_matplotlib.setMinimumSize(QSize(60, 25))
+        self.btn_atom_clear_fit = QPushButton(self.frame_122)
+        self.btn_atom_clear_fit.setObjectName(u"btn_atom_clear_fit")
+        self.btn_atom_clear_fit.setMinimumSize(QSize(60, 25))
 
-        self.verticalLayout_53.addWidget(self.btn_atom_export_2dgauss_to_matplotlib)
+        self.verticalLayout_53.addWidget(self.btn_atom_clear_fit)
 
 
         self.gridLayout_4.addWidget(self.frame_122, 1, 1, 1, 1)
@@ -2019,7 +2071,7 @@ class Ui_MainPages(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 744, 318))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 418, 318))
         self.verticalLayout_50 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_50.setObjectName(u"verticalLayout_50")
         self.frame_14 = QFrame(self.scrollAreaWidgetContents_2)
@@ -2776,9 +2828,9 @@ class Ui_MainPages(object):
         self.graphicsView_atom_automatic_data_plot.setToolTip("")
 #endif // QT_CONFIG(tooltip)
         self.btn_atom_guess_fit.setText(QCoreApplication.translate("MainPages", u"Guess initial parameters", None))
-        self.btn_atom_clear_fit.setText(QCoreApplication.translate("MainPages", u"Clear Fit", None))
+        self.btn_atom_clear_graph.setText(QCoreApplication.translate("MainPages", u"Clear Graph", None))
         self.btn_atom_fit_2d_gaussian.setText(QCoreApplication.translate("MainPages", u"Fit", None))
-        self.btn_atom_export_2dgauss_to_matplotlib.setText(QCoreApplication.translate("MainPages", u"Export fit to MatPlotLib", None))
+        self.btn_atom_clear_fit.setText(QCoreApplication.translate("MainPages", u"Clear Fit", None))
         self.groupBox_4.setTitle(QCoreApplication.translate("MainPages", u"Results", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainPages", u"Parameters", None))
         self.groupBox_5.setTitle(QCoreApplication.translate("MainPages", u"Errors", None))

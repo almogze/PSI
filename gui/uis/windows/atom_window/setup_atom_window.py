@@ -54,7 +54,7 @@ class SetupAtomWindow:
         # LOAD THEME COLOR
         # ///////////////////////////////////////////////////////////////
         self.themes = self.ui_atom.themes
-
+        self.graph: PlotItem = self.ui_atom.graph
 
         # /////////////////////////////////////////////////////////
         # ATOM WIDGETS
@@ -187,7 +187,7 @@ class SetupAtomWindow:
 
         # BTN CALCULATE ABSORPTION
         self.calc_by_abs_imaging = PyPushButton(
-            text="Calculate absorption",
+            text="Calculate single absorption",
             radius=3,
             color=self.themes["app_color"]["text_foreground"],
             bg_color=self.themes["app_color"]["dark_one"],
@@ -195,23 +195,11 @@ class SetupAtomWindow:
             bg_color_pressed=self.themes["app_color"]["dark_four"]
         )
 
-        self.calc_by_abs_imaging.clicked.connect(lambda: calculate_atom_number(self.ui_atom.atom, self.ui_atom))
+        self.calc_by_abs_imaging.clicked.connect(
+            lambda: calculate_atom_number(self.ui_atom.atom, self.ui_atom, self.ui_atom.atom.getCloudArray(),
+                                          self.ui_atom.atom.getNonCloudArray()))
         # ADD LAYOUT
-        self.ui_atom.load_pages.absorption_imaging_layout.addWidget(self.calc_by_abs_imaging)
-
-        # BTN CALCULATE FLUORESCENCE
-        self.calc_by_flu_imaging = PyPushButton(
-            text="Calculate fluorescence",
-            radius=3,
-            color=self.themes["app_color"]["text_foreground"],
-            bg_color=self.themes["app_color"]["dark_one"],
-            bg_color_hover=self.themes["app_color"]["dark_three"],
-            bg_color_pressed=self.themes["app_color"]["dark_four"]
-        )
-
-        self.calc_by_flu_imaging.clicked.connect(lambda: calculate_atom_number(self.ui_atom.atom, self.ui_atom))
-        # ADD LAYOUT
-        self.ui_atom.load_pages.flouracence_imaging_layout.addWidget(self.calc_by_flu_imaging)
+        self.ui_atom.load_pages.absorption_single_imaging_layout.addWidget(self.calc_by_abs_imaging)
 
         # CLOUD PARAMETER BTNS
         self.ui_atom.load_pages.btn_atom_add_cloud_parameters.clicked.connect(
@@ -229,6 +217,52 @@ class SetupAtomWindow:
 
         self.ui_atom.load_pages.btn_atom_guess_fit.clicked.connect(
             lambda: guess_params(self.ui_atom.atom, self.ui_atom))
+
+        # AUTOMATIC PLOT SETUP
+        self.atom_graph_send_to_analysis = PyPushButton(
+            text="to Analysis",
+            radius=2,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+        # self.atom_graph_send_to_analysis.clicked.connect()
+
+        self.atom_graph_send_to_excel = PyPushButton(
+            text="to Excel",
+            radius=2,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+        # self.atom_graph_send_to_excel.clicked.connect()
+
+        self.ui_atom.load_pages.btn_atom_send_to_analysis_layout.addWidget(self.atom_graph_send_to_analysis)
+        self.ui_atom.load_pages.btn_atom_send_to_excel_layout.addWidget(self.atom_graph_send_to_excel)
+
+        # AUTOMATIC CLOUD - COMBOBOX
+        self.ui_atom.graph_cloud_combo.addItems(["Number of Atoms", "Sigma x", "Sigma y", "Detuning"])
+
+        # BTN CALCULATE SEQUENCE
+        self.calc_automatic = PyPushButton(
+            text="Calculate Sequence",
+            radius=3,
+            color=self.themes["app_color"]["text_foreground"],
+            bg_color=self.themes["app_color"]["dark_one"],
+            bg_color_hover=self.themes["app_color"]["dark_three"],
+            bg_color_pressed=self.themes["app_color"]["dark_four"]
+        )
+
+        self.calc_automatic.clicked.connect(lambda: calculate_automatic_sequence(self.ui_atom.atom, self.ui_atom,
+                                                                                 self.ui_atom.graph_cloud_combo.currentIndex()))
+        # ADD LAYOUT
+        self.ui_atom.load_pages.sequence_imaging_layout.addWidget(self.calc_automatic)
+
+        # INITIALIZE CLOUD GRAPH
+        self.graph.showGrid(x=True, y=True)
+        self.graph.addLegend()
 
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS

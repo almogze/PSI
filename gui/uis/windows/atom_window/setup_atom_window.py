@@ -144,7 +144,7 @@ class SetupAtomWindow:
         self.no_cloud_btn.setIcon(self.icon_folder)
         self.no_cloud_btn.setMaximumHeight(40)
 
-        self.no_cloud_btn.clicked.connect(lambda: open_dialog_box_atom( self.ui_atom.atom, self.ui_atom,  "no_cloud"))
+        self.no_cloud_btn.clicked.connect(lambda: open_dialog_box_atom( self.ui_atom.atom, self.ui_atom,  "Without Cloud"))
         # ADD LAYOUT
         self.ui_atom.left_column.menus.no_cloud_layout.addWidget(self.no_cloud_btn)
 
@@ -160,7 +160,7 @@ class SetupAtomWindow:
         self.with_cloud_btn.setMaximumHeight(40)
         self.with_cloud_btn.setIcon(self.icon_folder)
 
-        self.with_cloud_btn.clicked.connect(lambda: open_dialog_box_atom(self.ui_atom.atom, self.ui_atom,  "with_cloud"))
+        self.with_cloud_btn.clicked.connect(lambda: open_dialog_box_atom(self.ui_atom.atom, self.ui_atom,  "With Cloud"))
         # ADD LAYOUT
         self.ui_atom.left_column.menus.with_cloud_layout.addWidget(self.with_cloud_btn)
 
@@ -177,7 +177,7 @@ class SetupAtomWindow:
         self.automatic_pull_btn.setIcon(self.icon_folder)
 
         self.automatic_pull_btn.clicked.connect(
-            lambda: open_dialog_box_atom(self.ui_atom.atom, self.ui_atom, "automatic_pull"))
+            lambda: open_dialog_box_atom(self.ui_atom.atom, self.ui_atom, "Automatic Pull"))
         # ADD LAYOUT
         self.ui_atom.left_column.menus.aoutomatic_pull_atom_layout.addWidget(self.automatic_pull_btn)
 

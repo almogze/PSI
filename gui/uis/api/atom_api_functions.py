@@ -34,19 +34,23 @@ def pop_error(s1: string, s2: string):
 
 
 def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> None:
-    filename = QFileDialog.getOpenFileName()
-    if switch == "no_cloud":
+    if switch == "Without Cloud":
+        filename = QFileDialog.getOpenFileName(caption=switch, filter="All Files();;Image Files (*.png *.jpg *.bmp);;Bin Files (*.bin)")
         atom.setNoCloudPath(filename[0])
         ui_atom.load_pages.lineEdit_without_cloud_path.setText(filename[0])
         print(atom.getNoCloudPath())
-    elif switch == "with_cloud":
+    elif switch == "With Cloud":
+        filename = QFileDialog.getOpenFileName(caption=switch, filter="All Files();;Image Files (*.png *.jpg *.bmp);;Bin Files (*.bin)")
         atom.setCloudPath(filename[0])
         ui_atom.load_pages.lineEdit_with_cloud_path.setText(filename[0])
         print(atom.getCloudPath())
-    elif switch == "automatic_pull":
+    elif switch == "Automatic Pull":
+        filename = QFileDialog.getOpenFileName(caption=switch, filter="Bin Files (With*.bin Without*.bin)")
         atom.setDirectoryPath(os.path.dirname(os.path.abspath(filename[0])))
         print(atom.getDirectoryPath())
-        if not atom.addAndSortAutomaticData():
+        if not atom.CheckCloudParams():
+            pop_error("Please analyze cloud parameters first", "Please Load single cloud data first")
+        elif not atom.addAndSortAutomaticData():
             pop_error("Can not load Files", "Please check path of files")
 
 
@@ -82,11 +86,12 @@ def calculate_atom_number_sequence(atom: Atom, ui_atom: UI_AtomWindow):
     print("Number of files: " + str(len(seq_cloud)))
     for i in range(len(seq_cloud)):
         x.append(i)
-        atom_number = calculate_atom_number(atom, ui_atom, atom.path_to_array(seq_cloud[i]),atom.path_to_array(seq_non_cloud[i]))
+        atom_number = calculate_atom_number(atom, ui_atom, atom.path_to_array(seq_cloud[i]),
+                                            atom.path_to_array(seq_non_cloud[i]))
         print("Number of calculated atoms: " + str(atom_number))
         y.append(atom_number)
     atom.setLastPlot(x, y)
-    ui_atom.graph.plot(x, y)
+    ui_atom.graph.plot(x, y, symbol='o', symbolPen='w', symbolSize=8)
 
 
 def load_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:

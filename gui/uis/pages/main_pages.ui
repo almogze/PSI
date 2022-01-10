@@ -32,7 +32,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="page_main">
       <property name="styleSheet">
@@ -4315,7 +4315,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background:palette(base); }</string>
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>418</width>
+                              <width>744</width>
                               <height>318</height>
                              </rect>
                             </property>

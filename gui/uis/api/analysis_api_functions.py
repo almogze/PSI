@@ -23,7 +23,7 @@ from qt_core import *
 
 
 def open_dialog_box_analysis(analysis: Analysis, switch: string, ui_analysis: UI_AnalysisWindow) -> None:
-    filename = QFileDialog.getOpenFileName()
+    filename = QFileDialog.getOpenFileName(caption="Open Data File", filter="All Files();;Excel Files (*.xlsx)")
     if switch == "excel_file":
         analysis.setExcelPath(filename[0])
         print(analysis.getExcelPath())

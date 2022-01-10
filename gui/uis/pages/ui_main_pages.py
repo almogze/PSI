@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pagesaLufzR.ui'
+## Form generated from reading UI file 'main_pageshymfnG.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -787,6 +787,58 @@ class Ui_MainPages(object):
         self.frame_2.setObjectName(u"frame_2")
         self.frame_2.setFrameShape(QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_56 = QVBoxLayout(self.frame_2)
+        self.verticalLayout_56.setSpacing(6)
+        self.verticalLayout_56.setObjectName(u"verticalLayout_56")
+        self.verticalLayout_56.setContentsMargins(0, 0, 0, 0)
+        self.frame_107 = QFrame(self.frame_2)
+        self.frame_107.setObjectName(u"frame_107")
+        self.frame_107.setMaximumSize(QSize(16777215, 40))
+        self.frame_107.setFrameShape(QFrame.StyledPanel)
+        self.frame_107.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_72 = QHBoxLayout(self.frame_107)
+        self.horizontalLayout_72.setSpacing(6)
+        self.horizontalLayout_72.setObjectName(u"horizontalLayout_72")
+        self.horizontalLayout_72.setContentsMargins(0, 0, 0, 0)
+        self.label_wit_cloud_path_3 = QLabel(self.frame_107)
+        self.label_wit_cloud_path_3.setObjectName(u"label_wit_cloud_path_3")
+        self.label_wit_cloud_path_3.setMinimumSize(QSize(180, 0))
+        self.label_wit_cloud_path_3.setFont(font)
+
+        self.horizontalLayout_72.addWidget(self.label_wit_cloud_path_3)
+
+        self.lineEdit_atom_exported_file_path = QLineEdit(self.frame_107)
+        self.lineEdit_atom_exported_file_path.setObjectName(u"lineEdit_atom_exported_file_path")
+
+        self.horizontalLayout_72.addWidget(self.lineEdit_atom_exported_file_path)
+
+
+        self.verticalLayout_56.addWidget(self.frame_107)
+
+        self.frame_108 = QFrame(self.frame_2)
+        self.frame_108.setObjectName(u"frame_108")
+        self.frame_108.setMaximumSize(QSize(16777215, 40))
+        self.frame_108.setFrameShape(QFrame.StyledPanel)
+        self.frame_108.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_74 = QHBoxLayout(self.frame_108)
+        self.horizontalLayout_74.setSpacing(6)
+        self.horizontalLayout_74.setObjectName(u"horizontalLayout_74")
+        self.horizontalLayout_74.setContentsMargins(0, 0, 0, 0)
+        self.label_wit_cloud_path_4 = QLabel(self.frame_108)
+        self.label_wit_cloud_path_4.setObjectName(u"label_wit_cloud_path_4")
+        self.label_wit_cloud_path_4.setMinimumSize(QSize(180, 0))
+        self.label_wit_cloud_path_4.setFont(font)
+
+        self.horizontalLayout_74.addWidget(self.label_wit_cloud_path_4)
+
+        self.lineEdit_atom_exported_file_name = QLineEdit(self.frame_108)
+        self.lineEdit_atom_exported_file_name.setObjectName(u"lineEdit_atom_exported_file_name")
+
+        self.horizontalLayout_74.addWidget(self.lineEdit_atom_exported_file_name)
+
+
+        self.verticalLayout_56.addWidget(self.frame_108)
+
 
         self.verticalLayout_27.addWidget(self.frame_2)
 
@@ -2071,7 +2123,7 @@ class Ui_MainPages(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 418, 318))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 744, 318))
         self.verticalLayout_50 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_50.setObjectName(u"verticalLayout_50")
         self.frame_14 = QFrame(self.scrollAreaWidgetContents_2)
@@ -2819,6 +2871,8 @@ class Ui_MainPages(object):
         self.atom_page_label.setText(QCoreApplication.translate("MainPages", u"Atom Measurements", None))
         self.label_wit_cloud_path.setText(QCoreApplication.translate("MainPages", u"With cloud path:", None))
         self.label_without_cloud_path.setText(QCoreApplication.translate("MainPages", u"Without cloud path:", None))
+        self.label_wit_cloud_path_3.setText(QCoreApplication.translate("MainPages", u"Exported File Path", None))
+        self.label_wit_cloud_path_4.setText(QCoreApplication.translate("MainPages", u"Exported File Name", None))
         self.groupBox_Atom_results.setTitle(QCoreApplication.translate("MainPages", u"Results", None))
         self.label_2.setText(QCoreApplication.translate("MainPages", u"Atoms Number:", None))
         self.lineEdit_atom_number.setText(QCoreApplication.translate("MainPages", u"0", None))

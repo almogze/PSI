@@ -3,6 +3,7 @@
 import string
 
 import lmfit
+import pandas
 import pandas as pd
 from PIL import Image
 import numpy as np
@@ -35,23 +36,44 @@ def pop_error(s1: string, s2: string):
 
 def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> None:
     if switch == "Without Cloud":
-        filename = QFileDialog.getOpenFileName(caption=switch, filter="All Files();;Image Files (*.png *.jpg *.bmp);;Bin Files (*.bin)")
+        filename = QFileDialog.getOpenFileName(caption=switch,
+                                               filter="All Files();;Image Files (*.png *.jpg *.bmp);;Bin Files (*.bin)")
         atom.setNoCloudPath(filename[0])
         ui_atom.load_pages.lineEdit_without_cloud_path.setText(filename[0])
         print(atom.getNoCloudPath())
     elif switch == "With Cloud":
-        filename = QFileDialog.getOpenFileName(caption=switch, filter="All Files();;Image Files (*.png *.jpg *.bmp);;Bin Files (*.bin)")
+        filename = QFileDialog.getOpenFileName(caption=switch,
+                                               filter="All Files();;Image Files (*.png *.jpg *.bmp);;Bin Files (*.bin)")
         atom.setCloudPath(filename[0])
         ui_atom.load_pages.lineEdit_with_cloud_path.setText(filename[0])
         print(atom.getCloudPath())
     elif switch == "Automatic Pull":
+        print("Notice you can only pull files with name starting with: With, Without")
         filename = QFileDialog.getOpenFileName(caption=switch, filter="Bin Files (With*.bin Without*.bin)")
-        atom.setDirectoryPath(os.path.dirname(os.path.abspath(filename[0])))
+        filepath = os.path.dirname(os.path.abspath(filename[0]))
+        atom.setDirectoryPath(filepath)
+        ui_atom.load_pages.lineEdit_atom_exported_file_path.setText(filepath)
         print(atom.getDirectoryPath())
         if not atom.CheckCloudParams():
             pop_error("Please analyze cloud parameters first", "Please Load single cloud data first")
         elif not atom.addAndSortAutomaticData():
             pop_error("Can not load Files", "Please check path of files")
+
+
+def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow):
+    x, y = atom.getLastPlot()
+    if x is None or y is None:
+        pop_error("There is no data to export", "There is no data to export")
+    else:
+        name = ui_atom.load_pages.lineEdit_atom_exported_file_name.text()
+        path = ui_atom.load_pages.lineEdit_atom_exported_file_path.text()
+        if name == "" or path == "" :
+            pop_error("File name or path is wrong", "File name or path is wrong")
+        else:
+            data = {'X': x, 'Y': y}
+            df = pd.DataFrame(data)
+            df.to_excel(excel_writer=path + '\\' + name + '.xlsx')
+            print("DataFrame is written to Excel File successfully.")
 
 
 def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, withoutCloud) -> None:

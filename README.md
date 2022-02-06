@@ -19,15 +19,16 @@ This page analyze the absorption profile of the cloud, and currently can calcula
 * Automatic data analysis can calculate simultaneously a sequences of cloud signals ( By pressing "Automatic Pull").  This fitcher configure to work only for bin files with the prefix 'With' and 'Without'.
 
 * There is an option to view the image with and without the Rb87 cloud by pressing 'with cloud' or 'without cloud' in the ComboBox bellow the imageview panel.
+ ### Without cloud
 ![WithOutCloud](https://user-images.githubusercontent.com/73799544/152674946-00b59158-bbc0-46ca-9afb-fc1990dce4ea.jpg)
- - Without cloud
 
+### With cloud
 ![WithCloud](https://user-images.githubusercontent.com/73799544/152674974-eb9cda88-0aa9-4956-a530-51d01175ca53.jpg)
-- With cloud
+
 
 * Another possibility is to view the subtraction between the cloud image and the background image 
+### Subtraction image
 ![Subtraction](https://user-images.githubusercontent.com/73799544/152675010-236bb6c3-904c-4fcd-8397-26e558274731.jpg)
-- Subtraction image
  
     
 ## Analysis Measurments:

@@ -1,6 +1,6 @@
 # Point Source Interferometer Experiment, Atom-Chip, BGU
 
-![app main page](https://user-images.githubusercontent.com/73799544/152674449-d4f9e601-c137-4b40-8aae-41f72f7f7620.jpg)
+![app main page](https://user-images.githubusercontent.com/73799544/152674545-deaf0b2e-a4f3-4eee-b194-1a127044f751.jpg)
 
 This python GUI application developed to the welfare of the PSI experiment team, and to the all colleagues in Atom Chip group.
 The application include 3 main parts: 

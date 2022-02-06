@@ -32,4 +32,8 @@ This page analyze the absorption profile of the cloud, and currently can calcula
  
     
 ## Analysis Measurments:
-A page which can calculate and optimize plots and measurments. I mainly used scipy and iminute in this part. I had a "guess" feature which can set initial parameters to most of the functions. An export to matplotlib figure is enabled as well.
+A page which can calculate and optimize plots and measurments. I mainly used scipy and iminute in this part. I added a "guess" feature which can set initial parameters to most of the functions. An export to matplotlib figure is enabled as well.
+
+![analysis - fit](https://user-images.githubusercontent.com/73799544/152676090-5e7c6f2a-11cf-408f-a410-b4c01b7b1228.jpg)
+
+In order to analyze data, you should upload first an excel file with the desired data. There is an option to load errors as well. The optimization can be calculated for the majority of the linear functions (like sine/cosine, polynomial functions etc) and also for non-linear functions as well (like gaussian, error function etc).

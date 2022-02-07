@@ -1,8 +1,8 @@
 {
-    "app_name": "Point Source Interferometer - By Atom-Chip Group",
+    "app_name": "Point Source Interferometer - Atom-Chip Group",
     "version" : "v1.0.0",
     "copyright" : "App developed by Almog Zemach",
-    "year" : 2021,
+    "year" : 2022,
     "theme_name" : "default",
     "custom_title_bar": true,
     "startup_size": [

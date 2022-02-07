@@ -469,15 +469,15 @@ class Fit(object):
     def opt_by_lmfit_generic(self, model: lmfit.models):
         # extract fit function's parameters names
         pars_names = model.param_names
-        print(pars_names)
+        # print(pars_names)
         # set each parameters with it's initial values
         for i in range(self.func_par_num):
             model.set_param_hint(name=pars_names[i], value=self.p_0_array[i], min=self.limits_i_array[i],
                                  max=self.limits_f_array[i])
         # fit the model
         result = model.fit(self.y, x=self.x)
-        print(result)
-        print(result.fit_report(min_correl=0.25))
+        # print(result)
+        # print(result.fit_report(min_correl=0.25))
         # extracting parameters values and standard errors
         values, stderr = [], []
         for i in range(self.func_par_num):
@@ -538,11 +538,11 @@ class Fit(object):
         return bool(True)
 
     def guess_params(self, fun_name):
-        print("Guessing Parameters:")
+        # print("Guessing Parameters:")
         if fun_name == "Gaussian" or fun_name == "Offset Gaussian":
             mod = lmfit.models.GaussianModel()
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['amplitude'].value / (p_0['sigma'].value * np.sqrt(2 * np.pi)))
             self.set_a_limits(p_0['amplitude'].min,
                               p_0['amplitude'].max)
@@ -553,7 +553,7 @@ class Fit(object):
         elif fun_name == "Sine":
             mod = lmfit.models.SineModel()
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['amplitude'].value)
             self.set_a_limits(p_0['amplitude'].min, p_0['amplitude'].max)
             self.set_b_initial(p_0['frequency'].value)
@@ -563,7 +563,7 @@ class Fit(object):
         elif fun_name == "Lorentzian":
             mod = lmfit.models.LorentzianModel()
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['amplitude'].value)
             self.set_a_limits(p_0['amplitude'].min, p_0['amplitude'].max)
             self.set_b_initial(p_0['center'].value)
@@ -573,7 +573,7 @@ class Fit(object):
         elif fun_name == "Linear":
             mod = lmfit.models.LinearModel()
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['slope'].value)
             self.set_a_limits(p_0['slope'].min, p_0['slope'].max)
             self.set_b_initial(p_0['intercept'].value)
@@ -581,7 +581,7 @@ class Fit(object):
         elif fun_name == "Polynomial second degree":
             mod = lmfit.models.QuadraticModel()
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['a'].value)
             self.set_a_limits(p_0['a'].min, p_0['a'].max)
             self.set_b_initial(p_0['b'].value)
@@ -591,7 +591,7 @@ class Fit(object):
         elif fun_name == "Polynomial third degree":
             mod = lmfit.models.PolynomialModel(degree=3)
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['c3'].value)
             self.set_a_limits(p_0['c3'].min, p_0['c3'].max)
             self.set_b_initial(p_0['c2'].value)
@@ -603,7 +603,7 @@ class Fit(object):
         elif fun_name == "Polynomial third degree":
             mod = lmfit.models.PolynomialModel(degree=3)
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['c3'].value)
             self.set_a_limits(p_0['c3'].min, p_0['c3'].max)
             self.set_b_initial(p_0['c2'].value)
@@ -615,7 +615,7 @@ class Fit(object):
         elif fun_name == "Exponential":
             mod = lmfit.models.ExponentialModel()
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['amplitude'].value)
             self.set_a_limits(p_0['amplitude'].min, p_0['amplitude'].max)
             self.set_b_initial(-1 / p_0['decay'].value)
@@ -623,7 +623,7 @@ class Fit(object):
         elif fun_name == "Error Function" or fun_name == "Complementary Error Function":
             mod = lmfit.models.StepModel(form='linear')
             p_0 = mod.guess(self.y, x=self.x)
-            print(p_0)
+            # print(p_0)
             self.set_a_initial(p_0['amplitude'].value)
             self.set_a_limits(p_0['amplitude'].min, p_0['amplitude'].max)
             self.set_b_initial(p_0['center'].value)

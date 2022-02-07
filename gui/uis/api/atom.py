@@ -3,6 +3,7 @@ import numpy as np
 import os
 from os import walk
 from gui.uis.api.parameters import Parameters
+import threading
 
 
 class Atom(object):
@@ -164,14 +165,6 @@ class Atom(object):
         self._instance.no_cloud_image_array = None
         self._instance.cloud_image_array = None
 
-    #    def calculateAtomNumber(self):
-    #        rel_I = np.divide(self.cloud_image_array.astype(float), self.no_cloud_image_array.astype(float),
-    #                          out=np.zeros_like(self.no_cloud_image_array.astype(float)),
-    #                          where=self.no_cloud_image_array.astype(float) != 0)
-    #        sum_of_rel = np.log(rel_I, out=np.zeros_like(rel_I), where=(rel_I > 0))
-    #        number_of_atoms = - np.divide(np.sum(sum_of_rel) * self.prm.ccd_pixel_size, self.prm.sigma_0)
-    #        return number_of_atoms
-
     def calculateAtomNumber(self, cloud_array, without_cloud_array):
         cloud_area = np.array(cloud_array)[
                      self.getX_0() - 2 * self.get_sigma_X():self.getX_0() + 2 * self.get_sigma_X() + 1,
@@ -180,15 +173,62 @@ class Atom(object):
                          self.getX_0() - 2 * self.get_sigma_X():self.getX_0() + 2 * self.get_sigma_X() + 1,
                          self.getY_0() - 2 * self.get_sigma_Y():self.getY_0() + 2 * self.get_sigma_Y() + 1]
         log = np.log(np.array(cloud_area / non_cloud_area))
-        condition = log < 0  # matrix indices are bigger then zero
+        condition = log < 0  # filter irrelevant values
         number_of_atoms = - np.sum(log[condition]) * (
-                    self.prm.ccd_pixel_length * (self.prm.lens_1 / self.prm.lens_2)) ** 2 / self.prm.sigma_0
+                self.prm.ccd_pixel_length * (self.prm.lens_1 / self.prm.lens_2)) ** 2 / self.prm.sigma_0
         return number_of_atoms
 
     def normSignal(self) -> np.array:
         sub = self.no_cloud_image_array - self.cloud_image_array
         return np.divide(sub.astype(float), self.no_cloud_image_array.astype(float),
                          out=np.zeros_like(sub.astype(float)), where=self.no_cloud_image_array.astype(float) != 0)
+
+    # This method calculate the center of the cloud by iterating in the vertical and horizontal indices
+    # and searching of the maximum intensity
+    def calculateCenterOfCloud(self, cloud_array, without_cloud_array):
+        print("calculate center of cloud")
+        sub = without_cloud_array - cloud_array
+
+        i_f_h = len(sub) - 1
+        middle_h = int(len(sub) / 2)
+        print(middle_h)
+        i_f_v = len(sub[0]) - 1
+        middle_v = int(len(sub[0]) / 2)
+        print(middle_v)
+        print(i_f_v)
+
+        # index_array aggregate the result form each thread (which is the center of cloud according to each thread)
+        index_array = [0, 0, 0, 0]
+        # 2 threads for vertical iterations (start -> center, center -> end)
+        # 2 threads for horizontal iterations (start -> center, center -> end)
+        threads = [BinarySearchThread(0, sub, "right", 0, middle_h, index_array),
+                   BinarySearchThread(1, sub, "left", middle_h, i_f_h, index_array),
+                   BinarySearchThread(2, sub, "up", 0, middle_v, index_array),
+                   BinarySearchThread(3, sub, "down", middle_v, i_f_v, index_array)]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        print(index_array)
+        sum_0 = np.sum(np.where(sub[index_array[0]] > 0, sub[index_array[0]], 0))
+        sum_1 = np.sum(np.where(sub[index_array[1]] > 0, sub[index_array[1]], 0))
+        sum_2 = np.sum(np.where(sub[:, index_array[2]] > 0, sub[:, index_array[2]], 0))
+        sum_3 = np.sum(np.where(sub[:, index_array[3]] > 0, sub[:, index_array[3]], 0))
+        print("sum 0: " + str(sum_0))
+        print("sum 1: " + str(sum_1))
+        print("sum 2: " + str(sum_2))
+        print("sum 3: " + str(sum_3))
+
+        if sum_0 > sum_1:
+            self.setX_0(index_array[0])
+        else:
+            self.setX_0(index_array[1])
+
+        if sum_2 > sum_3:
+            self.setY_0(index_array[2])
+        else:
+            self.setY_0(index_array[3])
 
     def setX_0(self, x_0: int):
         self.x_0 = x_0
@@ -218,3 +258,75 @@ class Atom(object):
         if self.getX_0() is None or self.getY_0() is None or self.get_sigma_X() is None or self.get_sigma_Y() is None:
             return bool(False)
         return bool(True)
+
+
+class BinarySearchThread(threading.Thread):
+    def __init__(self, threadID, array: np.array, condition, i_0, i_f, result_array):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.array = array
+        self.condition = condition
+        self.i_0 = i_0
+        self.i_f = i_f
+        self.result_array = result_array
+
+    def run(self) -> None:
+        print("enter thread " + str(self.threadID))
+        operations = {
+            'up': self.searchVertical_up,
+            'down': self.searchVertical_down,
+            'left': self.searchHorizontal_left,
+            'right': self.searchHorizontal_right
+        }
+
+        index = operations[self.condition](self.array, self.i_0, self.i_f)
+        print("thread {0} index: {1}".format(self.threadID, index))
+        self.result_array[self.threadID] = index
+
+    @staticmethod
+    def searchVertical_up(array, i_0, i_f) -> int:
+        while i_f > i_0 + 1:
+            print("vertical indices: {0} {1}".format(i_0, i_f))
+            current_index = int((i_0 + i_f) / 2)
+            if np.sum(np.where(array[:, i_f] > 0, array[:, i_f], 0)) > np.sum(
+                    np.where(array[:, current_index] > 0, array[:, current_index], 0)):
+                i_0 = current_index
+            else:
+                i_f = current_index
+        return i_0
+
+    @staticmethod
+    def searchVertical_down(array, i_0, i_f) -> int:
+        while i_f > i_0 + 1:
+            print("vertical indices: {0} {1}".format(i_0, i_f))
+            current_index = int((i_0 + i_f) / 2)
+            if np.sum(np.where(array[:, i_0] > 0, array[:, i_0], 0)) > np.sum(
+                    np.where(array[:, current_index] > 0, array[:, current_index], 0)):
+                i_f = current_index
+            else:
+                i_0 = current_index
+        return i_0
+
+    @staticmethod
+    def searchHorizontal_right(array, i_0, i_f) -> int:
+        while i_f > i_0 + 1:
+            current_index = int((i_0 + i_f) / 2)
+            print(current_index)
+            if np.sum(np.where(array[i_f] > 0, array[i_f], 0)) > np.sum(
+                    np.where(array[current_index] > 0, array[current_index], 0)):
+                i_0 = current_index
+            else:
+                i_f = current_index
+        return i_0
+
+    @staticmethod
+    def searchHorizontal_left(array, i_0, i_f) -> int:
+        while i_f > i_0 + 1:
+            current_index = int((i_0 + i_f) / 2)
+            print(current_index)
+            if np.sum(np.where(array[i_0] > 0, array[i_0], 0)) > np.sum(
+                    np.where(array[current_index] > 0, array[current_index], 0)):
+                i_f = current_index
+            else:
+                i_0 = current_index
+        return i_0

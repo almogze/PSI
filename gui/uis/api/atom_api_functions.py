@@ -76,7 +76,7 @@ def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow):
             print("DataFrame is written to Excel File successfully.")
 
 
-def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, withoutCloud) -> None:
+def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, withoutCloud):
     if atom.clearToLoad():
         if atom.CheckCloudParams():
             if not atom.getParametersCondition():
@@ -149,9 +149,16 @@ def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
             ui_atom.graph_right.clear()
             # load image
             ui_atom.image.setImage(image=loaded_image)
+            # calculate center of cloud
+            atom.calculateCenterOfCloud(atom.getCloudArray(), atom.getNonCloudArray())
+            # set color bar scale
+            ui_atom.bar.setLevels(low=np.min(loaded_image), high=np.max(loaded_image))
             # Set bounds for lines
             ui_atom.inf1.setBounds([0, len(loaded_image)])
+            ui_atom.inf1.setPos(atom.getX_0())
             ui_atom.inf2.setBounds([0, len(loaded_image[0])])
+            ui_atom.inf2.setPos(atom.getY_0())
+
             # plot top and right graphs
             pos_x = int(ui_atom.inf1.value())
             pos_y = int(ui_atom.inf2.value())
@@ -164,9 +171,10 @@ def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
 
 def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     atom.clearImage()
-    ui_atom.load_pages.ImageView_Atom.clear()
-    ui_atom.load_pages.label_atom_number.setText(str(0))
-    ui_atom.load_pages.label_cloud_temperature.setText(str(0))
+    # ui_atom.load_pages.ImageView_Atom.clear()
+    ui_atom.image.clear()
+    ui_atom.load_pages.lineEdit_atom_number.setText(str(0))
+    ui_atom.load_pages.lineEdit_cloud_temperature.setText(str(0))
     ui_atom.load_pages.lineEdit_with_cloud_path.clear()
     ui_atom.load_pages.lineEdit_without_cloud_path.clear()
 
@@ -265,6 +273,12 @@ def fit_gaussian_y(atom: Atom, ui_atom: UI_AtomWindow):
     if atom.clearToLoad():
         loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
         pos_x = int(ui_atom.inf1.value())
+
+        # CLEAN THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        sub = atom.getNonCloudArray() - atom.getCloudArray()
+        print(np.sum(np.where(sub[pos_x] > 0, sub[pos_x], 0)))
+        # CLEAN THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         ui_atom.graph_right.clear()
         ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
 
@@ -300,6 +314,12 @@ def fit_gaussian_x(atom: Atom, ui_atom: UI_AtomWindow):
     if atom.clearToLoad():
         loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
         pos_y = int(ui_atom.inf2.value())
+
+        # CLEAN THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        sub = atom.getNonCloudArray() - atom.getCloudArray()
+        print(np.sum(np.where(sub[:, pos_y] > 0, sub[:, pos_y], 0)))
+        # CLEAN THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         ui_atom.graph_top.clear()
         ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
 

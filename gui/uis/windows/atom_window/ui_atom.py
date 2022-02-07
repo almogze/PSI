@@ -52,7 +52,10 @@ class UI_AtomWindow(object):
         self.graph_right: PlotItem = self.load_pages.ImageView_Atom_right.addPlot()
         self.graphic_view: GraphicsLayoutWidget = self.load_pages.graphicsView_atom_automatic_data_plot
         self.graph: PlotItem = self.graphic_view.addPlot()
-
+        self.bar = pg.ColorBarItem(
+            interactive=True, values=(0, 1), cmap=pg.colormap.get('CET-L8'),
+            label='pixel intensity color'
+        )
 
         # Add lines to image
         self.inf1 = pg.InfiniteLine(movable=True, angle=90,

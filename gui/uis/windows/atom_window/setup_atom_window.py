@@ -67,12 +67,6 @@ class SetupAtomWindow:
         self.ui_atom.image_view.setTitle(
             "pixel: (%0.0f, %0.0f), intensity: None" % (self.ui_atom.inf1.value(), self.ui_atom.inf2.value()))
 
-        cmap = pg.colormap.get('CET-L8')
-        self.bar = pg.ColorBarItem(
-            interactive=True, values=(0, 1), cmap=cmap,
-            label='pixel intensity color'
-        )
-
         self.ui_atom.graph_top.getAxis('bottom').setStyle(showValues=False)
         self.ui_atom.graph_top.showAxis('top')
         self.ui_atom.graph_top.getAxis('top').setLabel('x axis pixels')
@@ -84,7 +78,7 @@ class SetupAtomWindow:
         self.ui_atom.graph_right.getAxis('right').setLabel('y axis pixels')
 
         self.ui_atom.image_view.addItem(self.ui_atom.image)
-        self.bar.setImageItem(self.ui_atom.image, insert_in=self.ui_atom.image_view)
+        self.ui_atom.bar.setImageItem(self.ui_atom.image, insert_in=self.ui_atom.image_view)
 
         self.ui_atom.image_view.addItem(self.ui_atom.inf1)
         self.ui_atom.image_view.addItem(self.ui_atom.inf2)

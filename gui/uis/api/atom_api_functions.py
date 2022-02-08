@@ -67,7 +67,7 @@ def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow):
     else:
         name = ui_atom.load_pages.lineEdit_atom_exported_file_name.text()
         path = ui_atom.load_pages.lineEdit_atom_exported_file_path.text()
-        if name == "" or path == "" :
+        if name == "" or path == "":
             pop_error("File name or path is wrong", "File name or path is wrong")
         else:
             data = {'X': x, 'Y': y}
@@ -79,6 +79,7 @@ def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow):
 def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, withoutCloud):
     if atom.clearToLoad():
         if atom.CheckCloudParams():
+            # check if cloud parameters loaded(at least for the first time) or there is none
             if not atom.getParametersCondition():
                 add_cloud_parameters(atom, ui_atom)
             atom_number = atom.calculateAtomNumber(withCloud, withoutCloud)
@@ -101,15 +102,27 @@ def calculate_automatic_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int
 def calculate_atom_number_sequence(atom: Atom, ui_atom: UI_AtomWindow):
     x = []
     y = []
+    # array with all cloud signals names
     seq_cloud = atom.getAutomaticCloudArray()
     print(seq_cloud)
+    # array with all non-cloud signals names
     seq_non_cloud = atom.getAutomaticNonCloudArray()
     print(seq_non_cloud)
     print("Number of files: " + str(len(seq_cloud)))
+    initial_x_0 = atom.getX_0()
+    initial_y_0 = atom.getY_0()
     for i in range(len(seq_cloud)):
         x.append(i)
-        atom_number = calculate_atom_number(atom, ui_atom, atom.path_to_array(seq_cloud[i]),
-                                            atom.path_to_array(seq_non_cloud[i]))
+        # return to the initial position
+        atom.setX_0(initial_x_0)
+        atom.setY_0(initial_y_0)
+        # load cloud/non-cloud arrays from list
+        cloud_array = atom.path_to_array(seq_cloud[i])
+        non_cloud_array = atom.path_to_array(seq_non_cloud[i])
+        # calculate center of the current cloud image and save it in x_0 & y_0
+        atom.calculateCenterOfCloud(cloud_array, non_cloud_array)
+        # calculate number of atoms for current image
+        atom_number = calculate_atom_number(atom, ui_atom, cloud_array, non_cloud_array)
         print("Number of calculated atoms: " + str(atom_number))
         y.append(atom_number)
     atom.setLastPlot(x, y)
@@ -152,7 +165,7 @@ def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
             # calculate center of cloud
             atom.calculateCenterOfCloud(atom.getCloudArray(), atom.getNonCloudArray())
             # set color bar scale
-            ui_atom.bar.setLevels(low=(np.min(loaded_image)+np.max(loaded_image)) / 5, high=np.max(loaded_image))
+            ui_atom.bar.setLevels(low=(np.min(loaded_image) + np.max(loaded_image)) / 5, high=np.max(loaded_image))
             # Set bounds for lines
             ui_atom.inf1.setBounds([0, len(loaded_image)])
             ui_atom.inf1.setPos(atom.getX_0())
@@ -187,6 +200,7 @@ def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     ui_atom.load_pages.lineEdit_without_cloud_path.clear()
     # clear fit
     clear_fit(atom, ui_atom)
+
 
 def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
     # clear old plots
@@ -238,6 +252,14 @@ def update_right_graph(atom: Atom, ui_atom: UI_AtomWindow):
         loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
         pos_x = int(ui_atom.inf1.value())
         pos_y = int(ui_atom.inf2.value())
+
+        # DELETE!!!!!!!!!!!!!!!!!!!
+        # sum = np.sum(
+        #    np.where(loaded_image[pos_x - 5:pos_x + 6] > 0, loaded_image[pos_x - 5:pos_x + 6],
+        #             0)) / 10
+        # print("Horizontal sum: {0}".format(sum))
+        # DELETE!!!!!!!!!!!!!!!!!!!
+
         ui_atom.graph_right.clear()
         ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
         ui_atom.image_view.setTitle(
@@ -300,9 +322,9 @@ def fit_gaussian_y(atom: Atom, ui_atom: UI_AtomWindow):
         # Insert Values
         ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
             "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))  # lmfit defines gaussian different
-        ui_atom.load_pages.lineEdit_atom_result_y_0.setText("%0.4f" % params[1])
+        ui_atom.load_pages.lineEdit_atom_result_y_0.setText("%d" % int(params[1]))
         atom.setY_0(int(params[1]))
-        ui_atom.load_pages.lineEdit_atom_result_sigma_y.setText("%0.4f" % params[2])
+        ui_atom.load_pages.lineEdit_atom_result_sigma_y.setText("%d" % int(params[2]))
         atom.set_sigma_Y(int(params[2]))
         # Insert Errors
         errors = fit.get_err_array()
@@ -335,9 +357,9 @@ def fit_gaussian_x(atom: Atom, ui_atom: UI_AtomWindow):
         # Insert Values
         ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
             "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))  # lmfit defines gaussian different
-        ui_atom.load_pages.lineEdit_atom_result_x_0.setText("%0.4f" % params[1])
+        ui_atom.load_pages.lineEdit_atom_result_x_0.setText("%d" % int(params[1]))
         atom.setX_0(int(params[1]))
-        ui_atom.load_pages.lineEdit_atom_result_sigma_x.setText("%0.4f" % params[2])
+        ui_atom.load_pages.lineEdit_atom_result_sigma_x.setText("%d" % int(params[2]))
         atom.set_sigma_X(int(params[2]))
         # Insert Errors
         errors = fit.get_err_array()

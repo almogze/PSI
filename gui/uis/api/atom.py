@@ -189,10 +189,16 @@ class Atom(object):
         print("calculate center of cloud")
         sub = without_cloud_array - cloud_array
 
+        middle_state_vertical = {None: int(len(sub[0]) / 2)}
+        middle_state_horizontal = {None: int(len(sub) / 2)}
         i_f_h = len(sub) - 1
-        middle_h = int(len(sub) / 2)
         i_f_v = len(sub[0]) - 1
-        middle_v = int(len(sub[0]) / 2)
+        try:
+            middle_h = middle_state_horizontal[self.getX_0()]
+            middle_v = middle_state_vertical[self.getY_0()]
+        except KeyError:
+            middle_h = int(self.getX_0())
+            middle_v = int(self.getY_0())
 
         # index_array aggregate the result form each thread (which is the center of cloud according to each thread)
         index_array = [0, 0, 0, 0]
@@ -264,7 +270,7 @@ class BinarySearchThread(threading.Thread):
         self.result_array = result_array
 
     def run(self) -> None:
-        # print("enter thread " + str(self.threadID))
+        print("enter thread " + str(self.threadID))
         operations = {
             'up': self.searchVertical_up,
             'down': self.searchVertical_down,
@@ -304,8 +310,11 @@ class BinarySearchThread(threading.Thread):
     def searchHorizontal_right(array, i_0, i_f) -> int:
         while i_f > i_0 + 1:
             current_index = int((i_0 + i_f) / 2)
-            # print("vertical indices: {0} {1}".format(i_0, i_f))
-            # print(current_index)
+            # sum_l = np.sum(np.where(array[i_0 - 5:i_0 + 6] > 0, array[i_0 - 5:i_0 + 6], 0)) / 10
+            # sum_r = np.sum(np.where(array[i_f - 5:i_f + 6] > 0, array[i_f - 5:i_f + 6], 0)) / 10
+            # sum_center = np.sum(np.where(array[current_index - 5:current_index + 6] > 0, array[current_index - 5:current_index + 6], 0)) / 10
+            # print("Horizontal indices: left {0} right {1} center {2}".format(i_0, i_f, current_index))
+            # print("Horizontal sums: left {0} right {1} center {2}".format(sum_l, sum_r, sum_center))
             if np.sum(np.where(array[i_f - 5:i_f + 6] > 0, array[i_f - 5:i_f + 6], 0)) > np.sum(
                     np.where(array[current_index - 5:current_index + 6] > 0, array[current_index - 5:current_index + 6], 0)):
                 i_0 = current_index

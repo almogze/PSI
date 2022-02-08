@@ -152,7 +152,7 @@ def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
             # calculate center of cloud
             atom.calculateCenterOfCloud(atom.getCloudArray(), atom.getNonCloudArray())
             # set color bar scale
-            ui_atom.bar.setLevels(low=np.min(loaded_image), high=np.max(loaded_image))
+            ui_atom.bar.setLevels(low=(np.min(loaded_image)+np.max(loaded_image)) / 5, high=np.max(loaded_image))
             # Set bounds for lines
             ui_atom.inf1.setBounds([0, len(loaded_image)])
             ui_atom.inf1.setPos(atom.getX_0())
@@ -164,20 +164,29 @@ def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
             pos_y = int(ui_atom.inf2.value())
             ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
             ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
+
+            # fit gaussian
+            fit_gaussian_x(atom, ui_atom)
+            fit_gaussian_y(atom, ui_atom)
             # add lines positions
             ui_atom.image_view.setTitle(
                 "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
 
 
 def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
+    # clear arrays
     atom.clearImage()
-    # ui_atom.load_pages.ImageView_Atom.clear()
+    # clear graphs
     ui_atom.image.clear()
+    ui_atom.graph_top.clear()
+    ui_atom.graph_right.clear()
+    # clear text
     ui_atom.load_pages.lineEdit_atom_number.setText(str(0))
     ui_atom.load_pages.lineEdit_cloud_temperature.setText(str(0))
     ui_atom.load_pages.lineEdit_with_cloud_path.clear()
     ui_atom.load_pages.lineEdit_without_cloud_path.clear()
-
+    # clear fit
+    clear_fit(atom, ui_atom)
 
 def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
     # clear old plots
@@ -273,15 +282,8 @@ def fit_gaussian_y(atom: Atom, ui_atom: UI_AtomWindow):
     if atom.clearToLoad():
         loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
         pos_x = int(ui_atom.inf1.value())
-
-        # CLEAN THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        sub = atom.getNonCloudArray() - atom.getCloudArray()
-        print(np.sum(np.where(sub[pos_x] > 0, sub[pos_x], 0)))
-        # CLEAN THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         ui_atom.graph_right.clear()
         ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
-
         model = lmfit.models.GaussianModel()
         fit = Fit()
         fit.set_func_par_num(3)
@@ -314,12 +316,6 @@ def fit_gaussian_x(atom: Atom, ui_atom: UI_AtomWindow):
     if atom.clearToLoad():
         loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
         pos_y = int(ui_atom.inf2.value())
-
-        # CLEAN THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        sub = atom.getNonCloudArray() - atom.getCloudArray()
-        print(np.sum(np.where(sub[:, pos_y] > 0, sub[:, pos_y], 0)))
-        # CLEAN THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         ui_atom.graph_top.clear()
         ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
 
@@ -421,23 +417,6 @@ def clear_fit(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     ui_atom.load_pages.lineEdit_atom_initial_sigma_y.clear()
     ui_atom.load_pages.lineEdit_atom_initial_theta.clear()
     ui_atom.load_pages.lineEdit_atom_initial_offset.clear()
-    # clear limits
-    # min
-    ui_atom.load_pages.lineEdit_atom_min_amplitude.clear()
-    ui_atom.load_pages.lineEdit_atom_min_x_0.clear()
-    ui_atom.load_pages.lineEdit_atom_min_y_0.clear()
-    ui_atom.load_pages.lineEdit_atom_min_sigma_x.clear()
-    ui_atom.load_pages.lineEdit_atom_min_sigma_y.clear()
-    ui_atom.load_pages.lineEdit_atom_min_theta.clear()
-    ui_atom.load_pages.lineEdit_atom_min_offset.clear()
-    # max
-    ui_atom.load_pages.lineEdit_atom_max_amplitude.clear()
-    ui_atom.load_pages.lineEdit_atom_max_x_0.clear()
-    ui_atom.load_pages.lineEdit_atom_max_y_0.clear()
-    ui_atom.load_pages.lineEdit_atom_max_sigma_x.clear()
-    ui_atom.load_pages.lineEdit_atom_max_sigma_y.clear()
-    ui_atom.load_pages.lineEdit_atom_max_theta.clear()
-    ui_atom.load_pages.lineEdit_atom_max_offset.clear()
     # clear results
     ui_atom.load_pages.lineEdit_atom_result_amplitude.clear()
     ui_atom.load_pages.lineEdit_atom_result_x_0.clear()

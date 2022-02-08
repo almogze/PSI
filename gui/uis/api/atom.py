@@ -124,11 +124,11 @@ class Atom(object):
         return array
 
     def loadImage(self, ind: int) -> np.array:
-        if ind == 0:
+        if ind == 2:
             return self.cloud_image_array
         elif ind == 1:
             return self.no_cloud_image_array
-        elif ind == 2:
+        elif ind == 0:
             return self.no_cloud_image_array - self.cloud_image_array
         elif ind == 3:
             return self.normSignal()
@@ -191,20 +191,17 @@ class Atom(object):
 
         i_f_h = len(sub) - 1
         middle_h = int(len(sub) / 2)
-        print(middle_h)
         i_f_v = len(sub[0]) - 1
         middle_v = int(len(sub[0]) / 2)
-        print(middle_v)
-        print(i_f_v)
 
         # index_array aggregate the result form each thread (which is the center of cloud according to each thread)
         index_array = [0, 0, 0, 0]
         # 2 threads for vertical iterations (start -> center, center -> end)
         # 2 threads for horizontal iterations (start -> center, center -> end)
-        threads = [BinarySearchThread(0, sub, "right", 0, middle_h, index_array),
-                   BinarySearchThread(1, sub, "left", middle_h, i_f_h, index_array),
-                   BinarySearchThread(2, sub, "up", 0, middle_v, index_array),
-                   BinarySearchThread(3, sub, "down", middle_v, i_f_v, index_array)]
+        threads = [BinarySearchThread(0, sub, "right", 5, middle_h, index_array),
+                   BinarySearchThread(1, sub, "left", middle_h, i_f_h - 5, index_array),
+                   BinarySearchThread(2, sub, "up", 5, middle_v, index_array),
+                   BinarySearchThread(3, sub, "down", middle_v, i_f_v - 5, index_array)]
         for t in threads:
             t.start()
         for t in threads:
@@ -215,10 +212,6 @@ class Atom(object):
         sum_1 = np.sum(np.where(sub[index_array[1]] > 0, sub[index_array[1]], 0))
         sum_2 = np.sum(np.where(sub[:, index_array[2]] > 0, sub[:, index_array[2]], 0))
         sum_3 = np.sum(np.where(sub[:, index_array[3]] > 0, sub[:, index_array[3]], 0))
-        print("sum 0: " + str(sum_0))
-        print("sum 1: " + str(sum_1))
-        print("sum 2: " + str(sum_2))
-        print("sum 3: " + str(sum_3))
 
         if sum_0 > sum_1:
             self.setX_0(index_array[0])
@@ -271,7 +264,7 @@ class BinarySearchThread(threading.Thread):
         self.result_array = result_array
 
     def run(self) -> None:
-        print("enter thread " + str(self.threadID))
+        # print("enter thread " + str(self.threadID))
         operations = {
             'up': self.searchVertical_up,
             'down': self.searchVertical_down,
@@ -280,13 +273,12 @@ class BinarySearchThread(threading.Thread):
         }
 
         index = operations[self.condition](self.array, self.i_0, self.i_f)
-        print("thread {0} index: {1}".format(self.threadID, index))
         self.result_array[self.threadID] = index
 
     @staticmethod
     def searchVertical_up(array, i_0, i_f) -> int:
         while i_f > i_0 + 1:
-            print("vertical indices: {0} {1}".format(i_0, i_f))
+            # print("vertical indices: {0} {1}".format(i_0, i_f))
             current_index = int((i_0 + i_f) / 2)
             if np.sum(np.where(array[:, i_f] > 0, array[:, i_f], 0)) > np.sum(
                     np.where(array[:, current_index] > 0, array[:, current_index], 0)):
@@ -298,10 +290,11 @@ class BinarySearchThread(threading.Thread):
     @staticmethod
     def searchVertical_down(array, i_0, i_f) -> int:
         while i_f > i_0 + 1:
-            print("vertical indices: {0} {1}".format(i_0, i_f))
+            # print("vertical indices: {0} {1}".format(i_0, i_f))
             current_index = int((i_0 + i_f) / 2)
-            if np.sum(np.where(array[:, i_0] > 0, array[:, i_0], 0)) > np.sum(
-                    np.where(array[:, current_index] > 0, array[:, current_index], 0)):
+            if np.sum(np.where(array[:, i_0 - 5:i_0 + 6] > 0, array[:, i_0 - 5:i_0 + 6], 0)) > np.sum(
+                    np.where(array[:, current_index - 5:current_index + 6] > 0,
+                             array[:, current_index - 5:current_index + 6], 0)):
                 i_f = current_index
             else:
                 i_0 = current_index
@@ -311,9 +304,10 @@ class BinarySearchThread(threading.Thread):
     def searchHorizontal_right(array, i_0, i_f) -> int:
         while i_f > i_0 + 1:
             current_index = int((i_0 + i_f) / 2)
-            print(current_index)
-            if np.sum(np.where(array[i_f] > 0, array[i_f], 0)) > np.sum(
-                    np.where(array[current_index] > 0, array[current_index], 0)):
+            # print("vertical indices: {0} {1}".format(i_0, i_f))
+            # print(current_index)
+            if np.sum(np.where(array[i_f - 5:i_f + 6] > 0, array[i_f - 5:i_f + 6], 0)) > np.sum(
+                    np.where(array[current_index - 5:current_index + 6] > 0, array[current_index - 5:current_index + 6], 0)):
                 i_0 = current_index
             else:
                 i_f = current_index
@@ -323,9 +317,10 @@ class BinarySearchThread(threading.Thread):
     def searchHorizontal_left(array, i_0, i_f) -> int:
         while i_f > i_0 + 1:
             current_index = int((i_0 + i_f) / 2)
-            print(current_index)
-            if np.sum(np.where(array[i_0] > 0, array[i_0], 0)) > np.sum(
-                    np.where(array[current_index] > 0, array[current_index], 0)):
+            # print("vertical indices: {0} {1}".format(i_0, i_f))
+            # print(current_index)
+            if np.sum(np.where(array[i_0 - 5:i_0 + 6] > 0, array[i_0 - 5:i_0 + 6], 0)) > np.sum(
+                    np.where(array[current_index - 5:current_index + 6] > 0, array[current_index - 5:current_index + 6], 0)):
                 i_f = current_index
             else:
                 i_0 = current_index

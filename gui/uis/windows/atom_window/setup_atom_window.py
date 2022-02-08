@@ -176,8 +176,9 @@ class SetupAtomWindow:
         self.ui_atom.left_column.menus.aoutomatic_pull_atom_layout.addWidget(self.automatic_pull_btn)
 
         # COMBOBOX WIDGETS
-        self.ui_atom.cloud_combo.addItems(["with cloud", "without cloud", "subtraction", "normalized signal"])
-        self.ui_atom.cloud_combo.currentIndexChanged.connect(lambda: combo_current_change(self.ui_atom.atom, self.ui_atom, self.ui_atom.cloud_combo.currentIndex()))
+        self.ui_atom.cloud_combo.addItems(["subtraction", "without cloud", "with cloud", "normalized signal"])
+        self.ui_atom.cloud_combo.currentIndexChanged.connect(
+            lambda: combo_current_change(self.ui_atom.atom, self.ui_atom, self.ui_atom.cloud_combo.currentIndex()))
 
         # BTN CALCULATE ABSORPTION
         self.calc_by_abs_imaging = PyPushButton(

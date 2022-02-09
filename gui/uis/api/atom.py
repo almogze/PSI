@@ -77,6 +77,12 @@ class Atom(object):
     def getDirectoryPath(self):
         return self.directory_path
 
+    def clearAutomaticGraph(self):
+        self._instance.automatic_with_cloud = []
+        self._instance.automatic_without_cloud = []
+        self.setLastPlot([], [])
+        self.setDirectoryPath(None)
+
     def setLastPlot(self, x, y):
         self._instance.last_plot_x = x
         self._instance.last_plot_y = y

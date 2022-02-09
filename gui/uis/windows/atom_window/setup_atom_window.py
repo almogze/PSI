@@ -112,7 +112,6 @@ class SetupAtomWindow:
         )
         self.atom_graph_load_btn.clicked.connect(lambda: load_image(self.ui_atom.atom, self.ui_atom))
 
-        # self.atom_graph_clear_btn = QPushButton("Clear")
         self.atom_graph_clear_btn = PyPushButton(
             text="Clear",
             radius=2,
@@ -158,6 +157,9 @@ class SetupAtomWindow:
         self.with_cloud_btn.clicked.connect(lambda: open_dialog_box_atom(self.ui_atom.atom, self.ui_atom,  "With Cloud"))
         # ADD LAYOUT
         self.ui_atom.left_column.menus.with_cloud_layout.addWidget(self.with_cloud_btn)
+
+        self.ui_atom.load_pages.btn_atom_clear_graph.clicked.connect(
+            lambda: clear_automatic_graph(self.ui_atom.atom, self.ui_atom))
 
         # BTN OPEN IMAGE AUTOMATIC
         self.automatic_pull_btn = PyPushButton(

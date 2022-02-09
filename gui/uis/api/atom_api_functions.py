@@ -94,9 +94,12 @@ def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, without
 
 def calculate_automatic_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int) -> None:
     if switch == 0:
-        # Calculating atoms number
-        print("Calculate Atom Number - Sequence")
-        calculate_atom_number_sequence(atom, ui_atom)
+        if atom.getAutomaticCloudArray() == [] or atom.getAutomaticNonCloudArray() == []:
+            pop_error("Please load series first", "Please load series first")
+        else:
+            # Calculating atoms number
+            print("Calculate Atom Number - Sequence")
+            calculate_atom_number_sequence(atom, ui_atom)
     return
 
 
@@ -213,6 +216,16 @@ def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     ui_atom.load_pages.lineEdit_without_cloud_path.clear()
     # clear fit
     clear_fit(atom, ui_atom)
+
+
+def clear_automatic_graph(atom: Atom, ui_atom: UI_AtomWindow):
+    atom.clearAutomaticGraph()
+    ui_atom.load_pages.lineEdit_atom_exported_file_path.clear()
+    ui_atom.load_pages.lineEdit_atom_exported_file_name.clear()
+    ui_atom.graph.clear()
+    ui_atom.spots.clear()
+    ui_atom.graph.addItem(ui_atom.spots)
+    print("Clear Automatic Graph and his accompanying information")
 
 
 def clickedPoint(plot, points, atom: Atom, ui_atom: UI_AtomWindow):

@@ -47,6 +47,12 @@ class Atom(object):
         self._instance.no_cloud_image_array = np.asarray(Image.open(self.no_cloud_path).convert('L'))
         self._instance.cloud_image_array = np.asarray(Image.open(self.with_cloud_path).convert('L'))
 
+    def setCloudArray(self, cloud_array):
+        self._instance.cloud_image_array = cloud_array
+
+    def setNonCloudArray(self, non_cloud_array):
+        self._instance.no_cloud_image_array = non_cloud_array
+
     def getCloudArray(self):
         return self._instance.cloud_image_array
 
@@ -66,7 +72,7 @@ class Atom(object):
         self.automatic_without_cloud.append(file)
 
     def setDirectoryPath(self, path):
-        self.directory_path = path
+        self._instance.directory_path = path
 
     def getDirectoryPath(self):
         return self.directory_path
@@ -164,6 +170,10 @@ class Atom(object):
         self._instance.with_cloud_path = None
         self._instance.no_cloud_image_array = None
         self._instance.cloud_image_array = None
+        self._instance.directory_path = None
+        self._instance.automatic_with_cloud = []
+        self._instance.automatic_without_cloud = []
+        self._instance.first_initiate = bool(False)
 
     def calculateAtomNumber(self, cloud_array, without_cloud_array):
         cloud_area = np.array(cloud_array)[
@@ -213,7 +223,7 @@ class Atom(object):
         for t in threads:
             t.join()
 
-        print(index_array)
+        # print(index_array)
         sum_0 = np.sum(np.where(sub[index_array[0]] > 0, sub[index_array[0]], 0))
         sum_1 = np.sum(np.where(sub[index_array[1]] > 0, sub[index_array[1]], 0))
         sum_2 = np.sum(np.where(sub[:, index_array[2]] > 0, sub[:, index_array[2]], 0))
@@ -230,10 +240,10 @@ class Atom(object):
             self.setY_0(index_array[3])
 
     def setX_0(self, x_0: int):
-        self.x_0 = x_0
+        self._instance.x_0 = x_0
 
     def setY_0(self, y_0: int):
-        self.y_0 = y_0
+        self._instance.y_0 = y_0
 
     def getX_0(self):
         return self.x_0
@@ -242,10 +252,10 @@ class Atom(object):
         return self.y_0
 
     def set_sigma_X(self, sigma_x: float):
-        self.sigma_x = sigma_x
+        self._instance.sigma_x = sigma_x
 
     def set_sigma_Y(self, sigma_y: float):
-        self.sigma_y = sigma_y
+        self._instance.sigma_y = sigma_y
 
     def get_sigma_X(self):
         return self.sigma_x
@@ -270,7 +280,7 @@ class BinarySearchThread(threading.Thread):
         self.result_array = result_array
 
     def run(self) -> None:
-        print("enter thread " + str(self.threadID))
+        # print("enter thread " + str(self.threadID))
         operations = {
             'up': self.searchVertical_up,
             'down': self.searchVertical_down,
@@ -316,7 +326,8 @@ class BinarySearchThread(threading.Thread):
             # print("Horizontal indices: left {0} right {1} center {2}".format(i_0, i_f, current_index))
             # print("Horizontal sums: left {0} right {1} center {2}".format(sum_l, sum_r, sum_center))
             if np.sum(np.where(array[i_f - 5:i_f + 6] > 0, array[i_f - 5:i_f + 6], 0)) > np.sum(
-                    np.where(array[current_index - 5:current_index + 6] > 0, array[current_index - 5:current_index + 6], 0)):
+                    np.where(array[current_index - 5:current_index + 6] > 0, array[current_index - 5:current_index + 6],
+                             0)):
                 i_0 = current_index
             else:
                 i_f = current_index
@@ -329,7 +340,8 @@ class BinarySearchThread(threading.Thread):
             # print("vertical indices: {0} {1}".format(i_0, i_f))
             # print(current_index)
             if np.sum(np.where(array[i_0 - 5:i_0 + 6] > 0, array[i_0 - 5:i_0 + 6], 0)) > np.sum(
-                    np.where(array[current_index - 5:current_index + 6] > 0, array[current_index - 5:current_index + 6], 0)):
+                    np.where(array[current_index - 5:current_index + 6] > 0, array[current_index - 5:current_index + 6],
+                             0)):
                 i_f = current_index
             else:
                 i_0 = current_index

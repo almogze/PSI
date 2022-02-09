@@ -55,6 +55,7 @@ class SetupAtomWindow:
         # ///////////////////////////////////////////////////////////////
         self.themes = self.ui_atom.themes
         self.graph: PlotItem = self.ui_atom.graph
+        self.spots = self.ui_atom.spots
 
         # /////////////////////////////////////////////////////////
         # ATOM WIDGETS
@@ -256,8 +257,11 @@ class SetupAtomWindow:
         self.ui_atom.load_pages.sequence_imaging_layout.addWidget(self.calc_automatic)
 
         # INITIALIZE CLOUD GRAPH
+        self.graph.addItem(self.spots)
         self.graph.showGrid(x=True, y=True)
         self.graph.addLegend()
+
+        self.spots.sigClicked.connect(lambda plot, points: clickedPoint(plot, points, self.ui_atom.atom, self.ui_atom))
 
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS

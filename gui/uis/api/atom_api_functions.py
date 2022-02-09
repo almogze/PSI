@@ -13,6 +13,7 @@ from PySide6.QtWidgets import QFileDialog
 from iminuit import Minuit
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import AnchoredText
+from pyqtgraph import SpotItem
 
 from gui.uis.api.atom import Atom
 from gui.uis.api.fitting import TwoD_Function_Fit
@@ -102,6 +103,7 @@ def calculate_automatic_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int
 def calculate_atom_number_sequence(atom: Atom, ui_atom: UI_AtomWindow):
     x = []
     y = []
+    spots = []
     # array with all cloud signals names
     seq_cloud = atom.getAutomaticCloudArray()
     print(seq_cloud)
@@ -121,12 +123,19 @@ def calculate_atom_number_sequence(atom: Atom, ui_atom: UI_AtomWindow):
         non_cloud_array = atom.path_to_array(seq_non_cloud[i])
         # calculate center of the current cloud image and save it in x_0 & y_0
         atom.calculateCenterOfCloud(cloud_array, non_cloud_array)
+        # fit gaussian
+        fit_gaussian_x(atom, ui_atom)
+        fit_gaussian_y(atom, ui_atom)
         # calculate number of atoms for current image
         atom_number = calculate_atom_number(atom, ui_atom, cloud_array, non_cloud_array)
         print("Number of calculated atoms: " + str(atom_number))
         y.append(atom_number)
+        spots.append({'pos': (i, atom_number),
+                      'data': {'X_0': atom.getX_0(), 'Y_0': atom.getY_0(), 'cloud_path': seq_cloud[i],
+                               'non_cloud_path': seq_non_cloud[i]}})
     atom.setLastPlot(x, y)
-    ui_atom.graph.plot(x, y, symbol='o', symbolPen='w', symbolSize=8)
+    ui_atom.spots.addPoints(spots)
+    ui_atom.graph.plot(x, y)
 
 
 def load_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
@@ -172,15 +181,19 @@ def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
             ui_atom.inf2.setBounds([0, len(loaded_image[0])])
             ui_atom.inf2.setPos(atom.getY_0())
 
+            # fit gaussian
+            fit_gaussian_x(atom, ui_atom)
+            fit_gaussian_y(atom, ui_atom)
+
+            ui_atom.inf1.setPos(atom.getX_0())
+            ui_atom.inf2.setPos(atom.getY_0())
+
             # plot top and right graphs
             pos_x = int(ui_atom.inf1.value())
             pos_y = int(ui_atom.inf2.value())
             ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
             ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
 
-            # fit gaussian
-            fit_gaussian_x(atom, ui_atom)
-            fit_gaussian_y(atom, ui_atom)
             # add lines positions
             ui_atom.image_view.setTitle(
                 "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
@@ -200,6 +213,24 @@ def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     ui_atom.load_pages.lineEdit_without_cloud_path.clear()
     # clear fit
     clear_fit(atom, ui_atom)
+
+
+def clickedPoint(plot, points, atom: Atom, ui_atom: UI_AtomWindow):
+    clickedPen = pg.mkPen('r', width=2)
+    for p in ui_atom.lastClicked:
+        p.resetPen()
+    for p in points:
+        p.setPen(clickedPen)
+    firstSpot: SpotItem = points[0]
+    print(firstSpot.data())
+    cloud_array = atom.path_to_array(firstSpot.data()['cloud_path'])
+    non_cloud_array = atom.path_to_array(firstSpot.data()['non_cloud_path'])
+    atom.setCloudArray(cloud_array)
+    atom.setNonCloudArray(non_cloud_array)
+    atom.setX_0(firstSpot.data()['X_0'])
+    atom.setY_0(firstSpot.data()['Y_0'])
+    checkAndLoad(atom, ui_atom)
+    ui_atom.lastClicked = points
 
 
 def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:

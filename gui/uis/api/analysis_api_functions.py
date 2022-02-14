@@ -59,6 +59,11 @@ def fun_fit_changed(analysis: Analysis, ui_analysis: UI_AnalysisWindow, ind: int
     ui_analysis.load_pages.label_analysis_fit_function.setText(analysis.fun_texts.fun_non_latex_texts_array[ind])
     # number of parameters of new fit function
     new_num_of_params = analysis.fun_fits.number_of_params[ind]
+
+
+    print(new_num_of_params)
+
+
     # Check if the new fit function has the same amount of parameters
     if new_num_of_params == analysis.fit.get_func_par_num():
         return
@@ -84,11 +89,11 @@ def initialize_excel_axis(axis: np.ndarray, ui_analysis: UI_AnalysisWindow) -> N
 
 
 def plot_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
-    set_data(analysis, ui_analysis)
-    # enabling the option to guess params
-    ui_analysis.load_pages.pushButton_analyisis_guess_params.setEnabled(True)
+    if set_data(analysis, ui_analysis):
+        # enabling the option to guess params
+        ui_analysis.load_pages.pushButton_analyisis_guess_params.setEnabled(True)
 
-    set_data_2_graph(analysis, ui_analysis)
+        set_data_2_graph(analysis, ui_analysis)
 
 
 def optimize_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
@@ -97,13 +102,13 @@ def optimize_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -
     fun_ind = ui_analysis.load_pages.comboBox_analysis_fit_function.currentIndex()
     analysis.fit.set_func_par_num(analysis.fun_fits.number_of_params[fun_ind])
     # initialize data
-    set_data(analysis, ui_analysis)
-    # Initialize parameters with user's data
-    set_parameters(analysis, ui_analysis)
-    # Activate optimization
-    set_opt_and_plot(analysis, ui_analysis)
-    # Update optimized parameters
-    update_parameters(analysis, ui_analysis)
+    if set_data(analysis, ui_analysis):
+        # Initialize parameters with user's data
+        set_parameters(analysis, ui_analysis)
+        # Activate optimization
+        set_opt_and_plot(analysis, ui_analysis)
+        # Update optimized parameters
+        update_parameters(analysis, ui_analysis)
 
 
 def get_axis_labels(ui_analysis: UI_AnalysisWindow) -> np.array:
@@ -114,10 +119,11 @@ def get_axis_labels(ui_analysis: UI_AnalysisWindow) -> np.array:
     return [x_name, y_name, dx_name, dy_name]
 
 
-def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
+def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> bool:
     df: pd.DataFrame = analysis.getDataFrame()
     if not check_excel_columns(df):
         pop_error("excel columns are not int of float", "please check columns types")
+        return bool(False)
     else:
         labels = get_axis_labels(ui_analysis)
 
@@ -144,14 +150,29 @@ def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
             dy = dy[::steps]
         ui_analysis.analysis.setFitData(x, y, dx, dy)
         analysis.addPlot(x, y, ui_analysis.load_pages.lineEdit_analysis_curve_label.text(),
-                         get_graph_colors(ui_analysis)[0])
+                         get_fmt(analysis, ui_analysis))
+        return bool(True)
+
+
+def get_fmt(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> string:
+    color_dict = {"Gray": "", "Blue": "b", "Green": "g", "Red": "r", "Cyan": "c", "Magenta": "m", "Yellow": "y",
+                  "Black": "k", "White": "w"}
+    marker_dict = {"None": "", "o": "o", "v": "v", "^": "^", "<": "<", ">": ">", "*": "*", "s": "s", "p": "p", "x": "x"}
+    lineStyle_dict = {"-": "-", "--": "--", "-.": "-.", ":": ":", "None": ""}
+    marker = marker_dict[ui_analysis.load_pages.comboBox_analysis_plot_marker.currentText()]
+    lineStyle = lineStyle_dict[ui_analysis.load_pages.comboBox_analysis_plot_lineStyle.currentText()]
+    color = color_dict[ui_analysis.load_pages.comboBox_analysis_plot_line_color.currentText()]
+    return marker + lineStyle + color
 
 
 def check_excel_columns(df: pd.DataFrame) -> bool:
-    if all(x == 'int64' or x == 'float64' for x in df.dtypes.values):
-        return bool(True)
-    else:
+    if df is None:
         return bool(False)
+    else:
+        if all(x == 'int64' or x == 'float64' for x in df.dtypes.values):
+            return bool(True)
+        else:
+            return bool(False)
 
 
 def pop_error(s1: string, s2: string):
@@ -183,13 +204,15 @@ def set_opt_and_plot(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
         if generate_model_from_name(analysis, ui_analysis, fun_name) is not None:
             # fitting using the LMFIT library
             analysis.fit.opt_by_lmfit_generic(generate_model_from_name(analysis, ui_analysis, fun_name))
-
+            # There is no Chi-Square / NDOF when using LMFIT
             ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setEnabled(False)
             ui_analysis.load_pages.lineEdit_analysis_chi2Ndof.setText("None")
+            # Loading Ch - Square
             ui_analysis.load_pages.lineEdit_analysis_chi2.setEnabled(True)
             print(str(analysis.fit.get_chi_ndof()))
             ui_analysis.load_pages.lineEdit_analysis_chi2.setText(str(analysis.fit.get_chi_ndof()))
         else:
+            # Scipy doesn't have Chi - Square at all
             analysis.fit.opt_by_scipy()
             ui_analysis.load_pages.lineEdit_analysis_chi2.setEnabled(False)
             ui_analysis.load_pages.lineEdit_analysis_chi2.setText("None")
@@ -418,7 +441,13 @@ def get_graph_colors(ui_analysis: UI_AnalysisWindow) -> np.array:
 
 
 def set_data_2_graph(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None:
+    symbol_dict = {"None": "o", "o": "o", "v": "t", "^": "t1", "<": "t3", ">": "t2", "*": "star", "s": "s", "p": "p",
+                   "x": "+"}
+    lineStyle_dict = {"-": Qt.CustomDashLine, "--": Qt.DashLine, "-.": Qt.DashDotLine, ":": Qt.DotLine,
+                      "None": Qt.CustomDashLine}
     colors = get_graph_colors(ui_analysis)
+    symbol = symbol_dict[ui_analysis.load_pages.comboBox_analysis_plot_marker.currentText()]
+    style = lineStyle_dict[ui_analysis.load_pages.comboBox_analysis_plot_lineStyle.currentText()]
     x = analysis.fit.get_x_array()
     y = analysis.fit.get_y_array()
     dx = analysis.fit.get_dx_array()
@@ -429,8 +458,9 @@ def set_data_2_graph(analysis: Analysis, ui_analysis: UI_AnalysisWindow) -> None
             pg.ErrorBarItem(x=x, y=y, top=dy / 2, bottom=dy / 2, left=dx / 2, right=dx / 2))
     elif dy is not None:
         ui_analysis.graph.addItem(pg.ErrorBarItem(x=x, y=y, top=dy / 2, bottom=dy / 2))
-    ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(),
-                           symbol='o', pen=colors[0], symbolBrush=colors[1], symbolPen='w', symbolSize=8)
+    ui_analysis.graph.plot(analysis.fit.get_x_array(), analysis.fit.get_y_array(), symbol=symbol, style=style,
+                           pen=colors[0], symbolBrush=colors[1], symbolPen='w', symbolSize=8)
+
     # Add titles and units
     ui_analysis.graph.setTitle(title=ui_analysis.load_pages.lineEdit_analysis_main_title.text())
     ui_analysis.graph.setLabel('left', ui_analysis.load_pages.lineEdit_analysis_x_title.text(),
@@ -466,36 +496,39 @@ def matplotlib_fit_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWin
     y = analysis.fit.get_y_array()
     dx = analysis.fit.get_dx_array()
     dy = analysis.fit.get_dy_array()
-    text = "$ Fitted \  to \ f(x) = {} $\n".format(analysis.fun_texts.fun_latex_texts_array[ui_analysis.load_pages.
-                                                   comboBox_analysis_fit_function.currentIndex()])
-    ascii_prm = 97
-    for i in range(analysis.fit.get_func_par_num()):
-        text += "$\ \ \ %s$ = %0.4f $\pm$ %0.4f \n" % (
-            chr(ascii_prm + i), analysis.fit.get_params_array()[i], analysis.fit.get_err_array()[i])
-    if analysis.fit.get_chi_ndof() is not None:
-        text = text + "$\dfrac{{\chi}^2}{N_{dof}} = %0.4f(%0.4f/%d)$\n" % (
-            analysis.fit.get_chi_ndof(), analysis.fit.get_chi_ndof() * len(x),
-            len(x))
-    func_x = np.linspace(x[0], x[-1], 10000)  # 10000 linearly spaced numbers
-    function = analysis.fit.get_function()
-    par_values = analysis.fit.get_params_array()
-    y_fit = function(func_x, *par_values)
-    x_title = "%s [%s]" % (pages.lineEdit_analysis_x_title.text(), pages.lineEdit_analysis_x_units.text())
-    y_title = "%s [%s]" % (pages.lineEdit_analysis_y_title.text(), pages.lineEdit_analysis_y_units.text())
-    main_title = "%s" % ui_analysis.load_pages.lineEdit_analysis_main_title.text()
-    plt.rc("font", size=16, family="Times New Roman")
-    fig = plt.figure(figsize=(10, 6))
-    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
-    ax.plot(func_x, y_fit)  # plot the function over 10k points covering the x axis
-    ax.scatter(x, y, c="black")
-    ax.errorbar(x, y, dy, dx, fmt='none', ecolor='red', capsize=3)
-    ax.set_xlabel(x_title, fontdict={"size": 21})
-    ax.set_ylabel(y_title, fontdict={"size": 21})
-    anchored_text = AnchoredText(text, loc=ui_analysis.load_pages.comboBox_analysis_box_location.currentIndex())
-    ax.add_artist(anchored_text)
-    plt.grid(True)
-    plt.title(main_title)
-    plt.show()
+    if x is None or y is None:
+        pop_error("Check your data", "Missing input")
+    else:
+        text = "$ Fitted \  to \ f(x) = {} $\n".format(analysis.fun_texts.fun_latex_texts_array[ui_analysis.load_pages.
+                                                       comboBox_analysis_fit_function.currentIndex()])
+        ascii_prm = 97
+        for i in range(analysis.fit.get_func_par_num()):
+            text += "$\ \ \ %s$ = %0.4f $\pm$ %0.4f \n" % (
+                chr(ascii_prm + i), analysis.fit.get_params_array()[i], analysis.fit.get_err_array()[i])
+        if analysis.fit.get_chi_ndof() is not None:
+            text = text + "$\dfrac{{\chi}^2}{N_{dof}} = %0.4f(%0.4f/%d)$\n" % (
+                analysis.fit.get_chi_ndof(), analysis.fit.get_chi_ndof() * len(x),
+                len(x))
+        func_x = np.linspace(x[0], x[-1], 10000)  # 10000 linearly spaced numbers
+        function = analysis.fit.get_function()
+        par_values = analysis.fit.get_params_array()
+        y_fit = function(func_x, *par_values)
+        x_title = "%s [%s]" % (pages.lineEdit_analysis_x_title.text(), pages.lineEdit_analysis_x_units.text())
+        y_title = "%s [%s]" % (pages.lineEdit_analysis_y_title.text(), pages.lineEdit_analysis_y_units.text())
+        main_title = "%s" % ui_analysis.load_pages.lineEdit_analysis_main_title.text()
+        plt.rc("font", size=16, family="Times New Roman")
+        fig = plt.figure(figsize=(10, 6))
+        ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+        ax.plot(func_x, y_fit)  # plot the function over 10k points covering the x axis
+        ax.scatter(x, y, c="black")
+        ax.errorbar(x, y, dy, dx, fmt='none', ecolor='red', capsize=3)
+        ax.set_xlabel(x_title, fontdict={"size": 21})
+        ax.set_ylabel(y_title, fontdict={"size": 21})
+        anchored_text = AnchoredText(text, loc=ui_analysis.load_pages.comboBox_analysis_box_location.currentIndex())
+        ax.add_artist(anchored_text)
+        plt.grid(True)
+        plt.title(main_title)
+        plt.show()
 
 
 def matplotlib_plot_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
@@ -508,12 +541,9 @@ def matplotlib_plot_analysis_data(analysis: Analysis, ui_analysis: UI_AnalysisWi
     ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
     for i in range(len(analysis.get_plots())):
         x, y = analysis.get_plot(i)
-        color = analysis.get_plot_color(i)
+        fmt = analysis.get_plot_fmt(i)
         label = analysis.get_plot_label(i)
-        if len(color) > 1:
-            ax.plot(x, y, label=label)
-        else:
-            ax.plot(x, y, color=color, label=label)
+        ax.plot(x, y, fmt, label=label)
     ax.set_xlabel(x_title, fontdict={"size": 21})
     ax.set_ylabel(y_title, fontdict={"size": 21})
     plt.grid(True)
@@ -533,6 +563,8 @@ def clean_graph_analysis(ui_analysis: UI_AnalysisWindow):
     pages.comboBox_analysis_box_location.setCurrentIndex(0)
     pages.comboBox_analysis_plot_line_color.setCurrentIndex(0)
     pages.comboBox_analysis_plot_symbol_color.setCurrentIndex(0)
+    pages.comboBox_analysis_plot_marker.setCurrentIndex(0)
+    pages.comboBox_analysis_plot_lineStyle.setCurrentIndex(0)
     ui_analysis.graph.clear()
     ui_analysis.graph.setTitle(title="")
     ui_analysis.graph.setLabel('left', "")
@@ -584,7 +616,8 @@ def clean_all_analysis_screen(analysis: Analysis, ui_analysis: UI_AnalysisWindow
     ui_analysis.load_pages.comboBox_analysis_x_error.clear()
     ui_analysis.load_pages.comboBox_analysis_y_error.clear()
     # Creating new analysis
-    ui_analysis.analysis = Analysis()
+    ui_analysis.analysis.clear_analysis()
+    print(ui_analysis.analysis.getDataFrame())
     print("Clean All Done")
 
 

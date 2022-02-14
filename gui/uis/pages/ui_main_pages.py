@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pageshymfnG.ui'
+## Form generated from reading UI file 'main_pagesPaZscZ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -1880,6 +1880,29 @@ class Ui_MainPages(object):
         self.frame_62.setObjectName(u"frame_62")
         self.frame_62.setFrameShape(QFrame.StyledPanel)
         self.frame_62.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_75 = QHBoxLayout(self.frame_62)
+        self.horizontalLayout_75.setObjectName(u"horizontalLayout_75")
+        self.label_68 = QLabel(self.frame_62)
+        self.label_68.setObjectName(u"label_68")
+        self.label_68.setMinimumSize(QSize(80, 0))
+        self.label_68.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_75.addWidget(self.label_68)
+
+        self.comboBox_analysis_plot_marker = QComboBox(self.frame_62)
+        self.comboBox_analysis_plot_marker.setObjectName(u"comboBox_analysis_plot_marker")
+        self.comboBox_analysis_plot_marker.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+"background-color: rgb(255, 255, 255);")
+
+        self.horizontalLayout_75.addWidget(self.comboBox_analysis_plot_marker)
+
+        self.comboBox_analysis_plot_lineStyle = QComboBox(self.frame_62)
+        self.comboBox_analysis_plot_lineStyle.setObjectName(u"comboBox_analysis_plot_lineStyle")
+        self.comboBox_analysis_plot_lineStyle.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+"background-color: rgb(255, 255, 255);")
+
+        self.horizontalLayout_75.addWidget(self.comboBox_analysis_plot_lineStyle)
+
 
         self.verticalLayout_33.addWidget(self.frame_62)
 
@@ -2123,7 +2146,7 @@ class Ui_MainPages(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 744, 318))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 578, 318))
         self.verticalLayout_50 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_50.setObjectName(u"verticalLayout_50")
         self.frame_14 = QFrame(self.scrollAreaWidgetContents_2)
@@ -2846,7 +2869,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(2)
+        self.pages.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainPages)
@@ -2933,6 +2956,7 @@ class Ui_MainPages(object):
         self.label_19.setText(QCoreApplication.translate("MainPages", u"Y label title and units:", None))
         self.label_16.setText(QCoreApplication.translate("MainPages", u"Plot symbol color: ", None))
         self.label_65.setText(QCoreApplication.translate("MainPages", u"Label", None))
+        self.label_68.setText(QCoreApplication.translate("MainPages", u"Plot Format: [Marker] [LineStyle]", None))
         self.pushButton_analysis_clear_graph.setText(QCoreApplication.translate("MainPages", u"Clear Graph", None))
         self.pushButton_analysis_export_plots_matplotlib.setText(QCoreApplication.translate("MainPages", u"Export plots to MatPlotLib", None))
         self.groupBox_analysis_fit_settings.setTitle(QCoreApplication.translate("MainPages", u"Fit Settings", None))

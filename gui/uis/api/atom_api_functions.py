@@ -28,8 +28,6 @@ from qt_core import *
 from gui.uis.api.instances import Instances
 
 
-
-
 def pop_error(s1: string, s2: string):
     error = QMessageBox()
     error.setWindowTitle("Error")
@@ -37,6 +35,15 @@ def pop_error(s1: string, s2: string):
     print(s1)
     error.setText(s2)
     error.exec()
+
+
+def pop_message(s1: string, s2: string):
+    message = QMessageBox()
+    message.setWindowTitle("Message")
+    message.setIcon(QMessageBox.Information)
+    print(s1)
+    message.setText(s2)
+    message.exec()
 
 
 def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> None:
@@ -65,7 +72,9 @@ def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> 
             pop_error("Can not load Files", "Please check path of files")
 
 
-def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow):
+def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
+    prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: 'index'}
+    val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
     x, y = atom.getLastPlot()
     if x is None or y is None:
         pop_error("There is no data to export", "There is no data to export")
@@ -75,20 +84,22 @@ def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow):
         if name == "" or path == "":
             pop_error("File name or path is wrong", "File name or path is wrong")
         else:
-            data = {'X': x, 'Y': y}
+            data = {prm_dict[switch]: x, val_dict[switch]: y}
             df = pd.DataFrame(data)
             df.to_excel(excel_writer=path + '\\' + name + '.xlsx')
-            print("DataFrame is written to Excel File successfully.")
+            pop_message("DataFrame is written to Excel File successfully.", "Successfully created excel file")
 
 
-def export_to_analysis(atom: Atom, ui_atom: UI_AtomWindow):
+def export_to_analysis(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
+    prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: 'index'}
+    val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
     ui_analysis: UI_AnalysisWindow = Instances().getAnalysis()
     x, y = atom.getLastPlot()
-    data = {'X': x, 'Y': y}
+    data = {prm_dict[switch]: x, val_dict[switch]: y}
     ui_analysis.analysis.setDataFrame(pd.DataFrame(data))
     if ui_analysis.analysis.initializeAxis():
         initialize_excel_axis(ui_analysis.analysis.getExcelAxis(), ui_analysis)
-        print("Axis initialization succeed")
+        pop_message("Axis initialization succeed", "Successfully sent data to analysis page")
     else:
         pop_error("Missing excel parameters information!", "Missing data, please check that all parameters are loaded")
     set_data(ui_analysis.analysis, ui_analysis)
@@ -137,6 +148,8 @@ def calculate_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
         # load cloud/non-cloud arrays from list
         cloud_array = atom.path_to_array(seq_cloud[i])
         non_cloud_array = atom.path_to_array(seq_non_cloud[i])
+        atom.setCloudArray(cloud_array)
+        atom.setNonCloudArray(non_cloud_array)
         # calculate center of the current cloud image and save it in x_0 & y_0
         atom.calculateCenterOfCloud(cloud_array, non_cloud_array)
         # fit gaussian
@@ -144,14 +157,14 @@ def calculate_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
         fit_gaussian_y(atom, ui_atom)
         # calculate number of atoms for current image
         atom_number = calculate_atom_number(atom, ui_atom, cloud_array, non_cloud_array)
-        print("Number of calculated atoms: " + str(atom_number))
+        print("Number of calculated atoms: " + str(int(atom_number)))
         parm_dict = {0: i, 1: i, 2: i, 3: i}
-        val_dict = {0: atom_number, 1: atom.getRealSigmaX(), 2: atom.getRealSigmaY(), 3: atom_number}
+        val_dict = {0: int(atom_number), 1: atom.getRealSigmaX(), 2: atom.getRealSigmaY(), 3: atom_number}
         x.append(parm_dict[switch])
         y.append(val_dict[switch])
         spots.append({'pos': (parm_dict[switch], val_dict[switch]),
                       'data': {'X_0': atom.getX_0(), 'Y_0': atom.getY_0(), 'cloud_path': seq_cloud[i],
-                               'non_cloud_path': seq_non_cloud[i], 'atom_num': atom_number,
+                               'non_cloud_path': seq_non_cloud[i], 'atom_num': int(atom_number),
                                'sigma_x': val_dict[1], 'sigma_y': val_dict[2], 'index': i}})
 
     atom.setLastPlot(x, y)
@@ -259,10 +272,12 @@ def clickedPoint(plot, points, atom: Atom, ui_atom: UI_AtomWindow):
     non_cloud_array = atom.path_to_array(firstSpot.data()['non_cloud_path'])
     atom.setCloudArray(cloud_array)
     atom.setNonCloudArray(non_cloud_array)
-    atom.setX_0(firstSpot.data()['X_0'])
-    atom.setY_0(firstSpot.data()['Y_0'])
+    update_x_parameters(atom, ui_atom, firstSpot.data()['X_0'], firstSpot.data()['sigma_x'])
+    update_y_parameters(atom, ui_atom, firstSpot.data()['Y_0'], firstSpot.data()['sigma_y'])
     checkAndLoad(atom, ui_atom)
     ui_atom.lastClicked = points
+    # loading into the lineEdit the current atom number
+    ui_atom.load_pages.lineEdit_atom_number.setText(str(firstSpot.data()['atom_num']))
 
 
 def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
@@ -397,10 +412,8 @@ def fit_gaussian_y(atom: Atom, ui_atom: UI_AtomWindow):
         # Insert Values
         ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
             "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))  # lmfit defines gaussian different
-        ui_atom.load_pages.lineEdit_atom_result_y_0.setText("%d" % int(params[1]))
-        atom.setY_0(int(params[1]))
-        ui_atom.load_pages.lineEdit_atom_result_sigma_y.setText("%d" % int(params[2]))
-        atom.set_sigma_Y(int(params[2]))
+        # update y_0 and sigma_y in atom instance and in the lineEdit
+        update_y_parameters(atom, ui_atom, int(params[1]), int(params[2]))
         # Insert Errors
         errors = fit.get_err_array()
         ui_atom.load_pages.lineEdit_atom_error_amplitude.setText(
@@ -432,16 +445,28 @@ def fit_gaussian_x(atom: Atom, ui_atom: UI_AtomWindow):
         # Insert Values
         ui_atom.load_pages.lineEdit_atom_result_amplitude.setText(
             "%0.4f" % (params[0] / (params[2] * np.sqrt(2 * np.pi))))  # lmfit defines gaussian different
-        ui_atom.load_pages.lineEdit_atom_result_x_0.setText("%d" % int(params[1]))
-        atom.setX_0(int(params[1]))
-        ui_atom.load_pages.lineEdit_atom_result_sigma_x.setText("%d" % int(params[2]))
-        atom.set_sigma_X(int(params[2]))
+        # update x_0 and sigma_x in atom instance and in the lineEdit
+        update_x_parameters(atom, ui_atom, int(params[1]), int(params[2]))
         # Insert Errors
         errors = fit.get_err_array()
         ui_atom.load_pages.lineEdit_atom_error_amplitude.setText(
             "%0.4f" % (errors[0] / (errors[2] * np.sqrt(2 * np.pi))))
         ui_atom.load_pages.lineEdit_atom_error_x_0.setText("%0.4f" % errors[1])
         ui_atom.load_pages.lineEdit_atom_error_sigma_x.setText("%0.4f" % errors[2])
+
+
+def update_x_parameters(atom: Atom, ui_atom: UI_AtomWindow, x_0: int, sigma_x: int) -> None:
+    ui_atom.load_pages.lineEdit_atom_result_x_0.setText("%d" % x_0)
+    atom.setX_0(x_0)
+    ui_atom.load_pages.lineEdit_atom_result_sigma_x.setText("%d" % sigma_x)
+    atom.set_sigma_X(sigma_x)
+
+
+def update_y_parameters(atom: Atom, ui_atom: UI_AtomWindow, y_0: int, sigma_y: int) -> None:
+    ui_atom.load_pages.lineEdit_atom_result_y_0.setText("%d" % y_0)
+    atom.setY_0(y_0)
+    ui_atom.load_pages.lineEdit_atom_result_sigma_y.setText("%d" % sigma_y)
+    atom.set_sigma_Y(sigma_y)
 
 
 def fit_gaussian_shape(atom: Atom, ui_atom: UI_AtomWindow) -> None:
@@ -468,8 +493,6 @@ def fit_gaussian_shape(atom: Atom, ui_atom: UI_AtomWindow) -> None:
         ax.imshow(fit, origin='bottom', cmap='plasma')
         ax.contour(X, Y, fit, colors='w')
         plt.show()
-
-
     else:
         pop_error("images are not loaded", "please load images first")
 

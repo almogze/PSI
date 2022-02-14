@@ -14,25 +14,25 @@ class Analysis(object):
         if not Analysis._instance:
             self._instance = super(Analysis, self).__new__(self)
             # EXCEL SETTINGS FIELDS
-            self.excel_file_path = None
-            self.sheet_name = None
+            self._instance.excel_file_path = None
+            self._instance.sheet_name = None
 
-            self.axis: np.ndarray = None
+            self._instance.axis: np.ndarray = None
 
             # GRAPH SETTINGS FIELDS
-            self.main_title = None
-            self.x_label_title = None
-            self.y_label_title = None
-            self.box_location = 1
-            self.fun_texts = Functions_Texts()
-            self.plots = []
-            self.plots_labels = []
-            self.plots_color = []
+            self._instance.main_title = None
+            self._instance.x_label_title = None
+            self._instance.y_label_title = None
+            self._instance.box_location = 1
+            self._instance.fun_texts = Functions_Texts()
+            self._instance.plots = []
+            self._instance.plots_labels = []
+            self._instance.plots_fmt = []
 
             # FIT SETTINGS FIELDS
-            self.data_frame: pd.DataFrame = None
-            self.fit = Fit()
-            self.fun_fits = Functions_Fit()
+            self._instance.data_frame: pd.DataFrame = None
+            self._instance.fit = Fit()
+            self._instance.fun_fits = Functions_Fit()
 
         return Analysis._instance
 
@@ -73,45 +73,51 @@ class Analysis(object):
         return bool(True)
 
     def readExcel(self) -> bool:
-        if (self.excel_file_path is not None) and (self.sheet_name is not None):
-            self._instance.data_frame = pd.read_excel(self.excel_file_path, sheet_name=self.sheet_name)
+        if (self._instance.excel_file_path is not None) and (self._instance.sheet_name is not None):
+            self._instance.data_frame = pd.read_excel(self._instance.excel_file_path, sheet_name=self._instance.sheet_name)
             return bool(True)
         return bool(False)
 
     def initializeAxis(self) -> bool:
         if self.data_frame is None:
             return bool(False)
-        elif len(self.data_frame.axes.pop(1).values) < 2:
+        elif len(self._instance.data_frame.axes.pop(1).values) < 2:
             return bool(False)
         else:
             # extract the axis names from excel file
-            self._instance.axis = self.data_frame.axes.pop(1).values
+            self._instance.axis = self._instance.data_frame.axes.pop(1).values
             return bool(True)
 
     def setFitData(self, x, y, dx, dy):
         self._instance.fit.set_arrays(x, y, dx, dy)
 
-    def addPlot(self, x, y, label, color):
-        self.plots.append([x,y])
-        self.plots_labels.append(label)
-        self.plots_color.append(color)
+    def addPlot(self, x, y, label, fmt):
+        self._instance.plots.append([x,y])
+        self._instance.plots_labels.append(label)
+        self._instance.plots_fmt.append(fmt)
 
     def clear_plots(self):
-        self.plots = []
-        self.plots_labels = []
-        self.plots_color = []
+        self._instance.plots = []
+        self._instance.plots_labels = []
+        self._instance.plots_fmt = []
 
     def get_plot(self, index):
-        return self.plots[index]
+        return self._instance.plots[index]
 
     def get_plots(self):
-        return self.plots
+        return self._instance.plots
 
     def get_plot_label(self, index):
-        return self.plots_labels[index]
+        return self._instance.plots_labels[index]
 
-    def get_plot_color(self, index):
-        return self.plots_color[index]
+    def get_plot_fmt(self, index):
+        return self._instance.plots_fmt[index]
 
-
-
+    def clear_analysis(self):
+        self.setDataFrame(None)
+        self.setExcelSheetName(None)
+        self._instance.fit = Fit()
+        self._instance.fun_fits = Functions_Fit()
+        self.clear_plots()
+        self.setExcelPath(None)
+        self._instance.box_location = 1

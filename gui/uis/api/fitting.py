@@ -18,7 +18,7 @@ class Functions_Texts:
     def __init__(self):
         self.non_latex_text_lin_fun = "f(x) = a * x + b"
         self.non_latex_text_exp_fun = "f(x) = a * e ^ (b * x)"
-        self.non_latex_text_sin_fun = "f(x) = a * sin(b * x + c) + d"
+        self.non_latex_text_sin_fun = "f(x) = a * sin(b * x + c)"
         self.non_latex_text_cos_fun = "f(x) = a * cos(b * x)"
         self.non_latex_text_cos2_fun = "f(x) = a * (cos(b * x)) ^ 2"
         self.non_latex_text_poly2_fun = "f(x) = a * x ^ 2 + b * x + c"
@@ -38,7 +38,7 @@ class Functions_Texts:
 
         self.latex_text_lin_fun = "a\cdot x +b"
         self.latex_text_exp_fun = "a \cdot e^{b\cdot x}"
-        self.latex_text_sin_fun = "a \cdot \sin(b\cdot x + c) + d"
+        self.latex_text_sin_fun = "a \cdot \sin(b\cdot x + c)"
         self.latex_text_cos_fun = "a\cdot \cos(b\cdot x)"
         self.latex_text_cos2_fun = "a\cdot \cos(b\cdot x)^2"
         self.latex_text_poly2_fun = "a\cdot x^2 + b\cdot x + c"
@@ -113,7 +113,7 @@ class Functions_Fit:
     def __init__(self):
         self.fit_lin_fun = lambda x, a, b: b + (x * a)
         self.fit_exp_fun = lambda x, a, b: a * (np.exp(b * x))
-        self.fit_sin_fun = lambda x, a, b, c, d: a * np.sin(b * x + c) + d
+        self.fit_sin_fun = lambda x, a, b, c: a * np.sin(b * x + c)
         self.fit_cos_fun = lambda x, a, b: a * (np.cos(b * x))
         self.fit_cos2_fun = lambda x, a, b: a * (np.cos(b * x)) ** 2
         self.fit_poly2_fun = lambda x, a, b, c: a * (x ** 2) + b * x + c
@@ -142,7 +142,7 @@ class Functions_Fit:
                               self.fit_error_c_fun, self.fit_1_slit_fraun_fun, self.fit_2_slits_fraun_fun,
                               self.fit_4_slits_fraun_fun, self.fit_6_slits_fraun_fun]
 
-        self.number_of_params = [2, 2, 4, 2, 2, 3, 2, 4, 2, 3, 4, 1, 2, 4, 4, 3, 4, 4, 4]
+        self.number_of_params = [2, 2, 3, 2, 2, 3, 2, 4, 2, 3, 4, 1, 2, 4, 4, 3, 4, 4, 4]
 
 
 class TwoD_Function_Fit:
@@ -483,6 +483,7 @@ class Fit(object):
     def opt_by_lmfit_generic(self, model: lmfit.models):
         # extract fit function's parameters names
         pars_names = model.param_names
+        print(pars_names)
         # print(pars_names)
         # set each parameters with it's initial values
         for i in range(self.func_par_num):

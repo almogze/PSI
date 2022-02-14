@@ -32,7 +32,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="page_main">
       <property name="styleSheet">
@@ -3918,6 +3918,40 @@ background-color: rgb(255, 255, 255);</string>
                                  <property name="frameShadow">
                                   <enum>QFrame::Raised</enum>
                                  </property>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_75">
+                                  <item>
+                                   <widget class="QLabel" name="label_68">
+                                    <property name="minimumSize">
+                                     <size>
+                                      <width>80</width>
+                                      <height>0</height>
+                                     </size>
+                                    </property>
+                                    <property name="text">
+                                     <string>Plot Format: [Marker] [LineStyle]</string>
+                                    </property>
+                                    <property name="alignment">
+                                     <set>Qt::AlignCenter</set>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QComboBox" name="comboBox_analysis_plot_marker">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QComboBox" name="comboBox_analysis_plot_lineStyle">
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                 </layout>
                                 </widget>
                                </item>
                               </layout>
@@ -4440,7 +4474,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background:palette(base); }</string>
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>744</width>
+                              <width>578</width>
                               <height>318</height>
                              </rect>
                             </property>

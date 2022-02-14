@@ -12,23 +12,23 @@ class Atom(object):
     def __new__(self):
         if not Atom._instance:
             self._instance = super(Atom, self).__new__(self)
-            self.prm = Parameters()
-            self.no_cloud_path = None
-            self.with_cloud_path = None
-            self.no_cloud_image_array: np.array = None
-            self.cloud_image_array: np.array = None
+            self._instance.prm = Parameters()
+            self._instance.no_cloud_path = None
+            self._instance.with_cloud_path = None
+            self._instance.no_cloud_image_array: np.array = None
+            self._instance.cloud_image_array: np.array = None
             # Automatic Series
-            self.directory_path = None
-            self.automatic_with_cloud = []
-            self.automatic_without_cloud = []
-            self.last_plot_x = []
-            self.last_plot_y = []
+            self._instance.directory_path = None
+            self._instance.automatic_with_cloud = []
+            self._instance.automatic_without_cloud = []
+            self._instance.last_plot_x = []
+            self._instance.last_plot_y = []
             # Initial Parameters
-            self.first_initiate = bool(False)
-            self.x_0 = None
-            self.y_0 = None
-            self.sigma_x = None
-            self.sigma_y = None
+            self._instance.first_initiate = bool(False)
+            self._instance.x_0 = None
+            self._instance.y_0 = None
+            self._instance.sigma_x = None
+            self._instance.sigma_y = None
         return Atom._instance
 
     def setNoCloudPath(self, path):
@@ -66,16 +66,16 @@ class Atom(object):
         return self._instance.automatic_without_cloud
 
     def addCloudFile(self, file):
-        self.automatic_with_cloud.append(file)
+        self._instance.automatic_with_cloud.append(file)
 
     def addNoCloudFile(self, file):
-        self.automatic_without_cloud.append(file)
+        self._instance.automatic_without_cloud.append(file)
 
     def setDirectoryPath(self, path):
         self._instance.directory_path = path
 
     def getDirectoryPath(self):
-        return self.directory_path
+        return self._instance.directory_path
 
     def clearAutomaticGraph(self):
         self._instance.automatic_with_cloud = []
@@ -88,7 +88,7 @@ class Atom(object):
         self._instance.last_plot_y = y
 
     def getLastPlot(self):
-        return self.last_plot_x, self.last_plot_y
+        return self._instance.last_plot_x, self._instance.last_plot_y
 
     def getParametersCondition(self):
         return self._instance.first_initiate
@@ -107,10 +107,10 @@ class Atom(object):
                         self.addNoCloudFile(file)
                     elif 'With' in name and end == '.bin':
                         self.addCloudFile(file)
-            self.automatic_with_cloud.sort(key=lambda file_1: int(file_1[4:len(file_1) - 4]))
-            self.automatic_without_cloud.sort(key=lambda file_1: int(file_1[7:len(file_1) - 4]))
-            print(self.automatic_with_cloud)
-            print(self.automatic_without_cloud)
+            self._instance.automatic_with_cloud.sort(key=lambda file_1: int(file_1[4:len(file_1) - 4]))
+            self._instance.automatic_without_cloud.sort(key=lambda file_1: int(file_1[7:len(file_1) - 4]))
+            print(self._instance.automatic_with_cloud)
+            print(self._instance.automatic_without_cloud)
             return bool(True)
 
     def setImageBIN(self):
@@ -121,8 +121,8 @@ class Atom(object):
         # Bin file format:
         # pixel represented as a floating point of 4 byte
         # first byte is a parameter byte and therefore removed from the array
-        file_no_cloud = open(self.no_cloud_path, 'rb')
-        file_with_cloud = open(self.with_cloud_path, 'rb')
+        file_no_cloud = open(self._instance.no_cloud_path, 'rb')
+        file_with_cloud = open(self._instance.with_cloud_path, 'rb')
         self._instance.no_cloud_image_array = np.reshape(np.fromfile(file_no_cloud, dtype='int16')[2:], (2050, 2448))
         self._instance.cloud_image_array = np.reshape(np.fromfile(file_with_cloud, dtype='int16')[2:], (2050, 2448))
         file_no_cloud.close()
@@ -137,36 +137,36 @@ class Atom(object):
 
     def loadImage(self, ind: int) -> np.array:
         if ind == 2:
-            return self.cloud_image_array
+            return self._instance.cloud_image_array
         elif ind == 1:
-            return self.no_cloud_image_array
+            return self._instance.no_cloud_image_array
         elif ind == 0:
-            return self.no_cloud_image_array - self.cloud_image_array
+            return self._instance.no_cloud_image_array - self._instance.cloud_image_array
         elif ind == 3:
             return self.normSignal()
         else:
             return None
 
     def clearToLoad(self) -> bool:
-        if self.cloud_image_array is None or self.no_cloud_image_array is None:
+        if self._instance.cloud_image_array is None or self._instance.no_cloud_image_array is None:
             return bool(False)
         return bool(True)
 
     def clearToSet(self) -> bool:
-        if self.with_cloud_path is None or self.no_cloud_path is None:
+        if self._instance.with_cloud_path is None or self._instance.no_cloud_path is None:
             return bool(False)
         return bool(True)
 
     def checkImageFormatJPG(self) -> bool:
-        iname1, iend1 = os.path.splitext(self.no_cloud_path)
-        iname2, iend2 = os.path.splitext(self.with_cloud_path)
+        iname1, iend1 = os.path.splitext(self._instance.no_cloud_path)
+        iname2, iend2 = os.path.splitext(self._instance.with_cloud_path)
         if (iend1 == '.jpg' and iend2 == '.jpg') or (iend1 == '.jpeg' and iend2 == '.jpeg'):
             return bool(True)
         return bool(False)
 
     def checkImageFormatBIN(self) -> bool:
-        iname1, iend1 = os.path.splitext(self.no_cloud_path)
-        iname2, iend2 = os.path.splitext(self.with_cloud_path)
+        iname1, iend1 = os.path.splitext(self._instance.no_cloud_path)
+        iname2, iend2 = os.path.splitext(self._instance.with_cloud_path)
         if iend1 != '.bin' or iend2 != '.bin':
             return bool(False)
         return bool(True)
@@ -191,13 +191,13 @@ class Atom(object):
         log = np.log(np.array(cloud_area / non_cloud_area))
         condition = log < 0  # filter irrelevant values
         number_of_atoms = - np.sum(log[condition]) * (
-                self.prm.ccd_pixel_length * (self.prm.lens_1 / self.prm.lens_2)) ** 2 / self.prm.sigma_0
+                self._instance.prm.ccd_pixel_length * (self._instance.prm.lens_1 / self._instance.prm.lens_2)) ** 2 / self._instance.prm.sigma_0
         return number_of_atoms
 
     def normSignal(self) -> np.array:
-        sub = self.no_cloud_image_array - self.cloud_image_array
-        return np.divide(sub.astype(float), self.no_cloud_image_array.astype(float),
-                         out=np.zeros_like(sub.astype(float)), where=self.no_cloud_image_array.astype(float) != 0)
+        sub = self._instance.no_cloud_image_array - self._instance.cloud_image_array
+        return np.divide(sub.astype(float), self._instance.no_cloud_image_array.astype(float),
+                         out=np.zeros_like(sub.astype(float)), where=self._instance.no_cloud_image_array.astype(float) != 0)
 
     # This method calculate the center of the cloud by iterating in the vertical and horizontal indices
     # and searching of the maximum intensity
@@ -252,10 +252,10 @@ class Atom(object):
         self._instance.y_0 = y_0
 
     def getX_0(self):
-        return self.x_0
+        return self._instance.x_0
 
     def getY_0(self):
-        return self.y_0
+        return self._instance.y_0
 
     def set_sigma_X(self, sigma_x: float):
         self._instance.sigma_x = sigma_x
@@ -264,10 +264,10 @@ class Atom(object):
         self._instance.sigma_y = sigma_y
 
     def get_sigma_X(self):
-        return self.sigma_x
+        return self._instance.sigma_x
 
     def get_sigma_Y(self):
-        return self.sigma_y
+        return self._instance.sigma_y
 
     def CheckCloudParams(self) -> bool:
         if self.getX_0() is None or self.getY_0() is None or self.get_sigma_X() is None or self.get_sigma_Y() is None:
@@ -275,10 +275,10 @@ class Atom(object):
         return bool(True)
 
     def getRealSigmaX(self):
-        return self.get_sigma_X() * self.prm.ccd_pixel_length * (self.prm.lens_1 / self.prm.lens_2)
+        return self.get_sigma_X() * self._instance.prm.ccd_pixel_length * (self._instance.prm.lens_1 / self._instance.prm.lens_2)
 
     def getRealSigmaY(self):
-        return self.get_sigma_Y() * self.prm.ccd_pixel_length * (self.prm.lens_1 / self.prm.lens_2)
+        return self.get_sigma_Y() * self._instance.prm.ccd_pixel_length * (self._instance.prm.lens_1 / self._instance.prm.lens_2)
 
 
 class BinarySearchThread(threading.Thread):

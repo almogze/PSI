@@ -132,6 +132,10 @@ class SetupAnalysisWindow:
         self.ui_analysis.load_pages.comboBox_analysis_plot_symbol_color.addItems(
             ["Gray", "Blue", "Green", "Red", "Cyan", "Magenta", "Yellow", "Black", "White"])
 
+        self.ui_analysis.load_pages.comboBox_analysis_plot_marker.addItems(
+            ["None", "o", "v", "^", "<", ">", "*", "s", "p", "x"])
+        self.ui_analysis.load_pages.comboBox_analysis_plot_lineStyle.addItems(["-", "--", "-.", ":", "None"])
+
         # PLOT, OPTIMIZE, MATPLOTLIB AND CLEANS BTNS
         self.ui_analysis.load_pages.plot_analysis_btn.clicked.connect(lambda: wf.plot_analysis_data(
             self.ui_analysis.analysis, self.ui_analysis))
@@ -157,7 +161,6 @@ class SetupAnalysisWindow:
 
         self.ui_analysis.load_pages.pushButton_analyisis_guess_params.clicked.connect(
             lambda: wf.guess_params(self.ui_analysis.analysis, self.ui_analysis))
-
 
         # INITIALIZE VALUES
         self.ui_analysis.load_pages.lineEdit_analysis_initial_a.setText("0")
@@ -195,7 +198,6 @@ class SetupAnalysisWindow:
         # INITIALIZE GRAPH
         self.graph.showGrid(x=True, y=True)
         self.graph.addLegend()
-
 
         # ///////////////////////////////////////////////////////////////
         # END -  WIDGETS

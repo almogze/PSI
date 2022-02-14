@@ -16,6 +16,7 @@
 
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
+from gui.uis.api.instances import Instances
 from gui.uis.windows.atom_window import UI_AtomWindow, SetupAtomWindow
 from gui.uis.windows.analysis_window import *
 from gui.uis.windows.main_window.functions_main_window import *
@@ -56,12 +57,14 @@ class MainWindow(QMainWindow):
         self.ui = UI_MainWindow()
         self.ui.setup_ui(self)
 
-        self.ui_atom = UI_AtomWindow()
-        self.ui_atom.setup_ui_atom(self, self.ui)
-
         self.ui_analysis = UI_AnalysisWindow()
         self.ui_analysis.setup_ui_analysis(self, self.ui)
 
+        self.ui_atom = UI_AtomWindow()
+        self.ui_atom.setup_ui_atom(self, self.ui)
+
+        # needed in order to link ui_atom and ui_analysis together
+        self.instances = Instances(ui_analysis=self.ui_analysis, ui_atom=self.ui_atom)
         # LOAD SETTINGS
         # ///////////////////////////////////////////////////////////////
         settings = Settings()

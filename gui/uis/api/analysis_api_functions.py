@@ -3,7 +3,6 @@
 import string
 
 import lmfit.models
-import pandas
 import pandas as pd
 from PIL import Image
 import numpy as np
@@ -148,7 +147,7 @@ def set_data(analysis: Analysis, ui_analysis: UI_AnalysisWindow):
                          get_graph_colors(ui_analysis)[0])
 
 
-def check_excel_columns(df: pandas.DataFrame) -> bool:
+def check_excel_columns(df: pd.DataFrame) -> bool:
     if all(x == 'int64' or x == 'float64' for x in df.dtypes.values):
         return bool(True)
     else:

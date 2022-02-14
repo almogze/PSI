@@ -63,6 +63,9 @@ class Analysis(object):
     def getDataFrame(self):
         return self._instance.data_frame
 
+    def setDataFrame(self, data_frame: pd.DataFrame):
+        self._instance.data_frame = data_frame
+
     def checkExcelFormat(self) -> bool:
         ename, eend = os.path.splitext(self._instance.excel_file_path)
         if eend != '.xlsx':

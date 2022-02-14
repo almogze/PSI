@@ -274,6 +274,12 @@ class Atom(object):
             return bool(False)
         return bool(True)
 
+    def getRealSigmaX(self):
+        return self.get_sigma_X() * self.prm.ccd_pixel_length * (self.prm.lens_1 / self.prm.lens_2)
+
+    def getRealSigmaY(self):
+        return self.get_sigma_Y() * self.prm.ccd_pixel_length * (self.prm.lens_1 / self.prm.lens_2)
+
 
 class BinarySearchThread(threading.Thread):
     def __init__(self, threadID, array: np.array, condition, i_0, i_f, result_array):

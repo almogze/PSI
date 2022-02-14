@@ -79,26 +79,34 @@ class Functions_Texts:
         self.fun_non_latex_texts_array = [self.non_latex_text_lin_fun, self.non_latex_text_exp_fun,
                                           self.non_latex_text_sin_fun,
                                           self.non_latex_text_cos_fun, self.non_latex_text_cos2_fun,
-                                          self.non_latex_text_poly2_fun, self.non_latex_text_poly2_fun_2, self.non_latex_text_poly3_fun,
+                                          self.non_latex_text_poly2_fun, self.non_latex_text_poly2_fun_2,
+                                          self.non_latex_text_poly3_fun,
                                           self.non_latex_text_normalised_gauss_fun, self.non_latex_text_gauss_fun,
                                           self.non_latex_text_off_gauss_fun,
                                           self.non_latex_text_normalised_poisson_fun, self.non_latex_text_poisson_fun,
-                                          self.non_latex_text_error_fun, self.non_latex_text_error_c_fun, self.non_text_1_slits_fraun_fun, self.non_text_2_slits_fraun_fun, self.non_text_4_slits_fraun_fun, self.non_text_6_slits_fraun_fun]
+                                          self.non_latex_text_error_fun, self.non_latex_text_error_c_fun,
+                                          self.non_text_1_slits_fraun_fun, self.non_text_2_slits_fraun_fun,
+                                          self.non_text_4_slits_fraun_fun, self.non_text_6_slits_fraun_fun]
 
         self.fun_latex_texts_array = [self.latex_text_lin_fun, self.latex_text_exp_fun, self.latex_text_sin_fun,
                                       self.latex_text_cos_fun,
-                                      self.latex_text_cos2_fun, self.latex_text_poly2_fun, self.latex_text_poly2_fun_2, self.latex_text_poly3_fun,
+                                      self.latex_text_cos2_fun, self.latex_text_poly2_fun, self.latex_text_poly2_fun_2,
+                                      self.latex_text_poly3_fun,
                                       self.latex_text_normalised_gauss_fun, self.latex_text_gauss_fun,
                                       self.latex_text_off_gauss_fun,
                                       self.latex_text_normalised_poisson_fun, self.latex_text_poisson_fun,
-                                      self.latex_text_error_fun, self.latex_text_error_c_fun, self.latex_text_1_slits_fraun_fun, self.latex_text_2_slits_fraun_fun, self.latex_text_4_slits_fraun_fun, self.latex_text_6_slits_fraun_fun]
+                                      self.latex_text_error_fun, self.latex_text_error_c_fun,
+                                      self.latex_text_1_slits_fraun_fun, self.latex_text_2_slits_fraun_fun,
+                                      self.latex_text_4_slits_fraun_fun, self.latex_text_6_slits_fraun_fun]
 
         self.fun_texts_array = [self.text_lin_fun, self.text_exp_fun, self.text_sin_fun, self.text_cos_fun,
                                 self.text_cos2_fun,
-                                self.text_poly2_fun, self.text_poly2_fun_2, self.text_poly3_fun, self.text_normalised_gauss_fun,
+                                self.text_poly2_fun, self.text_poly2_fun_2, self.text_poly3_fun,
+                                self.text_normalised_gauss_fun,
                                 self.text_gauss_fun, self.text_off_gauss_fun,
                                 self.text_normalised_poisson_fun, self.text_poisson_fun,
-                                self.text_error_fun, self.text_error_c_fun, self.text_1_slits_fraun_fun, self.text_2_slits_fraun_fun, self.text_4_slits_fraun_fun, self.text_6_slits_fraun_fun]
+                                self.text_error_fun, self.text_error_c_fun, self.text_1_slits_fraun_fun,
+                                self.text_2_slits_fraun_fun, self.text_4_slits_fraun_fun, self.text_6_slits_fraun_fun]
 
 
 class Functions_Fit:
@@ -119,15 +127,20 @@ class Functions_Fit:
         self.fit_error_fun = lambda x, a, b, c, d: a * erf((x - b) / (np.sqrt(2) * c)) + d
         self.fit_error_c_fun = lambda x, a, b, c, d: a * erfc((x - b) / (np.sqrt(2) * c)) + d
         self.fit_1_slit_fraun_fun = lambda x, a, b, c: a * (np.sinc((np.pi * b * (x - c)))) ** 2
-        self.fit_2_slits_fraun_fun = lambda x, a, b, c, d: c * (np.cos((np.pi * b * (x - d))) ** 2) * np.sinc((np.pi * a * (x - d))) ** 2
-        self.fit_4_slits_fraun_fun = lambda x, a, b, c, d: c * (np.sinc(np.pi * a * (x - d)) ** 2) * ((np.sin(np.pi * 4 * b * (x - d))) / (np.sin(np.pi * b * (x - d)))) ** 2
-        self.fit_6_slits_fraun_fun = lambda x, a, b, c, d: c * (np.sinc(np.pi * a * (x - d)) ** 2) * ((np.sin(np.pi * 6 * b * (x - d))) / (np.sin(np.pi * b * (x - d)))) ** 2
+        self.fit_2_slits_fraun_fun = lambda x, a, b, c, d: c * (np.cos((np.pi * b * (x - d))) ** 2) * np.sinc(
+            (np.pi * a * (x - d))) ** 2
+        self.fit_4_slits_fraun_fun = lambda x, a, b, c, d: c * (np.sinc(np.pi * a * (x - d)) ** 2) * (
+                    (np.sin(np.pi * 4 * b * (x - d))) / (np.sin(np.pi * b * (x - d)))) ** 2
+        self.fit_6_slits_fraun_fun = lambda x, a, b, c, d: c * (np.sinc(np.pi * a * (x - d)) ** 2) * (
+                    (np.sin(np.pi * 6 * b * (x - d))) / (np.sin(np.pi * b * (x - d)))) ** 2
 
         self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_sin_fun, self.fit_cos_fun, self.fit_cos2_fun,
-                              self.fit_poly2_fun, self.fit_poly2_fun_2, self.fit_poly3_fun, self.fit_normalised_gauss_fun,
+                              self.fit_poly2_fun, self.fit_poly2_fun_2, self.fit_poly3_fun,
+                              self.fit_normalised_gauss_fun,
                               self.fit_gauss_fun, self.fit_off_gauss_fun,
                               self.fit_normalised_poisson_fun, self.fit_poisson_fun, self.fit_error_fun,
-                              self.fit_error_c_fun, self.fit_1_slit_fraun_fun, self.fit_2_slits_fraun_fun, self.fit_4_slits_fraun_fun, self.fit_6_slits_fraun_fun]
+                              self.fit_error_c_fun, self.fit_1_slit_fraun_fun, self.fit_2_slits_fraun_fun,
+                              self.fit_4_slits_fraun_fun, self.fit_6_slits_fraun_fun]
 
         self.number_of_params = [2, 2, 4, 2, 2, 3, 2, 4, 2, 3, 4, 1, 2, 4, 4, 3, 4, 4, 4]
 
@@ -175,6 +188,7 @@ class TwoD_Function_Fit:
         x = np.linspace(0, 2049, 2050)
         y = np.linspace(0, 2447, 2448)
         parms = model.guess(data, x=x, y=y)
+
 
 class EffVarChi2Reg:  # This class is like Chi2Regression but takes into account dx
     # This part defines the variables the class will use
@@ -381,7 +395,7 @@ class Fit(object):
     def get_function(self):
         return self.function
 
-    def set_arrays(self, x, y, dx, dy):
+    def set_arrays(self, x, y, dx=None, dy=None):
         self.x = x
         self.y = y
         self.dx = dx

@@ -236,12 +236,17 @@ class SetupAtomWindow:
             bg_color_pressed=self.themes["app_color"]["dark_four"]
         )
         self.atom_graph_send_to_excel.clicked.connect(lambda: export_to_excel(self.ui_atom.atom, self.ui_atom))
+        self.atom_graph_send_to_analysis.clicked.connect(lambda: export_to_analysis(self.ui_atom.atom, self.ui_atom))
 
         self.ui_atom.load_pages.btn_atom_send_to_analysis_layout.addWidget(self.atom_graph_send_to_analysis)
         self.ui_atom.load_pages.btn_atom_send_to_excel_layout.addWidget(self.atom_graph_send_to_excel)
 
         # AUTOMATIC CLOUD - COMBOBOX
         self.ui_atom.graph_cloud_combo.addItems(["Number of Atoms", "Sigma x", "Sigma y", "Detuning"])
+        self.ui_atom.graph_cloud_combo.currentIndexChanged.connect(
+            lambda: graph_combo_current_change(self.ui_atom.atom, self.ui_atom,
+                                               self.ui_atom.graph_cloud_combo.currentIndex()))
+
 
         # BTN CALCULATE SEQUENCE
         self.calc_automatic = PyPushButton(

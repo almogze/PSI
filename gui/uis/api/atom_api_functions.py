@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 from matplotlib.offsetbox import AnchoredText
 from pyqtgraph import SpotItem
 
+from gui.uis.api.analysis_api_functions import set_data, initialize_excel_axis
 from gui.uis.api.atom import Atom
 from gui.uis.api.fitting import TwoD_Function_Fit
 
@@ -24,6 +25,9 @@ from gui.uis.windows.analysis_window import UI_AnalysisWindow
 from gui.uis.api.fitting import Fit
 from gui.widgets import *
 from qt_core import *
+from gui.uis.api.instances import Instances
+
+
 
 
 def pop_error(s1: string, s2: string):
@@ -77,6 +81,19 @@ def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow):
             print("DataFrame is written to Excel File successfully.")
 
 
+def export_to_analysis(atom: Atom, ui_atom: UI_AtomWindow):
+    ui_analysis: UI_AnalysisWindow = Instances().getAnalysis()
+    x, y = atom.getLastPlot()
+    data = {'X': x, 'Y': y}
+    ui_analysis.analysis.setDataFrame(pd.DataFrame(data))
+    if ui_analysis.analysis.initializeAxis():
+        initialize_excel_axis(ui_analysis.analysis.getExcelAxis(), ui_analysis)
+        print("Axis initialization succeed")
+    else:
+        pop_error("Missing excel parameters information!", "Missing data, please check that all parameters are loaded")
+    set_data(ui_analysis.analysis, ui_analysis)
+
+
 def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, withoutCloud):
     if atom.clearToLoad():
         if atom.CheckCloudParams():
@@ -93,17 +110,15 @@ def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, without
 
 
 def calculate_automatic_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int) -> None:
-    if switch == 0:
-        if atom.getAutomaticCloudArray() == [] or atom.getAutomaticNonCloudArray() == []:
-            pop_error("Please load series first", "Please load series first")
-        else:
-            # Calculating atoms number
-            print("Calculate Atom Number - Sequence")
-            calculate_atom_number_sequence(atom, ui_atom)
-    return
+    if atom.getAutomaticCloudArray() == [] or atom.getAutomaticNonCloudArray() == []:
+        pop_error("Please load series first", "Please load series first")
+    else:
+        # Calculating atoms number
+        print("Calculate Atom Number - Sequence")
+        calculate_sequence(atom, ui_atom, switch)
 
 
-def calculate_atom_number_sequence(atom: Atom, ui_atom: UI_AtomWindow):
+def calculate_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
     x = []
     y = []
     spots = []
@@ -113,11 +128,9 @@ def calculate_atom_number_sequence(atom: Atom, ui_atom: UI_AtomWindow):
     # array with all non-cloud signals names
     seq_non_cloud = atom.getAutomaticNonCloudArray()
     print(seq_non_cloud)
-    print("Number of files: " + str(len(seq_cloud)))
     initial_x_0 = atom.getX_0()
     initial_y_0 = atom.getY_0()
     for i in range(len(seq_cloud)):
-        x.append(i)
         # return to the initial position
         atom.setX_0(initial_x_0)
         atom.setY_0(initial_y_0)
@@ -132,13 +145,19 @@ def calculate_atom_number_sequence(atom: Atom, ui_atom: UI_AtomWindow):
         # calculate number of atoms for current image
         atom_number = calculate_atom_number(atom, ui_atom, cloud_array, non_cloud_array)
         print("Number of calculated atoms: " + str(atom_number))
-        y.append(atom_number)
-        spots.append({'pos': (i, atom_number),
+        parm_dict = {0: i, 1: i, 2: i, 3: i}
+        val_dict = {0: atom_number, 1: atom.getRealSigmaX(), 2: atom.getRealSigmaY(), 3: atom_number}
+        x.append(parm_dict[switch])
+        y.append(val_dict[switch])
+        spots.append({'pos': (parm_dict[switch], val_dict[switch]),
                       'data': {'X_0': atom.getX_0(), 'Y_0': atom.getY_0(), 'cloud_path': seq_cloud[i],
-                               'non_cloud_path': seq_non_cloud[i]}})
+                               'non_cloud_path': seq_non_cloud[i], 'atom_num': atom_number,
+                               'sigma_x': val_dict[1], 'sigma_y': val_dict[2], 'index': i}})
+
     atom.setLastPlot(x, y)
     ui_atom.spots.addPoints(spots)
     ui_atom.graph.plot(x, y)
+    print("Number of files: " + str(len(seq_cloud)))
 
 
 def load_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:
@@ -264,20 +283,32 @@ def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
 
 
 def graph_combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
+    prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: 'index'}
+    val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
+    min_val = np.inf
+    max_val = - np.inf
+    x = []
+    y = []
+    spots = []
+    print(ind)
+    print(prm_dict[ind])
+    print(val_dict[ind])
+    for s in ui_atom.spots.points():
+        spots.append({'pos': (s.data()[prm_dict[ind]], s.data()[val_dict[ind]]), 'data': s.data()})
+        x.append(s.data()[prm_dict[ind]])
+        y.append(s.data()[val_dict[ind]])
+        if s.data()[val_dict[ind]] > max_val:
+            max_val = s.data()[val_dict[ind]]
+        if s.data()[val_dict[ind]] < min_val:
+            min_val = s.data()[val_dict[ind]]
     # clear old plots
-    ui_atom.graph_top.clear()
-    ui_atom.graph_right.clear()
-    loaded_image = atom.loadImage(ind)
-    if loaded_image is not None:
-        ui_atom.image.setImage(image=loaded_image)
-        pos_x = int(ui_atom.inf1.value())
-        pos_y = int(ui_atom.inf2.value())
-        ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
-        ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
-        ui_atom.image_view.setTitle(
-            "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
-    else:
-        print("ComboBox index is not Valid")
+    ui_atom.graph.clearPlots()
+    atom.setLastPlot(x, y)
+    ui_atom.graph.plot(x, y)
+    ui_atom.graph.setYRange(min=min_val * 0.7, max=max_val * 1.3)
+    ui_atom.spots.clear()
+    ui_atom.graph.addItem(ui_atom.spots)
+    ui_atom.spots.addPoints(spots)
 
 
 def update_top_graph(atom: Atom, ui_atom: UI_AtomWindow):

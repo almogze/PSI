@@ -44,7 +44,8 @@ from gui.uis.windows.main_window.ui_main import *
 
 # MAIN FUNCTIONS 
 # ///////////////////////////////////////////////////////////////
-from . functions_main_window import *
+from .functions_main_window import *
+
 
 class SetupMainWindow:
     def __init__(self):
@@ -63,12 +64,12 @@ class SetupMainWindow:
     # ///////////////////////////////////////////////////////////////
     add_left_menus = [
         {
-            "btn_icon" : "icon_home.svg",
-            "btn_id" : "btn_home",
-            "btn_text" : "Home",
-            "btn_tooltip" : "Home page",
-            "show_top" : True,
-            "is_active" : True
+            "btn_icon": "icon_home.svg",
+            "btn_id": "btn_home",
+            "btn_text": "Home",
+            "btn_tooltip": "Home page",
+            "show_top": True,
+            "is_active": True
         },
         {
             "btn_icon": "icon_atom.svg",
@@ -104,20 +105,20 @@ class SetupMainWindow:
         }
     ]
 
-     # ADD TITLE BAR MENUS
+    # ADD TITLE BAR MENUS
     # ///////////////////////////////////////////////////////////////
     add_title_bar_menus = [
         {
-            "btn_icon" : "icon_search.svg",
-            "btn_id" : "btn_search",
-            "btn_tooltip" : "Search",
-            "is_active" : False
+            "btn_icon": "icon_search.svg",
+            "btn_id": "btn_search",
+            "btn_tooltip": "Search",
+            "is_active": False
         },
         {
-            "btn_icon" : "icon_settings.svg",
-            "btn_id" : "btn_top_settings",
-            "btn_tooltip" : "Top settings",
-            "is_active" : False
+            "btn_icon": "icon_settings.svg",
+            "btn_id": "btn_top_settings",
+            "btn_tooltip": "Top settings",
+            "is_active": False
         }
     ]
 
@@ -138,7 +139,7 @@ class SetupMainWindow:
         # APP TITLE
         # ///////////////////////////////////////////////////////////////
         self.setWindowTitle(self.settings["app_name"])
-        
+
         # REMOVE TITLE BAR
         # ///////////////////////////////////////////////////////////////
         if self.settings["custom_title_bar"]:
@@ -191,9 +192,9 @@ class SetupMainWindow:
         MainFunctions.set_page(self, self.ui.load_pages.page_main)
         MainFunctions.set_left_column_menu(
             self,
-            menu = self.ui.left_column.menus.menu_empty,
-            title = "General Settings",
-            icon_path = Functions.set_svg_icon("icon_settings.svg")
+            menu=self.ui.left_column.menus.menu_empty,
+            title="General Settings",
+            icon_path=Functions.set_svg_icon("icon_settings.svg")
         )
         MainFunctions.set_right_column_menu(self, self.ui.right_column.menu_1)
 

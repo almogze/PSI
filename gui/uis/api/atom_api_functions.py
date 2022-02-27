@@ -68,41 +68,50 @@ def open_dialog_box_atom(atom: Atom, ui_atom: UI_AtomWindow, switch: string) -> 
         print(atom.getDirectoryPath())
         if not atom.CheckCloudParams():
             pop_error("Please analyze cloud parameters first", "Please Load single cloud data first")
-        elif not atom.addAndSortAutomaticData():
+        elif atom.addAndSortAutomaticData():
+            atom.setDataParam(atom.path_to_data(atom.getAutomaticDataArray()[0])[0])
+        else:
             pop_error("Can not load Files", "Please check path of files")
 
 
 def export_to_excel(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
-    prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: 'index'}
-    val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
-    x, y = atom.getLastPlot()
-    if x is None or y is None:
-        pop_error("There is no data to export", "There is no data to export")
+    if atom.getDataParam() is None:
+        pop_error("Check data loaded correctly", "data*.lvm param is None")
     else:
-        name = ui_atom.load_pages.lineEdit_atom_exported_file_name.text()
-        path = ui_atom.load_pages.lineEdit_atom_exported_file_path.text()
-        if name == "" or path == "":
-            pop_error("File name or path is wrong", "File name or path is wrong")
+        prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: atom.getDataParam()}
+        val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
+        x, y = atom.getLastPlot()
+        if x is None or y is None:
+            pop_error("There is no data to export", "There is no data to export")
         else:
-            data = {prm_dict[switch]: x, val_dict[switch]: y}
-            df = pd.DataFrame(data)
-            df.to_excel(excel_writer=path + '\\' + name + '.xlsx')
-            pop_message("DataFrame is written to Excel File successfully.", "Successfully created excel file")
+            name = ui_atom.load_pages.lineEdit_atom_exported_file_name.text()
+            path = ui_atom.load_pages.lineEdit_atom_exported_file_path.text()
+            if name == "" or path == "":
+                pop_error("File name or path is wrong", "File name or path is wrong")
+            else:
+                data = {prm_dict[switch]: x, val_dict[switch]: y}
+                df = pd.DataFrame(data)
+                df.to_excel(excel_writer=path + '\\' + name + '.xlsx')
+                pop_message("DataFrame is written to Excel File successfully.", "Successfully created excel file")
 
 
 def export_to_analysis(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
-    prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: 'index'}
-    val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
-    ui_analysis: UI_AnalysisWindow = Instances().getAnalysis()
-    x, y = atom.getLastPlot()
-    data = {prm_dict[switch]: x, val_dict[switch]: y}
-    ui_analysis.analysis.setDataFrame(pd.DataFrame(data))
-    if ui_analysis.analysis.initializeAxis():
-        initialize_excel_axis(ui_analysis.analysis.getExcelAxis(), ui_analysis)
-        pop_message("Axis initialization succeed", "Successfully sent data to analysis page")
+    if atom.getDataParam() is None:
+        pop_error("Check data loaded correctly", "data*.lvm param is None")
     else:
-        pop_error("Missing excel parameters information!", "Missing data, please check that all parameters are loaded")
-    set_data(ui_analysis.analysis, ui_analysis)
+        prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: atom.getDataParam()}
+        val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
+        ui_analysis: UI_AnalysisWindow = Instances().getAnalysis()
+        x, y = atom.getLastPlot()
+        data = {prm_dict[switch]: x, val_dict[switch]: y}
+        ui_analysis.analysis.setDataFrame(pd.DataFrame(data))
+        if ui_analysis.analysis.initializeAxis():
+            initialize_excel_axis(ui_analysis.analysis.getExcelAxis(), ui_analysis)
+            pop_message("Axis initialization succeed", "Successfully sent data to analysis page")
+        else:
+            pop_error("Missing excel parameters information!", "Missing data, please check that all parameters are "
+                                                               "loaded")
+        set_data(ui_analysis.analysis, ui_analysis)
 
 
 def calculate_atom_number(atom: Atom, ui_atom: UI_AtomWindow, withCloud, withoutCloud):
@@ -139,6 +148,9 @@ def calculate_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
     # array with all non-cloud signals names
     seq_non_cloud = atom.getAutomaticNonCloudArray()
     print(seq_non_cloud)
+    # array with all data files names
+    seq_data_files = atom.getAutomaticDataArray()
+    print(seq_data_files)
     initial_x_0 = atom.getX_0()
     initial_y_0 = atom.getY_0()
     for i in range(len(seq_cloud)):
@@ -148,6 +160,7 @@ def calculate_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
         # load cloud/non-cloud arrays from list
         cloud_array = atom.path_to_array(seq_cloud[i])
         non_cloud_array = atom.path_to_array(seq_non_cloud[i])
+        param, data = atom.path_to_data(seq_data_files[i])
         atom.setCloudArray(cloud_array)
         atom.setNonCloudArray(non_cloud_array)
         # calculate center of the current cloud image and save it in x_0 & y_0
@@ -158,14 +171,14 @@ def calculate_sequence(atom: Atom, ui_atom: UI_AtomWindow, switch: int):
         # calculate number of atoms for current image
         atom_number = calculate_atom_number(atom, ui_atom, cloud_array, non_cloud_array)
         print("Number of calculated atoms: " + str(int(atom_number)))
-        parm_dict = {0: i, 1: i, 2: i, 3: i}
+        parm_dict = {0: i, 1: data, 2: data, 3: data}
         val_dict = {0: int(atom_number), 1: atom.getRealSigmaX(), 2: atom.getRealSigmaY(), 3: atom_number}
         x.append(parm_dict[switch])
         y.append(val_dict[switch])
         spots.append({'pos': (parm_dict[switch], val_dict[switch]),
                       'data': {'X_0': atom.getX_0(), 'Y_0': atom.getY_0(), 'cloud_path': seq_cloud[i],
                                'non_cloud_path': seq_non_cloud[i], 'atom_num': int(atom_number),
-                               'sigma_x': val_dict[1], 'sigma_y': val_dict[2], 'index': i}})
+                               'sigma_x': val_dict[1], 'sigma_y': val_dict[2], 'index': i, 'param': data}})
 
     atom.setLastPlot(x, y)
     ui_atom.spots.addPoints(spots)
@@ -298,32 +311,31 @@ def combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
 
 
 def graph_combo_current_change(atom: Atom, ui_atom: UI_AtomWindow, ind: int) -> None:
-    prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: 'index'}
-    val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
-    min_val = np.inf
-    max_val = - np.inf
-    x = []
-    y = []
-    spots = []
-    print(ind)
-    print(prm_dict[ind])
-    print(val_dict[ind])
-    for s in ui_atom.spots.points():
-        spots.append({'pos': (s.data()[prm_dict[ind]], s.data()[val_dict[ind]]), 'data': s.data()})
-        x.append(s.data()[prm_dict[ind]])
-        y.append(s.data()[val_dict[ind]])
-        if s.data()[val_dict[ind]] > max_val:
-            max_val = s.data()[val_dict[ind]]
-        if s.data()[val_dict[ind]] < min_val:
-            min_val = s.data()[val_dict[ind]]
-    # clear old plots
-    ui_atom.graph.clearPlots()
-    atom.setLastPlot(x, y)
-    ui_atom.graph.plot(x, y)
-    ui_atom.graph.setYRange(min=min_val * 0.7, max=max_val * 1.3)
-    ui_atom.spots.clear()
-    ui_atom.graph.addItem(ui_atom.spots)
-    ui_atom.spots.addPoints(spots)
+    if atom.getDataParam() is not None:
+        prm_dict = {0: 'index', 1: 'index', 2: 'index', 3: 'param'}
+        val_dict = {0: 'atom_num', 1: 'sigma_x', 2: 'sigma_y', 3: 'atom_num'}
+        min_val = np.inf
+        max_val = - np.inf
+        x = []
+        y = []
+        spots = []
+
+        for s in ui_atom.spots.points():
+            spots.append({'pos': (s.data()[prm_dict[ind]], s.data()[val_dict[ind]]), 'data': s.data()})
+            x.append(s.data()[prm_dict[ind]])
+            y.append(s.data()[val_dict[ind]])
+            if s.data()[val_dict[ind]] > max_val:
+                max_val = s.data()[val_dict[ind]]
+            if s.data()[val_dict[ind]] < min_val:
+                min_val = s.data()[val_dict[ind]]
+        # clear old plots
+        ui_atom.graph.clearPlots()
+        atom.setLastPlot(x, y)
+        ui_atom.graph.plot(x, y)
+        ui_atom.graph.setYRange(min=min_val * 0.7, max=max_val * 1.3)
+        ui_atom.spots.clear()
+        ui_atom.graph.addItem(ui_atom.spots)
+        ui_atom.spots.addPoints(spots)
 
 
 def update_top_graph(atom: Atom, ui_atom: UI_AtomWindow):

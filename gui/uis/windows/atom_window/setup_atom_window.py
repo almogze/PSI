@@ -244,7 +244,7 @@ class SetupAtomWindow:
         self.ui_atom.load_pages.btn_atom_send_to_excel_layout.addWidget(self.atom_graph_send_to_excel)
 
         # AUTOMATIC CLOUD - COMBOBOX
-        self.ui_atom.graph_cloud_combo.addItems(["Number of Atoms", "Sigma x", "Sigma y", "Detuning"])
+        self.ui_atom.graph_cloud_combo.addItems(["Number of Atoms", "Sigma x", "Sigma y", "Parameter"])
         self.ui_atom.graph_cloud_combo.currentIndexChanged.connect(
             lambda: graph_combo_current_change(self.ui_atom.atom, self.ui_atom,
                                                self.ui_atom.graph_cloud_combo.currentIndex()))

@@ -15,14 +15,16 @@ class Atom(object):
             self._instance.prm = Parameters()
             self._instance.no_cloud_path = None
             self._instance.with_cloud_path = None
-            self._instance.no_cloud_image_array: np.array = None
-            self._instance.cloud_image_array: np.array = None
+            self._instance.no_cloud_image_array = None
+            self._instance.cloud_image_array = None
             # Automatic Series
             self._instance.directory_path = None
             self._instance.automatic_with_cloud = []
             self._instance.automatic_without_cloud = []
+            self._instance.automatic_data_number = []
             self._instance.last_plot_x = []
             self._instance.last_plot_y = []
+            self._instance.data_param = None
             # Initial Parameters
             self._instance.first_initiate = bool(False)
             self._instance.x_0 = None
@@ -53,6 +55,9 @@ class Atom(object):
     def setNonCloudArray(self, non_cloud_array):
         self._instance.no_cloud_image_array = non_cloud_array
 
+    def setDataParam(self, param):
+        self._instance.data_param = param
+
     def getCloudArray(self):
         return self._instance.cloud_image_array
 
@@ -65,11 +70,20 @@ class Atom(object):
     def getAutomaticNonCloudArray(self):
         return self._instance.automatic_without_cloud
 
+    def getAutomaticDataArray(self):
+        return self._instance.automatic_data_number
+
+    def getDataParam(self):
+        return self._instance.data_param
+
     def addCloudFile(self, file):
         self._instance.automatic_with_cloud.append(file)
 
     def addNoCloudFile(self, file):
         self._instance.automatic_without_cloud.append(file)
+
+    def addDataFile(self, file):
+        self._instance.automatic_data_number.append(file)
 
     def setDirectoryPath(self, path):
         self._instance.directory_path = path
@@ -80,6 +94,8 @@ class Atom(object):
     def clearAutomaticGraph(self):
         self._instance.automatic_with_cloud = []
         self._instance.automatic_without_cloud = []
+        self._instance.automatic_data_number = []
+        self._instance.data_param = None
         self.setLastPlot([], [])
         self.setDirectoryPath(None)
 
@@ -107,10 +123,15 @@ class Atom(object):
                         self.addNoCloudFile(file)
                     elif 'With' in name and end == '.bin':
                         self.addCloudFile(file)
+                    elif 'data' in name and end == '.lvm':
+                        self.addDataFile(file)
             self._instance.automatic_with_cloud.sort(key=lambda file_1: int(file_1[4:len(file_1) - 4]))
             self._instance.automatic_without_cloud.sort(key=lambda file_1: int(file_1[7:len(file_1) - 4]))
+            self._instance.automatic_data_number.sort(key=lambda file_1: int(file_1[:len(file_1) - 8]))
+
             print(self._instance.automatic_with_cloud)
             print(self._instance.automatic_without_cloud)
+            print(self._instance.automatic_data_number)
             return bool(True)
 
     def setImageBIN(self):
@@ -134,6 +155,11 @@ class Atom(object):
         array = np.reshape(np.fromfile(bin_file, dtype='int16')[2:], (2050, 2448))
         bin_file.close()
         return array
+
+    def path_to_data(self, name):
+        file = open(self.getDirectoryPath() + "\\" + name, 'r')
+        line = file.readline().split(" ")
+        return line[0], int(line[1].split(".")[0])
 
     def loadImage(self, ind: int) -> np.array:
         if ind == 2:
@@ -179,9 +205,12 @@ class Atom(object):
         self._instance.directory_path = None
         self._instance.automatic_with_cloud = []
         self._instance.automatic_without_cloud = []
+        self._instance.automatic_data_number = []
+        self._instance.data_param = None
         self._instance.first_initiate = bool(False)
 
     def calculateAtomNumber(self, cloud_array, without_cloud_array):
+        # setting an ROI of 2 sigma_x horizontally and 2 sigma_y vertically around the center (x_0,y_0)
         cloud_area = np.array(cloud_array)[
                      self.getX_0() - 2 * self.get_sigma_X():self.getX_0() + 2 * self.get_sigma_X() + 1,
                      self.getY_0() - 2 * self.get_sigma_Y():self.getY_0() + 2 * self.get_sigma_Y() + 1]
@@ -190,8 +219,8 @@ class Atom(object):
                          self.getY_0() - 2 * self.get_sigma_Y():self.getY_0() + 2 * self.get_sigma_Y() + 1]
         log = np.log(np.array(cloud_area / non_cloud_area))
         condition = log < 0  # filter irrelevant values
-        number_of_atoms = - np.sum(log[condition]) * (
-                self._instance.prm.ccd_pixel_length * (self._instance.prm.lens_1 / self._instance.prm.lens_2)) ** 2 / self._instance.prm.sigma_0
+        number_of_atoms = - np.sum(log[condition]) * (self._instance.prm.ccd_pixel_length * (
+                    self._instance.prm.lens_1 / self._instance.prm.lens_2)) ** 2 / self._instance.prm.sigma_0
         return number_of_atoms
 
     def normSignal(self) -> np.array:

@@ -18,6 +18,7 @@ class Functions_Texts:
     def __init__(self):
         self.non_latex_text_lin_fun = "f(x) = a * x + b"
         self.non_latex_text_exp_fun = "f(x) = a * e ^ (b * x)"
+        self.non_latex_text_exp_fun2 = "f(x) = a * (1 - e ^ (b * x))"
         self.non_latex_text_sin_fun = "f(x) = a * sin(b * x + c)"
         self.non_latex_text_cos_fun = "f(x) = a * cos(b * x)"
         self.non_latex_text_cos2_fun = "f(x) = a * (cos(b * x)) ^ 2"
@@ -38,6 +39,7 @@ class Functions_Texts:
 
         self.latex_text_lin_fun = "a\cdot x +b"
         self.latex_text_exp_fun = "a \cdot e^{b\cdot x}"
+        self.latex_text_exp_fun2 = "a \cdot (1 - e^{b\cdot x})"
         self.latex_text_sin_fun = "a \cdot \sin(b\cdot x + c)"
         self.latex_text_cos_fun = "a\cdot \cos(b\cdot x)"
         self.latex_text_cos2_fun = "a\cdot \cos(b\cdot x)^2"
@@ -58,6 +60,7 @@ class Functions_Texts:
 
         self.text_lin_fun = "Linear"
         self.text_exp_fun = "Exponential"
+        self.text_exp_fun2 = "Exponential - 2"
         self.text_sin_fun = "Sine"
         self.text_cos_fun = "Cosine"
         self.text_cos2_fun = "Cosine square"
@@ -76,7 +79,7 @@ class Functions_Texts:
         self.text_4_slits_fraun_fun = "4 Slits Fraunhofer"
         self.text_6_slits_fraun_fun = "6 Slits Fraunhofer"
 
-        self.fun_non_latex_texts_array = [self.non_latex_text_lin_fun, self.non_latex_text_exp_fun,
+        self.fun_non_latex_texts_array = [self.non_latex_text_lin_fun, self.non_latex_text_exp_fun, self.non_latex_text_exp_fun2,
                                           self.non_latex_text_sin_fun,
                                           self.non_latex_text_cos_fun, self.non_latex_text_cos2_fun,
                                           self.non_latex_text_poly2_fun, self.non_latex_text_poly2_fun_2,
@@ -88,7 +91,7 @@ class Functions_Texts:
                                           self.non_text_1_slits_fraun_fun, self.non_text_2_slits_fraun_fun,
                                           self.non_text_4_slits_fraun_fun, self.non_text_6_slits_fraun_fun]
 
-        self.fun_latex_texts_array = [self.latex_text_lin_fun, self.latex_text_exp_fun, self.latex_text_sin_fun,
+        self.fun_latex_texts_array = [self.latex_text_lin_fun, self.latex_text_exp_fun, self.latex_text_exp_fun2 , self.latex_text_sin_fun,
                                       self.latex_text_cos_fun,
                                       self.latex_text_cos2_fun, self.latex_text_poly2_fun, self.latex_text_poly2_fun_2,
                                       self.latex_text_poly3_fun,
@@ -99,7 +102,7 @@ class Functions_Texts:
                                       self.latex_text_1_slits_fraun_fun, self.latex_text_2_slits_fraun_fun,
                                       self.latex_text_4_slits_fraun_fun, self.latex_text_6_slits_fraun_fun]
 
-        self.fun_texts_array = [self.text_lin_fun, self.text_exp_fun, self.text_sin_fun, self.text_cos_fun,
+        self.fun_texts_array = [self.text_lin_fun, self.text_exp_fun, self.text_exp_fun2 , self.text_sin_fun, self.text_cos_fun,
                                 self.text_cos2_fun,
                                 self.text_poly2_fun, self.text_poly2_fun_2, self.text_poly3_fun,
                                 self.text_normalised_gauss_fun,
@@ -113,6 +116,7 @@ class Functions_Fit:
     def __init__(self):
         self.fit_lin_fun = lambda x, a, b: b + (x * a)
         self.fit_exp_fun = lambda x, a, b: a * (np.exp(b * x))
+        self.fit_exp_fun2 = lambda x, a, b: a * (1 - (np.exp(b * x)))
         self.fit_sin_fun = lambda x, a, b, c: a * np.sin(b * x + c)
         self.fit_cos_fun = lambda x, a, b: a * (np.cos(b * x))
         self.fit_cos2_fun = lambda x, a, b: a * (np.cos(b * x)) ** 2
@@ -134,7 +138,7 @@ class Functions_Fit:
         self.fit_6_slits_fraun_fun = lambda x, a, b, c, d: c * (np.sinc(np.pi * a * (x - d)) ** 2) * (
                     (np.sin(np.pi * 6 * b * (x - d))) / (np.sin(np.pi * b * (x - d)))) ** 2
 
-        self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_sin_fun, self.fit_cos_fun, self.fit_cos2_fun,
+        self.fun_fit_array = [self.fit_lin_fun, self.fit_exp_fun, self.fit_exp_fun2, self.fit_sin_fun, self.fit_cos_fun, self.fit_cos2_fun,
                               self.fit_poly2_fun, self.fit_poly2_fun_2, self.fit_poly3_fun,
                               self.fit_normalised_gauss_fun,
                               self.fit_gauss_fun, self.fit_off_gauss_fun,
@@ -142,11 +146,12 @@ class Functions_Fit:
                               self.fit_error_c_fun, self.fit_1_slit_fraun_fun, self.fit_2_slits_fraun_fun,
                               self.fit_4_slits_fraun_fun, self.fit_6_slits_fraun_fun]
 
-        self.number_of_params = [2, 2, 3, 2, 2, 3, 2, 4, 2, 3, 4, 1, 2, 4, 4, 3, 4, 4, 4]
+        self.number_of_params = [2, 2, 2, 3, 2, 2, 3, 2, 4, 2, 3, 4, 1, 2, 4, 4, 3, 4, 4, 4]
 
 
 class TwoD_Function_Fit:
-    def twoD_Gaussian(self, x, y, amplitude, x0, y0, sigma_x, sigma_y, theta, offset):
+    def twoD_Gaussian(self, M, amplitude, x0, y0, sigma_x, sigma_y, theta, offset):
+        x, y = M
         x0 = float(x0)
         y0 = float(y0)
         a = (np.cos(theta) ** 2) / (2 * sigma_x ** 2) + (np.sin(theta) ** 2) / (2 * sigma_y ** 2)
@@ -168,19 +173,19 @@ class TwoD_Function_Fit:
     def fit_2D_function(self, two_d_function, data, p0) -> np.array:
         print(data)
         # Creating axis same scale as image
-        x = np.linspace(0, 2049, 2050)
-        y = np.linspace(0, 2447, 2448)
-        X, Y = np.meshgrid(x, y)
+        x = np.linspace(0, len(data) - 1, len(data))
+        y = np.linspace(0, len(data[0]) - 1, len(data[0]))
+        x, y = np.meshgrid(x, y)
         # We need to ravel the meshgrids of X, Y points to a pair of 1-D arrays.
-        print()
-        print(X)
-        print(Y)
-        xdata = np.vstack((X.ravel(), Y.ravel()))
+        print(len(x))
+        print(len(y))
+        """
         if two_d_function == self.gaussian:
             return curve_fit(two_d_function, xdata, data.ravel(), p0=p0, bounds=(
                 tuple([0.1, -np.inf, -np.inf, 0.001, 0.001, 0, -np.inf]),
                 tuple([np.inf, np.inf, np.inf, np.inf, np.inf, 360, np.inf])))
-        return curve_fit(two_d_function, xdata, data.ravel(), p0=p0)
+        """
+        return curve_fit(two_d_function, (x, y), data.ravel(), p0=p0)
 
     def guess_params(self, data):
         print("Guessing Parameters for 2D gaussian:")

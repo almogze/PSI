@@ -206,6 +206,7 @@ def checkAndSet(atom: Atom) -> bool:
     return condition
 
 
+"""""""""""
 def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
     if not atom.clearToLoad():
         pop_error("Can not load images! Please check images numpy arrays", "Please check images numpy arrays")
@@ -245,6 +246,55 @@ def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
             # add lines positions
             ui_atom.image_view.setTitle(
                 "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
+"""""""""""
+
+
+def checkAndLoad(atom: Atom, ui_atom: UI_AtomWindow) -> None:
+    if not atom.clearToLoad():
+        pop_error("Can not load images! Please check images numpy arrays", "Please check images numpy arrays")
+    else:
+        loaded_image = atom.loadImage(ui_atom.cloud_combo.currentIndex())
+        if loaded_image is None:
+            print("ComboBox index is not Valid")
+        else:
+            # clear old plots
+            ui_atom.graph_top.clear()
+            ui_atom.graph_right.clear()
+            # load image
+            ui_atom.image.setImage(image=loaded_image)
+            # set color bar scale
+            ui_atom.bar.setLevels(low=(np.min(loaded_image) + np.max(loaded_image)) / 5, high=np.max(loaded_image))
+            # Set bounds for lines
+            ui_atom.inf1.setBounds([0, len(loaded_image)])
+            ui_atom.inf2.setBounds([0, len(loaded_image[0])])
+
+            # Analyzing the cloud shape
+            analyzeCloud(atom, ui_atom)
+
+            # plot top and right graphs
+            pos_x = int(ui_atom.inf1.value())
+            pos_y = int(ui_atom.inf2.value())
+            ui_atom.graph_top.plot(np.arange(len(loaded_image)), loaded_image[:, pos_y])
+            ui_atom.graph_right.plot(loaded_image[pos_x], np.arange(len(loaded_image[0])))
+
+            # add lines positions
+            ui_atom.image_view.setTitle(
+                "pixel: (%d, %d), intensity: %0.2f" % (pos_x, pos_y, loaded_image[pos_x, pos_y]))
+
+
+def analyzeCloud(atom: Atom, ui_atom: UI_AtomWindow) -> None:
+    # calculate center of cloud
+    atom.calculateCenterOfCloud(atom.getCloudArray(), atom.getNonCloudArray())
+    # Necessary for fit_gaussian_x & fit_gaussian_y
+    ui_atom.inf1.setPos(atom.getX_0())
+    ui_atom.inf2.setPos(atom.getY_0())
+
+    # fit gaussian
+    fit_gaussian_x(atom, ui_atom)
+    fit_gaussian_y(atom, ui_atom)
+
+    ui_atom.inf1.setPos(atom.getX_0())
+    ui_atom.inf2.setPos(atom.getY_0())
 
 
 def clear_image(atom: Atom, ui_atom: UI_AtomWindow) -> None:

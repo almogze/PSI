@@ -159,7 +159,7 @@ class Atom(object):
     def path_to_data(self, name):
         file = open(self.getDirectoryPath() + "\\" + name, 'r')
         line = file.readline().split(" ")
-        return line[0], int(line[1].split(".")[0])
+        return " ".join(line[:len(line) - 1]), int(line[len(line) - 1].split(".")[0])
 
     def loadImage(self, ind: int) -> np.array:
         if ind == 2:
@@ -220,13 +220,14 @@ class Atom(object):
         log = np.log(np.array(cloud_area / non_cloud_area))
         condition = log < 0  # filter irrelevant values
         number_of_atoms = - np.sum(log[condition]) * (self._instance.prm.ccd_pixel_length * (
-                    self._instance.prm.lens_1 / self._instance.prm.lens_2)) ** 2 / self._instance.prm.sigma_0
+                self._instance.prm.lens_1 / self._instance.prm.lens_2)) ** 2 / self._instance.prm.sigma_0
         return number_of_atoms
 
     def normSignal(self) -> np.array:
         sub = self._instance.no_cloud_image_array - self._instance.cloud_image_array
         return np.divide(sub.astype(float), self._instance.no_cloud_image_array.astype(float),
-                         out=np.zeros_like(sub.astype(float)), where=self._instance.no_cloud_image_array.astype(float) != 0)
+                         out=np.zeros_like(sub.astype(float)),
+                         where=self._instance.no_cloud_image_array.astype(float) != 0)
 
     # This method calculate the center of the cloud by iterating in the vertical and horizontal indices
     # and searching of the maximum intensity
@@ -304,10 +305,25 @@ class Atom(object):
         return bool(True)
 
     def getRealSigmaX(self):
-        return self.get_sigma_X() * self._instance.prm.ccd_pixel_length * (self._instance.prm.lens_1 / self._instance.prm.lens_2)
+        return self.get_sigma_X() * self._instance.prm.ccd_pixel_length * (
+                self._instance.prm.lens_1 / self._instance.prm.lens_2)
 
     def getRealSigmaY(self):
-        return self.get_sigma_Y() * self._instance.prm.ccd_pixel_length * (self._instance.prm.lens_1 / self._instance.prm.lens_2)
+        return self.get_sigma_Y() * self._instance.prm.ccd_pixel_length * (
+                self._instance.prm.lens_1 / self._instance.prm.lens_2)
+
+    def getROI(self, cloud_array, without_cloud_array):
+        if self.get_sigma_X() > self.get_sigma_X():
+            sigma = self.get_sigma_X()
+        else:
+            sigma = self.get_sigma_Y()
+        cloud_area = np.array(cloud_array)[
+                     self.getX_0() - 2 * sigma:self.getX_0() + 2 * sigma + 1,
+                     self.getY_0() - 2 * sigma:self.getY_0() + 2 * sigma + 1]
+        non_cloud_area = np.array(without_cloud_array)[
+                         self.getX_0() - 2 * sigma:self.getX_0() + 2 * sigma + 1,
+                         self.getY_0() - 2 * sigma:self.getY_0() + 2 * sigma + 1]
+        return non_cloud_area - cloud_area
 
 
 class BinarySearchThread(threading.Thread):
